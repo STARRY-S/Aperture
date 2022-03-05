@@ -53,7 +53,7 @@ if(LINUX)
     endif(assimp_FOUND)
 endif(LINUX)
 
-aux_source_directory("srcs" GAME_ENGINE_SRC_DIR)
+aux_source_directory("src" GAME_ENGINE_SRC_DIR)
 
 add_library(
     # The name of the library.
