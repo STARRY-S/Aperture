@@ -124,22 +124,7 @@ typedef enum {
     GE_ERROR_LENGTH                 // never use this
 } GE_Types;
 
-static const char *GE_ERROR_NAME[GE_ERROR_LENGTH] = {
-        "SUCCESS",
-        "INVALID_POINTER",
-        "INVALID_PARAMETER",
-        "MALLOC_FAILED",
-        "MESH_UNINITIALIZED",
-        "ASSET_OPEN_FAILED",
-        "ASSIMP_IMPORT_FAILED",
-        "INIT_FAILED",
-        "RENDER_FAILED",
-        "TEXTURE_FAILED",
-        "UNKNOWN"
-};
-
-#define GE_CHECK(i) \
-    if (i > 1 && i < GE_ERROR_LENGTH) LOGE("%s", GE_ERROR_NAME[i])
+void GE_CHECK(int i);
 
 #define GE_DEFAULT_BUFFER_SIZE 128
 

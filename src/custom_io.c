@@ -70,7 +70,7 @@ size_t customFileReadProc(C_STRUCT aiFile* pAiFile, char* pBuffer, size_t size, 
     #ifdef __ANDROID__
     return AAsset_read((AAsset *) pAiFile->UserData, pBuffer, size * count);
     #else
-    return fread(pBuffer, size, count, pAiFile->UserData);
+    return fread(pBuffer, size, count, (FILE*) pAiFile->UserData);
     #endif
 }
 
@@ -104,18 +104,18 @@ size_t customFileSizeProc(C_STRUCT aiFile* pAiFile)
 
     #else
 
-    int iCurrent = ftell(pAiFile->UserData);
+    int iCurrent = ftell((FILE*) pAiFile->UserData);
     if (iCurrent < 0) {
         LOGE("ftell error\n");
         return 0;
     }
-    fseek(pAiFile->UserData, 0l, SEEK_END);
-    int iLength = ftell(pAiFile->UserData);
+    fseek((FILE*) pAiFile->UserData, 0l, SEEK_END);
+    int iLength = ftell((FILE*) pAiFile->UserData);
     if (iLength < 0) {
         LOGE("ftell error\n");
         return 0;
     }
-    fseek(pAiFile->UserData, iCurrent, SEEK_SET);
+    fseek((FILE*) pAiFile->UserData, iCurrent, SEEK_SET);
     return iLength;
 
     #endif
@@ -124,7 +124,7 @@ size_t customFileSizeProc(C_STRUCT aiFile* pAiFile)
 void customFileFlushProc(C_STRUCT aiFile* pAiFile)
 {
     #ifndef __ANDROID__
-    fflush(pAiFile->UserData);
+    fflush((FILE*) pAiFile->UserData);
     #endif
 }
 
@@ -148,13 +148,13 @@ C_ENUM aiReturn customFileSeek(C_STRUCT aiFile* pAiFile,
     switch (origin)
     {
     case aiOrigin_CUR:
-        iRet = fseek(pAiFile->UserData, offset, SEEK_CUR);
+        iRet = fseek((FILE*) pAiFile->UserData, offset, SEEK_CUR);
         break;
     case aiOrigin_END:
-        iRet = fseek(pAiFile->UserData, offset, SEEK_END);
+        iRet = fseek((FILE*) pAiFile->UserData, offset, SEEK_END);
         break;
     case aiOrigin_SET:
-        iRet = fseek(pAiFile->UserData, offset, SEEK_SET);
+        iRet = fseek((FILE*) pAiFile->UserData, offset, SEEK_SET);
         break;
     default:
         break;

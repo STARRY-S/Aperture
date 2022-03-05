@@ -13,14 +13,17 @@ set(CMAKE_C_FLAGS ${C_FLAGS})
 # add cglm include path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# set assimp library name
+set(ASSIMP_LIBRARY "assimp")
+
+
 if(ANDROID)
     set(ASSIMP_LIB_DIR
-        # ${CMAKE_CURRENT_SOURCE_DIR}/../../../libs/assimp/${ANDROID_ABI}/libassimp.so
-        /home/starry-s/Documents/Projects/GameEngine-Android/app/libs/assimp/${ANDROID_ABI}/libassimp.so
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../../libs/assimp/${ANDROID_ABI}/libassimp.so
     )
 
     add_library(
-        "assimp"
+        ${ASSIMP_LIBRARY}
         SHARED
         IMPORTED
     )
@@ -36,8 +39,11 @@ if(LINUX)
     find_package(OpenGL REQUIRED)
 
     if (assimp_FOUND)
-        set(ASSIMP_LIBRARY "assimp")
-        add_library(${ASSIMP_LIBRARY} SHARED IMPORTED)
+        add_library(
+            ${ASSIMP_LIBRARY}
+            SHARED
+            IMPORTED
+        )
         set_target_properties(
             ${ASSIMP_LIBRARY}
             PROPERTIES
@@ -47,23 +53,15 @@ if(LINUX)
     endif(assimp_FOUND)
 endif(LINUX)
 
+aux_source_directory("srcs" GAME_ENGINE_SRC_DIR)
+
 add_library(
     # The name of the library.
     game_engine
     # The library as a shared library.
     SHARED
     # source files
-    native-lib.c
-    ge_utils.c
-    shader.c
-    texture.c
-    camera.c
-    renderer.c
-    mesh.c
-    model.c
-    vertex.c
-    cvector.c
-    custom_io.c
+    ${GAME_ENGINE_SRC_DIR}
 )
 set_target_properties(game_engine PROPERTIES LINKER_LANGUAGE C)
 
@@ -78,8 +76,6 @@ if(ANDROID)
             TARGET "game_engine" POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${ASSIMP_LIB_DIR} ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
     )
 
-    message(WARNING "XXXX ${ASSIMP_LIB_DIR}")
-
     target_link_libraries(
         game_engine
 
@@ -88,7 +84,7 @@ if(ANDROID)
         log
         EGL
         GLESv3
-        assimp
+        ${ASSIMP_LIBRARY}
     )
 endif(ANDROID)
 
@@ -97,5 +93,6 @@ if(LINUX)
         main
         ${OPENGL_gl_LIBRARY}
         glfw
+        ${ASSIMP_LIBRARY}
     )
 endif(LINUX)

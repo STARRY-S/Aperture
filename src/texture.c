@@ -61,9 +61,9 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
     char *pPathBuff = malloc(sizeof(char) * iBufferLength);
     sprintf(pPathBuff, "%s%s", directory, path);
 
-    int fileLength = 0;
     unsigned char *data = NULL;
     #ifdef __ANDROID__
+    int fileLength = 0;
     AAssetManager *pManager = getLocalAAssetManager();
     AAsset *pathAsset = AAssetManager_open(pManager, pPathBuff, AASSET_MODE_UNKNOWN);
     if (pathAsset == NULL) {

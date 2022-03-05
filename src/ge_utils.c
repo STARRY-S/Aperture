@@ -11,6 +11,19 @@
 #include "texture.h"
 #include "camera.h"
 
+static const char *GE_ERROR_NAME[GE_ERROR_LENGTH] = {
+    "SUCCESS",
+    "INVALID_POINTER",
+    "INVALID_PARAMETER",
+    "MALLOC_FAILED",
+    "MESH_UNINITIALIZED",
+    "ASSIMP_IMPORT_FAILED",
+    "ASSET_OPEN_FAILED",
+    "INIT_FAILED",
+    "RENDER_FAILED",
+    "TEXTURE_FAILED",
+    "UNKNOWN"
+};
 
 #ifdef __ANDROID__
 
@@ -148,3 +161,10 @@ int getMobileType(const char *pMobileName)
 // }
 
 #endif  // Not Android
+
+void GE_CHECK(int i)
+{
+    if (i > 0 && i < GE_ERROR_LENGTH) {
+        LOGE("%s", GE_ERROR_NAME[i]);
+    }
+}
