@@ -1,38 +1,77 @@
-#include "main.h"
+#include "ge_utils.h"
 #include "model.h"
 #include "cvector.h"
 #include "custom_io.h"
 #include "texture.h"
 #include "vertex.h"
 
-#ifdef __ANDROID__
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
-#endif
-
-#include <assimp/cimport.h>        // Plain-C interface
-#include <assimp/scene.h>          // Output data structure
-#include <assimp/postprocess.h>    // Post processing flags
 #include <GLES3/gl3.h>
+#include <assimp/cimport.h>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include <stb_image.h>
 #include <assimp/cfileio.h>
 
-int load_model(struct Model *pModel, const char *path);
-int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene *scene);
-int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTexture);
-struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene);
-int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh);
-
-struct Vector *load_material_textures(
-    struct Model *pModel, struct aiMaterial *mat, enum aiTextureType type, const char* typeName);
-
 /**
- * Model constructor
+ * Load model from android asset manager.
+ * @param pModel
  * @param path - file path
- * @param format - file format, or null
- * @param gamma - default to null
+ * @param format - can be null or empty string
  * @return GE_Types
  */
+int load_model(struct Model *pModel, const char *path);
+
+/**
+ * Process node
+ * @param pModel
+ * @param node
+ * @param scene
+ * @return GE_Types
+ */
+int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene *scene);
+
+/**
+ * Push a new texture struct object into model
+ * @param pModel
+ * @param pTexture
+ * @return GE_Types
+ */
+int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTexture);
+
+/**
+ * Process mesh,
+ * @param pModel
+ * @param mesh
+ * @param scene
+ * @return Pointer to a static mesh struct object, need call free_mesh after use.
+ */
+struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene);
+
+/**
+ * Push a new mesh struct object to model
+ * @param pModel
+ * @param pMesh
+ * @return GE_Types
+ */
+int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh);
+
+/**
+ * checks all material textures of a given type and loads the textures
+ * if they're not loaded yet. The required info is returned as a Texture struct.
+ * @param pModel
+ * @param mat
+ * @param type
+ * @param typeName
+ * @return Pointer points to a static vector,
+ *         need use free_vector to free its data after use.
+ */
+struct Vector *load_material_textures(
+    struct Model *pModel,
+    struct aiMaterial *mat,
+    enum aiTextureType type,
+    const char* typeName
+);
+
 int init_model(struct Model *pModel, const char *path, bool gamma)
 {
     if (pModel == NULL) {
@@ -55,13 +94,6 @@ int init_model(struct Model *pModel, const char *path, bool gamma)
     return load_model(pModel, path);
 }
 
-/**
- * Load model from android asset manager.
- * @param pModel
- * @param path - file path
- * @param format - can be null or empty string
- * @return GE_Types
- */
 int load_model(struct Model *pModel, const char *path)
 {
     if (pModel == NULL) {
@@ -97,13 +129,6 @@ int load_model(struct Model *pModel, const char *path)
     return GE_ERROR_SUCCESS;
 }
 
-/**
- * Process node
- * @param pModel
- * @param node
- * @param scene
- * @return GE_Types
- */
 int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene *scene)
 {
     if (pModel == NULL || node == NULL || scene == NULL) {
@@ -131,14 +156,9 @@ int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene
     return 0;
 }
 
-/**
- * Process mesh,
- * @param pModel
- * @param mesh
- * @param scene
- * @return Pointer to a static mesh struct object, need call free_mesh after use.
- */
-struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene)
+struct Mesh *process_mesh(struct Model *pModel,
+                        struct aiMesh *mesh,
+                        const struct aiScene *scene)
 {
     if (pModel == NULL || mesh == NULL || scene == NULL) {
         return NULL;
@@ -262,15 +282,6 @@ struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struc
     return &sMeshBuffer;
 }
 
-/**
- * checks all material textures of a given type and loads the textures if they're not loaded yet.
- * the required info is returned as a Texture struct.
- * @param pModel
- * @param mat
- * @param type
- * @param typeName
- * @return Pointer points to a static vector, need use free_vector to free its data after use.
- */
 struct Vector *load_material_textures(struct Model *pModel, struct aiMaterial *mat,
         enum aiTextureType type, const char* typeName)
 {
@@ -320,12 +331,6 @@ struct Vector *load_material_textures(struct Model *pModel, struct aiMaterial *m
     return pVecTextures;
 }
 
-/**
- * Push a new texture struct object into model
- * @param pModel
- * @param pTexture
- * @return GE_Types
- */
 int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTexture)
 {
     if (pModel == NULL || pTexture == NULL) {
@@ -349,12 +354,6 @@ int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTextur
     return 0;
 }
 
-/**
- * Push a new mesh struct object to model
- * @param pModel
- * @param pMesh
- * @return GE_Types
- */
 int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh)
 {
     if (pModel == NULL || pMesh == NULL) {

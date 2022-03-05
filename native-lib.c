@@ -1,12 +1,12 @@
-#include <jni.h>
 #include <string.h>
-#include <android/log.h>
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
 
-#include "main.h"
+#include "ge_utils.h"
 #include "renderer.h"
 #include "camera.h"
+
+#ifdef __ANDROID__
+
+#include <jni.h>
 
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_init(JNIEnv *env, jclass clazz) {
@@ -47,3 +47,7 @@ Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass cl
     ProcessMouseMovement(x, y, constrain_pitch);
     return 0;
 }
+
+#else // __ANDROID__
+
+#endif

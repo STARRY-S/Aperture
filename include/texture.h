@@ -26,11 +26,11 @@ struct Texture {
 GLuint load_texture(const char *const path, int format);
 
 /**
- * Load texture from file.
+ * Load texture from file
  * @param path file name
- * @param directory Directory of file
- * @param gamma false, unused, reserve
- * @return unsigned int, texture id
+ * @param directory path name
+ * @param gamma reserve
+ * @return texture id, 0 if failed
  */
 unsigned int texture_from_file(const char *path, const char *directory, bool gamma);
 

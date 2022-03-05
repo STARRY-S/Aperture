@@ -5,7 +5,7 @@
 #include <GLES3/gl3.h>
 
 #include "mesh.h"
-#include "main.h"
+#include "ge_utils.h"
 #include "shader.h"
 #include "texture.h"
 #include "vertex.h"

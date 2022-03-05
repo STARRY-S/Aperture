@@ -1,6 +1,6 @@
 #ifndef __MESH_H__
 #define __MESH_H__
-#include "main.h"
+#include "ge_utils.h"
 #include "texture.h"
 
 struct Mesh {

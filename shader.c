@@ -1,18 +1,11 @@
 #include <GLES3/gl3.h>
 
-#ifdef __ANDROID__
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
-#else
-#include <GLFW/glfw3.h>
-#endif
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "shader.h"
-#include "main.h"
+#include "ge_utils.h"
 
 // Compile shader
 GLuint make_shader(GLenum type, const char *const shader_src)
@@ -50,32 +43,60 @@ GLuint make_shader(GLenum type, const char *const shader_src)
 GLuint load_shader(GLenum type, const char *const shader_path)
 {
     GLuint result = 0;
-    AAssetManager *pLocalAAsetManager = (AAssetManager *) getLocalAAssetManager();
+    int length = 0;
+    char *pBuffer = NULL;
+
+    #ifdef __ANDROID__
+    AAssetManager *pLocalAAsetManager
+        = (AAssetManager *) getLocalAAssetManager();
     if (!pLocalAAsetManager) {
         LOGE("pLocalAAsetManager is NULL, failed to read file.\n");
         return 0;
     }
     AAsset *mAsset = NULL;
-    mAsset = AAssetManager_open(pLocalAAsetManager, shader_path,AASSET_MODE_UNKNOWN);
+    mAsset = AAssetManager_open(pLocalAAsetManager, shader_path, AASSET_MODE_UNKNOWN);
     if (mAsset == NULL) {
         LOGE("Read Text Failed: %s", shader_path);
         return 0;
     }
-    int length = AAsset_getLength(mAsset);
-    LOGD("Read file %s length %d", shader_path, length);
+    length = AAsset_getLength(mAsset);
     if (length > 1024 * 1024 * 10) {    // 10MB
         LOGE("File too large.");
         return 0;
     }
-
-    char *pBuffer = malloc(sizeof(char) * length);
+    pBuffer = malloc(sizeof(char) * length);
     if (pBuffer == NULL) {
         LOGE("MALLOG FAILED.\n");
         return 0;
     }
     AAsset_read(mAsset, pBuffer, length);
-    pBuffer[length] = '\0';
     AAsset_close(mAsset);
+
+    #else   // NOT ANDROID
+
+    FILE *fp = NULL;
+    if (!(fp = fopen(shader_path, "r"))) {
+        LOGE("Open file %s failed.\n", shader_path);
+        return 0;
+    }
+    fseek(fp, 0l, SEEK_END);
+    length = ftell(fp);
+    rewind(fp);
+    pBuffer = malloc(sizeof(char) * length);
+    if (pBuffer == NULL) {
+        LOGE("MALLOG FAILED.\n");
+        return 0;
+    }
+    char temp_line[GE_DEFAULT_BUFFER_SIZE];
+    while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp)) {
+        strncat(pBuffer, temp_line, GE_DEFAULT_BUFFER_SIZE);
+    }
+    fclose(fp);
+
+    #endif  // NOT ANDROID
+
+    LOGD("Read file %s length %d", shader_path, length);
+    pBuffer[length] = '\0';
     result = make_shader(type, pBuffer);
     free(pBuffer);
     return result;

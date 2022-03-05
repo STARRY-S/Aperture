@@ -1,5 +1,5 @@
 #include "cvector.h"
-#include "main.h"
+#include "ge_utils.h"
 #include "mesh.h"
 #include "model.h"
 #include "texture.h"

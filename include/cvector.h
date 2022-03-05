@@ -5,7 +5,7 @@
 #ifndef __CVECTOR_H__
 #define __CVECTOR_H__
 
-#include "main.h"
+#include "ge_utils.h"
 
 // vector types definition
 typedef enum {

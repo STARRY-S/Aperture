@@ -1,10 +1,5 @@
 #include "texture.h"
-#include "main.h"
-
-#ifdef __ANDROID__
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
-#endif
+#include "ge_utils.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -54,15 +49,10 @@ GLuint load_texture(const char *const path, int format)
     return texture;
 }
 
-/**
- * Load texture from file
- * @param path file name
- * @param directory path name
- * @param gamma reserve
- * @return texture id, 0 if failed
- */
 unsigned int texture_from_file(const char *path, const char *directory, bool gamma)
 {
+    stbi_set_flip_vertically_on_load(true);
+
     unsigned int textureID;
     glGenTextures(1, &textureID);
 
@@ -70,10 +60,14 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
     unsigned int iBufferLength = strlen(path) + strlen(directory) + 1;
     char *pPathBuff = malloc(sizeof(char) * iBufferLength);
     sprintf(pPathBuff, "%s%s", directory, path);
+
+    int fileLength = 0;
+    unsigned char *data = NULL;
+    #ifdef __ANDROID__
     AAssetManager *pManager = getLocalAAssetManager();
     AAsset *pathAsset = AAssetManager_open(pManager, pPathBuff, AASSET_MODE_UNKNOWN);
     if (pathAsset == NULL) {
-        GE_errorno = GE_ERROR_ASSET_OPEN_FAILED;
+        // GE_ERROR_ASSET_OPEN_FAILED;
         LOGE("Failed to load texture from file: %s", pPathBuff);
         free(pPathBuff);
         pPathBuff = NULL;
@@ -81,12 +75,20 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
     }
     free(pPathBuff);
     pPathBuff = NULL;
-    off_t assetLength = AAsset_getLength(pathAsset);
-    stbi_set_flip_vertically_on_load(true);
+    fileLength = AAsset_getLength(pathAsset);
+
     unsigned char *fileData = (unsigned char *) AAsset_getBuffer(pathAsset);
-    unsigned char *data = stbi_load_from_memory(
-            fileData, assetLength, &width, &height, &nrComponents, 0);
+    data = stbi_load_from_memory(
+        fileData, fileLength, &width, &height, &nrComponents, 0
+    );
     AAsset_close(pathAsset);
+
+    #else
+
+    data = stbi_load(path, &width, &height, &nrComponents, 0);
+
+    #endif
+
     LOGD("path %s width: %d, height: %d, channel %d\n", path, width, height, nrComponents);
 
     if (data) {

@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "main.h"
+#include "ge_utils.h"
 
 void updateCameraVectors();
 

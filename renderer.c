@@ -1,9 +1,8 @@
 #include <GLES3/gl3.h>
-#include <android/asset_manager.h>
 #include <assimp/cfileio.h>
 
 #include "renderer.h"
-#include "main.h"
+#include "ge_utils.h"
 #include "camera.h"
 #include "shader.h"
 #include "texture.h"
@@ -30,8 +29,7 @@ int setup()
                      "glsl/model_loading.fs.glsl");
 
     // init model
-    GE_errorno = init_model(&model, MODEL_FILE_NAME, false);
-    GE_CHECK(GE_errorno);
+    GE_CHECK( init_model(&model, MODEL_FILE_NAME, false) );
 
     // camera
     camera = initCamera();
@@ -86,8 +84,10 @@ int render()
     current_frame += 0.01f;
 
     // optimize depth test
-    int iMobileType = getMobileType(getMobileName());
     bool bEnableMobileType = false;
+
+    #ifdef __ANDROID__
+    int iMobileType = getMobileType(getMobileName());
     switch (iMobileType) {
         case GE_MOBILE_GOOGLE:
         case GE_MOBILE_X86:
@@ -96,10 +96,11 @@ int render()
         default:
             bEnableMobileType = true;
     }
+    #endif // __ANDROID__
+
     shaderSetInt(ourShader, "optDepth", bEnableMobileType);
 
-    GE_errorno = draw_model(&model, ourShader);
-    GE_CHECK(GE_errorno);
+    GE_CHECK( draw_model(&model, ourShader) );
 
     glBindVertexArray(0);
     return EXIT_SUCCESS;
