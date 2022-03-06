@@ -75,27 +75,30 @@ GLuint load_shader(GLenum type, const char *const shader_path)
     #else   // NOT ANDROID
 
     FILE *fp = NULL;
+
     if (!(fp = fopen(shader_path, "r"))) {
-        LOGE("Open file %s failed.\n", shader_path);
-        return 0;
-    }
-    fseek(fp, 0l, SEEK_END);
-    length = ftell(fp);
-    rewind(fp);
-    pBuffer = malloc(sizeof(char) * length);
-    if (pBuffer == NULL) {
-        LOGE("MALLOG FAILED.\n");
-        return 0;
-    }
-    char temp_line[GE_DEFAULT_BUFFER_SIZE];
-    while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp)) {
+                fprintf(stderr, "Open file %s failed.\n", shader_path);
+                return 1;
+        }
+        // sets the file position to end of file
+        fseek(fp, 0l, SEEK_END);
+        length = ftell(fp);
+        rewind(fp);
+        if (!(pBuffer = (char*) malloc(length))) {
+            fprintf(stderr, "Malloc Error.\n");
+            fclose(fp);
+            return 1;
+        }
+        pBuffer[0] = '\0';
+
+        char temp_line[GE_DEFAULT_BUFFER_SIZE];
+
+        while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp))
         strncat(pBuffer, temp_line, GE_DEFAULT_BUFFER_SIZE);
-    }
-    fclose(fp);
+        fclose(fp);
 
     #endif  // NOT ANDROID
 
-    LOGD("Read file %s length %d", shader_path, length);
     pBuffer[length] = '\0';
     result = make_shader(type, pBuffer);
     free(pBuffer);

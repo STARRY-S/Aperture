@@ -85,11 +85,11 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
 
     #else
 
-    data = stbi_load(path, &width, &height, &nrComponents, 0);
+    data = stbi_load(pPathBuff, &width, &height, &nrComponents, 0);
 
     #endif
 
-    LOGD("path %s width: %d, height: %d, channel %d\n", path, width, height, nrComponents);
+    LOGD("path %s width: %d, height: %d, channel %d\n", pPathBuff, width, height, nrComponents);
 
     if (data) {
         GLenum format = 0;
@@ -112,7 +112,7 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
 
         stbi_image_free(data);
     } else {
-        LOGE("Failed to load texture: %s", path);
+        LOGE("Failed to load texture: %s\n", pPathBuff);
         stbi_image_free(data);
     }
     return textureID;

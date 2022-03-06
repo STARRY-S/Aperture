@@ -66,11 +66,6 @@ int init_vector(struct Vector *pVector, int iVectorType)
     return GE_ERROR_SUCCESS;
 }
 
-/**
- * Release the memory allocated by vector
- * @param pVector
- * @return - GE_Types
- */
 int free_vector(struct Vector *pVector)
 {
     if (pVector == NULL) {
@@ -102,12 +97,6 @@ bool is_valid_vector(struct Vector *pVector)
     return true;
 }
 
-/**
- * Append one data to the back of the vector.
- * @param pVector
- * @param data - char* , pointer points to the data,
- * @return GE_Types
- */
 int vector_push_back(struct Vector *pVector, const char* data)
 {
     if (!is_valid_vector(pVector) || data == NULL) {
@@ -135,33 +124,26 @@ int vector_push_back(struct Vector *pVector, const char* data)
     return 0;
 }
 
-/**
- * Insert data at the end of vector
- * @param pVector
- * @param pStart
- * @param size
- * @return GE_Types
- */
 int vector_insert_back(struct Vector *pVector, char *pStart, size_t size)
 {
     if (pVector == NULL || pStart == NULL || size <= 0) {
         return GE_ERROR_INVALID_PARAMETER;
     }
-    int currentSize = get_vector_data_type_size(pVector);
-    if (currentSize == 0) {
+    int type_size = get_vector_data_type_size(pVector);
+    if (type_size == 0) {
         return GE_ERROR_INVALID_PARAMETER;
     }
 
-    while (currentSize + pVector->length > pVector->capacity) {
+    while (pVector->length + (size / type_size) > pVector->capacity) {
         pVector->data = realloc(pVector->data, size * pVector->capacity * 2);
         if (pVector->data == NULL) {
             LOGE("Failed to realloc vector memory.");
             return GE_ERROR_MALLOC_FAILED;
         }
         pVector->capacity *= 2;
+        LOGI("Realloc vector capacity: %d\n", pVector->capacity);
     }
-    int type_size = get_vector_data_type_size(pVector);
-    int offset = type_size * (pVector->length ) / (int) sizeof(char);
+    int offset = type_size * (pVector->length) / (int) sizeof(char);
     char *pNewData = pVector->data + offset;
     memcpy(pNewData, pStart, size);
     pVector->length += (int) size / get_vector_data_type_size(pVector);

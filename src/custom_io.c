@@ -52,7 +52,7 @@ struct aiFile* customFileOpenProc(
     pAiFile->UserData = (char *) fp;
     #endif
 
-    LOGD("CustomIO: Opened file %s", pFileName);
+    LOGD("CustomIO: Opened file %s\n", pFileName);
     return pAiFile;
 }
 
@@ -63,6 +63,7 @@ void customFileCloseProc(C_STRUCT aiFileIO* pAiFileIO, C_STRUCT aiFile* pAiFile)
     #else
     fclose((FILE*) pAiFile->UserData);
     #endif
+    LOGD("Closed file.");
 }
 
 size_t customFileReadProc(C_STRUCT aiFile* pAiFile, char* pBuffer, size_t size, size_t count)

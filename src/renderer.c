@@ -25,8 +25,10 @@ struct Model model;
 int setup()
 {
     // compile shader
-    ourShader = load_program("glsl/model_loading.vs.glsl",
-                     "glsl/model_loading.fs.glsl");
+    ourShader = load_program(
+        "glsl/model_loading.vs.glsl",
+        "glsl/model_loading.fs.glsl"
+    );
 
     // init model
     GE_CHECK( init_model(&model, MODEL_FILE_NAME, false) );
@@ -81,7 +83,7 @@ int render()
     glm_rotate(mat_model,
         glm_rad((float)current_frame * 50 + 20), axis);
     shaderSetMat4(ourShader, "model", (float *) mat_model);
-    current_frame += 0.01f;
+    // current_frame += 0.01f;
 
     // optimize depth test
     bool bEnableMobileType = false;
@@ -116,7 +118,7 @@ int finish()
 
 int resizeBuffer(int width, int height)
 {
-    LOGD("Resize buffer to width: %d, height: %d", width, height);
+    LOGD("Resize buffer to width: %d, height: %d\n", width, height);
     SCREEN_WIDTH = width;
     SCREEN_HEIGHT = height;
     glViewport(0, 0, width, height);
