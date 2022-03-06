@@ -1,5 +1,5 @@
-#ifndef __VERTEX_H__
-#define __VERTEX_H__
+#ifndef GAME_ENGINE_VERTEX_H
+#define GAME_ENGINE_VERTEX_H
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -16,4 +16,4 @@ struct Vertex { // points
     float m_Weights[MAX_BONE_INFLUENCE];
 };
 
-#endif
+#endif // GAME_ENGINE_VERTEX_H

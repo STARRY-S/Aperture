@@ -2,8 +2,8 @@
  * Vector implementation in C
  */
 
-#ifndef __CVECTOR_H__
-#define __CVECTOR_H__
+#ifndef GAME_ENGINE_CVECTOR_H
+#define GAME_ENGINE_CVECTOR_H
 
 #include "ge_utils.h"
 
@@ -30,8 +30,29 @@ struct Vector {
 };
 
 int init_vector(struct Vector *pVector, int iVectorType);
+
+/**
+ * Release the memory allocated by vector
+ * @param pVector
+ * @return - GE_Types
+ */
 int free_vector(struct Vector *pVector);
+
+/**
+ * Append one data to the back of the vector.
+ * @param pVector
+ * @param data - char* , pointer points to the data,
+ * @return GE_Types
+ */
 int vector_push_back(struct Vector *pVector, const char* data);
+
+/**
+ * Insert data at the end of vector
+ * @param pVector
+ * @param pStart pointer points to data
+ * @param size size of data (byte)
+ * @return GE_Types
+ */
 int vector_insert_back(struct Vector *pVector, char *pStart, size_t size);
 
-#endif
+#endif // GAME_ENGINE_CVECTOR_H

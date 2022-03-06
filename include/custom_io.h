@@ -4,8 +4,8 @@
 
 #include <assimp/cfileio.h>
 
-#ifndef __CUSTOM_IO_H__
-#define  __CUSTOM_IO_H__
+#ifndef GAME_ENGINE_CUSTOM_IO_H
+#define  GAME_ENGINE_CUSTOM_IO_H
 
 /** Custom file buffer */
 //struct CustomFileBuffer {
@@ -81,4 +81,4 @@ void customFileFlushProc(C_STRUCT aiFile* pAiFile);
  */
 C_ENUM aiReturn customFileSeek(C_STRUCT aiFile* pAiFile, size_t offset, C_ENUM aiOrigin);
 
-#endif // __CUSTOM_IO_H__
+#endif // GAME_ENGINE_CUSTOM_IO_H

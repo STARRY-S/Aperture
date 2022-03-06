@@ -51,4 +51,4 @@ int setCameraSensitivity(float sensitivity);
 int setCameraSpeed(float speed);
 int setCameraZoom(float zoom);
 
-#endif //GAME_ENGINE_CAMERA_H
+#endif // GAME_ENGINE_CAMERA_H

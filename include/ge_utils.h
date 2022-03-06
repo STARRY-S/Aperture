@@ -1,5 +1,5 @@
-#ifndef GAME_ENGINE_MAIN_H
-#define GAME_ENGINE_MAIN_H
+#ifndef GAME_ENGINE_UTILS_H
+#define GAME_ENGINE_UTILS_H
 
 #include <string.h>
 #include <stdlib.h>
@@ -128,4 +128,4 @@ void GE_CHECK(int i);
 
 #define GE_DEFAULT_BUFFER_SIZE 128
 
-#endif //GAME_ENGINE_MAIN_H
+#endif //GAME_ENGINE_UTILS_H

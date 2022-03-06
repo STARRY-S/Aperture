@@ -1,5 +1,5 @@
-#ifndef __MESH_H__
-#define __MESH_H__
+#ifndef GAME_ENGINE_MESH_H
+#define GAME_ENGINE_MESH_H
 #include "ge_utils.h"
 #include "texture.h"
 
@@ -24,4 +24,4 @@ GE_Types free_mesh(struct Mesh *pMesh);
 int copy_mesh(struct Mesh *pNewMesh, const struct Mesh *pOldMesh);
 int draw_mesh(struct Mesh *pMesh, unsigned int shader);
 
-#endif // __MESH_H__
+#endif // GAME_ENGINE_MESH_H

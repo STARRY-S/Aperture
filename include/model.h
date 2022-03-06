@@ -1,5 +1,5 @@
-#ifndef __MODEL_H__
-#define __MODEL_H__
+#ifndef GAME_ENGINE_MODEL_H
+#define GAME_ENGINE_MODEL_H
 
 #include "ge_utils.h"
 #include "mesh.h"
@@ -27,4 +27,4 @@ int init_model(struct Model *pModel, const char *path, bool gamma);
 
 int draw_model(struct Model *pModel, unsigned int shader);
 
-#endif
+#endif // GAME_ENGINE_MODEL_H
