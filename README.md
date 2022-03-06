@@ -26,7 +26,8 @@ This project is currently unstable, and can't work properly.
 
 ## Usage
 
-Install `CMake`, `Assimp`.
+Install `CMake`, `Assimp`, `GLFW` and other tools required for compilation:
+`gcc`, `make`, etc... on your system.
 
 ```
 # clone this repository
@@ -35,7 +36,10 @@ $ mkdir build && cd build
 $ cmake .. && make -j4
 ```
 
-After that, it will generate a dynamically linked library `libgame_engine.so`.
+After that, it will build a dynamically linked library `libgame_engine.so`,
+executable files `game_engine_demo` and `test`.
+
+Run `./game_engine_demo -h` for help.
 
 ## Dependencies
 
