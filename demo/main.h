@@ -1,0 +1,9 @@
+#ifndef GAME_ENGINE_DEMO_MAIN_H
+#define GAME_ENGINE_DEMO_MAIN_H
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+
+#define WINDOW_TITLE "GameEngine Demo"
+
+#endif  // GAME_ENGINE_DEMO_MAIN_H
