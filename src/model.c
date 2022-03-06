@@ -111,9 +111,12 @@ int load_model(struct Model *pModel, const char *path)
     fileIo.UserData = NULL;
 
     const struct aiScene* scene = aiImportFileEx(
-            path,aiProcess_Triangulate | aiProcess_GenSmoothNormals
-            | aiProcess_FlipUVs | aiProcess_CalcTangentSpace,
-            &fileIo);
+        path,
+        aiProcess_Triangulate | aiProcess_GenSmoothNormals |
+        aiProcess_FlipUVs | aiProcess_CalcTangentSpace,
+        &fileIo
+    );
+
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
         LOGE("Assimp import failed: \n%s", aiGetErrorString());
