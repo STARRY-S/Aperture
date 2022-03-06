@@ -1,3 +1,13 @@
+/**
+ * @file native-lib.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief interface for Android JNI
+ * @version 1.0
+ * @date 2022-03-06
+ *
+ * @copyright Copyright (c) 2022 - Apache 2.0
+ */
+
 #include <string.h>
 
 #include "ge_utils.h"
