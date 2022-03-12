@@ -10,16 +10,19 @@ void key_callback(
     GLFWwindow *window, int key, int s, int action, int mods
 );
 void framebuffer_size_callback(
-    GLFWwindow* window, int width, int height
+    GLFWwindow *window, int width, int height
 );
 void mouse_callback(
-    GLFWwindow* window, double xpos, double ypos
+    GLFWwindow *window, double xpos, double ypos
 );
 void mouse_cursor_callback(
-    GLFWwindow * window, double xpos, double ypos
+    GLFWwindow *window, double xpos, double ypos
+);
+void mouse_button_callback(
+    GLFWwindow *window, int button, int action, int mods
 );
 void scroll_callback(
-    GLFWwindow* window, double xoffset, double yoffset
+    GLFWwindow *window, double xoffset, double yoffset
 );
 void processInput(GLFWwindow *window);
 
@@ -31,6 +34,7 @@ float lastFrame = 0.0f; // last frame time
 float lastX = 400, lastY = 300;
 bool firstMouse = true;
 bool fullScreenMode = false;
+bool isLeftMouseButtonPressed = false;
 
 int main(int argc, char **argv)
 {
@@ -94,9 +98,10 @@ int main(int argc, char **argv)
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     // glfwSetCursorPosCallback(window, mouse_cursor_callback);
     glfwSetKeyCallback(window, key_callback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Setup GameEngine
     setup();
@@ -170,6 +175,14 @@ void processInput(GLFWwindow *window)
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
+    // Don't rotate viewport when mouse left button isn't pressed
+    if (!isLeftMouseButtonPressed) {
+        if (!firstMouse) {
+            firstMouse = true;
+        }
+        return;
+    }
+
     if(firstMouse)
     {
         lastX = xpos;
@@ -185,6 +198,17 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     lastY = ypos;
 
     ProcessMouseMovement(xoffset, yoffset, true);
+}
+
+void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+        if (action == GLFW_PRESS) {
+            isLeftMouseButtonPressed = true;
+        } else if (action == GLFW_RELEASE) {
+            isLeftMouseButtonPressed = false;
+        }
+    }
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
