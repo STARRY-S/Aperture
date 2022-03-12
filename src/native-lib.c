@@ -20,12 +20,12 @@
 
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_init(JNIEnv *env, jclass clazz) {
-    setup();
+    ap_render_general_initialize();
 }
 
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_step(JNIEnv *env, jclass clazz) {
-    render();
+    ap_render_main();
 }
 
 JNIEXPORT void JNICALL
@@ -38,7 +38,7 @@ Java_moe_starrys_game_1engine_GLES3JNILib_setNativeAssetManager(JNIEnv *env, jcl
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_updateBufferSize(JNIEnv *env, jclass clazz, jint width,
                                                            jint height) {
-    resizeBuffer(width, height);
+    ap_resize_screen_buffer(width, height);
 }
 
 JNIEXPORT jint JNICALL
