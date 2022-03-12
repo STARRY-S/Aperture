@@ -8,7 +8,10 @@
 #include "ge_utils.h"
 
 // Compile shader
-GLuint make_shader(GLenum type, const char *const shader_src)
+GLuint make_shader(
+    GLenum type, 
+    const char *const shader_path, 
+    const char *const shader_src)
 {
     GLuint shader = 0;
     GLint compiled = 0;
@@ -32,7 +35,7 @@ GLuint make_shader(GLenum type, const char *const shader_src)
             return 0;
         }
         glGetShaderInfoLog(shader, info_len, NULL, info);
-        LOGE("Shader Compile Error: \n%s\n", info);
+        LOGE("Shader [%s] Compile Error: \n%s\n", shader_path, info);
         free(info);
         return 0;
     }
@@ -77,30 +80,30 @@ GLuint load_shader(GLenum type, const char *const shader_path)
     FILE *fp = NULL;
 
     if (!(fp = fopen(shader_path, "r"))) {
-                fprintf(stderr, "Open file %s failed.\n", shader_path);
-                return 1;
-        }
-        // sets the file position to end of file
-        fseek(fp, 0l, SEEK_END);
-        length = ftell(fp);
-        rewind(fp);
-        if (!(pBuffer = (char*) malloc(length))) {
-            fprintf(stderr, "Malloc Error.\n");
-            fclose(fp);
-            return 1;
-        }
-        pBuffer[0] = '\0';
-
-        char temp_line[GE_DEFAULT_BUFFER_SIZE];
-
-        while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp))
-        strncat(pBuffer, temp_line, GE_DEFAULT_BUFFER_SIZE);
+        fprintf(stderr, "Open file %s failed.\n", shader_path);
+        return 1;
+    }
+    // sets the file position to end of file
+    fseek(fp, 0l, SEEK_END);
+    length = ftell(fp);
+    rewind(fp);
+    if (!(pBuffer = (char*) malloc(length))) {
+        fprintf(stderr, "Malloc Error.\n");
         fclose(fp);
+        return 1;
+    }
+    pBuffer[0] = '\0';
+
+    char temp_line[GE_DEFAULT_BUFFER_SIZE];
+
+    while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp))
+        strncat(pBuffer, temp_line, GE_DEFAULT_BUFFER_SIZE);
+    fclose(fp);
 
     #endif  // NOT ANDROID
 
     pBuffer[length] = '\0';
-    result = make_shader(type, pBuffer);
+    result = make_shader(type, shader_path, pBuffer);
     free(pBuffer);
     return result;
 }
