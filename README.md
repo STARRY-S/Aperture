@@ -43,6 +43,10 @@ executable files `game_engine_demo` and `test`.
 
 Run `./game_engine_demo -h` for help.
 
+### Android
+
+See [GameEngine-Android](https://github.com/STARRY-S/GameEngine-Android)
+
 Dependencies
 ----
 
