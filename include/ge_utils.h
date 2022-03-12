@@ -124,7 +124,21 @@ typedef enum {
     GE_ERROR_LENGTH                 // never use this
 } GE_Types;
 
+/**
+ * GE_CHECK
+ */
 void GE_CHECK(int i);
+
+/**
+ * @brief Get the vertices of a cude
+ * @return const float*
+ */
+const float* getCubeVertices();
+
+/**
+ * @brief Get the length of cube vertices
+ */
+int getCubeVertivesLength();
 
 #define GE_DEFAULT_BUFFER_SIZE 128
 
