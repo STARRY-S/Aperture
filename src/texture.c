@@ -20,7 +20,7 @@ GLuint load_texture(const char *const path, int format)
     stbi_set_flip_vertically_on_load(true);
     unsigned char *data = NULL;
 #ifdef __ANDROID__
-    AAssetManager *pManager = getLocalAAssetManager();
+    AAssetManager *pManager = ap_get_local_asset_manager();
     AAsset *pathAsset = AAssetManager_open(pManager, path, AASSET_MODE_UNKNOWN);
     off_t assetLength = AAsset_getLength(pathAsset);
     unsigned char *fileData = (unsigned char *) AAsset_getBuffer(pathAsset);
@@ -64,10 +64,10 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
     unsigned char *data = NULL;
     #ifdef __ANDROID__
     int fileLength = 0;
-    AAssetManager *pManager = getLocalAAssetManager();
+    AAssetManager *pManager = ap_get_local_asset_manager();
     AAsset *pathAsset = AAssetManager_open(pManager, pPathBuff, AASSET_MODE_UNKNOWN);
     if (pathAsset == NULL) {
-        // GE_ERROR_ASSET_OPEN_FAILED;
+        // AP_ERROR_ASSET_OPEN_FAILED;
         LOGE("Failed to load texture from file: %s", pPathBuff);
         free(pPathBuff);
         pPathBuff = NULL;
@@ -121,7 +121,7 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
 int init_texture(struct Texture *pTexture)
 {
     if (pTexture == NULL) {
-        return GE_ERROR_INVALID_PARAMETER;
+        return AP_ERROR_INVALID_PARAMETER;
     }
 
     memset(pTexture, 0, sizeof(struct Texture));
@@ -131,7 +131,7 @@ int init_texture(struct Texture *pTexture)
 int texture_set_type(struct Texture *pTexture, const char *typeName)
 {
     if (pTexture == NULL || typeName == NULL) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     if (pTexture->type != NULL) {
@@ -147,7 +147,7 @@ int texture_set_type(struct Texture *pTexture, const char *typeName)
 int texture_set_path(struct Texture *pTexture, const char *pathName)
 {
     if (pTexture == NULL || pathName == NULL) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     if (pTexture->path != NULL) {

@@ -32,7 +32,7 @@ JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_setNativeAssetManager(JNIEnv *env, jclass clazz,
                                                                 jobject asset_manager) {
     AAssetManager *manager = AAssetManager_fromJava(env, asset_manager);
-    setAAssetManager(manager);
+    ap_set_local_asset_manager(manager);
 }
 
 JNIEXPORT void JNICALL
@@ -45,7 +45,7 @@ JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_setMobileName(
         JNIEnv *env, jclass clazz, jstring s_name) {
     const char *cparam = (*env)->GetStringUTFChars(env, s_name, 0);
-    setMobileName((const char*) cparam);
+    ap_set_mobile_name((const char*) cparam);
     (*env)->ReleaseStringUTFChars(env, s_name, cparam);
     return 0;
 }
@@ -54,7 +54,7 @@ JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass clazz,
                                                           jfloat x, jfloat y,
                                                           jboolean constrain_pitch) {
-    ProcessMouseMovement(x, y, constrain_pitch);
+    ap_camera_process_movement(x, y, constrain_pitch);
     return 0;
 }
 

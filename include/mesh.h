@@ -20,7 +20,7 @@ struct Mesh {
 int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
              unsigned int *pIndices, int iIndicesLength,
              struct Texture *pTexture, int iTextureLength);
-GE_Types free_mesh(struct Mesh *pMesh);
+AP_Types free_mesh(struct Mesh *pMesh);
 int copy_mesh(struct Mesh *pNewMesh, const struct Mesh *pOldMesh);
 int draw_mesh(struct Mesh *pMesh, unsigned int shader);
 

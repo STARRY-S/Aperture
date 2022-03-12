@@ -20,26 +20,26 @@
 #define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,  LOG_TAG, __VA_ARGS__)
 
 typedef enum {
-    GE_MOBILE_DEFAULT = 0,  // default mobile type
-    GE_MOBILE_GOOGLE,       // Google
-    GE_MOBILE_ZTE,          // ZTE
-    GE_MOBILE_HUAWEI,       // HUAWEI
-    GE_MOBILE_COOLPAD,      // CoolPad
-    GE_MOBILE_LENOVO,       // Lenovo
-    GE_MOBILE_REALME,       // RealMe
-    GE_MOBILE_ONEPLUS,      // OnePlus
-    GE_MOBILE_XIAOMI,       // Xiaomi
-    GE_MOBILE_BLACKSHARK,   // BlackShark
-    GE_MOBILE_OPPO,         // OPPO
-    GE_MOBILE_HTC,          // HTC
-    GE_MOBILE_SONY,         // Sony
-    GE_MOBILE_SAMSUNG,      // Samsung
-    GE_MOBILE_NOKIA,        // NOKIA
-    GE_MOBILE_X86,          // X86
-    GE_MOBILE_LENGTH,       // never use this.
-} GE_MOBILE_Types;
+    AP_MOBILE_DEFAULT = 0,  // default mobile type
+    AP_MOBILE_GOOGLE,       // Google
+    AP_MOBILE_ZTE,          // ZTE
+    AP_MOBILE_HUAWEI,       // HUAWEI
+    AP_MOBILE_COOLPAD,      // CoolPad
+    AP_MOBILE_LENOVO,       // Lenovo
+    AP_MOBILE_REALME,       // RealMe
+    AP_MOBILE_ONEPLUS,      // OnePlus
+    AP_MOBILE_XIAOMI,       // Xiaomi
+    AP_MOBILE_BLACKSHARK,   // BlackShark
+    AP_MOBILE_OPPO,         // OPPO
+    AP_MOBILE_HTC,          // HTC
+    AP_MOBILE_SONY,         // Sony
+    AP_MOBILE_SAMSUNG,      // Samsung
+    AP_MOBILE_NOKIA,        // NOKIA
+    AP_MOBILE_X86,          // X86
+    AP_MOBILE_LENGTH,       // never use this.
+} AP_MOBILE_Types;
 
-static const char *GE_MOBILE_NAME[GE_MOBILE_LENGTH] = {
+static const char *AP_MOBILE_NAME[AP_MOBILE_LENGTH] = {
     "default",
     "google",
     "zte",
@@ -62,34 +62,34 @@ static const char *GE_MOBILE_NAME[GE_MOBILE_LENGTH] = {
  * @brief Get the Local A Asset Manager object
  * @return void* pointer points to asset manager
  */
-void *getLocalAAssetManager();
+void *ap_get_local_asset_manager();
 
 /**
  * @brief Set Asset Manager
  * @param pManager pointer points to asset manager
- * @return int GE_Types
+ * @return int AP_Types
  */
-int setAAssetManager(void *pManager);
+int ap_set_local_asset_manager(void *pManager);
 
 /**
  * @brief Set the Mobile Name
  * @param pName const char *
- * @return int GE_Types
+ * @return int AP_Types
  */
-int setMobileName(const char *pName);
+int ap_set_mobile_name(const char *pName);
 
 /**
  * @brief Get the Mobile Name
  * @return const char*
  */
-const char* getMobileName();
+const char* ap_get_mobile_name();
 
 /**
  * @brief Get Mobile Type
  * @param pMobileName
- * @return int GE_MOBILE_Types
+ * @return int AP_MOBILE_Types
  */
-int getMobileType(const char *pMobileName);
+int ap_get_mobile_type(const char *pMobileName);
 
 #else   // NOT ANDROID
 
@@ -110,36 +110,37 @@ int getMobileType(const char *pMobileName);
 
 // common used error types
 typedef enum {
-    GE_ERROR_SUCCESS = 0,
-    GE_ERROR_INVALID_POINTER,       // pointer is NULL
-    GE_ERROR_INVALID_PARAMETER,     // invalid param
-    GE_ERROR_MALLOC_FAILED,         // malloc failed
-    GE_ERROR_MESH_UNINITIALIZED,    // mesh uninitialized
-    GE_ERROR_ASSIMP_IMPORT_FAILED,  // assimp import failed
-    GE_ERROR_ASSET_OPEN_FAILED,     // asset manager open file failed
-    GE_ERROR_INIT_FAILED,           // initialize failed
-    GE_ERROR_RENDER_FAILED,         // render failed with unknown error
-    GE_ERROR_TEXTURE_FAILED,        // texture load failed with unknown error
-    GE_ERROR_UNKNOWN,               // unknown error
-    GE_ERROR_LENGTH                 // never use this
-} GE_Types;
+    AP_ERROR_SUCCESS = 0,
+    AP_ERROR_INVALID_POINTER,       // pointer is NULL
+    AP_ERROR_INVALID_PARAMETER,     // invalid param
+    AP_ERROR_MALLOC_FAILED,         // malloc failed
+    AP_ERROR_MESH_UNINITIALIZED,    // mesh uninitialized
+    AP_ERROR_ASSIMP_IMPORT_FAILED,  // assimp import failed
+    AP_ERROR_ASSET_OPEN_FAILED,     // asset manager open file failed
+    AP_ERROR_INIT_FAILED,           // initialize failed
+    AP_ERROR_RENDER_FAILED,         // render failed with unknown error
+    AP_ERROR_TEXTURE_FAILED,        // texture load failed with unknown error
+    AP_ERROR_CAMERA_NOT_SET,        // camera not set
+    AP_ERROR_UNKNOWN,               // unknown error
+    AP_ERROR_LENGTH                 // never use this
+} AP_Types;
 
 /**
- * GE_CHECK
+ * AP_CHECK
  */
-void GE_CHECK(int i);
+void AP_CHECK(int i);
 
 /**
  * @brief Get the vertices of a cude
  * @return const float*
  */
-const float* getCubeVertices();
+const float* ap_get_default_cube_vertices();
 
 /**
  * @brief Get the length of cube vertices
  */
-int getCubeVertivesLength();
+int ap_get_default_cube_vertices_length();
 
-#define GE_DEFAULT_BUFFER_SIZE 128
+#define AP_DEFAULT_BUFFER_SIZE 128
 
 #endif //GAME_ENGINE_UTILS_H

@@ -9,8 +9,8 @@
 
 // Compile shader
 GLuint make_shader(
-    GLenum type, 
-    const char *const shader_path, 
+    GLenum type,
+    const char *const shader_path,
     const char *const shader_src)
 {
     GLuint shader = 0;
@@ -51,7 +51,7 @@ GLuint load_shader(GLenum type, const char *const shader_path)
 
     #ifdef __ANDROID__
     AAssetManager *pLocalAAsetManager
-        = (AAssetManager *) getLocalAAssetManager();
+        = (AAssetManager *) ap_get_local_asset_manager();
     if (!pLocalAAsetManager) {
         LOGE("pLocalAAsetManager is NULL, failed to read file.\n");
         return 0;
@@ -94,10 +94,10 @@ GLuint load_shader(GLenum type, const char *const shader_path)
     }
     pBuffer[0] = '\0';
 
-    char temp_line[GE_DEFAULT_BUFFER_SIZE];
+    char temp_line[AP_DEFAULT_BUFFER_SIZE];
 
-    while (fgets(temp_line, GE_DEFAULT_BUFFER_SIZE, fp))
-        strncat(pBuffer, temp_line, GE_DEFAULT_BUFFER_SIZE);
+    while (fgets(temp_line, AP_DEFAULT_BUFFER_SIZE, fp))
+        strncat(pBuffer, temp_line, AP_DEFAULT_BUFFER_SIZE);
     fclose(fp);
 
     #endif  // NOT ANDROID

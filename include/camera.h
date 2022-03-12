@@ -1,5 +1,12 @@
-#ifndef GAME_ENGINE_CAMERA_H
-#define GAME_ENGINE_CAMERA_H
+/**
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Camera struct object defination and function definations
+ * of Game Engine (Aperture)
+ *
+ * @copyright Apache 2.0 - Copyright (c) 2022
+ */
+#ifndef AP_CAMERA_H
+#define AP_CAMERA_H
 
 #include <GLES3/gl3.h>
 #include <stdio.h>
@@ -8,47 +15,51 @@
 #include "cglm/cglm.h"
 #include "cglm/call.h"
 
-enum Camera_Movement {
-    CAM_MOV_FORWARD,
-    CAM_MOV_BACKWARD,
-    CAM_MOV_LEFT,
-    CAM_MOV_RIGHT,
-    CAM_MOV_UP,
-    CAM_MOV_DOWN
+enum AP_Camera_Movements {
+    AP_CAMERA_FORWARD,
+    AP_CAMERA_MOV_BACKWARD,
+    AP_CAMERA_MOV_LEFT,
+    AP_CAMERA_MOV_RIGHT,
+    AP_CAMERA_MOV_UP,
+    AP_CAMERA_MOV_DOWN
 };
 
-struct Camera {
-    // camera Attributes
+struct AP_Camera {
+    int id;
+
     vec3 position;
     vec3 front;
     vec3 up;
     vec3 right;
     vec3 worldUp;
 
-    // euler Angles
     float yaw;
     float pitch;
-    // camera options
-    float mSpeed;           // movement speed
-    float mSensitivity;     // mouse sensitivity
+    float speed;
+    float sensitivity;
     float zoom;
 };
 
-struct Camera* initCamera();
-struct Camera* getCamera();
+int ap_camera_generate(unsigned int *camera_id);
+int ap_camera_use(unsigned int camera_id);
+int ap_camera_init_default();
+int ap_camera_finalize();
 
-void GetViewMatrix(mat4 *temp);
-void ProcessKeyboard(int direction, float deltaTime);
-void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch);
-void ProcessMouseScroll(float yOffset);
+int ap_camera_get_view_matrix(mat4 *temp);
+int ap_camera_get_position(float *vec);
+int ap_camera_get_zoom(int *zoom);
 
-int setCameraPosition(float x, float y, float z);
-int setCameraFront(float x, float y, float z);
-int setCameraUp(float x, float y, float z);
-int setCameraYaw(float yaw);
-int setCameraPitch(float pitch);
-int setCameraSensitivity(float sensitivity);
-int setCameraSpeed(float speed);
-int setCameraZoom(float zoom);
+int ap_camera_process_key(int direction, float delta_time);
+int ap_camera_process_movement(float x_offset, float y_offset, bool pitch);
+int ap_camera_process_scroll(float y_offset);
 
-#endif // GAME_ENGINE_CAMERA_H
+int ap_camera_set_position(float x, float y, float z);
+int ap_camera_set_front(float x, float y, float z);
+int ap_camera_set_up(float x, float y, float z);
+int ap_camera_set_yaw(float yaw);
+int ap_camera_set_pitch(float pitch);
+int ap_camera_set_sensitivity(float sensitivity);
+int ap_camera_set_speed(float speed);
+int ap_camera_set_zoom(float zoom);
+
+#endif // AP_CAMERA_H

@@ -1,13 +1,15 @@
-//
-// Created by starry-s on 1/8/22.
-//
+/**
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Main render functions of Game Engine (Aperture)
+ *
+ * @copyright Apache 2.0 - Copyright (c) 2022
+ */
+#ifndef AP_RENDERER_H
+#define AP_RENDERER_H
 
-#ifndef GAMEENGINE_RENDERER_H
-#define GAMEENGINE_RENDERER_H
+int ap_render_general_initialize();
+int ap_render_main();
+int ap_render_finish();
+int ap_resize_screen_buffer(int width, int height);
 
-int setup();
-int render();
-int finish();
-int resizeBuffer(int width, int height);
-
-#endif //GAMEENGINE_RENDERER_H
+#endif // AP_RENDERER_H

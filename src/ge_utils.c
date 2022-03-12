@@ -11,7 +11,7 @@
 #include "texture.h"
 #include "camera.h"
 
-static const char *GE_ERROR_NAME[GE_ERROR_LENGTH] = {
+static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
     "SUCCESS",
     "INVALID_POINTER",
     "INVALID_PARAMETER",
@@ -22,25 +22,26 @@ static const char *GE_ERROR_NAME[GE_ERROR_LENGTH] = {
     "INIT_FAILED",
     "RENDER_FAILED",
     "TEXTURE_FAILED",
+    "CAMERA_NOT_SET",
     "UNKNOWN"
 };
 
 #ifdef __ANDROID__
 
 static AAssetManager *pLocalAAsetManager = NULL;
-static char sMobileName[GE_DEFAULT_BUFFER_SIZE] = { 0 };
+static char sMobileName[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
-void *getLocalAAssetManager()
+void *ap_get_local_asset_manager()
 {
     return (void*) pLocalAAsetManager;
 }
 
-int setAAssetManager(void *pVoid)
+int ap_set_local_asset_manager(void *pVoid)
 {
     if (!pVoid) {
-        LOGE("setAAssetManager ERROR: NULL");
+        LOGE("ap_set_local_asset_manager ERROR: NULL");
         pLocalAAsetManager = NULL;
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     struct AAssetManager *pManager = (struct AAssetManager*) pVoid;
@@ -53,32 +54,32 @@ int setAAssetManager(void *pVoid)
     return 0;
 }
 
-int setMobileName(const char *pName)
+int ap_set_mobile_name(const char *pName)
 {
     if (pName == NULL) {
-        LOGE("setMobileName ERROR: NULL");
-        return GE_ERROR_INVALID_POINTER;
+        LOGE("ap_set_mobile_name ERROR: NULL");
+        return AP_ERROR_INVALID_POINTER;
     }
 
-    strncpy(sMobileName, pName, GE_DEFAULT_BUFFER_SIZE);
-    sMobileName[GE_DEFAULT_BUFFER_SIZE - 1] = '0';
+    strncpy(sMobileName, pName, AP_DEFAULT_BUFFER_SIZE);
+    sMobileName[AP_DEFAULT_BUFFER_SIZE - 1] = '0';
 
     return 0;
 }
 
-const char* getMobileName()
+const char* ap_get_mobile_name()
 {
     return sMobileName;
 }
 
-int getMobileType(const char *pMobileName)
+int ap_get_mobile_type(const char *pMobileName)
 {
     if (pMobileName == NULL) {
-        LOGE("getMobileType Failed: NULL");
+        LOGE("ap_get_mobile_type Failed: NULL");
         return 0;
     }
-    for (int i = 0; i < GE_MOBILE_LENGTH; ++i) {
-        if (strstr(pMobileName, GE_MOBILE_NAME[i]) != NULL) {
+    for (int i = 0; i < AP_MOBILE_LENGTH; ++i) {
+        if (strstr(pMobileName, AP_MOBILE_NAME[i]) != NULL) {
             return i;
         }
     }
@@ -90,10 +91,10 @@ int getMobileType(const char *pMobileName)
 
 #endif  // Not Android
 
-void GE_CHECK(int i)
+void AP_CHECK(int i)
 {
-    if (i > 0 && i < GE_ERROR_LENGTH) {
-        LOGE("%s\n", GE_ERROR_NAME[i]);
+    if (i > 0 && i < AP_ERROR_LENGTH) {
+        LOGE("%s\n", AP_ERROR_NAME[i]);
     }
 }
 
@@ -142,15 +143,15 @@ static const float cubeVertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 };
 
-const float* getCubeVertices()
+const float* ap_get_default_cube_vertices()
 {
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    
+
     return cubeVertices;
 }
 
-int getCubeVertivesLength()
+int ap_get_default_cube_vertices_length()
 {
     return sizeof(cubeVertices);
 }

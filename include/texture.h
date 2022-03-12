@@ -37,7 +37,7 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
 /**
  * Initialize texture struct object, set the memory data to zero
  * @param pTexture
- * @return GE_Types
+ * @return AP_Types
  */
 int init_texture(struct Texture *pTexture);
 

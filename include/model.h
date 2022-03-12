@@ -20,7 +20,7 @@ struct Model {
  * @param path - file path
  * @param format - file format, or null
  * @param gamma - default to null
- * @return GE_Types
+ * @return AP_Types
  */
 int init_model(struct Model *pModel, const char *path, bool gamma);
 

@@ -31,10 +31,10 @@ const GLFWvidmode* mode;
 float deltaTime = 0.0f; // delta time between last frame time
 float lastFrame = 0.0f; // last frame time
 
-float lastX = 400, lastY = 300;
-bool firstMouse = true;
+float last_x = 400, last_y = 300;
+bool first_mouse = true;
 bool fullScreenMode = false;
-bool isLeftMouseButtonPressed = false;
+bool left_button_pressed = false;
 
 int main(int argc, char **argv)
 {
@@ -91,9 +91,9 @@ int main(int argc, char **argv)
     glfwMakeContextCurrent(window);
 
     if (fullScreenMode)
-        resizeBuffer(mode->width, mode->height);
+        ap_resize_screen_buffer(mode->width, mode->height);
     else
-        resizeBuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+        ap_resize_screen_buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
     // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Setup GameEngine
-    setup();
+    ap_render_general_initialize();
 
     while (!glfwWindowShouldClose(window))
     {
@@ -117,14 +117,14 @@ int main(int argc, char **argv)
         lastFrame = currentFrame;
 
         // GameEngine main renderer
-        render();
+        ap_render_main();
 
         // refresh
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    finish();
+    ap_render_finish();
     glfwTerminate();
     return 0;
 }
@@ -152,72 +152,71 @@ void processInput(GLFWwindow *window)
     }
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_FORWARD, speed);
+        ap_camera_process_key(AP_CAMERA_FORWARD, speed);
     }
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_BACKWARD, speed);
+        ap_camera_process_key(AP_CAMERA_MOV_BACKWARD, speed);
     }
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_LEFT, speed);
+        ap_camera_process_key(AP_CAMERA_MOV_LEFT, speed);
     }
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_RIGHT, speed);
+        ap_camera_process_key(AP_CAMERA_MOV_RIGHT, speed);
     }
 
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_DOWN, speed);
+        ap_camera_process_key(AP_CAMERA_MOV_DOWN, speed);
     }
 
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        ProcessKeyboard(CAM_MOV_UP, speed);
+        ap_camera_process_key(AP_CAMERA_MOV_UP, speed);
     }
 }
 
 void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
     // Don't rotate viewport when mouse left button isn't pressed
-    if (!isLeftMouseButtonPressed) {
-        if (!firstMouse) {
-            firstMouse = true;
+    if (!left_button_pressed) {
+        if (!first_mouse) {
+            first_mouse = true;
         }
         return;
     }
 
-    if(firstMouse)
+    if(first_mouse)
     {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
+        last_x = xpos;
+        last_y = ypos;
+        first_mouse = false;
     }
 
-    float xoffset = xpos - lastX;
+    float xoffset = xpos - last_x;
     // it's oppisite (negative) here,
     // because y increases from bottom to top
-    float yoffset = -(ypos - lastY);
-    lastX = xpos;
-    lastY = ypos;
+    float yoffset = -(ypos - last_y);
+    last_x = xpos;
+    last_y = ypos;
 
-    ProcessMouseMovement(xoffset, yoffset, true);
+    ap_camera_process_movement(xoffset, yoffset, true);
 }
 
 void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         if (action == GLFW_PRESS) {
-            isLeftMouseButtonPressed = true;
+            left_button_pressed = true;
         } else if (action == GLFW_RELEASE) {
-            isLeftMouseButtonPressed = false;
+            left_button_pressed = false;
         }
     }
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    ProcessMouseScroll(yoffset);
+    ap_camera_process_scroll(yoffset);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    // glViewport(0, 0, width, height);
-    resizeBuffer(width, height);
+    ap_resize_screen_buffer(width, height);
 }

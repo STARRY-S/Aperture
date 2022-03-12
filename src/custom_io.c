@@ -13,16 +13,16 @@ struct aiFile* customFileOpenProc(
         C_STRUCT aiFileIO* customIO, const char* pFileName, const char* pMode)
 {
     if (customIO == NULL || pFileName == NULL || pMode == NULL) {
-        // GE_ERROR_INVALID_POINTER;
+        // AP_ERROR_INVALID_POINTER;
         return NULL;
     }
 
     #ifdef __ANDROID__
-    AAssetManager *pManager = getLocalAAssetManager();
+    AAssetManager *pManager = ap_get_local_asset_manager();
     AAsset *pathAsset = AAssetManager_open(pManager, pFileName,
                                            AASSET_MODE_RANDOM);
     if (pathAsset == NULL) {
-        // GE_ERROR_ASSET_OPEN_FAILED;
+        // AP_ERROR_ASSET_OPEN_FAILED;
         return NULL;
     }
     #else
@@ -35,7 +35,7 @@ struct aiFile* customFileOpenProc(
 
     struct aiFile *pAiFile = malloc(sizeof(struct aiFile));
     if (pAiFile == NULL) {
-        // GE_ERROR_MALLOC_FAILED;
+        // AP_ERROR_MALLOC_FAILED;
         return NULL;
     }
     memset(pAiFile, 0, sizeof(struct aiFile));

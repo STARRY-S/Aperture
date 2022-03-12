@@ -22,14 +22,14 @@ int setup_mesh(struct Mesh *pMesh);
  * @param iIndicesLength
  * @param pTexture
  * @param iTextureLength
- * @return - GE_Types
+ * @return - AP_Types
  */
 int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
         unsigned int *pIndices, int iIndicesLength,
         struct Texture *pTexture, int iTextureLength)
 {
     if (!pMesh || !pVertices || !pIndices || !pTexture) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     memset(pMesh, 0, sizeof(struct Mesh));
@@ -38,7 +38,7 @@ int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
     if (iVerticesLength > 0) {
         pNewVertex = (struct Vertex *) malloc(sizeof(struct Vertex) * iVerticesLength);
         if (pNewVertex == NULL) {
-            return GE_ERROR_MALLOC_FAILED;
+            return AP_ERROR_MALLOC_FAILED;
         }
         memcpy(pNewVertex, pVertices, sizeof(struct Vertex) * iVerticesLength);
     }
@@ -49,7 +49,7 @@ int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
     if (iIndicesLength > 0) {
         pNewIndices = (unsigned int *) malloc(sizeof(unsigned int) * iIndicesLength);
         if (pNewIndices == NULL) {
-            return GE_ERROR_MALLOC_FAILED;
+            return AP_ERROR_MALLOC_FAILED;
         }
         memcpy(pNewIndices, pIndices, sizeof(unsigned int) * iIndicesLength);
     }
@@ -60,7 +60,7 @@ int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
     if (iTextureLength > 0) {
         pNewTexture = (struct Texture *) malloc(sizeof(struct Texture) * iTextureLength);
         if (pNewTexture == NULL) {
-            return GE_ERROR_MALLOC_FAILED;
+            return AP_ERROR_MALLOC_FAILED;
         }
         memcpy(pNewTexture, pTexture, sizeof(struct Texture) * iTextureLength);
     }
@@ -76,7 +76,7 @@ int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
  * @param pMesh
  * @return 0 if success
  */
-GE_Types free_mesh(struct Mesh *pMesh)
+AP_Types free_mesh(struct Mesh *pMesh)
 {
     if (pMesh == NULL) {
         return 0;
@@ -107,12 +107,12 @@ GE_Types free_mesh(struct Mesh *pMesh)
  * Copy mesh
  * @param pNewMesh - dest, points to an uninitialized mesh
  * @param pOldMesh - from, the mesh to be copied
- * @return GE_Types
+ * @return AP_Types
  */
 int copy_mesh(struct Mesh *pNewMesh, const struct Mesh *pOldMesh)
 {
     if (pNewMesh == NULL || pOldMesh == NULL) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     memset(pNewMesh, 0, sizeof(struct Mesh));
@@ -148,12 +148,12 @@ int copy_mesh(struct Mesh *pNewMesh, const struct Mesh *pOldMesh)
 /**
  * private, setup mesh, generate GL buffers.
  * @param pMesh
- * @return GE_Types
+ * @return AP_Types
  */
 int setup_mesh(struct Mesh *pMesh)
 {
     if (!pMesh) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
     glGenVertexArrays(1, &pMesh->VAO);
     glGenBuffers(1, &pMesh->VBO);
@@ -199,12 +199,12 @@ int setup_mesh(struct Mesh *pMesh)
  * Draw Mesh
  * @param pMesh - the pointer to the mesh
  * @param shader - shader id
- * @return GE_Types
+ * @return AP_Types
  */
 int draw_mesh(struct Mesh *pMesh, unsigned int shader)
 {
     if (pMesh == NULL) {
-        return GE_ERROR_INVALID_POINTER;
+        return AP_ERROR_INVALID_POINTER;
     }
 
     // bind appropriate texture
@@ -243,5 +243,5 @@ int draw_mesh(struct Mesh *pMesh, unsigned int shader)
 
     // always good practice to set everything back to defaults once configured :)
     glActiveTexture(GL_TEXTURE0);
-    return GE_ERROR_SUCCESS;
+    return AP_ERROR_SUCCESS;
 }

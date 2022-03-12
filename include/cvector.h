@@ -1,58 +1,79 @@
 /**
- * Vector implementation in C
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Vector implementation in C
+ *
+ * @copyright Apache 2.0 - Copyright (c) 2022
  */
-
-#ifndef GAME_ENGINE_CVECTOR_H
-#define GAME_ENGINE_CVECTOR_H
+#ifndef AP_CVECTOR_H
+#define AP_CVECTOR_H
 
 #include "ge_utils.h"
 
-// vector types definition
-typedef enum {
-    GE_VECTOR_UNDEFINED = 0,    // uninitialized vector type
-    GE_VECTOR_VERTEX,           // Vertex vector
-    GE_VECTOR_TEXTURE,          // Texture vector
-    GE_VECTOR_MESH,             // Mesh vector
-    GE_VECTOR_MODEL,            // Model vector
-    GE_VECTOR_CHAR,             // Char vector
-    GE_VECTOR_INT,              // Integer vector
-    GE_VECTOR_UINT,             // Unsigned int vector
-    GE_VECTOR_FLOAT,            // Float vector
-    GE_VECTOR_VOID_POINTER,     // (void*) vector
-    GE_VECTOR_LENGTH            // never use this
-} GE_VECTOR_Types;
+#ifndef AP_VECTOR_DEFAULT_CAPACITY
+#define AP_VECTOR_DEFAULT_CAPACITY 8
+#endif
 
-struct Vector {
-    int length;     // number of elements
-    int capacity;   // total capacity
-    int type;       // vector type
+/**
+ * @brief vector type defination
+ */
+typedef enum {
+    AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
+    AP_VECTOR_VERTEX,           // Vertex vector
+    AP_VECTOR_TEXTURE,          // Texture vector
+    AP_VECTOR_MESH,             // Mesh vector
+    AP_VECTOR_MODEL,            // Model vector
+    AP_VECTOR_CAMERA,           // Camera vector
+    AP_VECTOR_CHAR,             // Char vector
+    AP_VECTOR_INT,              // Integer vector
+    AP_VECTOR_UINT,             // Unsigned int vector
+    AP_VECTOR_FLOAT,            // Float vector
+    AP_VECTOR_LENGTH            // never use this
+} AP_VECTOR_Types;
+
+/**
+ * @brief AP_Vector defination
+ */
+struct AP_Vector {
+    // number of elements
+    int length;
+    // total capacity
+    int capacity;
+    // vector type
+    int type;
+    // pointer points to data
     char* data;
 };
 
-int init_vector(struct Vector *pVector, int iVectorType);
-
 /**
- * Release the memory allocated by vector
- * @param pVector
- * @return - GE_Types
+ * @brief vector initialize
+ * @param pVector pointer points to vector struct object
+ * @param iVectorType AP_VECTOR_Types
+ * @return int GE_Types
  */
-int free_vector(struct Vector *pVector);
+int ap_vector_init(struct AP_Vector *pVector, int iVectorType);
 
 /**
- * Append one data to the back of the vector.
+ * @brief Release the memory allocated by vector
+ * @param pVector
+ * @return - AP_Types
+ */
+int ap_vector_free(struct AP_Vector *pVector);
+
+/**
+ * @brief Append one data to the back of the vector.
  * @param pVector
  * @param data - char* , pointer points to the data,
- * @return GE_Types
+ * @return AP_Types
  */
-int vector_push_back(struct Vector *pVector, const char* data);
+int ap_vector_push_back(struct AP_Vector *pVector, const char* data);
 
 /**
- * Insert data at the end of vector
+ * @brief Insert data at the end of vector
  * @param pVector
  * @param pStart pointer points to data
  * @param size size of data (byte)
- * @return GE_Types
+ * @return AP_Types
  */
-int vector_insert_back(struct Vector *pVector, char *pStart, size_t size);
+int ap_vector_insert_back(struct AP_Vector *pVector, char *pStart, size_t size);
 
-#endif // GAME_ENGINE_CVECTOR_H
+#endif // AP_CVECTOR_H
