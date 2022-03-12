@@ -1,18 +1,18 @@
-# Game Engine
+Aperture - Game Engine
+====
 
-> Still developing...
+> Currently status: Developing...
 
-**Name Needed**: need a name for this game engine project.
+Aperture: A simple & tiny game engine based on OpenGL ES,
+just for learning OpenGL and render stuff, for fun.
 
-A simple & tiny game engine based on OpenGL ES.
-
-This project is currently unstable, and can't work properly.
-
-## Current status (TODOs)
+Current status (TODOs)
+----
 
 - [x] Texture load
 - [x] Model import  (Finished, but unstable)
-- [ ] Cross platform support
+- [x] Lightning stimulation
+- [ ] Cross platform:
     - [ ] Windows
     - [x] Android (see [GameEngine-Android](https://github.com/STARRY-S/GameEngine-Android))
     - [x] Linux
@@ -24,8 +24,10 @@ This project is currently unstable, and can't work properly.
 - [ ] GUI tools (User graphics)
 - [ ] Database
 
-## Usage
+Usage
+----
 
+### Linux
 Install `CMake`, `Assimp`, `GLFW` and other tools required for compilation:
 `gcc`, `make`, etc... on your system.
 
@@ -41,13 +43,15 @@ executable files `game_engine_demo` and `test`.
 
 Run `./game_engine_demo -h` for help.
 
-## Dependencies
+Dependencies
+----
 
 - OpenGL ES 3.0
 - cglm
 - Assimp
 - stb_image
 
-## License
+License
+----
 
 > [Apache 2.0](LICENSE)
