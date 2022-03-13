@@ -44,12 +44,12 @@ struct aiFile* ap_custom_file_open_proc(
         }
         memset(pAiFile, 0, sizeof(struct aiFile));
 
-        pAiFile->ReadProc = ap_custom_file_read_proc;
-        pAiFile->WriteProc = ap_custom_file_write_proc;
-        pAiFile->TellProc = ap_custom_ftell_proc;
+        pAiFile->ReadProc     = ap_custom_file_read_proc;
+        pAiFile->WriteProc    = ap_custom_file_write_proc;
+        pAiFile->TellProc     = ap_custom_ftell_proc;
         pAiFile->FileSizeProc = ap_custom_fsize_proc;
-        pAiFile->SeekProc = ap_custom_fseek_proc;
-        pAiFile->FlushProc = ap_custom_fflush_proc;
+        pAiFile->SeekProc     = ap_custom_fseek_proc;
+        pAiFile->FlushProc    = ap_custom_fflush_proc;
         #ifdef __ANDROID__
         pAiFile->UserData = (char *) pathAsset;
         #else
@@ -79,7 +79,9 @@ size_t ap_custom_file_read_proc(
         size_t count)
 {
         #ifdef __ANDROID__
-        return AAsset_read((AAsset *) pAiFile->UserData, pBuffer, size * count);
+        return AAsset_read(
+                (AAsset *) pAiFile->UserData, pBuffer, size * count
+        );
         #else
         return fread(pBuffer, size, count, (FILE*) pAiFile->UserData);
         #endif
@@ -99,7 +101,8 @@ size_t ap_custom_ftell_proc(C_STRUCT aiFile* pAiFile)
 {
         #ifdef __ANDROID__
 
-        long iRemainLength = AAsset_getRemainingLength((AAsset*) pAiFile->UserData);
+        long iRemainLength =
+                AAsset_getRemainingLength((AAsset*) pAiFile->UserData);
         long iTotalLength = AAsset_getLength((AAsset*) pAiFile->UserData);
         return iTotalLength - iRemainLength;
 
@@ -151,7 +154,11 @@ C_ENUM aiReturn ap_custom_fseek_proc(
 
         #ifdef __ANDROID__
 
-        iRet = AAsset_seek((AAsset *) pAiFile->UserData, (long) offset, origin);
+        iRet = AAsset_seek(
+                (AAsset *) pAiFile->UserData,
+                (long) offset,
+                origin
+        );
         if (iRet >= 0) {
                 return 0;
         }
