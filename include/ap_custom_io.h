@@ -7,14 +7,6 @@
 #ifndef GAME_ENGINE_CUSTOM_IO_H
 #define  GAME_ENGINE_CUSTOM_IO_H
 
-/** Custom file buffer */
-//struct CustomFileBuffer {
-//    char *pBuffer;
-//    int iFileLength;
-//    int iFileOffset;
-//    int iBufferLength;
-//};
-
 /**
  * @brief Custom Open File Proc, like fopen()
  * @param customIO

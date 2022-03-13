@@ -1,7 +1,7 @@
 #include <GLES3/gl3.h>
 #include <assimp/cfileio.h>
 
-#include "custom_io.h"
+#include "ap_custom_io.h"
 #include "ap_utils.h"
 
 #ifdef LOG_TAG
