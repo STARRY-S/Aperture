@@ -16,28 +16,28 @@
 #include "cglm/call.h"
 
 enum AP_Camera_Movements {
-    AP_CAMERA_FORWARD,
-    AP_CAMERA_MOV_BACKWARD,
-    AP_CAMERA_MOV_LEFT,
-    AP_CAMERA_MOV_RIGHT,
-    AP_CAMERA_MOV_UP,
-    AP_CAMERA_MOV_DOWN
+        AP_CAMERA_FORWARD,
+        AP_CAMERA_MOV_BACKWARD,
+        AP_CAMERA_MOV_LEFT,
+        AP_CAMERA_MOV_RIGHT,
+        AP_CAMERA_MOV_UP,
+        AP_CAMERA_MOV_DOWN
 };
 
 struct AP_Camera {
-    int id;
+        int id;
 
-    vec3 position;
-    vec3 front;
-    vec3 up;
-    vec3 right;
-    vec3 worldUp;
+        vec3 position;
+        vec3 front;
+        vec3 up;
+        vec3 right;
+        vec3 worldUp;
 
-    float yaw;
-    float pitch;
-    float speed;
-    float sensitivity;
-    float zoom;
+        float yaw;
+        float pitch;
+        float speed;
+        float sensitivity;
+        float zoom;
 };
 
 int ap_camera_generate(unsigned int *camera_id);

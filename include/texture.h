@@ -1,5 +1,5 @@
-#ifndef GAME_ENGINE_TEXTURE_H
-#define GAME_ENGINE_TEXTURE_H
+#ifndef AP_TEXTURE_H
+#define AP_TEXTURE_H
 
 #include <GLES3/gl3.h>
 #include <GLES3/gl3ext.h>
@@ -12,9 +12,9 @@
 #include <stdbool.h>
 
 struct Texture {
-    unsigned int id;
-    char *type; // malloc, need free
-    char *path; // malloc, need free
+        unsigned int id;
+        char *type; // malloc, need free
+        char *path; // malloc, need free
 };
 
 /**
@@ -32,7 +32,11 @@ GLuint load_texture(const char *const path, int format);
  * @param gamma reserve
  * @return texture id, 0 if failed
  */
-unsigned int texture_from_file(const char *path, const char *directory, bool gamma);
+unsigned int texture_from_file(
+        const char *path,
+        const char *directory,
+        bool gamma
+);
 
 /**
  * Initialize texture struct object, set the memory data to zero
@@ -47,4 +51,4 @@ int texture_set_type(struct Texture *pTexture, const char *typeName);
 
 int texture_set_path(struct Texture *pTexture, const char *pathName);
 
-#endif //GAME_ENGINE_TEXTURE_H
+#endif // AP_TEXTURE_H

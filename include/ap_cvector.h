@@ -14,31 +14,31 @@
 #endif
 
 typedef enum {
-    AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
-    AP_VECTOR_VERTEX,           // Vertex vector
-    AP_VECTOR_TEXTURE,          // Texture vector
-    AP_VECTOR_MESH,             // Mesh vector
-    AP_VECTOR_MODEL,            // Model vector
-    AP_VECTOR_CAMERA,           // Camera vector
-    AP_VECTOR_CHAR,             // Char vector
-    AP_VECTOR_INT,              // Integer vector
-    AP_VECTOR_UINT,             // Unsigned int vector
-    AP_VECTOR_FLOAT,            // Float vector
-    AP_VECTOR_LENGTH            // never use this
+        AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
+        AP_VECTOR_VERTEX,           // Vertex vector
+        AP_VECTOR_TEXTURE,          // Texture vector
+        AP_VECTOR_MESH,             // Mesh vector
+        AP_VECTOR_MODEL,            // Model vector
+        AP_VECTOR_CAMERA,           // Camera vector
+        AP_VECTOR_CHAR,             // Char vector
+        AP_VECTOR_INT,              // Integer vector
+        AP_VECTOR_UINT,             // Unsigned int vector
+        AP_VECTOR_FLOAT,            // Float vector
+        AP_VECTOR_LENGTH            // never use this
 } AP_VECTOR_Types;
 
 /**
  * @brief AP_Vector defination
  */
 struct AP_Vector {
-    // number of elements
-    int length;
-    // total capacity
-    int capacity;
-    // vector type
-    int type;
-    // pointer points to data
-    char* data;
+        // number of elements
+        int length;
+        // total capacity
+        int capacity;
+        // vector type
+        int type;
+        // pointer points to data
+        char* data;
 };
 
 /**
@@ -71,6 +71,10 @@ int ap_vector_push_back(struct AP_Vector *pVector, const char* data);
  * @param size size of data (byte)
  * @return AP_Types
  */
-int ap_vector_insert_back(struct AP_Vector *pVector, char *pStart, size_t size);
+int ap_vector_insert_back(
+        struct AP_Vector *pVector,
+        char *pStart,
+        size_t size
+);
 
 #endif // AP_CVECTOR_H

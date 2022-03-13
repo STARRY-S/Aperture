@@ -1,5 +1,5 @@
-#ifndef GAME_ENGINE_MODEL_H
-#define GAME_ENGINE_MODEL_H
+#ifndef AP_MODEL_H
+#define AP_MODEL_H
 
 #include "ap_utils.h"
 #include "mesh.h"
@@ -7,12 +7,12 @@
 
 // Model struct object definition
 struct Model {
-    struct Texture *pTextureLoaded;
-    int iTextureLoadedLength;
-    struct Mesh *pMeshes;
-    int iMeshLength;
+        struct Texture *pTextureLoaded;
+        int iTextureLoadedLength;
+        struct Mesh *pMeshes;
+        int iMeshLength;
 
-    char *pDirectory;   // malloc, need free
+        char *pDirectory;   // malloc, need free
 };
 
 /**
@@ -24,7 +24,6 @@ struct Model {
  */
 int init_model(struct Model *pModel, const char *path, bool gamma);
 
-
 int draw_model(struct Model *pModel, unsigned int shader);
 
-#endif // GAME_ENGINE_MODEL_H
+#endif // AP_MODEL_H
