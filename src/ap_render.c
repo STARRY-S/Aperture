@@ -22,7 +22,7 @@ GLuint light_shader = 0;
 GLuint cube_shader = 0;
 GLuint light_cube_VAO = 0;
 GLuint VBO = 0;
-struct Model model;
+struct AP_Model model;
 
 vec3 light_position = { 3.0f, 3.0f, 3.0f };
 
@@ -61,6 +61,13 @@ int ap_render_general_initialize()
         glUseProgram(cube_shader);
         // nothing...
         glUseProgram(0);
+
+        #ifdef __ANDROID__
+        GLuint camera_id;
+        ap_camera_generate(&camera_id);
+        ap_camera_use(camera_id);
+        ap_camera_set_position(0.0f, 0.0f, 10.0f);
+        #endif
 
         // light cube initialize
         const float* cube_vertices = ap_get_default_cube_vertices();
@@ -155,7 +162,7 @@ int ap_render_main()
 
         ap_shader_set_int(light_shader, "optDepth", enable_mobile_type);
 
-        AP_CHECK( draw_model(&model, light_shader) );
+        AP_CHECK( ap_model_draw_ptr(&model, light_shader) );
 
         // render the lamp cube
         glUseProgram(cube_shader);

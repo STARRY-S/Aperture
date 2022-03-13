@@ -40,15 +40,15 @@ unsigned int ap_texture_from_file(
 
 /**
  * Initialize texture struct object, set the memory data to zero
- * @param pTexture
+ * @param texture
  * @return AP_Types
  */
-int ap_texture_init(struct AP_Texture *pTexture);
+int ap_texture_init(struct AP_Texture *texture);
 
 
-int ap_texture_set_type(struct AP_Texture *pTexture, const char *typeName);
+int ap_texture_set_type(struct AP_Texture *texture, const char *name);
 
 
-int ap_texture_set_path(struct AP_Texture *pTexture, const char *pathName);
+int ap_texture_set_path(struct AP_Texture *texture, const char *pathName);
 
 #endif // AP_TEXTURE_H

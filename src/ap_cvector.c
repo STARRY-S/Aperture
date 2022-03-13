@@ -33,7 +33,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 size = sizeof(struct AP_Mesh);
                 break;
                 case AP_VECTOR_MODEL:
-                size = sizeof(struct Model);
+                size = sizeof(struct AP_Model);
                 break;
                 case AP_VECTOR_CAMERA:
                 size = sizeof(struct AP_Camera);

@@ -159,9 +159,9 @@ int ap_texture_init(struct AP_Texture *texture)
         return 0;
 }
 
-int ap_texture_set_type(struct AP_Texture *texture, const char *typeName)
+int ap_texture_set_type(struct AP_Texture *texture, const char *name)
 {
-        if (texture == NULL || typeName == NULL) {
+        if (texture == NULL || name == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
@@ -170,8 +170,8 @@ int ap_texture_set_type(struct AP_Texture *texture, const char *typeName)
                 free(texture->type);
                 texture->type = NULL;
         }
-        texture->type = malloc(sizeof(char) * (strlen(typeName) + 1) );
-        strcpy(texture->type, typeName);
+        texture->type = malloc(sizeof(char) * (strlen(name) + 1) );
+        strcpy(texture->type, name);
         return 0;
 }
 

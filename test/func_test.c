@@ -6,8 +6,8 @@
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
-void print_mesh(struct AP_Mesh *pMesh);
-void print_model(struct Model *pModel);
+void print_mesh(struct AP_Mesh *mesh);
+void print_model(struct AP_Model *model);
 
 void print_vector(struct AP_Vector *vector)
 {
@@ -98,16 +98,16 @@ void print_mesh(struct AP_Mesh *p)
         printf("EBO: %u", p->EBO);
 }
 
-void print_model(struct Model *p)
+void print_model(struct AP_Model *p)
 {
         if (!p) {
                 return;
         }
-        printf("pTextureLoaded:       %p\n", p->pTextureLoaded);
-        printf("iTextureLoadedLength: %d\n", p->iTextureLoadedLength);
-        printf("pMeshes:              %p\n", p->pMeshes);
-        printf("iMeshLength:          %d\n", p->iMeshLength);
-        printf("pDirectory:           %p\n", p->pDirectory);
+        printf("texture:       %p\n", p->texture);
+        printf("texture_length: %d\n", p->texture_length);
+        printf("mesh:              %p\n", p->mesh);
+        printf("mesh_length:          %d\n", p->mesh_length);
+        printf("directory:           %p\n", p->directory);
 }
 
 void test_vector_char()

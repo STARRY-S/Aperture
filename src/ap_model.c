@@ -14,67 +14,78 @@
 
 /**
  * Load model from android asset manager.
- * @param pModel
- * @param path - file path
- * @param format - can be null or empty string
+ * @param model
+ * @param path file path
+ * @param format can be null or empty string
  * @return AP_Types
  */
-int ap_model_load(struct Model *pModel, const char *path);
+int ap_model_load(struct AP_Model *model, const char *path);
 
 /**
  * Process node
- * @param pModel
+ * @param model
  * @param node
  * @param scene
  * @return AP_Types
  */
-int ap_model_process_node(struct Model *pModel, struct aiNode *node, const struct aiScene *scene);
+int ap_model_process_node(
+        struct AP_Model *model,
+        struct aiNode *node,
+        const struct aiScene *scene
+);
 
 /**
  * Push a new texture struct object into model
- * @param pModel
- * @param pTexture
+ * @param model
+ * @param texture
  * @return AP_Types
  */
-int ap_model_texture_loaded_push_back(struct Model *pModel, struct AP_Texture *pTexture);
+int ap_model_texture_loaded_push_back(
+        struct AP_Model *model,
+        struct AP_Texture *texture
+);
 
 /**
  * Process mesh,
- * @param pModel
+ * @param model
  * @param mesh
  * @param scene
- * @return Pointer to a static mesh struct object, need call ap_mesh_free after use.
+ * @return Points to static mesh struct object, need ap_mesh_free after use.
  */
-struct AP_Mesh *ap_model_process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene);
+struct AP_Mesh *ap_model_process_mesh(
+        struct AP_Model *model,
+        struct aiMesh *mesh,
+        const struct aiScene *scene
+);
 
 /**
  * Push a new mesh struct object to model
- * @param pModel
- * @param pMesh
+ * @param model
+ * @param mesh
  * @return AP_Types
  */
-int ap_model_mesh_push_back(struct Model *pModel, struct AP_Mesh *pMesh);
+int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
 
 /**
  * checks all material textures of a given type and loads the textures
  * if they're not loaded yet. The required info is returned as a Texture struct.
- * @param pModel
+ * @param model
  * @param mat
  * @param type
- * @param typeName
+ * @param name
  * @return Pointer points to a static vector,
  *         need use ap_vector_free to free its data after use.
  */
 struct AP_Vector *ap_model_load_material_textures(
-    struct Model *pModel,
+    struct AP_Model *model,
     struct aiMaterial *mat,
     enum aiTextureType type,
-    const char* typeName
+    const char* name
 );
 
-int ap_model_init(struct Model *pModel, const char *path, bool gamma)
+int ap_model_init(struct AP_Model *model, const char *path, bool gamma)
 {
-        if (pModel == NULL) {
+        if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
@@ -88,21 +99,22 @@ int ap_model_init(struct Model *pModel, const char *path, bool gamma)
                 char *pDirPath = malloc(sizeof(char) * (iDirCharLocation + 2));
                 memcpy(pDirPath, path, (iDirCharLocation + 1) * sizeof(char));
                 pDirPath[iDirCharLocation + 1] = '\0';
-                pModel->pDirectory = pDirPath;
+                model->directory = pDirPath;
         }
 
-        return ap_model_load(pModel, path);
+        return ap_model_load(model, path);
 }
 
-int ap_model_load(struct Model *pModel, const char *path)
+int ap_model_load(struct AP_Model *model, const char *path)
 {
-        if (pModel == NULL) {
+        if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
         // Start the import on the given file with some example postprocessing
-        // Usually - if speed is not the most important aspect for you - you'll t
-        // probably to request more postprocessing than we do in this example.
+        // Usually if speed is not the most important aspect for you
+        // you'll probably to request more postprocessing
+        // than we do in this example.
 
         // custom file io for assimp
         struct aiFileIO fileIo;
@@ -117,14 +129,15 @@ int ap_model_load(struct Model *pModel, const char *path)
                 &fileIo
         );
 
-        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE
+           || !scene->mRootNode)
         {
-                LOGE("Assimp import failed: \n%s", aiGetErrorString());
+                LOGE("Assimp import failed: \n%s\n", aiGetErrorString());
                 return AP_ERROR_ASSIMP_IMPORT_FAILED;
         }
 
         // Now we can access the file's contents
-        AP_CHECK(ap_model_process_node(pModel, scene->mRootNode, scene));
+        AP_CHECK( ap_model_process_node(model, scene->mRootNode, scene) );
 
         // We're done. Release all resources associated with this import
         aiReleaseImport(scene);
@@ -132,38 +145,43 @@ int ap_model_load(struct Model *pModel, const char *path)
         return AP_ERROR_SUCCESS;
 }
 
-int ap_model_process_node(struct Model *pModel, struct aiNode *node, const struct aiScene *scene)
+int ap_model_process_node(
+        struct AP_Model *model,
+        struct aiNode *node,
+        const struct aiScene *scene)
 {
-        if (pModel == NULL || node == NULL || scene == NULL) {
+        if (model == NULL || node == NULL || scene == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
         // process each mesh located at the current node
-        for(unsigned int i = 0; i < node->mNumMeshes; i++)
+        for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
-                // the node object only contains indices to index the actual objects in the scene.
-                // the scene contains all the data, node is just to keep stuff organized
+                // the node object only contains indices to index the actual
+                // objects in the scene. the scene contains all the data,
+                // node is just to keep stuff organized
                 // (like relations between nodes).
                 struct aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-                struct AP_Mesh *pNewMesh = ap_model_process_mesh(pModel, mesh, scene);
-                ap_model_mesh_push_back(pModel, pNewMesh);
+                struct AP_Mesh *pNewMesh =
+                        ap_model_process_mesh(model, mesh, scene);
+                ap_model_mesh_push_back(model, pNewMesh);
                 ap_mesh_free(pNewMesh);
         }
 
         // after we've processed all of the meshes (if any)
         // we then recursively process each of the children nodes
-        for(unsigned int i = 0; i < node->mNumChildren; i++)
+        for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
-                ap_model_process_node(pModel, node->mChildren[i], scene);
+                ap_model_process_node(model, node->mChildren[i], scene);
         }
 
         return 0;
 }
 
-struct AP_Mesh *ap_model_process_mesh(struct Model *pModel,
+struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
                         struct aiMesh *mesh,
                         const struct aiScene *scene)
 {
-        if (pModel == NULL || mesh == NULL || scene == NULL) {
+        if (model == NULL || mesh == NULL || scene == NULL) {
                 return NULL;
         }
         // data to fill
@@ -176,7 +194,7 @@ struct AP_Mesh *ap_model_process_mesh(struct Model *pModel,
         ap_vector_init(&vecTextures, AP_VECTOR_TEXTURE);
 
         // walk through each of the mesh's vertices
-        for(unsigned int i = 0; i < mesh->mNumVertices; i++)
+        for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
                 struct AP_Vertex vertex;
                 // positions
@@ -220,7 +238,7 @@ struct AP_Mesh *ap_model_process_mesh(struct Model *pModel,
         }
         // now wak through each of the mesh's faces
         // (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-        for(unsigned int i = 0; i < mesh->mNumFaces; i++)
+        for (unsigned int i = 0; i < mesh->mNumFaces; i++)
         {
                 struct aiFace face = mesh->mFaces[i];
                 // retrieve all indices of the face and store them in the indices vector
@@ -244,40 +262,62 @@ struct AP_Mesh *ap_model_process_mesh(struct Model *pModel,
         size_t size = sizeof(struct AP_Texture);
         struct AP_Vector *pVecDiffuseMaps = NULL;
         pVecDiffuseMaps = ap_model_load_material_textures(
-                pModel, material, aiTextureType_DIFFUSE, "texture_diffuse"
+                model, material, aiTextureType_DIFFUSE, "texture_diffuse"
         );
-        ap_vector_insert_back(&vecTextures, pVecDiffuseMaps->data, size * pVecDiffuseMaps->length);
+        ap_vector_insert_back(
+                &vecTextures,
+                pVecDiffuseMaps->data,
+                size * pVecDiffuseMaps->length
+        );
         ap_vector_free(pVecDiffuseMaps);
 
         // 2. specular maps
         struct AP_Vector *pVecSpecularMaps = NULL;
         pVecSpecularMaps = ap_model_load_material_textures(
-                pModel, material, aiTextureType_SPECULAR, "texture_specular"
+                model, material, aiTextureType_SPECULAR, "texture_specular"
         );
-        ap_vector_insert_back(&vecTextures, pVecSpecularMaps->data, size * pVecSpecularMaps->length);
+        ap_vector_insert_back(
+                &vecTextures,
+                pVecSpecularMaps->data,
+                size * pVecSpecularMaps->length
+        );
         ap_vector_free(pVecSpecularMaps);
 
         // 3. normal maps
         struct AP_Vector *pVecNormalMaps = NULL;
         pVecNormalMaps = ap_model_load_material_textures(
-                pModel, material, aiTextureType_HEIGHT, "texture_normal"
+                model, material, aiTextureType_HEIGHT, "texture_normal"
         );
-        ap_vector_insert_back(&vecTextures, pVecNormalMaps->data, size * pVecNormalMaps->length);
+        ap_vector_insert_back(
+                &vecTextures,
+                pVecNormalMaps->data,
+                size * pVecNormalMaps->length
+        );
         ap_vector_free(pVecNormalMaps);
 
         // 4. height maps
         struct AP_Vector *pVecHeightMaps;
         pVecHeightMaps = ap_model_load_material_textures(
-                pModel, material, aiTextureType_AMBIENT, "texture_height"
+                model, material, aiTextureType_AMBIENT, "texture_height"
         );
-        ap_vector_insert_back(&vecTextures, pVecHeightMaps->data, size * pVecHeightMaps->length);
+        ap_vector_insert_back(
+                &vecTextures,
+                pVecHeightMaps->data,
+                size * pVecHeightMaps->length
+        );
         ap_vector_free(pVecHeightMaps);
 
         // return a mesh object created from the extracted mesh data
         static struct AP_Mesh sMeshBuffer;
-        ap_mesh_init(&sMeshBuffer, (struct AP_Vertex *) vecVertices.data, vecVertices.length,
-                (unsigned int *) vecIndices.data, vecIndices.length,
-                (struct AP_Texture *) vecTextures.data, vecTextures.length);
+        ap_mesh_init(
+                &sMeshBuffer,
+                (struct AP_Vertex *) vecVertices.data,
+                vecVertices.length,
+                (unsigned int *) vecIndices.data,
+                vecIndices.length,
+                (struct AP_Texture *) vecTextures.data,
+                vecTextures.length
+        );
         ap_vector_free(&vecVertices);
         ap_vector_free(&vecIndices);
         ap_vector_free(&vecTextures);
@@ -285,108 +325,125 @@ struct AP_Mesh *ap_model_process_mesh(struct Model *pModel,
         return &sMeshBuffer;
 }
 
-struct AP_Vector *ap_model_load_material_textures(struct Model *pModel, struct aiMaterial *mat,
-        enum aiTextureType type, const char* typeName)
+struct AP_Vector *ap_model_load_material_textures(
+        struct AP_Model *model,
+        struct aiMaterial *mat,
+        enum aiTextureType type,
+        const char* name)
 {
-        static struct AP_Vector sVecTextures;
-        ap_vector_init(&sVecTextures, AP_VECTOR_TEXTURE);
-        struct AP_Vector *pVecTextures = &sVecTextures;
-        if (pVecTextures == NULL) {
-                return NULL;
-        }
+        static struct AP_Vector vec_texture;
+        ap_vector_init(&vec_texture, AP_VECTOR_TEXTURE);
 
-        unsigned int uMaterialTextureCount = aiGetMaterialTextureCount(mat, type);
-        for(unsigned int i = 0; i < uMaterialTextureCount; i++)
+        GLuint mat_texture_count = aiGetMaterialTextureCount(mat, type);
+        for (GLuint i = 0; i < mat_texture_count; i++)
         {
                 struct aiString str;
-                aiGetMaterialTexture(mat, type, i, &str,
-                NULL, NULL, NULL, NULL, NULL, NULL);
+                aiGetMaterialTexture(
+                        mat, type, i, &str,
+                        NULL, NULL, NULL, NULL, NULL, NULL
+                );
                 // check if texture was loaded before and if so,
                 // continue to next iteration: skip loading a new texture
                 bool skip = false;
-                for(unsigned int j = 0; j < pModel->iTextureLoadedLength; j++)
+                for(GLuint j = 0; j < model->texture_length; j++)
                 {
-                // a texture with the same filepath has already been loaded,
-                // continue to next one. (optimization)
-                if(strcmp(pModel->pTextureLoaded[j].path, str.data) == 0)
-                {
-                        ap_vector_push_back(pVecTextures, (const char *) &pModel->pTextureLoaded[j]);
-                        skip = true;
-                        break;
-                }
+                        // skip the texture already loaded
+                        if(strcmp(model->texture[j].path, str.data) == 0)
+                        {
+                                ap_vector_push_back(
+                                        &vec_texture,
+                                        (const char *) &model->texture[j]
+                                );
+                                skip = true;
+                                break;
+                        }
                 }
                 if(!skip)
                 {
-                // if texture hasn't been loaded already, load it
-                struct AP_Texture texture;
-                memset(&texture, 0, sizeof(texture));
-                texture.id = ap_texture_from_file(str.data, pModel->pDirectory, false);
+                        struct AP_Texture texture;
+                        memset(&texture, 0, sizeof(texture));
+                        texture.id = ap_texture_from_file(
+                                str.data,
+                                model->directory,
+                                false
+                        );
 
-                ap_texture_set_path(&texture, str.data);
-                ap_texture_set_type(&texture, typeName);
+                        ap_texture_set_path(&texture, str.data);
+                        ap_texture_set_type(&texture, name);
 
-                // store it as texture loaded for entire model,
-                // to ensure we won't unnecessary load duplicate textures.
-                ap_vector_push_back(pVecTextures, (const char*) &texture);
-                AP_CHECK(ap_model_texture_loaded_push_back(pModel, &texture));
+                        // store it as texture loaded for entire model,
+                        // ensure we won't unnecessary load duplicate textures.
+                        ap_vector_push_back(
+                                &vec_texture,
+                                (const char*) &texture
+                        );
+                        AP_CHECK(
+                                ap_model_texture_loaded_push_back(
+                                        model,
+                                        &texture
+                                )
+                        );
                 }
         }
-        return pVecTextures;
+        return &vec_texture;
 }
 
-int ap_model_texture_loaded_push_back(struct Model *pModel, struct AP_Texture *pTexture)
+int ap_model_texture_loaded_push_back(
+        struct AP_Model *model,
+        struct AP_Texture *texture)
 {
-        if (pModel == NULL || pTexture == NULL) {
+        if (model == NULL || texture == NULL) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
         // add a new texture struct object into model
-        pModel->pTextureLoaded = realloc(pModel->pTextureLoaded,
-                        sizeof(struct AP_Texture) * (pModel->iTextureLoadedLength + 1));
-        if (pModel->pTextureLoaded == NULL) {
+        model->texture = realloc(model->texture,
+                sizeof(struct AP_Texture) * (model->texture_length + 1));
+        if (model->texture == NULL) {
                 LOGE("Realloc error.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        struct AP_Texture *pNewTexture = pModel->pTextureLoaded + (pModel->iTextureLoadedLength);
-        pModel->iTextureLoadedLength++;
+        struct AP_Texture *pNewTexture =
+                model->texture + (model->texture_length);
+        model->texture_length++;
         ap_texture_init(pNewTexture);
-        ap_texture_set_type(pNewTexture, pTexture->type);
-        ap_texture_set_path(pNewTexture, pTexture->path);
-        pNewTexture->id = pTexture->id;
+        ap_texture_set_type(pNewTexture, texture->type);
+        ap_texture_set_path(pNewTexture, texture->path);
+        pNewTexture->id = texture->id;
 
         return 0;
 }
 
-int ap_model_mesh_push_back(struct Model *pModel, struct AP_Mesh *pMesh)
+int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
 {
-        if (pModel == NULL || pMesh == NULL) {
+        if (model == NULL || mesh == NULL) {
                 LOGE("Model mesh push back param error.");
                 return AP_ERROR_INVALID_POINTER;
         }
 
         // add a new mesh struct object into model
-        pModel->pMeshes = realloc(pModel->pMeshes,
-                                sizeof(struct AP_Mesh) * (pModel->iMeshLength + 1));
-        if (pModel->pMeshes == NULL) {
+        model->mesh = realloc(model->mesh,
+                                sizeof(struct AP_Mesh) * (model->mesh_length + 1));
+        if (model->mesh == NULL) {
                 LOGE("Realloc error.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        struct AP_Mesh *pNewMesh = &pModel->pMeshes[pModel->iMeshLength];
-        pModel->iMeshLength++;
+        struct AP_Mesh *pNewMesh = &model->mesh[model->mesh_length];
+        model->mesh_length++;
         // copy old mesh data memory to new mesh
-        ap_mesh_copy(pNewMesh, pMesh);
+        ap_mesh_copy(pNewMesh, mesh);
 
         return 0;
 }
 
-int draw_model(struct Model *pModel, unsigned int shader)
+int ap_model_draw_ptr(struct AP_Model *model, unsigned int shader)
 {
-        if (pModel == NULL) {
+        if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
-        for (int i = 0; i < pModel->iMeshLength; ++i) {
-                ap_mesh_draw(&pModel->pMeshes[i], shader);
+        for (int i = 0; i < model->mesh_length; ++i) {
+                ap_mesh_draw(&model->mesh[i], shader);
         }
 
         return 0;

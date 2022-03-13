@@ -6,13 +6,12 @@
 #include "ap_cvector.h"
 
 // Model struct object definition
-struct Model {
-        struct AP_Texture *pTextureLoaded;
-        int iTextureLoadedLength;
-        struct AP_Mesh *pMeshes;
-        int iMeshLength;
-
-        char *pDirectory;   // malloc, need free
+struct AP_Model {
+        struct AP_Texture *texture;
+        int texture_length;
+        struct AP_Mesh *mesh;
+        int mesh_length;
+        char *directory;   // malloc, need free
 };
 
 /**
@@ -22,8 +21,8 @@ struct Model {
  * @param gamma - default to null
  * @return AP_Types
  */
-int ap_model_init(struct Model *pModel, const char *path, bool gamma);
+int ap_model_init(struct AP_Model *model, const char *path, bool gamma);
 
-int draw_model(struct Model *pModel, unsigned int shader);
+int ap_model_draw_ptr(struct AP_Model *model, unsigned int shader);
 
 #endif // AP_MODEL_H
