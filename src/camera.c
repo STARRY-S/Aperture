@@ -1,6 +1,6 @@
 #include "camera.h"
 #include "cvector.h"
-#include "ge_utils.h"
+#include "ap_utils.h"
 
 static struct AP_Vector camera_vector = { 0, 0, 0, 0 };
 static struct AP_Camera *camera_using = NULL;
@@ -70,19 +70,10 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
     camera->sensitivity = 0.05f;
     camera->zoom = 45.0f;
 
-    // ap_camera_set_position(0.0f, 0.0f, 10.0f);
-    // ap_camera_set_front(0.0f, 0.0f, -1.0f);
-    // ap_camera_set_up(0.0f, 1.0f, 0.0f);
-    // ap_camera_set_yaw(-90.0f);
-    // ap_camera_set_pitch(0.0f);
-    // ap_camera_set_speed(2.5f);
-    // ap_camera_set_sensitivity(0.05f);
-    // ap_camera_set_zoom(45.0f);
-
     return 0;
 }
 
-int ap_camera_finalize()
+int ap_camera_free()
 {
     camera_using = NULL;    // for safety purpose
     ap_vector_free(&camera_vector);

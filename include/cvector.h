@@ -7,7 +7,7 @@
 #ifndef AP_CVECTOR_H
 #define AP_CVECTOR_H
 
-#include "ge_utils.h"
+#include "ap_utils.h"
 
 #ifndef AP_VECTOR_DEFAULT_CAPACITY
 #define AP_VECTOR_DEFAULT_CAPACITY 8

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #include "shader.h"
-#include "ge_utils.h"
+#include "ap_utils.h"
 
 // Compile shader
 GLuint make_shader(

@@ -2,7 +2,7 @@
 #include <assimp/cfileio.h>
 
 #include "renderer.h"
-#include "ge_utils.h"
+#include "ap_utils.h"
 #include "camera.h"
 #include "shader.h"
 #include "texture.h"
@@ -21,7 +21,6 @@ bool first_mouse = true;
 GLuint light_shader = 0;
 GLuint cube_shader = 0;
 GLuint light_cube_VAO = 0;
-GLuint main_camera_id = 0;
 GLuint VBO = 0;
 struct Model model;
 
@@ -39,11 +38,6 @@ int ap_render_general_initialize()
         "glsl/cube_light.vs.glsl",
         "glsl/cube_light.fs.glsl"
     );
-
-    // camera
-    ap_camera_generate(&main_camera_id);
-    ap_camera_use(main_camera_id);
-    ap_camera_set_position(0.0f, 0.0f, 10.0f);
 
     // TODO: Seperate the light setup param in individual function
     vec3 light_ambient = { 0.80f, 0.80f, 0.80f };
@@ -180,7 +174,7 @@ int ap_render_main()
 
 int ap_render_finish()
 {
-    ap_camera_finalize();
+    ap_camera_free();
     glDeleteVertexArrays(1, &light_cube_VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteProgram(cube_shader);

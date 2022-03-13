@@ -2,9 +2,11 @@
 #include <GLFW/glfw3.h>
 
 #include "main.h"
-#include "ge_utils.h"
+#include "ap_utils.h"
 #include "renderer.h"
 #include "camera.h"
+
+#define AP_DEMO_CAMERA_NUMBER 5
 
 void key_callback(
     GLFWwindow *window, int key, int s, int action, int mods
@@ -29,12 +31,14 @@ void processInput(GLFWwindow *window);
 const GLFWvidmode* mode;
 
 float deltaTime = 0.0f; // delta time between last frame time
-float lastFrame = 0.0f; // last frame time
+float last_frame_time = 0.0f; // last frame time
 
 float last_x = 400, last_y = 300;
 bool first_mouse = true;
 bool fullScreenMode = false;
 bool left_button_pressed = false;
+GLuint camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
+int camera_use_id = 0;
 
 int main(int argc, char **argv)
 {
@@ -99,12 +103,19 @@ int main(int argc, char **argv)
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
-    // glfwSetCursorPosCallback(window, mouse_cursor_callback);
     glfwSetKeyCallback(window, key_callback);
     // glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Setup GameEngine
     ap_render_general_initialize();
+    // camera
+    for (int i = 0; i < AP_DEMO_CAMERA_NUMBER; ++i) {
+        ap_camera_generate(&camera_ids[i]);
+        ap_camera_use(camera_ids[i]);
+        ap_camera_set_position(0.0f, (float) i, 10.0f);
+    }
+
+    ap_camera_use(camera_ids[camera_use_id]);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -112,9 +123,9 @@ int main(int argc, char **argv)
         processInput(window);
 
         // time
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        float current_frame_time = glfwGetTime();
+        deltaTime = current_frame_time - last_frame_time;
+        last_frame_time = current_frame_time;
 
         // GameEngine main renderer
         ap_render_main();
@@ -136,13 +147,18 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
     }
 
     if (key == GLFW_KEY_Q && action == GLFW_PRESS) {
-            glfwSetWindowShouldClose(window, GL_TRUE);
+        glfwSetWindowShouldClose(window, GL_TRUE);
     }
 
-    // if (key == GLFW_KEY_C && action == GLFW_PRESS) {
-    //    textureNum += 1;
-    //    textureNum %= 10;
-    // }
+    if (key == GLFW_KEY_C && action == GLFW_PRESS) {
+        if (camera_use_id >= 0 && camera_use_id < AP_DEMO_CAMERA_NUMBER - 1) {
+            ap_camera_use(camera_ids[++camera_use_id]);
+        } else {
+            camera_use_id = 0;
+            ap_camera_use(camera_ids[camera_use_id]);
+        }
+        LOGI("Use camera: %u\n", camera_ids[camera_use_id]);
+    }
 }
 void processInput(GLFWwindow *window)
 {

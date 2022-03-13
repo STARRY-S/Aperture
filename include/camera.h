@@ -43,7 +43,7 @@ struct AP_Camera {
 int ap_camera_generate(unsigned int *camera_id);
 int ap_camera_use(unsigned int camera_id);
 int ap_camera_init_default();
-int ap_camera_finalize();
+int ap_camera_free();
 
 int ap_camera_get_view_matrix(mat4 *temp);
 int ap_camera_get_position(float *vec);
