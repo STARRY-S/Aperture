@@ -7,17 +7,15 @@
 #include "shader.h"
 #include "ap_utils.h"
 
-// Compile shader
-GLuint make_shader(
+GLuint ap_compile_shader(
     GLenum type,
-    const char *const shader_path,
     const char *const shader_src)
 {
         GLuint shader = 0;
         GLint compiled = 0;
 
         if (!(shader = glCreateShader(type))) {
-                LOGE("Shader Create Error, type %d.\n", type);
+                LOGE("glCreateShader failed, type %d.\n", type);
                 return 0;
         }
 
@@ -30,12 +28,12 @@ GLuint make_shader(
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
                 char *info = (char*) malloc(info_len);
                 if (info == NULL) {
-                LOGE("Malloc error.\n");
-                glDeleteShader(shader);
-                return 0;
+                        LOGE("Malloc error.\n");
+                        glDeleteShader(shader);
+                        return 0;
                 }
                 glGetShaderInfoLog(shader, info_len, NULL, info);
-                LOGE("Shader [%s] Compile Error: \n%s\n", shader_path, info);
+                LOGE("Compiled Error: \n%s\n", info);
                 free(info);
                 return 0;
         }
@@ -50,14 +48,18 @@ GLuint load_shader(GLenum type, const char *const shader_path)
         char *pBuffer = NULL;
 
         #ifdef __ANDROID__
-        AAssetManager *pLocalAAsetManager
-                = (AAssetManager *) ap_get_local_asset_manager();
+        AAssetManager *pLocalAAsetManager =
+                (AAssetManager *) ap_get_aaset_manager();
         if (!pLocalAAsetManager) {
                 LOGE("pLocalAAsetManager is NULL, failed to read file.\n");
                 return 0;
         }
         AAsset *mAsset = NULL;
-        mAsset = AAssetManager_open(pLocalAAsetManager, shader_path, AASSET_MODE_UNKNOWN);
+        mAsset = AAssetManager_open(
+                pLocalAAsetManager,
+                shader_path,
+                AASSET_MODE_UNKNOWN
+        );
         if (mAsset == NULL) {
                 LOGE("Read Text Failed: %s", shader_path);
                 return 0;
@@ -103,7 +105,10 @@ GLuint load_shader(GLenum type, const char *const shader_path)
         #endif  // NOT ANDROID
 
         pBuffer[length] = '\0';
-        result = make_shader(type, shader_path, pBuffer);
+        result = ap_compile_shader(type, pBuffer);
+        if (result == 0) {
+                LOGE("Shader file [%s] compiled failed.\n", shader_path);
+        }
         free(pBuffer);
         return result;
 }

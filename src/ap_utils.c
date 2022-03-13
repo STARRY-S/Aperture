@@ -28,59 +28,59 @@ static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
 
 #ifdef __ANDROID__
 
-static AAssetManager *pLocalAAsetManager = NULL;
-static char sMobileName[AP_DEFAULT_BUFFER_SIZE] = { 0 };
+static AAssetManager *local_aaset_manager = NULL;
+static char mobile_name[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
-void *ap_get_local_asset_manager()
+void *ap_get_aaset_manager()
 {
-        return (void*) pLocalAAsetManager;
+        return (void*) local_aaset_manager;
 }
 
-int ap_set_local_asset_manager(void *pVoid)
+int ap_set_aaset_manager(void *p_void)
 {
-        if (!pVoid) {
-                LOGE("ap_set_local_asset_manager ERROR: NULL");
-                pLocalAAsetManager = NULL;
+        if (!p_void) {
+                LOGE("ap_set_aaset_manager ERROR: NULL");
+                local_aaset_manager = NULL;
                 return AP_ERROR_INVALID_POINTER;
         }
 
-        struct AAssetManager *pManager = (struct AAssetManager*) pVoid;
-        if (pLocalAAsetManager == NULL) {
-                pLocalAAsetManager = pManager;
+        struct AAssetManager *manager = (struct AAssetManager*) p_void;
+        if (local_aaset_manager == NULL) {
+                local_aaset_manager = manager;
         } else {
                 LOGI("Replace Local AAsetManager Pointer");
-                pLocalAAsetManager = pManager;
+                local_aaset_manager = manager;
         }
         return 0;
 }
 
-int ap_set_mobile_name(const char *pName)
+int ap_set_mobile_name(const char *name)
 {
-        if (pName == NULL) {
+        if (name == NULL) {
                 LOGE("ap_set_mobile_name ERROR: NULL");
                 return AP_ERROR_INVALID_POINTER;
         }
 
-        strncpy(sMobileName, pName, AP_DEFAULT_BUFFER_SIZE);
-        sMobileName[AP_DEFAULT_BUFFER_SIZE - 1] = '0';
+        strncpy(mobile_name, name, AP_DEFAULT_BUFFER_SIZE);
+        mobile_name[AP_DEFAULT_BUFFER_SIZE - 1] = '0';
 
         return 0;
 }
 
 const char* ap_get_mobile_name()
 {
-        return sMobileName;
+        return mobile_name;
 }
 
-int ap_get_mobile_type(const char *pMobileName)
+int ap_get_mobile_type(const char *name)
 {
-        if (pMobileName == NULL) {
+        if (name == NULL) {
                 LOGE("ap_get_mobile_type Failed: NULL");
                 return 0;
         }
         for (int i = 0; i < AP_MOBILE_LENGTH; ++i) {
-                if (strstr(pMobileName, AP_MOBILE_NAME[i]) != NULL) {
-                return i;
+                if (strstr(name, AP_MOBILE_NAME[i]) != NULL) {
+                        return i;
                 }
         }
         return 0;

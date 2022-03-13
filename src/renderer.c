@@ -7,7 +7,7 @@
 #include "shader.h"
 #include "texture.h"
 #include "model.h"
-#include "mesh.h"
+#include "ao_mesh.h"
 #include "ap_custom_io.h"
 
 #define MODEL_FILE_NAME "backpack/backpack.obj"

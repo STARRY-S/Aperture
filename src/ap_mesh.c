@@ -4,7 +4,7 @@
 
 #include <GLES3/gl3.h>
 
-#include "mesh.h"
+#include "ao_mesh.h"
 #include "ap_utils.h"
 #include "shader.h"
 #include "texture.h"

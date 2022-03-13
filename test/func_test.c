@@ -1,27 +1,27 @@
 #include "func_test.h"
 #include "ap_cvector.h"
 #include "vertex.h"
-#include "mesh.h"
+#include "ao_mesh.h"
 #include "model.h"
 
-void printVector(struct AP_Vector *pVector);
-void printVertex(struct Vertex *pVertex);
-void printMesh(struct Mesh *pMesh);
-void printModel(struct Model *pModel);
+void print_vector(struct AP_Vector *vector);
+void print_vertex(struct Vertex *pVertex);
+void print_mesh(struct Mesh *pMesh);
+void print_model(struct Model *pModel);
 
-void printVector(struct AP_Vector *pVector)
+void print_vector(struct AP_Vector *vector)
 {
-        if (!pVector) {
+        if (!vector) {
                 return;
         }
 
-        printf("current length:   %d\n", pVector->length);
-        printf("current capacity: %d\n", pVector->capacity);
-        printf("current type:     %d\n", pVector->type);
-        printf("current pdata:    %p\n", pVector->data);
+        printf("current length:   %d\n", vector->length);
+        printf("current capacity: %d\n", vector->capacity);
+        printf("current type:     %d\n", vector->type);
+        printf("current pdata:    %p\n", vector->data);
         printf("current data: ");
 
-        switch (pVector->type)
+        switch (vector->type)
         {
         case AP_VECTOR_VERTEX:
                 break;
@@ -32,29 +32,29 @@ void printVector(struct AP_Vector *pVector)
         case AP_VECTOR_MODEL:
                 break;
         case AP_VECTOR_CHAR:
-                for (int i = 0; i < pVector->length; ++i) {
-                char *p = (char*) pVector->data;
+                for (int i = 0; i < vector->length; ++i) {
+                char *p = (char*) vector->data;
                 printf("%c ", p[i]);
                 }
                 printf("\n");
                 break;
         case AP_VECTOR_INT:
-                for (int i = 0; i < pVector->length; ++i) {
-                int *p = (int*) pVector->data;
+                for (int i = 0; i < vector->length; ++i) {
+                int *p = (int*) vector->data;
                 printf("%d ", p[i]);
                 }
                 printf("\n");
                 break;
         case AP_VECTOR_UINT:
-                for (int i = 0; i < pVector->length; ++i) {
-                unsigned int *p = (unsigned *) pVector->data;
+                for (int i = 0; i < vector->length; ++i) {
+                unsigned int *p = (unsigned *) vector->data;
                 printf("%u ", p[i]);
                 }
                 printf("\n");
                 break;
         case AP_VECTOR_FLOAT:
-                for (int i = 0; i < pVector->length; ++i) {
-                float *p = (float*) pVector->data;
+                for (int i = 0; i < vector->length; ++i) {
+                float *p = (float*) vector->data;
                 printf("%.2f ", p[i]);
                 }
                 printf("\n");
@@ -66,7 +66,7 @@ void printVector(struct AP_Vector *pVector)
         printf("\n");
 }
 
-void printVertex(struct Vertex *p)
+void print_vertex(struct Vertex *p)
 {
         if (!p) {
                 return;
@@ -81,7 +81,7 @@ void printVertex(struct Vertex *p)
         // mWeights
 }
 
-void printMesh(struct Mesh *p)
+void print_mesh(struct Mesh *p)
 {
         if (!p) {
                 return;
@@ -98,7 +98,7 @@ void printMesh(struct Mesh *p)
         printf("EBO: %u", p->EBO);
 }
 
-void printModel(struct Model *p)
+void print_model(struct Model *p)
 {
         if (!p) {
                 return;
@@ -114,38 +114,38 @@ void vectorCharTest()
 {
         LOGI("-------AP_Vector Char test-------\n");
 
-        struct AP_Vector *pVector;
-        pVector = malloc( sizeof(struct AP_Vector) );
+        struct AP_Vector *vector;
+        vector = malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_CHAR\n");
-        ap_vector_init(pVector, AP_VECTOR_CHAR);
+        ap_vector_init(vector, AP_VECTOR_CHAR);
         LOGI("Finished init vector\n");
 
         LOGI("Push data A - Z into vector\n");
         for (char c = 'A'; c <= 'Z'; c++) {
-                ap_vector_push_back(pVector, &c);
+                ap_vector_push_back(vector, &c);
         }
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Push data a - g into vector\n");
-        ap_vector_insert_back(pVector, "abcdefghijklmnopqrstuvwxyz", 26);
+        ap_vector_insert_back(vector, "abcdefghijklmnopqrstuvwxyz", 26);
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start free vector\n");
-        ap_vector_free(pVector);
+        ap_vector_free(vector);
         LOGI("Finished free vector\n");
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR\n");
-        ap_vector_init(pVector, AP_VECTOR_INT);
+        ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector\n");
 
-        free(pVector);
-        pVector = NULL;
+        free(vector);
+        vector = NULL;
 
         printf("------AP_Vector test finished--------\n\n");
 }
@@ -154,41 +154,41 @@ void vectorFloatTest()
 {
         LOGI("-------AP_Vector Float test-------\n");
 
-        struct AP_Vector *pVector;
-        pVector = malloc( sizeof(struct AP_Vector) );
+        struct AP_Vector *vector;
+        vector = malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_FLOAT\n");
-        ap_vector_init(pVector, AP_VECTOR_FLOAT);
+        ap_vector_init(vector, AP_VECTOR_FLOAT);
         LOGI("Finished init vector\n");
 
         LOGI("Push data 1.0f - 10.0f into vector\n");
         for (float f = 1.0f; (11.0f - f ) > 0.001f ; f += 1.0f) {
-                ap_vector_push_back(pVector, (char*) &f);
+                ap_vector_push_back(vector, (char*) &f);
         }
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Push data 11.0f-20.0f into vector\n");
         float fArray[10] = {
                 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f,
                 19.0f, 20.0f};
-        ap_vector_insert_back(pVector, (char*) &fArray, 10 * sizeof(float));
+        ap_vector_insert_back(vector, (char*) &fArray, 10 * sizeof(float));
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start free vector\n");
-        ap_vector_free(pVector);
+        ap_vector_free(vector);
         LOGI("Finished free vector\n");
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR\n");
-        ap_vector_init(pVector, AP_VECTOR_INT);
+        ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector\n");
 
-        free(pVector);
-        pVector = NULL;
+        free(vector);
+        vector = NULL;
 
         printf("------AP_Vector float finished--------\n\n");
 }
@@ -197,39 +197,39 @@ void vectorUIntTest()
 {
         LOGI("-------AP_Vector UINT test-------\n");
 
-        struct AP_Vector *pVector;
-        pVector = malloc( sizeof(struct AP_Vector) );
+        struct AP_Vector *vector;
+        vector = malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT\n");
-        ap_vector_init(pVector, AP_VECTOR_UINT);
+        ap_vector_init(vector, AP_VECTOR_UINT);
         LOGI("Finished init vector\n");
 
         LOGI("Push data 1 - 10 into vector\n");
         for (unsigned u = 1; u <= 10 ; u += 1) {
-                ap_vector_push_back(pVector, (char*) &u);
+                ap_vector_push_back(vector, (char*) &u);
         }
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Push data 11 - 20 into vector\n");
         unsigned uArray[10] = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-        ap_vector_insert_back(pVector, (char*) &uArray, 10 * sizeof(unsigned));
+        ap_vector_insert_back(vector, (char*) &uArray, 10 * sizeof(unsigned));
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start free vector\n");
-        ap_vector_free(pVector);
+        ap_vector_free(vector);
         LOGI("Finished free vector\n");
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR\n");
-        ap_vector_init(pVector, AP_VECTOR_INT);
+        ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector\n");
 
-        free(pVector);
-        pVector = NULL;
+        free(vector);
+        vector = NULL;
 
         printf("------AP_Vector UINT finished--------\n\n");
 }
@@ -238,39 +238,39 @@ void vectorIntTest()
 {
         LOGI("-------AP_Vector INT test-------\n");
 
-        struct AP_Vector *pVector;
-        pVector = malloc( sizeof(struct AP_Vector) );
+        struct AP_Vector *vector;
+        vector = malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT\n");
-        ap_vector_init(pVector, AP_VECTOR_UINT);
+        ap_vector_init(vector, AP_VECTOR_UINT);
         LOGI("Finished init vector\n");
 
         LOGI("Push data 1 - 10 into vector\n");
         for (int u = 1; u <= 10 ; u += 1) {
-                ap_vector_push_back(pVector, (char*) &u);
+                ap_vector_push_back(vector, (char*) &u);
         }
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Push data 11 - 20 into vector\n");
         int uArray[10] = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-        ap_vector_insert_back(pVector, (char*) &uArray, 10 * sizeof(int));
+        ap_vector_insert_back(vector, (char*) &uArray, 10 * sizeof(int));
         LOGI("Push finished\n");
 
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start free vector\n");
-        ap_vector_free(pVector);
+        ap_vector_free(vector);
         LOGI("Finished free vector\n");
-        printVector(pVector);
+        print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR\n");
-        ap_vector_init(pVector, AP_VECTOR_INT);
+        ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector\n");
 
-        free(pVector);
-        pVector = NULL;
+        free(vector);
+        vector = NULL;
 
         printf("------AP_Vector INT finished--------\n\n");
 }

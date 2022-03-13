@@ -43,36 +43,36 @@ struct AP_Vector {
 
 /**
  * @brief vector initialize
- * @param pVector pointer points to vector struct object
- * @param iVectorType AP_VECTOR_Types
+ * @param vector pointer points to vector struct object
+ * @param vector_type AP_VECTOR_Types
  * @return int GE_Types
  */
-int ap_vector_init(struct AP_Vector *pVector, int iVectorType);
+int ap_vector_init(struct AP_Vector *vector, int vector_type);
 
 /**
  * @brief Release the memory allocated by vector
- * @param pVector
+ * @param vector
  * @return - AP_Types
  */
-int ap_vector_free(struct AP_Vector *pVector);
+int ap_vector_free(struct AP_Vector *vector);
 
 /**
  * @brief Append one data to the back of the vector.
- * @param pVector
+ * @param vector
  * @param data - char* , pointer points to the data,
  * @return AP_Types
  */
-int ap_vector_push_back(struct AP_Vector *pVector, const char* data);
+int ap_vector_push_back(struct AP_Vector *vector, const char* data);
 
 /**
  * @brief Insert data at the end of vector
- * @param pVector
+ * @param vector
  * @param pStart pointer points to data
  * @param size size of data (byte)
  * @return AP_Types
  */
 int ap_vector_insert_back(
-        struct AP_Vector *pVector,
+        struct AP_Vector *vector,
         char *pStart,
         size_t size
 );

@@ -32,7 +32,7 @@ JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_setNativeAssetManager(JNIEnv *env, jclass clazz,
                                                                 jobject asset_manager) {
         AAssetManager *manager = AAssetManager_fromJava(env, asset_manager);
-        ap_set_local_asset_manager(manager);
+        ap_set_aaset_manager(manager);
 }
 
 JNIEXPORT void JNICALL

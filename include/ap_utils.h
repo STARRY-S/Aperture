@@ -12,15 +12,14 @@
 #include <android/asset_manager_jni.h>
 #include <android/log.h>
 
-// Output log messages by using __android_log_print
-#define  LOG_TAG    "GE_MAIN"
-#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,  LOG_TAG, __VA_ARGS__)
-#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
-#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,  LOG_TAG, __VA_ARGS__)
+#define  LOG_TAG    "AP_MAIN"
+#define  LOGI(...) __android_log_print(ANDROID_LOG_INFO,  LOG_TAG, __VA_ARGS__)
+#define  LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define  LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define  LOGW(...) __android_log_print(ANDROID_LOG_WARN,  LOG_TAG, __VA_ARGS__)
 
 typedef enum {
-        AP_MOBILE_DEFAULT = 0,  // default mobile type
+        AP_MOBILE_DEFAULT = 0,
         AP_MOBILE_GOOGLE,       // Google
         AP_MOBILE_ZTE,          // ZTE
         AP_MOBILE_HUAWEI,       // HUAWEI
@@ -36,7 +35,7 @@ typedef enum {
         AP_MOBILE_SAMSUNG,      // Samsung
         AP_MOBILE_NOKIA,        // NOKIA
         AP_MOBILE_X86,          // X86
-        AP_MOBILE_LENGTH,       // never use this.
+        AP_MOBILE_LENGTH,
 } AP_MOBILE_Types;
 
 static const char *AP_MOBILE_NAME[AP_MOBILE_LENGTH] = {
@@ -62,14 +61,14 @@ static const char *AP_MOBILE_NAME[AP_MOBILE_LENGTH] = {
  * @brief Get the Local A Asset Manager object
  * @return void* pointer points to asset manager
  */
-void *ap_get_local_asset_manager();
+void *ap_get_aaset_manager();
 
 /**
  * @brief Set Asset Manager
  * @param pManager pointer points to asset manager
  * @return int AP_Types
  */
-int ap_set_local_asset_manager(void *pManager);
+int ap_set_aaset_manager(void *pManager);
 
 /**
  * @brief Set the Mobile Name
@@ -119,10 +118,10 @@ typedef enum {
         AP_ERROR_ASSET_OPEN_FAILED,     // asset manager open file failed
         AP_ERROR_INIT_FAILED,           // initialize failed
         AP_ERROR_RENDER_FAILED,         // render failed with unknown error
-        AP_ERROR_TEXTURE_FAILED,        // texture load failed with unknown error
+        AP_ERROR_TEXTURE_FAILED,        // texture load failed unknown error
         AP_ERROR_CAMERA_NOT_SET,        // camera not set
         AP_ERROR_UNKNOWN,               // unknown error
-        AP_ERROR_LENGTH                 // never use this
+        AP_ERROR_LENGTH
 } AP_Types;
 
 /**

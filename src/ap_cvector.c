@@ -1,6 +1,6 @@
 #include "ap_cvector.h"
 #include "ap_utils.h"
-#include "mesh.h"
+#include "ao_mesh.h"
 #include "model.h"
 #include "texture.h"
 #include "vertex.h"
@@ -8,18 +8,18 @@
 
 /**
  * Check whether vector is initialized or not
- * @param pVector
+ * @param vector
  * @return bool
  */
-bool ap_is_valid_vector(struct AP_Vector *pVector);
+bool ap_is_valid_vector(struct AP_Vector *vector);
 
-int ap_vector_data_type_size(struct AP_Vector *pVector)
+int ap_vector_data_type_size(struct AP_Vector *vector)
 {
-        if (pVector == NULL) {
+        if (vector == NULL) {
                 return 0;
         }
         int size = 0;
-        switch (pVector->type) {
+        switch (vector->type) {
                 case AP_VECTOR_INT:
                 size = sizeof(int);
                 break;
@@ -49,114 +49,114 @@ int ap_vector_data_type_size(struct AP_Vector *pVector)
                 break;
                 case AP_VECTOR_UNDEFINED:
                 default:
-                LOGW("Unknow vector type: %d\n", pVector->type);
+                LOGW("Unknow vector type: %d\n", vector->type);
                 return size;
         }
         return size;
 }
 
-int ap_vector_init(struct AP_Vector *pVector, int iVectorType)
+int ap_vector_init(struct AP_Vector *vector, int vector_type)
 {
-        if (pVector == NULL) {
+        if (vector == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
-        pVector->type = iVectorType;
-        int size = ap_vector_data_type_size(pVector);
-        pVector->capacity = AP_VECTOR_DEFAULT_CAPACITY;
-        pVector->data = malloc(size * AP_VECTOR_DEFAULT_CAPACITY);
-        if (pVector->data == NULL) {
+        vector->type = vector_type;
+        int size = ap_vector_data_type_size(vector);
+        vector->capacity = AP_VECTOR_DEFAULT_CAPACITY;
+        vector->data = malloc(size * AP_VECTOR_DEFAULT_CAPACITY);
+        if (vector->data == NULL) {
                 LOGE("Malloc failed for vector.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        memset(pVector->data, 0, size * AP_VECTOR_DEFAULT_CAPACITY);
-        pVector->length = 0;
+        memset(vector->data, 0, size * AP_VECTOR_DEFAULT_CAPACITY);
+        vector->length = 0;
 
         return AP_ERROR_SUCCESS;
 }
 
-int ap_vector_free(struct AP_Vector *pVector)
+int ap_vector_free(struct AP_Vector *vector)
 {
-        if (pVector == NULL) {
+        if (vector == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
-        free(pVector->data);
-        pVector->data = NULL;
-        pVector->capacity = 0;
-        pVector->length = 0;
-        pVector->type = AP_VECTOR_UNDEFINED;
+        free(vector->data);
+        vector->data = NULL;
+        vector->capacity = 0;
+        vector->length = 0;
+        vector->type = AP_VECTOR_UNDEFINED;
         return 0;
 }
 
-bool ap_is_valid_vector(struct AP_Vector *pVector)
+bool ap_is_valid_vector(struct AP_Vector *vector)
 {
-        if (pVector == NULL) {
+        if (vector == NULL) {
                 return false;
         }
 
-        if (pVector->data == NULL) {
+        if (vector->data == NULL) {
                 return false;
         }
 
         return true;
 }
 
-int ap_vector_push_back(struct AP_Vector *pVector, const char* data)
+int ap_vector_push_back(struct AP_Vector *vector, const char* data)
 {
-        if (!ap_is_valid_vector(pVector) || data == NULL) {
+        if (!ap_is_valid_vector(vector) || data == NULL) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
-        int size = ap_vector_data_type_size(pVector);
+        int size = ap_vector_data_type_size(vector);
         if (size == 0) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
-        if (pVector->length == pVector->capacity) {
-                pVector->data = realloc(
-                        pVector->data,
-                        size * pVector->capacity * 2
+        if (vector->length == vector->capacity) {
+                vector->data = realloc(
+                        vector->data,
+                        size * vector->capacity * 2
                 );
-                if (pVector->data == NULL) {
+                if (vector->data == NULL) {
                 LOGE("Failed to realloc vector memory.");
                 return AP_ERROR_MALLOC_FAILED;
                 }
-                pVector->capacity *= 2;
+                vector->capacity *= 2;
         }
-        int offset = size * (pVector->length ) / (int) sizeof(char);
-        char *pNewData = pVector->data + offset;
-        memcpy(pNewData, data, size);
-        pVector->length++;
+        int offset = size * (vector->length ) / (int) sizeof(char);
+        char *new_data = vector->data + offset;
+        memcpy(new_data, data, size);
+        vector->length++;
 
         return 0;
 }
 
-int ap_vector_insert_back(struct AP_Vector *pVector, char *pStart, size_t size)
+int ap_vector_insert_back(struct AP_Vector *vector, char *pStart, size_t size)
 {
-        if (pVector == NULL || pStart == NULL || size <= 0) {
+        if (vector == NULL || pStart == NULL || size <= 0) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
-        int type_size = ap_vector_data_type_size(pVector);
+        int type_size = ap_vector_data_type_size(vector);
         if (type_size == 0) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
-        while (pVector->length + (size / type_size) > pVector->capacity) {
-                pVector->data = realloc(
-                        pVector->data,
-                        size * pVector->capacity * 2
+        while (vector->length + (size / type_size) > vector->capacity) {
+                vector->data = realloc(
+                        vector->data,
+                        size * vector->capacity * 2
                 );
-                if (pVector->data == NULL) {
+                if (vector->data == NULL) {
                 LOGE("Failed to realloc vector memory.");
                 return AP_ERROR_MALLOC_FAILED;
                 }
-                pVector->capacity *= 2;
-                LOGI("Realloc vector capacity: %d\n", pVector->capacity);
+                vector->capacity *= 2;
+                LOGI("Realloc vector capacity: %d\n", vector->capacity);
         }
-        int offset = type_size * (pVector->length) / (int) sizeof(char);
-        char *pNewData = pVector->data + offset;
-        memcpy(pNewData, pStart, size);
-        pVector->length += (int) size / ap_vector_data_type_size(pVector);
+        int offset = type_size * (vector->length) / (int) sizeof(char);
+        char *new_data = vector->data + offset;
+        memcpy(new_data, pStart, size);
+        vector->length += (int) size / ap_vector_data_type_size(vector);
 
         return 0;
 }

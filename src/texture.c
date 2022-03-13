@@ -20,7 +20,7 @@ GLuint load_texture(const char *const path, int format)
         stbi_set_flip_vertically_on_load(true);
         unsigned char *data = NULL;
         #ifdef __ANDROID__
-        AAssetManager *pManager = ap_get_local_asset_manager();
+        AAssetManager *pManager = ap_get_aaset_manager();
         AAsset *pathAsset = AAssetManager_open(pManager, path, AASSET_MODE_UNKNOWN);
         off_t assetLength = AAsset_getLength(pathAsset);
         unsigned char *fileData = (unsigned char *) AAsset_getBuffer(pathAsset);
@@ -64,7 +64,7 @@ unsigned int texture_from_file(const char *path, const char *directory, bool gam
         unsigned char *data = NULL;
         #ifdef __ANDROID__
         int fileLength = 0;
-        AAssetManager *pManager = ap_get_local_asset_manager();
+        AAssetManager *pManager = ap_get_aaset_manager();
         AAsset *pathAsset = AAssetManager_open(pManager, pPathBuff, AASSET_MODE_UNKNOWN);
         if (pathAsset == NULL) {
                 // AP_ERROR_ASSET_OPEN_FAILED;

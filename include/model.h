@@ -2,7 +2,7 @@
 #define AP_MODEL_H
 
 #include "ap_utils.h"
-#include "mesh.h"
+#include "ao_mesh.h"
 #include "ap_cvector.h"
 
 // Model struct object definition
