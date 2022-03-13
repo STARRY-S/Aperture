@@ -12,7 +12,7 @@
 
 #include "ap_utils.h"
 #include "renderer.h"
-#include "camera.h"
+#include "ap_camera.h"
 
 #ifdef __ANDROID__
 

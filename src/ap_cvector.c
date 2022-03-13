@@ -4,7 +4,7 @@
 #include "model.h"
 #include "texture.h"
 #include "vertex.h"
-#include "camera.h"
+#include "ap_camera.h"
 
 /**
  * Check whether vector is initialized or not

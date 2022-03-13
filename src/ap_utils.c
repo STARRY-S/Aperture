@@ -9,7 +9,7 @@
 #include "ap_utils.h"
 #include "shader.h"
 #include "texture.h"
-#include "camera.h"
+#include "ap_camera.h"
 
 static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
     "SUCCESS",

@@ -3,7 +3,7 @@
 
 #include "renderer.h"
 #include "ap_utils.h"
-#include "camera.h"
+#include "ap_camera.h"
 #include "shader.h"
 #include "texture.h"
 #include "model.h"

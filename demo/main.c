@@ -4,7 +4,7 @@
 #include "main.h"
 #include "ap_utils.h"
 #include "renderer.h"
-#include "camera.h"
+#include "ap_camera.h"
 
 #define AP_DEMO_CAMERA_NUMBER 5
 
