@@ -13,9 +13,6 @@
 #define AP_VECTOR_DEFAULT_CAPACITY 8
 #endif
 
-/**
- * @brief vector type defination
- */
 typedef enum {
     AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
     AP_VECTOR_VERTEX,           // Vertex vector

@@ -2,7 +2,7 @@
 #define TEST_FUNC_TEST_H
 
 #include "ap_utils.h"
-#include "cvector.h"
+#include "ap_cvector.h"
 
 void vectorFloatTest();
 void vectorCharTest();

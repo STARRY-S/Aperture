@@ -3,7 +3,7 @@
 
 #include "ap_utils.h"
 #include "mesh.h"
-#include "cvector.h"
+#include "ap_cvector.h"
 
 // Model struct object definition
 struct Model {

@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "cvector.h"
+#include "ap_cvector.h"
 #include "ap_utils.h"
 
 static struct AP_Vector camera_vector = { 0, 0, 0, 0 };
