@@ -2,9 +2,9 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project declaration
-project("game_engine"
+project("aperture"
     LANGUAGES C
-    VERSION 1.2.0
+    VERSION 0.1.2
 )
 
 set(C_FLAGS "-Wall -std=c11 -g")
@@ -16,9 +16,9 @@ set(ASSIMP_LIB_NAME "assimp")
 # include path
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-aux_source_directory("src"  GAME_ENGINE_SRC_DIR)    # library source dir
-aux_source_directory("demo" GAME_ENGINE_DEMO_DIR)   # demo source dir
-aux_source_directory("test" GAME_ENGINE_TEST_DIR)   # for unit test
+aux_source_directory("src"  APERTURE_SRC_DIR)    # library source dir
+aux_source_directory("demo" APERTURE_DEMO_DIR)   # demo source dir
+aux_source_directory("test" APERTURE_TEST_DIR)   # for unit test
 
 if(ANDROID)
     # Android
@@ -61,13 +61,13 @@ endif()
 
 add_library(
     # The name of the library.
-    "game_engine"
+    "aperture"
     # The library as a shared library.
     SHARED
     # source files
-    ${GAME_ENGINE_SRC_DIR}
+    ${APERTURE_SRC_DIR}
 )
-set_target_properties("game_engine" PROPERTIES LINKER_LANGUAGE C)
+set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
 if(ANDROID)
     # Link Android library
@@ -77,7 +77,7 @@ if(ANDROID)
     )
 
     add_custom_command(
-        TARGET "game_engine"
+        TARGET "aperture"
         POST_BUILD COMMAND
         ${CMAKE_COMMAND} -E copy
         ${ASSIMP_LIB_DIR}
@@ -85,7 +85,7 @@ if(ANDROID)
     )
 
     target_link_libraries(
-        "game_engine"
+        "aperture"
 
         ${log-lib}
         android
@@ -102,22 +102,22 @@ else()
 
     # Build demo
     add_executable(
-        "game_engine_demo"
-        ${GAME_ENGINE_DEMO_DIR}
+        "aperture_demo"
+        ${APERTURE_DEMO_DIR}
     )
 
     # Build unit test
     add_executable(
         "test"
-        ${GAME_ENGINE_TEST_DIR}
+        ${APERTURE_TEST_DIR}
     )
 
     # link libraries to demo
     target_link_libraries(
-        "game_engine_demo"
+        "aperture_demo"
         ${OPENGL_gl_LIBRARY}
         glfw
-        game_engine
+        "aperture"
         ${ASSIMP_LIB_NAME}
     )
 
@@ -126,13 +126,13 @@ else()
         "test"
         ${OPENGL_gl_LIBRARY}
         glfw
-        game_engine
+        "aperture"
         ${ASSIMP_LIB_NAME}
     )
 
     # link librarys to libgame_engine
     target_link_libraries(
-        "game_engine"
+        "aperture"
         ${OPENGL_gl_LIBRARY}
         glfw
         ${ASSIMP_LIB_NAME}
