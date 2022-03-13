@@ -17,7 +17,7 @@ struct AP_Mesh {
 };
 
 int ap_mesh_init(
-        struct AP_Mesh *pMesh,
+        struct AP_Mesh *mesh,
         struct Vertex* vertices,
         int vertices_length,
         unsigned int *indices,
@@ -25,10 +25,11 @@ int ap_mesh_init(
         struct Texture *texture,
         int texture_length
 );
-int ap_mesh_free(struct AP_Mesh *pMesh);
 
-int ap_mesh_copy(struct AP_Mesh *pNewMesh, const struct AP_Mesh *pOldMesh);
+int ap_mesh_free(struct AP_Mesh *mesh);
 
-int ap_mesh_draw(struct AP_Mesh *pMesh, unsigned int shader);
+int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old);
+
+int ap_mesh_setup(struct AP_Mesh *mesh);
 
 #endif // AP_MESH_H
