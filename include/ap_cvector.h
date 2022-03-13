@@ -17,7 +17,7 @@ typedef enum {
         AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
         AP_VECTOR_VERTEX,           // Vertex vector
         AP_VECTOR_TEXTURE,          // Texture vector
-        AP_VECTOR_MESH,             // Mesh vector
+        AP_VECTOR_MESH,             // AP_Mesh vector
         AP_VECTOR_MODEL,            // Model vector
         AP_VECTOR_CAMERA,           // Camera vector
         AP_VECTOR_CHAR,             // Char vector

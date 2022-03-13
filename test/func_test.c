@@ -1,12 +1,12 @@
 #include "func_test.h"
 #include "ap_cvector.h"
 #include "vertex.h"
-#include "ao_mesh.h"
+#include "ap_mesh.h"
 #include "model.h"
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct Vertex *pVertex);
-void print_mesh(struct Mesh *pMesh);
+void print_mesh(struct AP_Mesh *pMesh);
 void print_model(struct Model *pModel);
 
 void print_vector(struct AP_Vector *vector)
@@ -81,17 +81,17 @@ void print_vertex(struct Vertex *p)
         // mWeights
 }
 
-void print_mesh(struct Mesh *p)
+void print_mesh(struct AP_Mesh *p)
 {
         if (!p) {
                 return;
         }
-        printf("pVertices:       %p\n", p->pVertices);
-        printf("iVerticesLength: %d\n", p->iVerticesLength);
-        printf("pIndices:        %p\n", p->pIndices);
-        printf("iIndicesLength:  %d\n", p->iIndicesLength);
-        printf("pTextures:       %p\n", p->pTextures);
-        printf("iTextureLength:  %d\n", p->iTextureLength);
+        printf("vertices:       %p\n", p->vertices);
+        printf("vertices_length: %d\n", p->vertices_length);
+        printf("indices:        %p\n", p->indices);
+        printf("indices_length:  %d\n", p->indices_length);
+        printf("textures:       %p\n", p->textures);
+        printf("texture_length:  %d\n", p->texture_length);
 
         printf("VAO: %u", p->VAO);
         printf("VBO: %u", p->VBO);

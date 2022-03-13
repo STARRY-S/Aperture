@@ -1,6 +1,6 @@
 #include "ap_cvector.h"
 #include "ap_utils.h"
-#include "ao_mesh.h"
+#include "ap_mesh.h"
 #include "model.h"
 #include "texture.h"
 #include "vertex.h"
@@ -30,7 +30,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 size = sizeof(float);
                 break;
                 case AP_VECTOR_MESH:
-                size = sizeof(struct Mesh);
+                size = sizeof(struct AP_Mesh);
                 break;
                 case AP_VECTOR_MODEL:
                 size = sizeof(struct Model);

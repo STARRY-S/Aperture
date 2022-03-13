@@ -4,241 +4,259 @@
 
 #include <GLES3/gl3.h>
 
-#include "ao_mesh.h"
+#include "ap_mesh.h"
 #include "ap_utils.h"
 #include "shader.h"
 #include "texture.h"
 #include "vertex.h"
 
-// private method
-int setup_mesh(struct Mesh *pMesh);
-
-/**
- * Mesh Constructor
- * @param pMesh
- * @param pVertices
- * @param iVerticesLength
- * @param pIndices
- * @param iIndicesLength
- * @param pTexture
- * @param iTextureLength
- * @return - AP_Types
- */
-int init_mesh(struct Mesh *pMesh, struct Vertex* pVertices, int iVerticesLength,
-        unsigned int *pIndices, int iIndicesLength,
-        struct Texture *pTexture, int iTextureLength)
-{
-        if (!pMesh || !pVertices || !pIndices || !pTexture) {
-                return AP_ERROR_INVALID_POINTER;
-        }
-
-        memset(pMesh, 0, sizeof(struct Mesh));
-
-        struct Vertex *pNewVertex = NULL;
-        if (iVerticesLength > 0) {
-                pNewVertex = (struct Vertex *) malloc(sizeof(struct Vertex) * iVerticesLength);
-                if (pNewVertex == NULL) {
-                return AP_ERROR_MALLOC_FAILED;
-                }
-                memcpy(pNewVertex, pVertices, sizeof(struct Vertex) * iVerticesLength);
-        }
-        pMesh->iVerticesLength = iVerticesLength;
-        pMesh->pVertices = pNewVertex;
-
-        unsigned int *pNewIndices = NULL;
-        if (iIndicesLength > 0) {
-                pNewIndices = (unsigned int *) malloc(sizeof(unsigned int) * iIndicesLength);
-                if (pNewIndices == NULL) {
-                return AP_ERROR_MALLOC_FAILED;
-                }
-                memcpy(pNewIndices, pIndices, sizeof(unsigned int) * iIndicesLength);
-        }
-        pMesh->iIndicesLength = iIndicesLength;
-        pMesh->pIndices = pNewIndices;
-
-        struct Texture *pNewTexture = NULL;
-        if (iTextureLength > 0) {
-                pNewTexture = (struct Texture *) malloc(sizeof(struct Texture) * iTextureLength);
-                if (pNewTexture == NULL) {
-                return AP_ERROR_MALLOC_FAILED;
-                }
-                memcpy(pNewTexture, pTexture, sizeof(struct Texture) * iTextureLength);
-        }
-        pMesh->iTextureLength = iTextureLength;
-        pMesh->pTextures = pNewTexture;
-
-        setup_mesh(pMesh);
-        return 0;
-}
-
-/**
- * Release data in mesh struct object
- * @param pMesh
- * @return 0 if success
- */
-AP_Types free_mesh(struct Mesh *pMesh)
-{
-        if (pMesh == NULL) {
-                return 0;
-        }
-        if (pMesh->pIndices) {
-                free(pMesh->pIndices);
-                pMesh->pIndices = NULL;
-        }
-        pMesh->iIndicesLength = 0;
-
-        if (pMesh->pVertices) {
-                free(pMesh->pVertices);
-                pMesh->pVertices = NULL;
-        }
-        pMesh->iVerticesLength = 0;
-
-        if (pMesh->pTextures) {
-                free(pMesh->pTextures);
-                pMesh->pTextures = NULL;
-        }
-        pMesh->iTextureLength = 0;
-        pMesh->VAO = pMesh->VBO = pMesh->EBO = 0;
-
-        return 0;
-}
-
-/**
- * Copy mesh
- * @param pNewMesh - dest, points to an uninitialized mesh
- * @param pOldMesh - from, the mesh to be copied
- * @return AP_Types
- */
-int copy_mesh(struct Mesh *pNewMesh, const struct Mesh *pOldMesh)
-{
-        if (pNewMesh == NULL || pOldMesh == NULL) {
-                return AP_ERROR_INVALID_POINTER;
-        }
-
-        memset(pNewMesh, 0, sizeof(struct Mesh));
-
-        pNewMesh->iTextureLength = pOldMesh->iTextureLength;
-        if (pOldMesh->iTextureLength > 0) {
-                pNewMesh->pTextures = malloc(pNewMesh->iTextureLength * sizeof(struct Texture));
-                memcpy(pNewMesh->pTextures, pOldMesh->pTextures,
-                pNewMesh->iTextureLength * sizeof(struct Texture));
-        }
-
-        pNewMesh->iIndicesLength = pOldMesh->iIndicesLength;
-        if (pOldMesh->iIndicesLength > 0) {
-                pNewMesh->pIndices = malloc(pNewMesh->iIndicesLength * sizeof(unsigned int));
-                memcpy(pNewMesh->pIndices, pOldMesh->pIndices,
-                pNewMesh->iIndicesLength * sizeof(unsigned int));
-        }
-
-        pNewMesh->iVerticesLength = pOldMesh->iVerticesLength;
-        if (pOldMesh->iVerticesLength > 0) {
-                pNewMesh->pVertices = malloc(pNewMesh->iVerticesLength * sizeof(struct Vertex));
-                memcpy(pNewMesh->pVertices, pOldMesh->pVertices,
-                pNewMesh->iVerticesLength * sizeof(struct Vertex));
-        }
-
-        pNewMesh->VAO = pOldMesh->VAO;
-        pNewMesh->VBO = pOldMesh->VBO;
-        pNewMesh->EBO = pOldMesh->EBO;
-
-        return 0;
-}
-
 /**
  * private, setup mesh, generate GL buffers.
- * @param pMesh
+ * @param mesh
  * @return AP_Types
  */
-int setup_mesh(struct Mesh *pMesh)
+int ap_mesh_setup(struct AP_Mesh *mesh);
+
+int ap_mesh_init(
+        struct AP_Mesh *mesh,
+        struct Vertex* vertices,
+        int vertices_length,
+        unsigned int *indices,
+        int indices_length,
+        struct Texture *texture,
+        int texture_length)
 {
-        if (!pMesh) {
+        if (!mesh || !vertices || !indices || !texture) {
                 return AP_ERROR_INVALID_POINTER;
         }
-        glGenVertexArrays(1, &pMesh->VAO);
-        glGenBuffers(1, &pMesh->VBO);
-        glGenBuffers(1, &pMesh->EBO);
 
-        glBindVertexArray(pMesh->VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, pMesh->VBO);
+        memset(mesh, 0, sizeof(struct AP_Mesh));
 
-        glBufferData(GL_ARRAY_BUFFER,pMesh->iVerticesLength * sizeof(struct Vertex),
-                pMesh->pVertices, GL_STATIC_DRAW);
+        struct Vertex *vertex_new = NULL;
+        if (vertices_length > 0) {
+                vertex_new = (struct Vertex *) malloc(
+                                sizeof(struct Vertex) * vertices_length);
+                if (vertex_new == NULL) {
+                        LOGE("MALLOC FAILED\n");
+                        return AP_ERROR_MALLOC_FAILED;
+                }
+                memcpy(vertex_new, vertices,
+                        sizeof(struct Vertex) * vertices_length);
+        }
+        mesh->vertices_length = vertices_length;
+        mesh->vertices = vertex_new;
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pMesh->EBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, pMesh->iIndicesLength * sizeof(unsigned int),
-                        pMesh->pIndices, GL_STATIC_DRAW);
+        unsigned int *indices_new = NULL;
+        if (indices_length > 0) {
+                indices_new = (unsigned int *) malloc(
+                        sizeof(unsigned int) * indices_length);
+                if (indices_new == NULL) {
+                        return AP_ERROR_MALLOC_FAILED;
+                }
+                memcpy(indices_new, indices,
+                        sizeof(unsigned int) * indices_length);
+        }
+        mesh->indices_length = indices_length;
+        mesh->indices = indices_new;
 
-        // 顶点位置 (position)
+        struct Texture *texture_new = NULL;
+        if (texture_length > 0) {
+                texture_new = (struct Texture *) malloc(
+                        sizeof(struct Texture) * texture_length);
+                if (texture_new == NULL) {
+                        return AP_ERROR_MALLOC_FAILED;
+                }
+                memcpy(texture_new, texture,
+                        sizeof(struct Texture) * texture_length);
+        }
+        mesh->texture_length = texture_length;
+        mesh->textures = texture_new;
+
+        ap_mesh_setup(mesh);
+        return 0;
+}
+
+int ap_mesh_free(struct AP_Mesh *mesh)
+{
+        if (mesh == NULL) {
+                return 0;
+        }
+        if (mesh->indices) {
+                free(mesh->indices);
+                mesh->indices = NULL;
+        }
+        mesh->indices_length = 0;
+
+        if (mesh->vertices) {
+                free(mesh->vertices);
+                mesh->vertices = NULL;
+        }
+        mesh->vertices_length = 0;
+
+        if (mesh->textures) {
+                free(mesh->textures);
+                mesh->textures = NULL;
+        }
+        mesh->texture_length = 0;
+        mesh->VAO = mesh->VBO = mesh->EBO = 0;
+
+        return 0;
+}
+
+int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
+{
+        if (mesh_new == NULL || mesh_old == NULL) {
+                return AP_ERROR_INVALID_POINTER;
+        }
+
+        memset(mesh_new, 0, sizeof(struct AP_Mesh));
+
+        mesh_new->texture_length = mesh_old->texture_length;
+        if (mesh_old->texture_length > 0) {
+                mesh_new->textures = malloc(
+                        mesh_new->texture_length * sizeof(struct Texture));
+                memcpy(mesh_new->textures, mesh_old->textures,
+                        mesh_new->texture_length * sizeof(struct Texture));
+        }
+
+        mesh_new->indices_length = mesh_old->indices_length;
+        if (mesh_old->indices_length > 0) {
+                mesh_new->indices = malloc(
+                        mesh_new->indices_length * sizeof(unsigned int));
+                memcpy(mesh_new->indices, mesh_old->indices,
+                        mesh_new->indices_length * sizeof(unsigned int));
+        }
+
+        mesh_new->vertices_length = mesh_old->vertices_length;
+        if (mesh_old->vertices_length > 0) {
+                mesh_new->vertices = malloc(
+                        mesh_new->vertices_length * sizeof(struct Vertex));
+                memcpy(mesh_new->vertices, mesh_old->vertices,
+                        mesh_new->vertices_length * sizeof(struct Vertex));
+        }
+
+        mesh_new->VAO = mesh_old->VAO;
+        mesh_new->VBO = mesh_old->VBO;
+        mesh_new->EBO = mesh_old->EBO;
+
+        return 0;
+}
+
+int ap_mesh_setup(struct AP_Mesh *mesh)
+{
+        if (!mesh) {
+                return AP_ERROR_INVALID_POINTER;
+        }
+        glGenVertexArrays(1, &mesh->VAO);
+        glGenBuffers(1, &mesh->VBO);
+        glGenBuffers(1, &mesh->EBO);
+
+        glBindVertexArray(mesh->VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
+
+        glBufferData(
+                GL_ARRAY_BUFFER,
+                mesh->vertices_length * sizeof(struct Vertex),
+                mesh->vertices,
+                GL_STATIC_DRAW
+        );
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO);
+        glBufferData(
+                GL_ELEMENT_ARRAY_BUFFER,
+                mesh->indices_length * sizeof(unsigned int),
+                mesh->indices,
+                GL_STATIC_DRAW
+        );
+
+        // position
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-                                sizeof(struct Vertex), (void*)0);
-        // 顶点法线 (normal)
+        glVertexAttribPointer(
+                0,
+                3,
+                GL_FLOAT,
+                GL_FALSE,
+                sizeof(struct Vertex),
+                (void*)0
+        );
+        // normal
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
-                                sizeof(struct Vertex), (void*)offsetof(struct Vertex, Normal));
-        // 顶点纹理坐标 (tex coords)
+        glVertexAttribPointer(
+                1,
+                3,
+                GL_FLOAT,
+                GL_FALSE,
+                sizeof(struct Vertex),
+                (void*) offsetof(struct Vertex, Normal)
+        );
+        // texture coords
         glEnableVertexAttribArray(2);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
-                                sizeof(struct Vertex), (void*)offsetof(struct Vertex, TexCoords));
+        glVertexAttribPointer(
+                2,
+                2,
+                GL_FLOAT,
+                GL_FALSE,
+                sizeof(struct Vertex),
+                (void*) offsetof(struct Vertex, TexCoords)
+        );
 
         // // vertex tangent
         // glEnableVertexAttribArray(3);
         // glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE,
-        //                 sizeof(struct Vertex), (void*)offsetof(struct Vertex, Tangent));
+        //                 sizeof(struct Vertex),
+        //                 (void*)offsetof(struct Vertex, Tangent));
         // // vertex big tangent
         // glEnableVertexAttribArray(4);
         // glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE,
-        //                 sizeof(struct Vertex), (void*)offsetof(struct Vertex, BigTangent));
+        //                 sizeof(struct Vertex),
+        //                 (void*)offsetof(struct Vertex, BigTangent));
 
         glBindVertexArray(0);
         return 0;
 }
 
-/**
- * Draw Mesh
- * @param pMesh - the pointer to the mesh
- * @param shader - shader id
- * @return AP_Types
- */
-int draw_mesh(struct Mesh *pMesh, unsigned int shader)
+
+int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
 {
-        if (pMesh == NULL) {
+        if (mesh == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
         // bind appropriate texture
-        unsigned int diffuseNr  = 1;
-        unsigned int specularNr = 1;
-        unsigned int normalNr   = 1;
-        unsigned int heightNr   = 1;
-        for(int i = 0; i < pMesh->iTextureLength; i++)
-        {
-                glActiveTexture(GL_TEXTURE0 + i); // active proper texture before binding
-                // retrieve texture number
-                char sNumber[32] = { 0 };
-                const char *spName = pMesh->pTextures[i].type;
-                if (strcmp(spName, "texture_diffuse") == 0)
-                sprintf(sNumber, "%u", diffuseNr++);
-                else if (strcmp(spName, "texture_specular") == 0)
-                sprintf(sNumber, "%u", specularNr++);
-                else if (strcmp(spName, "texture_normal") == 0)
-                sprintf(sNumber, "%u", normalNr++);
-                else if (strcmp(spName, "texture_height") == 0)
-                sprintf(sNumber, "%u", heightNr++);
+        unsigned int diffuse_nr  = 1;
+        unsigned int specular_nr = 1;
+        unsigned int normal_nr   = 1;
+        unsigned int height_nr   = 1;
+        char buffer[AP_DEFAULT_BUFFER_SIZE];
 
-                char buffer[32];
-                sprintf(buffer, "%s%s", spName, sNumber);
+        for(int i = 0; i < mesh->texture_length; i++)
+        {
+                // active proper texture before binding
+                glActiveTexture(GL_TEXTURE0 + i);
+                // retrieve texture number
+                char texture_num[32] = { 0 };
+                const char *texture_name = mesh->textures[i].type;
+                if (strcmp(texture_name, "texture_diffuse") == 0) {
+                        sprintf(texture_num, "%u", diffuse_nr++);
+                } else if (strcmp(texture_name, "texture_specular") == 0) {
+                        sprintf(texture_num, "%u", specular_nr++);
+                } else if (strcmp(texture_name, "texture_normal") == 0) {
+                        sprintf(texture_num, "%u", normal_nr++);
+                } else if (strcmp(texture_name, "texture_height") == 0) {
+                        sprintf(texture_num, "%u", height_nr++);
+                }
+
+                sprintf(buffer, "%s%s", texture_name, texture_num);
                 // now set the sampler to the correct texture unit
-                GLint iLocation = glGetUniformLocation(shader, buffer);
-                glUniform1i(iLocation, i);
+                GLint location = glGetUniformLocation(shader, buffer);
+                glUniform1i(location, i);
                 // and finally bind the texture
-                glBindTexture(GL_TEXTURE_2D, pMesh->pTextures[i].id);
+                glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
         }
 
         // draw mesh
-        glBindVertexArray(pMesh->VAO);
-        glDrawElements(GL_TRIANGLES, pMesh->iIndicesLength, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(mesh->VAO);
+        glDrawElements(GL_TRIANGLES, mesh->indices_length, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         // always good practice to set everything back to defaults once configured :)

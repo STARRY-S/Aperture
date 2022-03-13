@@ -43,9 +43,9 @@ int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTextur
  * @param pModel
  * @param mesh
  * @param scene
- * @return Pointer to a static mesh struct object, need call free_mesh after use.
+ * @return Pointer to a static mesh struct object, need call ap_mesh_free after use.
  */
-struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene);
+struct AP_Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struct aiScene *scene);
 
 /**
  * Push a new mesh struct object to model
@@ -53,7 +53,7 @@ struct Mesh *process_mesh(struct Model *pModel, struct aiMesh *mesh, const struc
  * @param pMesh
  * @return AP_Types
  */
-int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh);
+int model_mesh_push_back(struct Model *pModel, struct AP_Mesh *pMesh);
 
 /**
  * checks all material textures of a given type and loads the textures
@@ -144,9 +144,9 @@ int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene
                 // the scene contains all the data, node is just to keep stuff organized
                 // (like relations between nodes).
                 struct aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-                struct Mesh *pNewMesh = process_mesh(pModel, mesh, scene);
+                struct AP_Mesh *pNewMesh = process_mesh(pModel, mesh, scene);
                 model_mesh_push_back(pModel, pNewMesh);
-                free_mesh(pNewMesh);
+                ap_mesh_free(pNewMesh);
         }
 
         // after we've processed all of the meshes (if any)
@@ -159,7 +159,7 @@ int process_node(struct Model *pModel, struct aiNode *node, const struct aiScene
         return 0;
 }
 
-struct Mesh *process_mesh(struct Model *pModel,
+struct AP_Mesh *process_mesh(struct Model *pModel,
                         struct aiMesh *mesh,
                         const struct aiScene *scene)
 {
@@ -274,8 +274,8 @@ struct Mesh *process_mesh(struct Model *pModel,
         ap_vector_free(pVecHeightMaps);
 
         // return a mesh object created from the extracted mesh data
-        static struct Mesh sMeshBuffer;
-        init_mesh(&sMeshBuffer, (struct Vertex *) vecVertices.data, vecVertices.length,
+        static struct AP_Mesh sMeshBuffer;
+        ap_mesh_init(&sMeshBuffer, (struct Vertex *) vecVertices.data, vecVertices.length,
                 (unsigned int *) vecIndices.data, vecIndices.length,
                 (struct Texture *) vecTextures.data, vecTextures.length);
         ap_vector_free(&vecVertices);
@@ -357,7 +357,7 @@ int model_texture_loaded_push_back(struct Model *pModel, struct Texture *pTextur
         return 0;
 }
 
-int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh)
+int model_mesh_push_back(struct Model *pModel, struct AP_Mesh *pMesh)
 {
         if (pModel == NULL || pMesh == NULL) {
                 LOGE("Model mesh push back param error.");
@@ -366,15 +366,15 @@ int model_mesh_push_back(struct Model *pModel, struct Mesh *pMesh)
 
         // add a new mesh struct object into model
         pModel->pMeshes = realloc(pModel->pMeshes,
-                                sizeof(struct Mesh) * (pModel->iMeshLength + 1));
+                                sizeof(struct AP_Mesh) * (pModel->iMeshLength + 1));
         if (pModel->pMeshes == NULL) {
                 LOGE("Realloc error.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        struct Mesh *pNewMesh = &pModel->pMeshes[pModel->iMeshLength];
+        struct AP_Mesh *pNewMesh = &pModel->pMeshes[pModel->iMeshLength];
         pModel->iMeshLength++;
         // copy old mesh data memory to new mesh
-        copy_mesh(pNewMesh, pMesh);
+        ap_mesh_copy(pNewMesh, pMesh);
 
         return 0;
 }
@@ -386,7 +386,7 @@ int draw_model(struct Model *pModel, unsigned int shader)
         }
 
         for (int i = 0; i < pModel->iMeshLength; ++i) {
-                draw_mesh(&pModel->pMeshes[i], shader);
+                ap_mesh_draw(&pModel->pMeshes[i], shader);
         }
 
         return 0;

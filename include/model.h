@@ -2,14 +2,14 @@
 #define AP_MODEL_H
 
 #include "ap_utils.h"
-#include "ao_mesh.h"
+#include "ap_mesh.h"
 #include "ap_cvector.h"
 
 // Model struct object definition
 struct Model {
         struct Texture *pTextureLoaded;
         int iTextureLoadedLength;
-        struct Mesh *pMeshes;
+        struct AP_Mesh *pMeshes;
         int iMeshLength;
 
         char *pDirectory;   // malloc, need free
