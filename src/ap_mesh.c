@@ -6,9 +6,9 @@
 
 #include "ap_mesh.h"
 #include "ap_utils.h"
-#include "shader.h"
-#include "texture.h"
-#include "vertex.h"
+#include "ap_shader.h"
+#include "ap_texture.h"
+#include "ap_vertex.h"
 
 /**
  * private, setup mesh, generate GL buffers.
@@ -19,11 +19,11 @@ int ap_mesh_setup(struct AP_Mesh *mesh);
 
 int ap_mesh_init(
         struct AP_Mesh *mesh,
-        struct Vertex* vertices,
+        struct AP_Vertex* vertices,
         int vertices_length,
         unsigned int *indices,
         int indices_length,
-        struct Texture *texture,
+        struct AP_Texture *texture,
         int texture_length)
 {
         if (!mesh || !vertices || !indices || !texture) {
@@ -32,16 +32,16 @@ int ap_mesh_init(
 
         memset(mesh, 0, sizeof(struct AP_Mesh));
 
-        struct Vertex *vertex_new = NULL;
+        struct AP_Vertex *vertex_new = NULL;
         if (vertices_length > 0) {
-                vertex_new = (struct Vertex *) malloc(
-                                sizeof(struct Vertex) * vertices_length);
+                vertex_new = (struct AP_Vertex *) malloc(
+                                sizeof(struct AP_Vertex) * vertices_length);
                 if (vertex_new == NULL) {
                         LOGE("MALLOC FAILED\n");
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 memcpy(vertex_new, vertices,
-                        sizeof(struct Vertex) * vertices_length);
+                        sizeof(struct AP_Vertex) * vertices_length);
         }
         mesh->vertices_length = vertices_length;
         mesh->vertices = vertex_new;
@@ -59,15 +59,15 @@ int ap_mesh_init(
         mesh->indices_length = indices_length;
         mesh->indices = indices_new;
 
-        struct Texture *texture_new = NULL;
+        struct AP_Texture *texture_new = NULL;
         if (texture_length > 0) {
-                texture_new = (struct Texture *) malloc(
-                        sizeof(struct Texture) * texture_length);
+                texture_new = (struct AP_Texture *) malloc(
+                        sizeof(struct AP_Texture) * texture_length);
                 if (texture_new == NULL) {
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 memcpy(texture_new, texture,
-                        sizeof(struct Texture) * texture_length);
+                        sizeof(struct AP_Texture) * texture_length);
         }
         mesh->texture_length = texture_length;
         mesh->textures = texture_new;
@@ -114,9 +114,9 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
         mesh_new->texture_length = mesh_old->texture_length;
         if (mesh_old->texture_length > 0) {
                 mesh_new->textures = malloc(
-                        mesh_new->texture_length * sizeof(struct Texture));
+                        mesh_new->texture_length * sizeof(struct AP_Texture));
                 memcpy(mesh_new->textures, mesh_old->textures,
-                        mesh_new->texture_length * sizeof(struct Texture));
+                        mesh_new->texture_length * sizeof(struct AP_Texture));
         }
 
         mesh_new->indices_length = mesh_old->indices_length;
@@ -130,9 +130,9 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
         mesh_new->vertices_length = mesh_old->vertices_length;
         if (mesh_old->vertices_length > 0) {
                 mesh_new->vertices = malloc(
-                        mesh_new->vertices_length * sizeof(struct Vertex));
+                        mesh_new->vertices_length * sizeof(struct AP_Vertex));
                 memcpy(mesh_new->vertices, mesh_old->vertices,
-                        mesh_new->vertices_length * sizeof(struct Vertex));
+                        mesh_new->vertices_length * sizeof(struct AP_Vertex));
         }
 
         mesh_new->VAO = mesh_old->VAO;
@@ -156,7 +156,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
 
         glBufferData(
                 GL_ARRAY_BUFFER,
-                mesh->vertices_length * sizeof(struct Vertex),
+                mesh->vertices_length * sizeof(struct AP_Vertex),
                 mesh->vertices,
                 GL_STATIC_DRAW
         );
@@ -176,7 +176,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 3,
                 GL_FLOAT,
                 GL_FALSE,
-                sizeof(struct Vertex),
+                sizeof(struct AP_Vertex),
                 (void*)0
         );
         // normal
@@ -186,8 +186,8 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 3,
                 GL_FLOAT,
                 GL_FALSE,
-                sizeof(struct Vertex),
-                (void*) offsetof(struct Vertex, Normal)
+                sizeof(struct AP_Vertex),
+                (void*) offsetof(struct AP_Vertex, Normal)
         );
         // texture coords
         glEnableVertexAttribArray(2);
@@ -196,25 +196,24 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 2,
                 GL_FLOAT,
                 GL_FALSE,
-                sizeof(struct Vertex),
-                (void*) offsetof(struct Vertex, TexCoords)
+                sizeof(struct AP_Vertex),
+                (void*) offsetof(struct AP_Vertex, TexCoords)
         );
 
         // // vertex tangent
         // glEnableVertexAttribArray(3);
         // glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE,
-        //                 sizeof(struct Vertex),
-        //                 (void*)offsetof(struct Vertex, Tangent));
+        //                 sizeof(struct AP_Vertex),
+        //                 (void*)offsetof(struct AP_Vertex, Tangent));
         // // vertex big tangent
         // glEnableVertexAttribArray(4);
         // glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE,
-        //                 sizeof(struct Vertex),
-        //                 (void*)offsetof(struct Vertex, BigTangent));
+        //                 sizeof(struct AP_Vertex),
+        //                 (void*)offsetof(struct AP_Vertex, BigTangent));
 
         glBindVertexArray(0);
         return 0;
 }
-
 
 int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
 {

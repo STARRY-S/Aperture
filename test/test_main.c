@@ -4,13 +4,13 @@
 
 int main(int argc, char **argv)
 {
-    vectorCharTest();
+    test_vector_char();
 
-    vectorFloatTest();
+    test_vector_float();
 
-    vectorUIntTest();
+    test_vector_uint();
 
-    vectorIntTest();
+    test_vector_int();
 
     return 0;
 }

@@ -61,14 +61,14 @@ static const char *AP_MOBILE_NAME[AP_MOBILE_LENGTH] = {
  * @brief Get the Local A Asset Manager object
  * @return void* pointer points to asset manager
  */
-void *ap_get_aaset_manager();
+void *ap_get_asset_manager();
 
 /**
  * @brief Set Asset Manager
  * @param pManager pointer points to asset manager
  * @return int AP_Types
  */
-int ap_set_aaset_manager(void *pManager);
+int ap_set_asset_manager(void *pManager);
 
 /**
  * @brief Set the Mobile Name

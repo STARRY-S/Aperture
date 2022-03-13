@@ -7,8 +7,8 @@
 #include <string.h>
 
 #include "ap_utils.h"
-#include "shader.h"
-#include "texture.h"
+#include "ap_shader.h"
+#include "ap_texture.h"
 #include "ap_camera.h"
 
 static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
@@ -28,28 +28,28 @@ static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
 
 #ifdef __ANDROID__
 
-static AAssetManager *local_aaset_manager = NULL;
+static AAssetManager *local_asset_manager = NULL;
 static char mobile_name[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
-void *ap_get_aaset_manager()
+void *ap_get_asset_manager()
 {
-        return (void*) local_aaset_manager;
+        return (void*) local_asset_manager;
 }
 
-int ap_set_aaset_manager(void *p_void)
+int ap_set_asset_manager(void *p_void)
 {
         if (!p_void) {
-                LOGE("ap_set_aaset_manager ERROR: NULL");
-                local_aaset_manager = NULL;
+                LOGE("ap_set_asset_manager ERROR: NULL");
+                local_asset_manager = NULL;
                 return AP_ERROR_INVALID_POINTER;
         }
 
         struct AAssetManager *manager = (struct AAssetManager*) p_void;
-        if (local_aaset_manager == NULL) {
-                local_aaset_manager = manager;
+        if (local_asset_manager == NULL) {
+                local_asset_manager = manager;
         } else {
-                LOGI("Replace Local AAsetManager Pointer");
-                local_aaset_manager = manager;
+                LOGI("Replace Local AssetManager Pointer");
+                local_asset_manager = manager;
         }
         return 0;
 }

@@ -20,12 +20,12 @@ struct aiFile* ap_custom_file_open_proc(
         }
 
         #ifdef __ANDROID__
-        AAssetManager *manager = ap_get_aaset_manager();
-        AAsset *aaset_path = AAssetManager_open(
+        AAssetManager *manager = ap_get_asset_manager();
+        AAsset *asset_path = AAssetManager_open(
                 manager, file_name,
                 AASSET_MODE_RANDOM
         );
-        if (aaset_path == NULL) {
+        if (asset_path == NULL) {
                 // AP_ERROR_ASSET_OPEN_FAILED;
                 return NULL;
         }
@@ -51,7 +51,7 @@ struct aiFile* ap_custom_file_open_proc(
         ai_file->SeekProc     = ap_custom_fseek_proc;
         ai_file->FlushProc    = ap_custom_fflush_proc;
         #ifdef __ANDROID__
-        ai_file->UserData = (char *) aaset_path;
+        ai_file->UserData = (char *) asset_path;
         #else
         ai_file->UserData = (char *) fp;
         #endif

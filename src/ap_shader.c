@@ -4,8 +4,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "shader.h"
+#include "ap_shader.h"
 #include "ap_utils.h"
+
+GLuint ap_shader_load(GLenum type, const char *const shader_path);
 
 GLuint ap_compile_shader(
     GLenum type,
@@ -40,23 +42,22 @@ GLuint ap_compile_shader(
         return shader;
 }
 
-// Load shader in Android
-GLuint load_shader(GLenum type, const char *const shader_path)
+GLuint ap_shader_load(GLenum type, const char *const shader_path)
 {
         GLuint result = 0;
         int length = 0;
-        char *pBuffer = NULL;
+        char *buffer = NULL;
 
         #ifdef __ANDROID__
-        AAssetManager *pLocalAAsetManager =
-                (AAssetManager *) ap_get_aaset_manager();
-        if (!pLocalAAsetManager) {
-                LOGE("pLocalAAsetManager is NULL, failed to read file.\n");
+        AAssetManager *pLocalAssetManager =
+                (AAssetManager *) ap_get_asset_manager();
+        if (!pLocalAssetManager) {
+                LOGE("pLocalAssetManager is NULL, failed to read file.\n");
                 return 0;
         }
         AAsset *mAsset = NULL;
         mAsset = AAssetManager_open(
-                pLocalAAsetManager,
+                pLocalAssetManager,
                 shader_path,
                 AASSET_MODE_UNKNOWN
         );
@@ -65,16 +66,12 @@ GLuint load_shader(GLenum type, const char *const shader_path)
                 return 0;
         }
         length = AAsset_getLength(mAsset);
-        if (length > 1024 * 1024 * 10) {    // 10MB
-                LOGE("File too large.");
-                return 0;
-        }
-        pBuffer = malloc(sizeof(char) * length);
-        if (pBuffer == NULL) {
+        buffer = malloc(sizeof(char) * length);
+        if (buffer == NULL) {
                 LOGE("MALLOG FAILED.\n");
                 return 0;
         }
-        AAsset_read(mAsset, pBuffer, length);
+        AAsset_read(mAsset, buffer, length);
         AAsset_close(mAsset);
 
         #else   // NOT ANDROID
@@ -89,46 +86,45 @@ GLuint load_shader(GLenum type, const char *const shader_path)
         fseek(fp, 0l, SEEK_END);
         length = ftell(fp);
         rewind(fp);
-        if (!(pBuffer = (char*) malloc(length))) {
+        if (!(buffer = (char*) malloc(length))) {
                 fprintf(stderr, "Malloc Error.\n");
                 fclose(fp);
                 return 1;
         }
-        pBuffer[0] = '\0';
+        buffer[0] = '\0';
 
         char temp_line[AP_DEFAULT_BUFFER_SIZE];
 
         while (fgets(temp_line, AP_DEFAULT_BUFFER_SIZE, fp))
-                strncat(pBuffer, temp_line, AP_DEFAULT_BUFFER_SIZE);
+                strncat(buffer, temp_line, AP_DEFAULT_BUFFER_SIZE);
         fclose(fp);
 
         #endif  // NOT ANDROID
 
-        pBuffer[length] = '\0';
-        result = ap_compile_shader(type, pBuffer);
+        buffer[length] = '\0';
+        result = ap_compile_shader(type, buffer);
         if (result == 0) {
                 LOGE("Shader file [%s] compiled failed.\n", shader_path);
         }
-        free(pBuffer);
+        free(buffer);
         return result;
 }
 
-// Load shader from file, then compile and attach it to program
-// return program id
-GLuint load_program(const char *const vshader_path,
-                    const char *const fshader_path)
+GLuint ap_shader_load_program(
+        const char *const vshader_path,
+        const char *const fshader_path)
 {
         GLint linked = 0;
         GLuint vshader = 0;
         GLuint fshader = 0;
         GLuint program = 0;
 
-        vshader = load_shader(GL_VERTEX_SHADER, vshader_path);
-        fshader = load_shader(GL_FRAGMENT_SHADER, fshader_path);
+        vshader = ap_shader_load(GL_VERTEX_SHADER, vshader_path);
+        fshader = ap_shader_load(GL_FRAGMENT_SHADER, fshader_path);
         if (!vshader || !fshader)
                 return 0;
         if (!(program = glCreateProgram())) {
-                LOGE("Program create error.\n");
+                LOGE("glCreateProgram failed.\n");
                 return 0;
         }
 
@@ -146,25 +142,25 @@ GLuint load_program(const char *const vshader_path,
         return program;
 }
 
-void shaderSetFloat(GLuint program, const char *const name, float value)
+void ap_shader_set_float(GLuint program, const char *const name, float value)
 {
         GLuint location = glGetUniformLocation(program, name);
         glUniform1f(location, value);
 }
 
-void shaderSetInt(GLuint program, const char *const name, GLuint value)
+void ap_shader_set_int(GLuint program, const char *const name, GLuint value)
 {
         GLuint location = glGetUniformLocation(program, name);
         glUniform1i(location, value);
 }
 
-void shaderSetVec3(GLuint program, const char *const name, float *vec)
+void ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
 {
         GLuint location = glGetUniformLocation(program, name);
         glUniform3fv(location, 1, vec);
 }
 
-void shaderSetMat4(GLuint program, const char *const name, float* mat)
+void ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
 {
         GLuint location = glGetUniformLocation(program, name);
         glUniformMatrix4fv(location, 1, GL_FALSE, mat);

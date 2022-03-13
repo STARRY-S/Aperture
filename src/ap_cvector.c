@@ -1,9 +1,9 @@
 #include "ap_cvector.h"
 #include "ap_utils.h"
 #include "ap_mesh.h"
-#include "model.h"
-#include "texture.h"
-#include "vertex.h"
+#include "ap_model.h"
+#include "ap_texture.h"
+#include "ap_vertex.h"
 #include "ap_camera.h"
 
 /**
@@ -42,10 +42,10 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 size = sizeof(char);
                 break;
                 case AP_VECTOR_TEXTURE:
-                size = sizeof(struct Texture);
+                size = sizeof(struct AP_Texture);
                 break;
                 case AP_VECTOR_VERTEX:
-                size = sizeof(struct Vertex);
+                size = sizeof(struct AP_Vertex);
                 break;
                 case AP_VECTOR_UNDEFINED:
                 default:

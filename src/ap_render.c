@@ -1,12 +1,12 @@
 #include <GLES3/gl3.h>
 #include <assimp/cfileio.h>
 
-#include "renderer.h"
+#include "ap_render.h"
 #include "ap_utils.h"
 #include "ap_camera.h"
-#include "shader.h"
-#include "texture.h"
-#include "model.h"
+#include "ap_shader.h"
+#include "ap_texture.h"
+#include "ap_model.h"
 #include "ap_mesh.h"
 #include "ap_custom_io.h"
 
@@ -29,12 +29,12 @@ vec3 light_position = { 3.0f, 3.0f, 3.0f };
 int ap_render_general_initialize()
 {
         // load shader
-        light_shader = load_program(
+        light_shader = ap_shader_load_program(
                 "glsl/model_light.vs.glsl",
                 "glsl/model_light.fs.glsl"
         );
 
-        cube_shader = load_program(
+        cube_shader = ap_shader_load_program(
                 "glsl/cube_light.vs.glsl",
                 "glsl/cube_light.fs.glsl"
         );
@@ -45,18 +45,18 @@ int ap_render_general_initialize()
         vec3 light_specular = { 5.0f, 5.0f, 5.0f };
 
         glUseProgram(light_shader);
-        shaderSetInt(light_shader, "material.diffuse", 0);
-        shaderSetInt(light_shader, "material.specular", 1);
+        ap_shader_set_int(light_shader, "material.diffuse", 0);
+        ap_shader_set_int(light_shader, "material.specular", 1);
 
-        shaderSetVec3(light_shader, "light.position", light_position);
-        shaderSetVec3(light_shader, "light.ambient", light_ambient);
-        shaderSetVec3(light_shader, "light.diffuse", light_diffuse);
-        shaderSetVec3(light_shader, "light.specular", light_specular);
-        shaderSetFloat(light_shader, "material.shininess", 32.0f);
+        ap_shader_set_vec3(light_shader, "light.position", light_position);
+        ap_shader_set_vec3(light_shader, "light.ambient", light_ambient);
+        ap_shader_set_vec3(light_shader, "light.diffuse", light_diffuse);
+        ap_shader_set_vec3(light_shader, "light.specular", light_specular);
+        ap_shader_set_float(light_shader, "material.shininess", 32.0f);
 
-        shaderSetFloat(light_shader, "light.constant", 1.0f);
-        shaderSetFloat(light_shader, "light.linear", 0.09f);
-        shaderSetFloat(light_shader, "light.quadratic", 0.032f);
+        ap_shader_set_float(light_shader, "light.constant", 1.0f);
+        ap_shader_set_float(light_shader, "light.linear", 0.09f);
+        ap_shader_set_float(light_shader, "light.quadratic", 0.032f);
 
         glUseProgram(cube_shader);
         // nothing...
@@ -81,7 +81,7 @@ int ap_render_general_initialize()
         glEnableVertexAttribArray(0);
 
         // init model
-        AP_CHECK( init_model(&model, MODEL_FILE_NAME, false) );
+        AP_CHECK( ap_model_init(&model, MODEL_FILE_NAME, false) );
 
         // depth test
         glEnable(GL_DEPTH_TEST);
@@ -103,7 +103,7 @@ int ap_render_main()
 
         vec3 camera_position = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_position(camera_position);
-        shaderSetVec3(light_shader, "viewPos", camera_position);
+        ap_shader_set_vec3(light_shader, "viewPos", camera_position);
 
         // view/projection transformations
         mat4 view;
@@ -120,8 +120,8 @@ int ap_render_main()
                 0.1f, 100.0f, projection
         );
 
-        shaderSetMat4(light_shader, "view", view[0]);
-        shaderSetMat4(light_shader, "projection", projection[0]);
+        ap_shader_set_mat4(light_shader, "view", view[0]);
+        ap_shader_set_mat4(light_shader, "projection", projection[0]);
 
         // render the loaded model
         mat4 mat_model;
@@ -135,7 +135,7 @@ int ap_render_main()
         // rotate model by time.
         vec4 axis = {0.0f, 1.0f, 0.0f};
         glm_rotate(mat_model, glm_rad((float) current_frame), axis);
-        shaderSetMat4(light_shader, "model", (float *) mat_model);
+        ap_shader_set_mat4(light_shader, "model", (float *) mat_model);
         current_frame += 0.2f;
 
         // optimize depth test
@@ -153,19 +153,19 @@ int ap_render_main()
         }
         #endif // __ANDROID__
 
-        shaderSetInt(light_shader, "optDepth", enable_mobile_type);
+        ap_shader_set_int(light_shader, "optDepth", enable_mobile_type);
 
         AP_CHECK( draw_model(&model, light_shader) );
 
         // render the lamp cube
         glUseProgram(cube_shader);
-        shaderSetMat4(cube_shader, "projection", projection[0]);
-        shaderSetMat4(cube_shader, "view", view[0]);
+        ap_shader_set_mat4(cube_shader, "projection", projection[0]);
+        ap_shader_set_mat4(cube_shader, "view", view[0]);
         glm_mat4_identity(mat_model);
         glm_translate(mat_model, light_position);
         vec3 light_scale = { 0.50f, 0.50f, 0.50f };
         glm_scale(mat_model, light_scale);  // smaller
-        shaderSetMat4(light_shader, "model", mat_model[0]);
+        ap_shader_set_mat4(light_shader, "model", mat_model[0]);
         glBindVertexArray(light_cube_VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 

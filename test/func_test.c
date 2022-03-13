@@ -1,11 +1,11 @@
 #include "func_test.h"
 #include "ap_cvector.h"
-#include "vertex.h"
+#include "ap_vertex.h"
 #include "ap_mesh.h"
-#include "model.h"
+#include "ap_model.h"
 
 void print_vector(struct AP_Vector *vector);
-void print_vertex(struct Vertex *pVertex);
+void print_vertex(struct AP_Vertex *pVertex);
 void print_mesh(struct AP_Mesh *pMesh);
 void print_model(struct Model *pModel);
 
@@ -66,7 +66,7 @@ void print_vector(struct AP_Vector *vector)
         printf("\n");
 }
 
-void print_vertex(struct Vertex *p)
+void print_vertex(struct AP_Vertex *p)
 {
         if (!p) {
                 return;
@@ -110,7 +110,7 @@ void print_model(struct Model *p)
         printf("pDirectory:           %p\n", p->pDirectory);
 }
 
-void vectorCharTest()
+void test_vector_char()
 {
         LOGI("-------AP_Vector Char test-------\n");
 
@@ -150,7 +150,7 @@ void vectorCharTest()
         printf("------AP_Vector test finished--------\n\n");
 }
 
-void vectorFloatTest()
+void test_vector_float()
 {
         LOGI("-------AP_Vector Float test-------\n");
 
@@ -193,7 +193,7 @@ void vectorFloatTest()
         printf("------AP_Vector float finished--------\n\n");
 }
 
-void vectorUIntTest()
+void test_vector_uint()
 {
         LOGI("-------AP_Vector UINT test-------\n");
 
@@ -234,7 +234,7 @@ void vectorUIntTest()
         printf("------AP_Vector UINT finished--------\n\n");
 }
 
-void vectorIntTest()
+void test_vector_int()
 {
         LOGI("-------AP_Vector INT test-------\n");
 

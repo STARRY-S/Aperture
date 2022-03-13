@@ -1,12 +1,12 @@
-#ifndef TEST_FUNC_TEST_H
-#define TEST_FUNC_TEST_H
+#ifndef FUNC_TEST_H
+#define FUNC_TEST_H
 
 #include "ap_utils.h"
 #include "ap_cvector.h"
 
-void vectorFloatTest();
-void vectorCharTest();
-void vectorUIntTest();
-void vectorIntTest();
+void test_vector_float();
+void test_vector_char();
+void test_vector_uint();
+void test_vector_int();
 
 #endif
