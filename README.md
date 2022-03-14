@@ -1,6 +1,8 @@
 Aperture - Game Engine
 ====
 
+[![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/nikku/works-on-my-machine)
+
 > Current status: Developing...
 
 Aperture: A simple & tiny game engine based on OpenGL ES,
