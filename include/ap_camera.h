@@ -49,8 +49,8 @@ int ap_camera_get_view_matrix(mat4 *temp);
 int ap_camera_get_position(float *vec);
 int ap_camera_get_zoom(int *zoom);
 
-int ap_camera_process_key(int direction, float delta_time);
-int ap_camera_process_movement(float x_offset, float y_offset, bool pitch);
+int ap_camera_process_movement(int direction, float delta_time);
+int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);
 int ap_camera_process_scroll(float y_offset);
 
 int ap_camera_set_position(float x, float y, float z);
@@ -61,5 +61,7 @@ int ap_camera_set_pitch(float pitch);
 int ap_camera_set_sensitivity(float sensitivity);
 int ap_camera_set_speed(float speed);
 int ap_camera_set_zoom(float zoom);
+
+struct AP_Camera* ap_get_current_camera();
 
 #endif // AP_CAMERA_H

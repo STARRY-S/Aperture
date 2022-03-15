@@ -77,6 +77,7 @@ int ap_camera_free()
 {
         camera_using = NULL;    // for safety purpose
         ap_vector_free(&camera_vector);
+        LOGD("free cameras\n");
 
         return 0;
 }
@@ -151,7 +152,7 @@ int ap_camera_get_zoom(int *zoom)
         return 0;
 }
 
-int ap_camera_process_key(int direction, float delta_time)
+int ap_camera_process_movement(int direction, float delta_time)
 {
         if (camera_using == NULL) {
                 return AP_ERROR_CAMERA_NOT_SET;
@@ -231,7 +232,7 @@ int ap_camera_process_key(int direction, float delta_time)
         return 0;
 }
 
-int ap_camera_process_movement(float x_offset, float y_offset, bool pitch)
+int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch)
 {
         if (camera_using == NULL) {
                 return AP_ERROR_CAMERA_NOT_SET;
@@ -354,4 +355,9 @@ int ap_camera_set_zoom(float zoom)
 
         camera_using->zoom = zoom;
         return 0;
+}
+
+struct AP_Camera* ap_get_current_camera()
+{
+        return camera_using;
 }

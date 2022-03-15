@@ -54,7 +54,7 @@ JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass clazz,
                                                           jfloat x, jfloat y,
                                                           jboolean constrain_pitch) {
-        ap_camera_process_movement(x, y, constrain_pitch);
+        ap_camera_process_mouse_move(x, y, constrain_pitch);
         return 0;
 }
 

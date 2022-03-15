@@ -8,25 +8,13 @@
 
 #define AP_DEMO_CAMERA_NUMBER 5
 
-void key_callback(
-        GLFWwindow *window, int key, int s, int action, int mods
-);
-void framebuffer_size_callback(
-        GLFWwindow *window, int width, int height
-);
-void mouse_callback(
-        GLFWwindow *window, double x_pos, double y_pos
-);
-void mouse_cursor_callback(
-        GLFWwindow *window, double x_pos, double y_pos
-);
-void mouse_button_callback(
-        GLFWwindow *window, int button, int action, int mods
-);
-void scroll_callback(
-        GLFWwindow *window, double x_offset, double y_offset
-);
-void processInput(GLFWwindow *window);
+void key_callback(GLFWwindow *win, int key, int s, int action, int mods);
+void framebuffer_size_callback(GLFWwindow *win, int width, int height);
+void mouse_callback(GLFWwindow *win, double x_pos, double y_pos);
+void mouse_cursor_callback(GLFWwindow *win, double x_pos, double y_pos);
+void mouse_button_callback(GLFWwindow *win, int button, int action, int mods);
+void scroll_callback(GLFWwindow *win, double x_offset, double y_offset);
+void processInput(GLFWwindow *win);
 
 const GLFWvidmode* mode;
 
@@ -49,6 +37,7 @@ int main(int argc, char **argv)
                         printf("\t%s -f -- Full Screen Mode\n", argv[0]);
                         printf("\tW S A D -- Camea movement\n");
                         printf("\tLCtrl   -- Speedup movement\n");
+                        printf("\tC       -- Change camera\n");
                         printf("\tESC / Q -- Exit\n");
 
                         return EXIT_SUCCESS;
@@ -169,22 +158,22 @@ void processInput(GLFWwindow *window)
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_FORWARD, speed);
+                ap_camera_process_movement(AP_CAMERA_FORWARD, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_MOV_BACKWARD, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_BACKWARD, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_MOV_LEFT, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_LEFT, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_MOV_RIGHT, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_RIGHT, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_MOV_DOWN, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_DOWN, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-                ap_camera_process_key(AP_CAMERA_MOV_UP, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_UP, speed);
         }
 }
 
@@ -208,18 +197,14 @@ void mouse_callback(GLFWwindow *window, double x_pos, double y_pos)
         float x_offset = x_pos - last_x;
         // it's oppisite (negative) here,
         // because y increases from bottom to top
-        float yoffset = -(y_pos - last_y);
+        float y_offset = -(y_pos - last_y);
         last_x = x_pos;
         last_y = y_pos;
 
-        ap_camera_process_movement(x_offset, yoffset, true);
+        ap_camera_process_mouse_move(x_offset, y_offset, true);
 }
 
-void mouse_button_callback(
-        GLFWwindow *window,
-        int button,
-        int action,
-        int mods)
+void mouse_button_callback(GLFWwindow *win, int button, int action, int mods)
 {
         if (button == GLFW_MOUSE_BUTTON_LEFT) {
                 if (action == GLFW_PRESS) {

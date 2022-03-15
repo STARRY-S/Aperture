@@ -4,6 +4,7 @@
 #include "ap_custom_io.h"
 #include "ap_texture.h"
 #include "ap_vertex.h"
+#include "ap_shader.h"
 
 #include <GLES3/gl3.h>
 #include <assimp/cimport.h>
@@ -12,6 +13,9 @@
 #include <assimp/cfileio.h>
 #include <stb_image.h>
 
+static struct AP_Vector model_vector = { 0, 0, 0, 0 };
+static struct AP_Model *model_using = NULL;
+
 /**
  * Load model from android asset manager.
  * @param model
@@ -19,7 +23,7 @@
  * @param format can be null or empty string
  * @return AP_Types
  */
-int ap_model_load(struct AP_Model *model, const char *path);
+int ap_model_load_ptr(struct AP_Model *model, const char *path);
 
 /**
  * Process node
@@ -67,8 +71,8 @@ struct AP_Mesh *ap_model_process_mesh(
 int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
 
 /**
- * checks all material textures of a given type and loads the textures
- * if they're not loaded yet. The required info is returned as a Texture struct.
+ * checks all material textures of a given type and loads the textures if
+ * they're not loaded yet. The required info is returned as a Texture struct.
  * @param model
  * @param mat
  * @param type
@@ -83,29 +87,103 @@ struct AP_Vector *ap_model_load_material_textures(
     const char* name
 );
 
-int ap_model_init(struct AP_Model *model, const char *path, bool gamma)
+int ap_model_generate(const char *path, unsigned int *model_id)
+{
+        if (!path || !model_id) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        // initialize vector when first use
+        if (model_vector.data == NULL) {
+                ap_vector_init(&model_vector, AP_VECTOR_MODEL);
+        }
+
+        struct AP_Model model;
+        AP_CHECK( ap_model_init_ptr(&model, path, false) );
+
+        model.id = model_vector.length + 1;
+        ap_vector_push_back(&model_vector, (const char*) &model);
+        *model_id = model.id;
+
+        return 0;
+}
+
+int ap_model_use(unsigned int model_id)
+{
+        if (model_id > model_vector.length) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (model_id == 0) {
+                model_using = NULL;
+                return 0;
+        }
+
+        struct AP_Model *tmp_model = (struct AP_Model*) model_vector.data;
+        model_using = tmp_model + (model_id - 1);
+
+        return 0;
+}
+
+int ap_model_draw()
+{
+        unsigned int shader_id = ap_get_current_shader();
+        if (shader_id == 0) {
+                return AP_ERROR_SHADER_NOT_SET;
+        }
+
+        if (model_using == NULL) {
+                return AP_ERROR_MODEL_NOT_SET;
+        }
+
+        ap_model_draw_ptr_shader(model_using, shader_id);
+
+        return 0;
+}
+
+int ap_model_free()
+{
+        model_using = NULL;    // for safety purpose
+        struct AP_Model *model_array = (struct AP_Model*) model_vector.data;
+        for (int i = 0; i < model_vector.length; ++i) {
+                free(model_array[i].directory);
+                model_array[i].directory = NULL;
+                free(model_array[i].mesh);
+                model_array[i].mesh = NULL;
+                free(model_array[i].texture);
+                model_array[i].texture = NULL;
+        }
+        ap_vector_free(&model_vector);
+        LOGD("free models\n");
+
+        return 0;
+}
+
+int ap_model_init_ptr(struct AP_Model *model, const char *path, bool gamma)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
-        int iDirCharLocation = 0;
+        memset(model, 0, sizeof(struct AP_Model));
+
+        int dir_char_location = 0;
         for (int i = 0; i < strlen(path); ++i) {
                 if (path[i] == '/') {
-                iDirCharLocation = i;
+                dir_char_location = i;
                 }
         }
-        if (iDirCharLocation >= 0) {
-                char *pDirPath = malloc(sizeof(char) * (iDirCharLocation + 2));
-                memcpy(pDirPath, path, (iDirCharLocation + 1) * sizeof(char));
-                pDirPath[iDirCharLocation + 1] = '\0';
-                model->directory = pDirPath;
+        if (dir_char_location >= 0) {
+                char *dir_path = malloc(sizeof(char) * (dir_char_location + 2));
+                memcpy(dir_path, path, (dir_char_location + 1) * sizeof(char));
+                dir_path[dir_char_location + 1] = '\0';
+                model->directory = dir_path;
         }
 
-        return ap_model_load(model, path);
+        return ap_model_load_ptr(model, path);
 }
 
-int ap_model_load(struct AP_Model *model, const char *path)
+int ap_model_load_ptr(struct AP_Model *model, const char *path)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
@@ -436,7 +514,7 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         return 0;
 }
 
-int ap_model_draw_ptr(struct AP_Model *model, unsigned int shader)
+int ap_model_draw_ptr_shader(struct AP_Model *model, unsigned int shader)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;

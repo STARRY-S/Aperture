@@ -22,7 +22,10 @@ static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "INIT_FAILED",
         "RENDER_FAILED",
         "TEXTURE_FAILED",
+        "SHADER_LOAD_FAILED",
         "CAMERA_NOT_SET",
+        "SHADER_NOT_SET",
+        "MODEL_NOT_SET",
         "UNKNOWN"
 };
 

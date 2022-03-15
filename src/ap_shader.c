@@ -3,11 +3,109 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
+#include "ap_cvector.h"
 #include "ap_shader.h"
 #include "ap_utils.h"
 
+// vector stores openGL (shader) program ID
+static struct AP_Vector shader_vector = { 0, 0, 0, 0 };
+// openGL (shader) program ID
+static unsigned int shader_using = 0;
+
+/**
+ * Load vertex and fragment shader from file, compile and attach it to program
+ * return (shader) program id
+ */
+GLuint ap_shader_load_program(
+    const char *const vshader_path,
+    const char *const fshader_path
+);
+
+/**
+ * @brief return compiled openGL shader id
+ * @param type
+ * @param shader_path
+ * @return GLuint
+ */
 GLuint ap_shader_load(GLenum type, const char *const shader_path);
+
+/**
+ * @brief Compile the shader from memory data
+ * @param type shader type
+ * @param shader_src memory data
+ * @return GLuint shader id
+ */
+GLuint ap_compile_shader(
+    GLenum type,
+    const char *const shader_src
+);
+
+int ap_shader_generate(
+        const char* vshader_path,
+        const char* fshader_path,
+        unsigned int *shader_id)
+{
+        if (!vshader_path || !fshader_path) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        // initialize vector when first use
+        if (shader_vector.data == NULL) {
+                ap_vector_init(&shader_vector, AP_VECTOR_UINT);
+        }
+
+        GLuint gl_shader_id = 0;
+        gl_shader_id = ap_shader_load_program(vshader_path, fshader_path);
+        if (gl_shader_id == 0) {
+                return AP_ERROR_SHADER_LOAD_FAILED;
+        }
+        ap_vector_push_back(&shader_vector, (const char*) &gl_shader_id);
+        *shader_id = gl_shader_id;
+
+        return 0;
+}
+
+int ap_shader_use(unsigned shader_program_id)
+{
+        if (shader_program_id == 0) {
+                glUseProgram(0);
+                return 0;
+        }
+
+        unsigned int *program_id_array = (unsigned*) shader_vector.data;
+        bool found = false;
+        for (int i = 0; i < shader_vector.length; ++i) {
+                if (program_id_array[i] == shader_program_id) {
+                        found = true;
+                }
+        }
+
+        if (found) {
+                shader_using = shader_program_id;
+                glUseProgram(shader_program_id);
+        } else {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        return 0;
+}
+
+int ap_shader_free()
+{
+        shader_using = 0;    // for safety purpose
+        glUseProgram(0);
+        unsigned int *program_ptr = (unsigned*) shader_vector.data;
+        for (int i = 0; i < shader_vector.length; ++i) {
+                glDeleteProgram(program_ptr[i]);
+                LOGD("deleted OpenGL program: %u\n", program_ptr[i]);
+        }
+        ap_vector_free(&shader_vector);
+        LOGD("free shader programs\n");
+
+        return 0;
+}
 
 GLuint ap_compile_shader(
     GLenum type,
@@ -164,4 +262,9 @@ void ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
 {
         GLuint location = glGetUniformLocation(program, name);
         glUniformMatrix4fv(location, 1, GL_FALSE, mat);
+}
+
+unsigned int ap_get_current_shader()
+{
+        return shader_using;
 }

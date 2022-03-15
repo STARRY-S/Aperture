@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// show debug message
+#define AP_DEBUG
+
 #include "cglm/cglm.h"
 
 #ifdef __ANDROID__
@@ -99,11 +102,11 @@ int ap_get_mobile_type(const char *pMobileName);
 #define LOGE(...) fprintf(stderr, __VA_ARGS__);
 #define LOGW(...) fprintf(stdout, __VA_ARGS__);
 
-#ifdef DEBUG
+#ifdef AP_DEBUG
 #define LOGD(...) fprintf(stdout, __VA_ARGS__);
 #else
 #define LOGD(...) ;
-#endif  // DEBUG
+#endif  // AP_DEBUG
 
 #endif  // NOT ANDROID
 
@@ -119,7 +122,10 @@ typedef enum {
         AP_ERROR_INIT_FAILED,           // initialize failed
         AP_ERROR_RENDER_FAILED,         // render failed with unknown error
         AP_ERROR_TEXTURE_FAILED,        // texture load failed unknown error
+        AP_ERROR_SHADER_LOAD_FAILED,    // shader load failed
         AP_ERROR_CAMERA_NOT_SET,        // camera not set
+        AP_ERROR_SHADER_NOT_SET,        // shader not set
+        AP_ERROR_MODEL_NOT_SET,         // model not set
         AP_ERROR_UNKNOWN,               // unknown error
         AP_ERROR_LENGTH
 } AP_Types;

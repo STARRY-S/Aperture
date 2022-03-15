@@ -11,6 +11,7 @@
 #include "ap_custom_io.h"
 
 #define MODEL_FILE_NAME "backpack/backpack.obj"
+#define BACKPACK_MODEL_NUM 4
 
 int screen_width = 0, screen_height = 0;
 
@@ -22,21 +23,33 @@ GLuint light_shader = 0;
 GLuint cube_shader = 0;
 GLuint light_cube_VAO = 0;
 GLuint VBO = 0;
-struct AP_Model model;
+GLuint backpack_model_ids[BACKPACK_MODEL_NUM] = { 0 };
 
 vec3 light_position = { 3.0f, 3.0f, 3.0f };
 
 int ap_render_general_initialize()
 {
         // load shader
-        light_shader = ap_shader_load_program(
+        // light_shader = ap_shader_load_program(
+        //         "glsl/model_light.vs.glsl",
+        //         "glsl/model_light.fs.glsl"
+        // );
+
+        // cube_shader = ap_shader_load_program(
+        //         "glsl/cube_light.vs.glsl",
+        //         "glsl/cube_light.fs.glsl"
+        // );
+
+        ap_shader_generate(
                 "glsl/model_light.vs.glsl",
-                "glsl/model_light.fs.glsl"
+                "glsl/model_light.fs.glsl",
+                &light_shader
         );
 
-        cube_shader = ap_shader_load_program(
+        ap_shader_generate(
                 "glsl/cube_light.vs.glsl",
-                "glsl/cube_light.fs.glsl"
+                "glsl/cube_light.fs.glsl",
+                &cube_shader
         );
 
         // TODO: Seperate the light setup param in individual function
@@ -44,7 +57,8 @@ int ap_render_general_initialize()
         vec3 light_diffuse = { 0.5f, 0.5f, 0.5f };
         vec3 light_specular = { 5.0f, 5.0f, 5.0f };
 
-        glUseProgram(light_shader);
+        // glUseProgram(light_shader);
+        ap_shader_use(light_shader);
         ap_shader_set_int(light_shader, "material.diffuse", 0);
         ap_shader_set_int(light_shader, "material.specular", 1);
 
@@ -58,9 +72,11 @@ int ap_render_general_initialize()
         ap_shader_set_float(light_shader, "light.linear", 0.09f);
         ap_shader_set_float(light_shader, "light.quadratic", 0.032f);
 
-        glUseProgram(cube_shader);
+        // glUseProgram(cube_shader);
+        ap_shader_use(cube_shader);
         // nothing...
-        glUseProgram(0);
+        // glUseProgram(0);
+        ap_shader_use(0);
 
         #ifdef __ANDROID__
         GLuint camera_id;
@@ -88,7 +104,15 @@ int ap_render_general_initialize()
         glEnableVertexAttribArray(0);
 
         // init model
-        AP_CHECK( ap_model_init(&model, MODEL_FILE_NAME, false) );
+        for (int i = 0; i < BACKPACK_MODEL_NUM; ++i) {
+                AP_CHECK(
+                        ap_model_generate(
+                                MODEL_FILE_NAME,
+                                &backpack_model_ids[i]
+                        )
+                );
+                AP_CHECK( ap_model_use(backpack_model_ids[i]) );
+        }
 
         // depth test
         glEnable(GL_DEPTH_TEST);
@@ -106,7 +130,8 @@ int ap_render_main()
         // render
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(light_shader);
+        // glUseProgram(light_shader);
+        ap_shader_use(light_shader);
 
         vec3 camera_position = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_position(camera_position);
@@ -130,20 +155,7 @@ int ap_render_main()
         ap_shader_set_mat4(light_shader, "view", view[0]);
         ap_shader_set_mat4(light_shader, "projection", projection[0]);
 
-        // render the loaded model
-        mat4 mat_model;
-        glm_mat4_identity(mat_model);
-        vec3 model_position = { 0.0f, 0.0f, 0.0f };
-        // translate it down so it's at the center of the scene
-        glm_translate(mat_model, model_position);
-        vec3 model_scale = { 1.0f, 1.0f, 1.0f };
-        // it's a bit too big for our scene, so scale it down
-        glm_scale(mat_model, model_scale);
-        // rotate model by time.
-        vec4 axis = {0.0f, 1.0f, 0.0f};
-        glm_rotate(mat_model, glm_rad((float) current_frame), axis);
-        ap_shader_set_mat4(light_shader, "model", (float *) mat_model);
-        current_frame += 0.2f;
+
 
         // optimize depth test
         bool enable_mobile_type = false;
@@ -162,10 +174,33 @@ int ap_render_main()
 
         ap_shader_set_int(light_shader, "optDepth", enable_mobile_type);
 
-        AP_CHECK( ap_model_draw_ptr(&model, light_shader) );
+        mat4 mat_model;
+        for (int i = 0; i < BACKPACK_MODEL_NUM; ++i) {
+                vec3 model_position = {
+                        (float) i * 4,
+                        (float) i * 4,
+                        (float) i * -4
+                };
+                // render the loaded model
+                glm_mat4_identity(mat_model);
+                // translate it down so it's at the center of the scene
+                vec3 model_scale = { 1.0f, 1.0f, 1.0f };
+                // it's a bit too big for our scene, so scale it down
+                glm_scale(mat_model, model_scale);
+                // rotate model by time.
+                vec4 axis = {0.0f, 1.0f, 0.0f};
+                glm_rotate(mat_model, glm_rad((float) current_frame), axis);
+                glm_translate(mat_model, model_position);
+                ap_shader_set_mat4(light_shader, "model", (float *) mat_model);
+                ap_model_use(backpack_model_ids[i]);
+                AP_CHECK( ap_model_draw() );
+        }
+
+        current_frame += 0.2f;
 
         // render the lamp cube
-        glUseProgram(cube_shader);
+        // glUseProgram(cube_shader);
+        ap_shader_use(cube_shader);
         ap_shader_set_mat4(cube_shader, "projection", projection[0]);
         ap_shader_set_mat4(cube_shader, "view", view[0]);
         glm_mat4_identity(mat_model);
@@ -177,16 +212,18 @@ int ap_render_main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         glBindVertexArray(0);
+        ap_shader_use(0);
         return EXIT_SUCCESS;
 }
 
 int ap_render_finish()
 {
         ap_camera_free();
+        ap_shader_free();
+        ap_model_free();
+
         glDeleteVertexArrays(1, &light_cube_VAO);
         glDeleteBuffers(1, &VBO);
-        glDeleteProgram(cube_shader);
-        glDeleteProgram(light_shader);
         return EXIT_SUCCESS;
 }
 

@@ -27,9 +27,6 @@ typedef enum {
         AP_VECTOR_LENGTH            // never use this
 } AP_VECTOR_Types;
 
-/**
- * @brief AP_Vector defination
- */
 struct AP_Vector {
         // number of elements
         int length;
