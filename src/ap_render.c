@@ -221,6 +221,7 @@ int ap_render_finish()
         ap_camera_free();
         ap_shader_free();
         ap_model_free();
+        ap_texture_free();
 
         glDeleteVertexArrays(1, &light_cube_VAO);
         glDeleteBuffers(1, &VBO);

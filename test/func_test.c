@@ -71,11 +71,11 @@ void print_vertex(struct AP_Vertex *p)
         if (!p) {
                 return;
         }
-        printf("Position:  %f %f %f\n", p->Position[0], p->Position[1], p->Position[2]);
-        printf("Normal:    %f %f %f\n", p->Normal[0], p->Normal[1], p->Normal[2]);
-        printf("TexCoords: %f %f\n", p->TexCoords[0], p->TexCoords[1]);
-        printf("Tangent:   %f %f %f\n", p->Tangent[0], p->Tangent[1], p->Tangent[2]);
-        printf("BigTangent:%f %f %f\n", p->BigTangent[0], p->BigTangent[1], p->BigTangent[2]);
+        printf("position:  %f %f %f\n", p->position[0], p->position[1], p->position[2]);
+        printf("normal:    %f %f %f\n", p->normal[0], p->normal[1], p->normal[2]);
+        printf("tex_coords: %f %f\n", p->tex_coords[0], p->tex_coords[1]);
+        printf("tangent:   %f %f %f\n", p->tangent[0], p->tangent[1], p->tangent[2]);
+        printf("big_tangent:%f %f %f\n", p->big_tangent[0], p->big_tangent[1], p->big_tangent[2]);
 
         // mBoneIDs
         // mWeights

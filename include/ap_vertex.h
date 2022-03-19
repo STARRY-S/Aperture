@@ -6,12 +6,12 @@
 #include "cglm/cglm.h"
 
 struct AP_Vertex {
-        vec3 Position;
-        vec3 Normal;
-        vec2 TexCoords;
+        vec3 position;
+        vec3 normal;
+        vec2 tex_coords;
 
-        vec3 Tangent;
-        vec3 BigTangent;
+        vec3 tangent;
+        vec3 big_tangent;
 
         //bone indexes which will influence this vertex
         int bonel_ids[MAX_BONE_INFLUENCE];

@@ -13,9 +13,23 @@
 
 struct AP_Texture {
         unsigned int id;
-        char *type; // malloc, need free
-        char *path; // malloc, need free
+        char *type;
+        char *path;
 };
+
+int ap_texture_generate(
+        unsigned int *texture_id,
+        const char *name,
+        const char *path,
+        const char *directory,
+        bool gamma
+);
+
+struct AP_Texture *ap_texture_get_ptr_from_path(const char *path);
+
+int ap_texture_free();
+
+struct AP_Texture *ap_texture_get_ptr(unsigned int id);
 
 /**
  * Load texture from file, return the texture ID.
@@ -45,9 +59,7 @@ unsigned int ap_texture_from_file(
  */
 int ap_texture_init(struct AP_Texture *texture);
 
-
 int ap_texture_set_type(struct AP_Texture *texture, const char *name);
-
 
 int ap_texture_set_path(struct AP_Texture *texture, const char *pathName);
 

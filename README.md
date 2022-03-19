@@ -16,7 +16,7 @@ Current status (TODOs)
 - [x] Lightning stimulation
 - [ ] Cross platform:
     - [ ] Windows
-    - [x] Android (see [GameEngine-Android](https://github.com/STARRY-S/GameEngine-Android))
+    - [x] Android (see [Aperture-Android](https://github.com/STARRY-S/GameEngine-Android))
     - [x] Linux
     - [ ] ~~Mac OS~~
     - [ ] ~~IOS~~

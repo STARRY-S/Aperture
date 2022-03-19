@@ -187,7 +187,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 GL_FLOAT,
                 GL_FALSE,
                 sizeof(struct AP_Vertex),
-                (void*) offsetof(struct AP_Vertex, Normal)
+                (void*) offsetof(struct AP_Vertex, normal)
         );
         // texture coords
         glEnableVertexAttribArray(2);
@@ -197,19 +197,19 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 GL_FLOAT,
                 GL_FALSE,
                 sizeof(struct AP_Vertex),
-                (void*) offsetof(struct AP_Vertex, TexCoords)
+                (void*) offsetof(struct AP_Vertex, tex_coords)
         );
 
         // // vertex tangent
         // glEnableVertexAttribArray(3);
         // glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE,
         //                 sizeof(struct AP_Vertex),
-        //                 (void*)offsetof(struct AP_Vertex, Tangent));
+        //                 (void*)offsetof(struct AP_Vertex, tangent));
         // // vertex big tangent
         // glEnableVertexAttribArray(4);
         // glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE,
         //                 sizeof(struct AP_Vertex),
-        //                 (void*)offsetof(struct AP_Vertex, BigTangent));
+        //                 (void*)offsetof(struct AP_Vertex, big_tangent));
 
         glBindVertexArray(0);
         return 0;

@@ -239,10 +239,10 @@ int ap_model_process_node(
                 // node is just to keep stuff organized
                 // (like relations between nodes).
                 struct aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-                struct AP_Mesh *pNewMesh =
+                struct AP_Mesh *mesh_new =
                         ap_model_process_mesh(model, mesh, scene);
-                ap_model_mesh_push_back(model, pNewMesh);
-                ap_mesh_free(pNewMesh);
+                ap_model_mesh_push_back(model, mesh_new);
+                ap_mesh_free(mesh_new);
         }
 
         // after we've processed all of the meshes (if any)
@@ -263,56 +263,56 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
                 return NULL;
         }
         // data to fill
-        struct AP_Vector vecVertices;
-        struct AP_Vector vecIndices;
-        struct AP_Vector vecTextures;
+        struct AP_Vector vec_vertices;
+        struct AP_Vector vec_indices;
+        struct AP_Vector vec_textures;
 
-        ap_vector_init(&vecVertices, AP_VECTOR_VERTEX);
-        ap_vector_init(&vecIndices, AP_VECTOR_UINT);
-        ap_vector_init(&vecTextures, AP_VECTOR_TEXTURE);
+        ap_vector_init(&vec_vertices, AP_VECTOR_VERTEX);
+        ap_vector_init(&vec_indices, AP_VECTOR_UINT);
+        ap_vector_init(&vec_textures, AP_VECTOR_TEXTURE);
 
         // walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
                 struct AP_Vertex vertex;
                 // positions
-                vertex.Position[0] = mesh->mVertices[i].x;
-                vertex.Position[1] = mesh->mVertices[i].y;
-                vertex.Position[2] = mesh->mVertices[i].z;
+                vertex.position[0] = mesh->mVertices[i].x;
+                vertex.position[1] = mesh->mVertices[i].y;
+                vertex.position[2] = mesh->mVertices[i].z;
 
                 // normals
                 if (mesh->mNormals != NULL) {
-                vertex.Normal[0] = mesh->mNormals[i].x;
-                vertex.Normal[1] = mesh->mNormals[i].y;
-                vertex.Normal[2] = mesh->mNormals[i].z;
+                        vertex.normal[0] = mesh->mNormals[i].x;
+                        vertex.normal[1] = mesh->mNormals[i].y;
+                        vertex.normal[2] = mesh->mNormals[i].z;
                 }
                 // texture coordinates
                 // does the mesh contain texture coordinates?
                 if(mesh->mTextureCoords[0]) {
-                /** a vertex can contain up to 8 different texture coordinates.
-                 * We thus make the assumption that we won't
-                 * use models where a vertex can have multiple texture coordinates
-                 * so we always take the first set (0).
-                 */
-                vertex.TexCoords[0] = mesh->mTextureCoords[0][i].x;
-                vertex.TexCoords[1] = mesh->mTextureCoords[0][i].y;
+                        /** a vertex can contain up to 8 different texture coordinates.
+                         * We thus make the assumption that we won't
+                         * use models where a vertex can have multiple texture coordinates
+                         * so we always take the first set (0).
+                         */
+                        vertex.tex_coords[0] = mesh->mTextureCoords[0][i].x;
+                        vertex.tex_coords[1] = mesh->mTextureCoords[0][i].y;
 
-                // tangent
-                vertex.Tangent[0] = mesh->mTangents[i].x;
-                vertex.Tangent[1] = mesh->mTangents[i].y;
-                vertex.Tangent[2] = mesh->mTangents[i].z;
+                        // tangent
+                        vertex.tangent[0] = mesh->mTangents[i].x;
+                        vertex.tangent[1] = mesh->mTangents[i].y;
+                        vertex.tangent[2] = mesh->mTangents[i].z;
 
-                // big tangent
-                vertex.BigTangent[0] = mesh->mBitangents[i].x;
-                vertex.BigTangent[1] = mesh->mBitangents[i].y;
-                vertex.BigTangent[2] = mesh->mBitangents[i].z;
+                        // big tangent
+                        vertex.big_tangent[0] = mesh->mBitangents[i].x;
+                        vertex.big_tangent[1] = mesh->mBitangents[i].y;
+                        vertex.big_tangent[2] = mesh->mBitangents[i].z;
                 } else {
-                vertex.TexCoords[0] = 0.0f;
-                vertex.TexCoords[1] = 0.0f;
+                        vertex.tex_coords[0] = 0.0f;
+                        vertex.tex_coords[1] = 0.0f;
                 }
 
                 // vertices.push_back(vertex);
-                ap_vector_push_back(&vecVertices, (const char *) &vertex);
+                ap_vector_push_back(&vec_vertices, (const char *) &vertex);
         }
         // now wak through each of the mesh's faces
         // (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -321,7 +321,7 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
                 struct aiFace face = mesh->mFaces[i];
                 // retrieve all indices of the face and store them in the indices vector
                 for(unsigned int j = 0; j < face.mNumIndices; j++) {
-                ap_vector_push_back(&vecIndices, (const char *) &face.mIndices[j]);
+                        ap_vector_push_back(&vec_indices, (const char *) &face.mIndices[j]);
                 }
         }
         // process materials
@@ -338,69 +338,69 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
 
         // 1. diffuse maps
         size_t size = sizeof(struct AP_Texture);
-        struct AP_Vector *pVecDiffuseMaps = NULL;
-        pVecDiffuseMaps = ap_model_load_material_textures(
+        struct AP_Vector *vec_diffuse_ptr = NULL;
+        vec_diffuse_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_DIFFUSE, "texture_diffuse"
         );
         ap_vector_insert_back(
-                &vecTextures,
-                pVecDiffuseMaps->data,
-                size * pVecDiffuseMaps->length
+                &vec_textures,
+                vec_diffuse_ptr->data,
+                size * vec_diffuse_ptr->length
         );
-        ap_vector_free(pVecDiffuseMaps);
+        ap_vector_free(vec_diffuse_ptr);
 
         // 2. specular maps
-        struct AP_Vector *pVecSpecularMaps = NULL;
-        pVecSpecularMaps = ap_model_load_material_textures(
+        struct AP_Vector *vec_specular_ptr = NULL;
+        vec_specular_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_SPECULAR, "texture_specular"
         );
         ap_vector_insert_back(
-                &vecTextures,
-                pVecSpecularMaps->data,
-                size * pVecSpecularMaps->length
+                &vec_textures,
+                vec_specular_ptr->data,
+                size * vec_specular_ptr->length
         );
-        ap_vector_free(pVecSpecularMaps);
+        ap_vector_free(vec_specular_ptr);
 
         // 3. normal maps
-        struct AP_Vector *pVecNormalMaps = NULL;
-        pVecNormalMaps = ap_model_load_material_textures(
+        struct AP_Vector *vec_normal_ptr = NULL;
+        vec_normal_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_HEIGHT, "texture_normal"
         );
         ap_vector_insert_back(
-                &vecTextures,
-                pVecNormalMaps->data,
-                size * pVecNormalMaps->length
+                &vec_textures,
+                vec_normal_ptr->data,
+                size * vec_normal_ptr->length
         );
-        ap_vector_free(pVecNormalMaps);
+        ap_vector_free(vec_normal_ptr);
 
         // 4. height maps
-        struct AP_Vector *pVecHeightMaps;
-        pVecHeightMaps = ap_model_load_material_textures(
+        struct AP_Vector *vec_height_ptr;
+        vec_height_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_AMBIENT, "texture_height"
         );
         ap_vector_insert_back(
-                &vecTextures,
-                pVecHeightMaps->data,
-                size * pVecHeightMaps->length
+                &vec_textures,
+                vec_height_ptr->data,
+                size * vec_height_ptr->length
         );
-        ap_vector_free(pVecHeightMaps);
+        ap_vector_free(vec_height_ptr);
 
         // return a mesh object created from the extracted mesh data
-        static struct AP_Mesh sMeshBuffer;
+        static struct AP_Mesh mesh_buffer;
         ap_mesh_init(
-                &sMeshBuffer,
-                (struct AP_Vertex *) vecVertices.data,
-                vecVertices.length,
-                (unsigned int *) vecIndices.data,
-                vecIndices.length,
-                (struct AP_Texture *) vecTextures.data,
-                vecTextures.length
+                &mesh_buffer,
+                (struct AP_Vertex *) vec_vertices.data,
+                vec_vertices.length,
+                (unsigned int *) vec_indices.data,
+                vec_indices.length,
+                (struct AP_Texture *) vec_textures.data,
+                vec_textures.length
         );
-        ap_vector_free(&vecVertices);
-        ap_vector_free(&vecIndices);
-        ap_vector_free(&vecTextures);
+        ap_vector_free(&vec_vertices);
+        ap_vector_free(&vec_indices);
+        ap_vector_free(&vec_textures);
 
-        return &sMeshBuffer;
+        return &mesh_buffer;
 }
 
 struct AP_Vector *ap_model_load_material_textures(
@@ -420,48 +420,16 @@ struct AP_Vector *ap_model_load_material_textures(
                         mat, type, i, &str,
                         NULL, NULL, NULL, NULL, NULL, NULL
                 );
-                // check if texture was loaded before and if so,
-                // continue to next iteration: skip loading a new texture
-                bool skip = false;
-                for(GLuint j = 0; j < model->texture_length; j++)
-                {
-                        // skip the texture already loaded
-                        if(strcmp(model->texture[j].path, str.data) == 0)
-                        {
-                                ap_vector_push_back(
-                                        &vec_texture,
-                                        (const char *) &model->texture[j]
-                                );
-                                skip = true;
-                                break;
-                        }
+                struct AP_Texture *ptr = NULL;
+                ptr = ap_texture_get_ptr_from_path(str.data);
+                if (ptr == NULL) {
+                        GLuint texture_id = 0;
+                        ap_texture_generate(&texture_id, name, 
+                                str.data, model->directory, false);
+                        ptr = ap_texture_get_ptr(texture_id);
                 }
-                if(!skip)
-                {
-                        struct AP_Texture texture;
-                        memset(&texture, 0, sizeof(texture));
-                        texture.id = ap_texture_from_file(
-                                str.data,
-                                model->directory,
-                                false
-                        );
-
-                        ap_texture_set_path(&texture, str.data);
-                        ap_texture_set_type(&texture, name);
-
-                        // store it as texture loaded for entire model,
-                        // ensure we won't unnecessary load duplicate textures.
-                        ap_vector_push_back(
-                                &vec_texture,
-                                (const char*) &texture
-                        );
-                        AP_CHECK(
-                                ap_model_texture_loaded_push_back(
-                                        model,
-                                        &texture
-                                )
-                        );
-                }
+                ap_vector_push_back(&vec_texture, (const char*) ptr);
+                AP_CHECK( ap_model_texture_loaded_push_back(model, ptr) );
         }
         return &vec_texture;
 }
@@ -481,13 +449,13 @@ int ap_model_texture_loaded_push_back(
                 LOGE("Realloc error.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        struct AP_Texture *pNewTexture =
+        struct AP_Texture *texture_new =
                 model->texture + (model->texture_length);
         model->texture_length++;
-        ap_texture_init(pNewTexture);
-        ap_texture_set_type(pNewTexture, texture->type);
-        ap_texture_set_path(pNewTexture, texture->path);
-        pNewTexture->id = texture->id;
+        ap_texture_init(texture_new);
+        ap_texture_set_type(texture_new, texture->type);
+        ap_texture_set_path(texture_new, texture->path);
+        texture_new->id = texture->id;
 
         return 0;
 }
@@ -500,16 +468,18 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         }
 
         // add a new mesh struct object into model
-        model->mesh = realloc(model->mesh,
-                                sizeof(struct AP_Mesh) * (model->mesh_length + 1));
+        model->mesh = realloc(
+                model->mesh,
+                sizeof(struct AP_Mesh) * (model->mesh_length + 1)
+        );
         if (model->mesh == NULL) {
                 LOGE("Realloc error.");
                 return AP_ERROR_MALLOC_FAILED;
         }
-        struct AP_Mesh *pNewMesh = &model->mesh[model->mesh_length];
+        struct AP_Mesh *mesh_ptr = &model->mesh[model->mesh_length];
         model->mesh_length++;
         // copy old mesh data memory to new mesh
-        ap_mesh_copy(pNewMesh, mesh);
+        ap_mesh_copy(mesh_ptr, mesh);
 
         return 0;
 }

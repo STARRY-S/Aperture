@@ -1,8 +1,101 @@
 #include "ap_texture.h"
 #include "ap_utils.h"
+#include "ap_cvector.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+struct AP_Vector texture_vector = { 0, 0, 0, 0 };
+
+int ap_texture_generate(
+        unsigned int *texture_id,
+        const char *name,
+        const char *path,
+        const char *directory,
+        bool gamma)
+{
+        if (texture_vector.data == NULL) {
+                ap_vector_init(&texture_vector, AP_VECTOR_TEXTURE);
+        }
+        unsigned int id = ap_texture_from_file(path, directory, gamma);
+        if (id == 0) {
+                return AP_ERROR_TEXTURE_FAILED;
+        }
+
+        struct AP_Texture texture;
+        memset(&texture, 0, sizeof(struct AP_Texture));
+
+        texture.id = id;
+        ap_texture_set_path(&texture, path);
+        ap_texture_set_type(&texture, name);
+
+        ap_vector_push_back(&texture_vector, (const char*) &texture);
+        *texture_id = id;
+
+        return 0;
+}
+
+struct AP_Texture *ap_texture_get_ptr(unsigned int id)
+{
+        if (id == 0 || texture_vector.data == NULL) {
+                // INVALID_PARAMETER
+                return NULL;
+        }
+
+        struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
+        for (int i = 0; i < texture_vector.length; ++i) {
+                if (id == ptr[i].id) {
+                        return ptr + i;
+                }
+        }
+
+        return NULL;
+}
+
+struct AP_Texture *ap_texture_get_ptr_from_path(const char *path)
+{
+        if (path == NULL || texture_vector.data == NULL) {
+                // INVALID_PARAMETER
+                return NULL;
+        }
+
+        struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
+        for (int i = 0; i < texture_vector.length; ++i) {
+                if (strcmp(path, ptr[i].path) == 0) {
+                        return ptr + i;
+                }
+        }
+        return NULL;
+}
+
+const char* ap_texture_get_type(unsigned int id)
+{
+        struct AP_Texture *ptr = ap_texture_get_ptr(id);
+        if (ptr == NULL) {
+                return NULL;
+        }
+
+        return ptr->type;
+}
+
+int ap_texture_free()
+{
+        if (texture_vector.data == NULL) {
+                return 0;
+        }
+
+        struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
+        for (int i = 0; i < texture_vector.length; ++i) {
+                glDeleteTextures(1, &(ptr[i].id));
+                free(ptr[i].path);
+                free(ptr[i].type);
+                LOGD("deleted texture id: %u\n", ptr[i].id);
+        }
+
+        ap_vector_free(&texture_vector);
+        memset(&texture_vector, 0, sizeof(struct AP_Vector));
+        return 0;
+}
 
 GLuint ap_texture_load(const char *const path, int format)
 {
