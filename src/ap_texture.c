@@ -87,8 +87,8 @@ int ap_texture_free()
         struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
         for (int i = 0; i < texture_vector.length; ++i) {
                 glDeleteTextures(1, &(ptr[i].id));
-                ap_free(ptr[i].path);
-                ap_free(ptr[i].type);
+                AP_FREE(ptr[i].path);
+                AP_FREE(ptr[i].type);
                 LOGD("deleted texture id: %u", ptr[i].id);
         }
 
@@ -165,7 +165,7 @@ unsigned int ap_texture_from_file(
 
         int width, height, nr_components;
         int buffer_length = strlen(path) + strlen(directory) + 1;
-        char *path_buffer = ap_malloc(sizeof(char) * buffer_length);
+        char *path_buffer = AP_MALLOC(sizeof(char) * buffer_length);
         if (path_buffer == NULL) {
                 LOGE("Malloc failed.");
                 return 0;
@@ -181,11 +181,11 @@ unsigned int ap_texture_from_file(
         if (path_asset == NULL) {
                 // AP_ERROR_ASSET_OPEN_FAILED;
                 LOGE("Failed to load texture from file: %s", path_buffer);
-                ap_free(path_buffer);
+                AP_FREE(path_buffer);
                 path_buffer = NULL;
                 return 0;
         }
-        ap_free(path_buffer);
+        AP_FREE(path_buffer);
         path_buffer = NULL;
         file_length = AAsset_getLength(path_asset);
 
@@ -259,11 +259,11 @@ int ap_texture_set_type(struct AP_Texture *texture, const char *name)
         }
 
         if (texture->type != NULL) {
-                LOGD("Try to free old texture type pointer: 0X%p", texture);
-                ap_free(texture->type);
+                LOGD("Try to AP_FREE old texture type pointer: 0X%p", texture);
+                AP_FREE(texture->type);
                 texture->type = NULL;
         }
-        texture->type = ap_malloc(sizeof(char) * (strlen(name) + 1) );
+        texture->type = AP_MALLOC(sizeof(char) * (strlen(name) + 1) );
         strcpy(texture->type, name);
         return 0;
 }
@@ -275,11 +275,11 @@ int ap_texture_set_path(struct AP_Texture *texture, const char *pathName)
         }
 
         if (texture->path != NULL) {
-                LOGD("Try to free old texture path pointer: 0X%p", texture);
-                ap_free(texture->path);
+                LOGD("Try to AP_FREE old texture path pointer: 0X%p", texture);
+                AP_FREE(texture->path);
                 texture->path = NULL;
         }
-        texture->path = ap_malloc(sizeof(char) * (strlen(pathName) + 1) );
+        texture->path = AP_MALLOC(sizeof(char) * (strlen(pathName) + 1) );
         strcpy(texture->path, pathName);
         return 0;
 }

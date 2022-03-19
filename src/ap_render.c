@@ -29,17 +29,6 @@ vec3 light_position = { 3.0f, 3.0f, 3.0f };
 
 int ap_render_general_initialize()
 {
-        // load shader
-        // light_shader = ap_shader_load_program(
-        //         "glsl/model_light.vs.glsl",
-        //         "glsl/model_light.fs.glsl"
-        // );
-
-        // cube_shader = ap_shader_load_program(
-        //         "glsl/cube_light.vs.glsl",
-        //         "glsl/cube_light.fs.glsl"
-        // );
-
         ap_shader_generate(
                 "glsl/model_light.vs.glsl",
                 "glsl/model_light.fs.glsl",
@@ -222,6 +211,7 @@ int ap_render_finish()
         ap_shader_free();
         ap_model_free();
         ap_texture_free();
+        ap_memory_release();
 
         glDeleteVertexArrays(1, &light_cube_VAO);
         glDeleteBuffers(1, &VBO);

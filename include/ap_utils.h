@@ -10,6 +10,7 @@
 #define AP_DEFAULT_BUFFER_SIZE 128
 
 #include "cglm/cglm.h"
+#include "ap_memory.h"
 
 #ifdef __ANDROID__
 #include <android/asset_manager.h>
@@ -108,17 +109,17 @@ int ap_get_mobile_type(const char *pMobileName);
 
 // Output log messages to stdout/stderr
 #define LOGI(...) \
-        fprintf(stdout, "%s[AP_INFO ] %s", AP_COLOR_GREEN, AP_COLOR_RESET); \
+        fprintf(stdout, "%s[AP_MESSG] %s", AP_COLOR_GREEN, AP_COLOR_RESET); \
         fprintf(stdout, __VA_ARGS__); \
-        fprintf(stdout, "\n"); 
+        fprintf(stdout, "\n");
 #define LOGE(...) \
         fprintf(stderr, "%s[AP_ERROR] %s", AP_COLOR_RED, AP_COLOR_RESET);   \
         fprintf(stderr, __VA_ARGS__); \
-        fprintf(stderr, "\n"); 
+        fprintf(stderr, "\n");
 #define LOGW(...) \
-        fprintf(stdout, "%s[AP_WARN ] %s", AP_COLOR_MAGENTA, AP_COLOR_RESET); \
+        fprintf(stdout, "%s[AP_WARNG] %s", AP_COLOR_MAGENTA, AP_COLOR_RESET); \
         fprintf(stdout, __VA_ARGS__); \
-        fprintf(stdout, "\n"); 
+        fprintf(stdout, "\n");
 
 #ifdef AP_DEBUG
 #define LOGD(...) \
@@ -170,17 +171,5 @@ const float* ap_get_default_cube_vertices();
  * @brief Get the length of cube vertices
  */
 int ap_get_default_cube_vertices_length();
-
-void *ap_get_default_vector_ptr();
-
-void* ap_malloc(int size);
-
-void* ap_realloc(void* ptr, int size);
-
-void ap_free(void* ptr);
-
-int ap_unreleased_pointer_get_len();
-
-void ap_unreleased_pointer_print();
 
 #endif // AP_UTILS_H

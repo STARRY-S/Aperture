@@ -126,7 +126,7 @@ GLuint ap_compile_shader(
         if (!compiled) {
                 GLint info_len = 0;
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
-                char *info = (char*) ap_malloc(info_len);
+                char *info = (char*) AP_MALLOC(info_len);
                 if (info == NULL) {
                         LOGE("Malloc error.");
                         glDeleteShader(shader);
@@ -134,7 +134,7 @@ GLuint ap_compile_shader(
                 }
                 glGetShaderInfoLog(shader, info_len, NULL, info);
                 LOGE("Compiled Error: %s", info);
-                ap_free(info);
+                AP_FREE(info);
                 return 0;
         }
         return shader;
@@ -164,7 +164,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
                 return 0;
         }
         length = AAsset_getLength(mAsset);
-        buffer = ap_malloc(sizeof(char) * length);
+        buffer = AP_MALLOC(sizeof(char) * length);
         if (buffer == NULL) {
                 LOGE("MALLOG FAILED.");
                 return 0;
@@ -184,7 +184,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         fseek(fp, 0l, SEEK_END);
         length = ftell(fp);
         rewind(fp);
-        if (!(buffer = (char*) ap_malloc(length))) {
+        if (!(buffer = (char*) AP_MALLOC(length))) {
                 fprintf(stderr, "Malloc Error.\n");
                 fclose(fp);
                 return 1;
@@ -204,7 +204,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         if (result == 0) {
                 LOGE("Shader file [%s] compiled failed.", shader_path);
         }
-        ap_free(buffer);
+        AP_FREE(buffer);
         return result;
 }
 

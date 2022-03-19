@@ -34,7 +34,7 @@ int ap_mesh_init(
 
         struct AP_Vertex *vertex_new = NULL;
         if (vertices_length > 0) {
-                vertex_new = (struct AP_Vertex *) ap_malloc(
+                vertex_new = (struct AP_Vertex *) AP_MALLOC(
                                 sizeof(struct AP_Vertex) * vertices_length);
                 if (vertex_new == NULL) {
                         LOGE("MALLOC FAILED");
@@ -48,7 +48,7 @@ int ap_mesh_init(
 
         unsigned int *indices_new = NULL;
         if (indices_length > 0) {
-                indices_new = (unsigned int *) ap_malloc(
+                indices_new = (unsigned int *) AP_MALLOC(
                         sizeof(unsigned int) * indices_length);
                 if (indices_new == NULL) {
                         return AP_ERROR_MALLOC_FAILED;
@@ -61,7 +61,7 @@ int ap_mesh_init(
 
         struct AP_Texture *texture_new = NULL;
         if (texture_length > 0) {
-                texture_new = (struct AP_Texture *) ap_malloc(
+                texture_new = (struct AP_Texture *) AP_MALLOC(
                         sizeof(struct AP_Texture) * texture_length);
                 if (texture_new == NULL) {
                         return AP_ERROR_MALLOC_FAILED;
@@ -82,19 +82,19 @@ int ap_mesh_free(struct AP_Mesh *mesh)
                 return 0;
         }
         if (mesh->indices) {
-                ap_free(mesh->indices);
+                AP_FREE(mesh->indices);
                 mesh->indices = NULL;
         }
         mesh->indices_length = 0;
 
         if (mesh->vertices) {
-                ap_free(mesh->vertices);
+                AP_FREE(mesh->vertices);
                 mesh->vertices = NULL;
         }
         mesh->vertices_length = 0;
 
         if (mesh->textures) {
-                ap_free(mesh->textures);
+                AP_FREE(mesh->textures);
                 mesh->textures = NULL;
         }
         mesh->texture_length = 0;
@@ -113,7 +113,7 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
 
         mesh_new->texture_length = mesh_old->texture_length;
         if (mesh_old->texture_length > 0) {
-                mesh_new->textures = ap_malloc(
+                mesh_new->textures = AP_MALLOC(
                         mesh_new->texture_length * sizeof(struct AP_Texture));
                 memcpy(mesh_new->textures, mesh_old->textures,
                         mesh_new->texture_length * sizeof(struct AP_Texture));
@@ -121,7 +121,7 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
 
         mesh_new->indices_length = mesh_old->indices_length;
         if (mesh_old->indices_length > 0) {
-                mesh_new->indices = ap_malloc(
+                mesh_new->indices = AP_MALLOC(
                         mesh_new->indices_length * sizeof(unsigned int));
                 memcpy(mesh_new->indices, mesh_old->indices,
                         mesh_new->indices_length * sizeof(unsigned int));
@@ -129,7 +129,7 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
 
         mesh_new->vertices_length = mesh_old->vertices_length;
         if (mesh_old->vertices_length > 0) {
-                mesh_new->vertices = ap_malloc(
+                mesh_new->vertices = AP_MALLOC(
                         mesh_new->vertices_length * sizeof(struct AP_Vertex));
                 memcpy(mesh_new->vertices, mesh_old->vertices,
                         mesh_new->vertices_length * sizeof(struct AP_Vertex));

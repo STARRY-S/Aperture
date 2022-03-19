@@ -78,7 +78,7 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
  * @param type
  * @param name
  * @return Pointer points to a static vector,
- *         need use ap_vector_free to free its data after use.
+ *         need use ap_vector_free to AP_FREE its data after use.
  */
 struct AP_Vector *ap_model_load_material_textures(
     struct AP_Model *model,
@@ -146,15 +146,15 @@ int ap_model_free()
         model_using = NULL;    // for safety purpose
         struct AP_Model *model_array = (struct AP_Model*) model_vector.data;
         for (int i = 0; i < model_vector.length; ++i) {
-                ap_free(model_array[i].directory);
+                AP_FREE(model_array[i].directory);
                 model_array[i].directory = NULL;
-                ap_free(model_array[i].mesh);
+                AP_FREE(model_array[i].mesh);
                 model_array[i].mesh = NULL;
-                ap_free(model_array[i].texture);
+                AP_FREE(model_array[i].texture);
                 model_array[i].texture = NULL;
         }
         ap_vector_free(&model_vector);
-        LOGD("free models");
+        LOGD("AP_FREE models");
 
         return 0;
 }
@@ -174,7 +174,7 @@ int ap_model_init_ptr(struct AP_Model *model, const char *path, bool gamma)
                 }
         }
         if (dir_char_location >= 0) {
-                char *dir_path = ap_malloc(sizeof(char) * (dir_char_location + 2));
+                char *dir_path = AP_MALLOC(sizeof(char) * (dir_char_location + 2));
                 memcpy(dir_path, path, (dir_char_location + 1) * sizeof(char));
                 dir_path[dir_char_location + 1] = '\0';
                 model->directory = dir_path;
@@ -424,7 +424,7 @@ struct AP_Vector *ap_model_load_material_textures(
                 ptr = ap_texture_get_ptr_from_path(str.data);
                 if (ptr == NULL) {
                         GLuint texture_id = 0;
-                        ap_texture_generate(&texture_id, name, 
+                        ap_texture_generate(&texture_id, name,
                                 str.data, model->directory, false);
                         ptr = ap_texture_get_ptr(texture_id);
                 }
@@ -443,7 +443,7 @@ int ap_model_texture_loaded_push_back(
         }
 
         // add a new texture struct object into model
-        model->texture = ap_realloc(model->texture,
+        model->texture = AP_REALLOC(model->texture,
                 sizeof(struct AP_Texture) * (model->texture_length + 1));
         if (model->texture == NULL) {
                 LOGE("Realloc error.");
@@ -468,7 +468,7 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         }
 
         // add a new mesh struct object into model
-        model->mesh = ap_realloc(
+        model->mesh = AP_REALLOC(
                 model->mesh,
                 sizeof(struct AP_Mesh) * (model->mesh_length + 1)
         );

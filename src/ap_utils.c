@@ -30,8 +30,6 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "UNKNOWN"
 };
 
-static struct AP_Vector pointer_vector = { 0, 0, 0, 0};
-
 #ifdef __ANDROID__
 
 static AAssetManager *local_asset_manager = NULL;
@@ -150,85 +148,4 @@ const float* ap_get_default_cube_vertices()
 int ap_get_default_cube_vertices_length()
 {
     return sizeof(ap_utils_cube_vertices);
-}
-
-void *ap_get_default_vector_ptr()
-{
-        if (pointer_vector.data == NULL) {
-                ap_vector_init(&pointer_vector, AP_VECTOR_POINTER);
-        }
-        return (void*) &pointer_vector;
-}
-
-void* ap_malloc(int size)
-{
-        char* ptr = (char*) ap_malloc(size);
-        ap_vector_push_back(ap_get_default_vector_ptr(), (char*) &ptr);
-        return ptr;
-}
-
-void* ap_realloc(void* ptr, int size)
-{
-        struct AP_Vector *vector = ap_get_default_vector_ptr();
-        char **ptr_data = (char**) vector->data;
-        bool found = false;
-        for (int i = 0; i < vector->length; i++) {
-                if (ptr_data[i] == (char*) ptr) {
-                        AP_CHECK( ap_vector_remove_data(
-                                vector, (char*) ptr_data + i, 
-                                (char*) ptr_data + i + 1, 
-                                sizeof(char*)
-                        ) );
-                        found = true;
-                }
-        }
-        if (!found) {
-                LOGE("AP_REALLOC: unable to find pointer in vector: %p", ptr);
-                return NULL;
-        }
-        char *ptr_new = ap_realloc(ptr, size);
-        ap_vector_push_back(ap_get_default_vector_ptr(), (char*) &ptr_new);
-        return ptr_new;
-}
-
-void ap_free(void* ptr)
-{
-        struct AP_Vector *vector = ap_get_default_vector_ptr();
-        char **ptr_data = (char**) vector->data;
-        bool found = false;
-        for (int i = 0; i < vector->length; i++) {
-                if (ptr_data[i] == (char*) ptr) {
-                        AP_CHECK( ap_vector_remove_data(
-                                vector,
-                                (char*) (ptr_data + i), 
-                                (char*) (ptr_data + i + 1), 
-                                sizeof(char*)
-                        ) );
-                        found = true;
-                }
-        }
-        if (!found) {
-                LOGE("AP_FREE: unable to find pointer in vector: %p", ptr);
-        }
-        ap_free(ptr);
-        ptr = NULL;
-}
-
-int ap_unreleased_pointer_get_len()
-{
-        return pointer_vector.length;
-}
-
-void ap_unreleased_pointer_print()
-{
-        if (pointer_vector.length == 0) {
-                LOGI("All pointers are released");
-                return;
-        }
-
-        char **ptr_arr = (char**) pointer_vector.data;
-        LOGI("Here are the pointers unreleased:");
-        for (int i = 0; i < pointer_vector.length; ++i) {
-                LOGI("\t%p", ptr_arr[i]);
-        }
 }

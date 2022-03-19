@@ -67,7 +67,10 @@ int ap_vector_init(struct AP_Vector *vector, int vector_type)
         vector->type = vector_type;
         int size = ap_vector_data_type_size(vector);
         vector->capacity = AP_VECTOR_DEFAULT_CAPACITY;
-        vector->data = ap_malloc(size * AP_VECTOR_DEFAULT_CAPACITY);
+        /**
+         * Do not use malloc here to avoid infinite recursion
+         */
+        vector->data = AP_MALLOC(size * AP_VECTOR_DEFAULT_CAPACITY);
         if (vector->data == NULL) {
                 LOGE("Malloc failed for vector.");
                 return AP_ERROR_MALLOC_FAILED;
@@ -83,7 +86,7 @@ int ap_vector_free(struct AP_Vector *vector)
         if (vector == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
-        ap_free(vector->data);
+        AP_FREE(vector->data);
         vector->data = NULL;
         vector->capacity = 0;
         vector->length = 0;
@@ -116,7 +119,7 @@ int ap_vector_push_back(struct AP_Vector *vector, const char* data)
         }
 
         if (vector->length == vector->capacity) {
-                vector->data = ap_realloc(
+                vector->data = AP_REALLOC(
                         vector->data,
                         size * vector->capacity * 2
                 );
@@ -145,7 +148,7 @@ int ap_vector_insert_back(struct AP_Vector *vector, char *start, size_t size)
         }
 
         while (vector->length + (size / type_size) > vector->capacity) {
-                vector->data = ap_realloc(
+                vector->data = AP_REALLOC(
                         vector->data,
                         size * vector->capacity * 2
                 );

@@ -3,6 +3,8 @@
 #include "ap_vertex.h"
 #include "ap_mesh.h"
 #include "ap_model.h"
+#include "ap_memory.h"
+#include "ap_utils.h"
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
@@ -121,7 +123,7 @@ void test_vector_char()
         LOGI("-------AP_Vector Char test-------");
 
         struct AP_Vector *vector;
-        vector = ap_malloc( sizeof(struct AP_Vector) );
+        vector = AP_MALLOC( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_CHAR);
@@ -141,16 +143,16 @@ void test_vector_char()
 
         print_vector(vector);
 
-        LOGI("Start free vector");
+        LOGI("Start AP_FREE vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector");
+        LOGI("Finished AP_FREE vector");
         print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        ap_free(vector);
+        AP_FREE(vector);
         vector = NULL;
 
         printf("------AP_Vector test finished--------\n\n");
@@ -161,7 +163,7 @@ void test_vector_float()
         LOGI("-------AP_Vector Float test-------");
 
         struct AP_Vector *vector;
-        vector = ap_malloc( sizeof(struct AP_Vector) );
+        vector = AP_MALLOC( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_FLOAT");
         ap_vector_init(vector, AP_VECTOR_FLOAT);
@@ -184,16 +186,16 @@ void test_vector_float()
 
         print_vector(vector);
 
-        LOGI("Start free vector");
+        LOGI("Start AP_FREE vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector");
+        LOGI("Finished AP_FREE vector");
         print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        ap_free(vector);
+        AP_FREE(vector);
         vector = NULL;
 
         printf("------AP_Vector float finished--------\n\n");
@@ -204,7 +206,7 @@ void test_vector_uint()
         LOGI("-------AP_Vector UINT test-------\n");
 
         struct AP_Vector *vector;
-        vector = ap_malloc( sizeof(struct AP_Vector) );
+        vector = AP_MALLOC( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
@@ -225,16 +227,16 @@ void test_vector_uint()
 
         print_vector(vector);
 
-        LOGI("Start free vector");
+        LOGI("Start AP_FREE vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector");
+        LOGI("Finished AP_FREE vector");
         print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        ap_free(vector);
+        AP_FREE(vector);
         vector = NULL;
 
         printf("------AP_Vector UINT finished--------\n\n");
@@ -245,7 +247,7 @@ void test_vector_int()
         LOGI("-------AP_Vector INT test-------");
 
         struct AP_Vector *vector;
-        vector = ap_malloc( sizeof(struct AP_Vector) );
+        vector = AP_MALLOC( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
@@ -266,16 +268,16 @@ void test_vector_int()
 
         print_vector(vector);
 
-        LOGI("Start free vector");
+        LOGI("Start AP_FREE vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector");
+        LOGI("Finished AP_FREE vector");
         print_vector(vector);
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        ap_free(vector);
+        AP_FREE(vector);
         vector = NULL;
 
         printf("------AP_Vector INT finished--------\n\n");
@@ -283,24 +285,23 @@ void test_vector_int()
 
 void test_ap_memory()
 {
-        struct AP_Vector *vector = ap_get_default_vector_ptr();
-        char *str = ap_malloc(10 * sizeof(char));
+        char *str = AP_MALLOC(10 * sizeof(char));
         strcpy(str, "hello");
         LOGI("%s", str);
-        print_vector(vector);
+        // print_vector(vector);
 
-        str = ap_realloc(str, 20 * sizeof(char));
+        str = AP_REALLOC(str, 20 * sizeof(char));
         LOGI("%s", str);
-        print_vector(vector);
+        // print_vector(vector);
 
-        char *str2 = ap_malloc(10);
-        print_vector(vector);
+        char *str2 = AP_MALLOC(10);
+        // print_vector(vector);
 
-        ap_free(str);
-        print_vector(vector);
+        AP_FREE(str);
+        // print_vector(vector);
 
-        ap_free(str2);
-        print_vector(vector);
+        AP_FREE(str2);
+        // print_vector(vector);
 
         return;
 }
