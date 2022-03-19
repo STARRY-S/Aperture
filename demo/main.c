@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 
         if (window == NULL)
         {
-                LOGE("Failed to create GLFW window.\n");
+                LOGE("Failed to create GLFW window.");
                 glfwTerminate();
                 return -1;
         }
@@ -147,7 +147,7 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
                         camera_use_id = 0;
                         ap_camera_use(camera_ids[camera_use_id]);
                 }
-                LOGI("Use camera: %u\n", camera_ids[camera_use_id]);
+                LOGI("Use camera: %u", camera_ids[camera_use_id]);
         }
 }
 void processInput(GLFWwindow *window)

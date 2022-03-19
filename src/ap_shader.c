@@ -99,10 +99,10 @@ int ap_shader_free()
         unsigned int *program_ptr = (unsigned*) shader_vector.data;
         for (int i = 0; i < shader_vector.length; ++i) {
                 glDeleteProgram(program_ptr[i]);
-                LOGD("deleted OpenGL program: %u\n", program_ptr[i]);
+                LOGD("deleted OpenGL program: %u", program_ptr[i]);
         }
         ap_vector_free(&shader_vector);
-        LOGD("free shader programs\n");
+        LOGD("free shader programs");
 
         return 0;
 }
@@ -115,7 +115,7 @@ GLuint ap_compile_shader(
         GLint compiled = 0;
 
         if (!(shader = glCreateShader(type))) {
-                LOGE("glCreateShader failed, type %d.\n", type);
+                LOGE("glCreateShader failed, type %d.", type);
                 return 0;
         }
 
@@ -128,12 +128,12 @@ GLuint ap_compile_shader(
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
                 char *info = (char*) malloc(info_len);
                 if (info == NULL) {
-                        LOGE("Malloc error.\n");
+                        LOGE("Malloc error.");
                         glDeleteShader(shader);
                         return 0;
                 }
                 glGetShaderInfoLog(shader, info_len, NULL, info);
-                LOGE("Compiled Error: \n%s\n", info);
+                LOGE("Compiled Error: %s", info);
                 free(info);
                 return 0;
         }
@@ -150,7 +150,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         AAssetManager *pLocalAssetManager =
                 (AAssetManager *) ap_get_asset_manager();
         if (!pLocalAssetManager) {
-                LOGE("pLocalAssetManager is NULL, failed to read file.\n");
+                LOGE("pLocalAssetManager is NULL, failed to read file.");
                 return 0;
         }
         AAsset *mAsset = NULL;
@@ -166,7 +166,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         length = AAsset_getLength(mAsset);
         buffer = malloc(sizeof(char) * length);
         if (buffer == NULL) {
-                LOGE("MALLOG FAILED.\n");
+                LOGE("MALLOG FAILED.");
                 return 0;
         }
         AAsset_read(mAsset, buffer, length);
@@ -202,7 +202,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         buffer[length] = '\0';
         result = ap_compile_shader(type, buffer);
         if (result == 0) {
-                LOGE("Shader file [%s] compiled failed.\n", shader_path);
+                LOGE("Shader file [%s] compiled failed.", shader_path);
         }
         free(buffer);
         return result;
@@ -222,7 +222,7 @@ GLuint ap_shader_load_program(
         if (!vshader || !fshader)
                 return 0;
         if (!(program = glCreateProgram())) {
-                LOGE("glCreateProgram failed.\n");
+                LOGE("glCreateProgram failed.");
                 return 0;
         }
 
@@ -234,7 +234,7 @@ GLuint ap_shader_load_program(
 
         glGetProgramiv(program, GL_LINK_STATUS, &linked);
         if (!linked) {
-                LOGE("Link Program Error.\n");
+                LOGE("Link Program Error.");
                 return 0;
         }
         return program;

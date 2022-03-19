@@ -37,7 +37,7 @@ int ap_mesh_init(
                 vertex_new = (struct AP_Vertex *) malloc(
                                 sizeof(struct AP_Vertex) * vertices_length);
                 if (vertex_new == NULL) {
-                        LOGE("MALLOC FAILED\n");
+                        LOGE("MALLOC FAILED");
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 memcpy(vertex_new, vertices,

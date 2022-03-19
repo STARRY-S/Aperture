@@ -97,18 +97,40 @@ int ap_get_mobile_type(const char *pMobileName);
 
 #include <GLFW/glfw3.h>
 
+#define AP_COLOR_RED     "\x1b[31m"
+#define AP_COLOR_GREEN   "\x1b[32m"
+#define AP_COLOR_YELLOW  "\x1b[33m"
+#define AP_COLOR_BLUE    "\x1b[34m"
+#define AP_COLOR_MAGENTA "\x1b[35m"
+#define AP_COLOR_CYAN    "\x1b[36m"
+#define AP_COLOR_RESET   "\x1b[0m"
+
 // Output log messages to stdout/stderr
-#define LOGI(...) fprintf(stdout, __VA_ARGS__);
-#define LOGE(...) fprintf(stderr, __VA_ARGS__);
-#define LOGW(...) fprintf(stdout, __VA_ARGS__);
+#define LOGI(...) \
+        fprintf(stdout, "%s[AP_INFO ] %s", AP_COLOR_GREEN, AP_COLOR_RESET); \
+        fprintf(stdout, __VA_ARGS__); \
+        fprintf(stdout, "\n"); 
+#define LOGE(...) \
+        fprintf(stderr, "%s[AP_ERROR] %s", AP_COLOR_RED, AP_COLOR_RESET);   \
+        fprintf(stderr, __VA_ARGS__); \
+        fprintf(stderr, "\n"); 
+#define LOGW(...) \
+        fprintf(stdout, "%s[AP_WARN ] %s", AP_COLOR_MAGENTA, AP_COLOR_RESET); \
+        fprintf(stdout, __VA_ARGS__); \
+        fprintf(stdout, "\n"); 
 
 #ifdef AP_DEBUG
-#define LOGD(...) fprintf(stdout, __VA_ARGS__);
+#define LOGD(...) \
+        fprintf(stdout, "%s[AP_DEBUG] %s", AP_COLOR_YELLOW, AP_COLOR_RESET); \
+        fprintf(stdout, __VA_ARGS__); \
+        fprintf(stdout, "\n");
 #else
 #define LOGD(...) ;
 #endif  // AP_DEBUG
 
 #endif  // NOT ANDROID
+
+extern const char *AP_ERROR_NAME[];
 
 // common used error types
 typedef enum {
@@ -130,10 +152,12 @@ typedef enum {
         AP_ERROR_LENGTH
 } AP_Types;
 
-/**
- * @brief Check return value of ap_* functions
- */
-void AP_CHECK(int i);
+inline static void AP_CHECK(int i)
+{
+        if (i > 0 && i < AP_ERROR_LENGTH) {
+                LOGE("%s", AP_ERROR_NAME[i]);
+        }
+}
 
 /**
  * @brief Get the vertices of a cude

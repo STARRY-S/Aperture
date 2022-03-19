@@ -11,7 +11,7 @@
 #include "ap_texture.h"
 #include "ap_camera.h"
 
-static const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
+const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "SUCCESS",
         "INVALID_POINTER",
         "INVALID_PARAMETER",
@@ -93,13 +93,6 @@ int ap_get_mobile_type(const char *name)
 // Nothing...
 
 #endif  // Not Android
-
-void AP_CHECK(int i)
-{
-        if (i > 0 && i < AP_ERROR_LENGTH) {
-                LOGE("%s\n", AP_ERROR_NAME[i]);
-        }
-}
 
 static const float ap_utils_cube_vertices[] = {
         // positions          // normals           // texture coords

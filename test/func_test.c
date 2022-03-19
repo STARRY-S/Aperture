@@ -112,37 +112,37 @@ void print_model(struct AP_Model *p)
 
 void test_vector_char()
 {
-        LOGI("-------AP_Vector Char test-------\n");
+        LOGI("-------AP_Vector Char test-------");
 
         struct AP_Vector *vector;
         vector = malloc( sizeof(struct AP_Vector) );
 
-        LOGI("Start init vector AP_VECTOR_CHAR\n");
+        LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_CHAR);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
-        LOGI("Push data A - Z into vector\n");
+        LOGI("Push data A - Z into vector");
         for (char c = 'A'; c <= 'Z'; c++) {
                 ap_vector_push_back(vector, &c);
         }
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Push data a - g into vector\n");
+        LOGI("Push data a - g into vector");
         ap_vector_insert_back(vector, "abcdefghijklmnopqrstuvwxyz", 26);
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Start free vector\n");
+        LOGI("Start free vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector\n");
+        LOGI("Finished free vector");
         print_vector(vector);
 
-        LOGI("Start init vector AP_VECTOR_CHAR\n");
+        LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
         free(vector);
         vector = NULL;
@@ -152,40 +152,40 @@ void test_vector_char()
 
 void test_vector_float()
 {
-        LOGI("-------AP_Vector Float test-------\n");
+        LOGI("-------AP_Vector Float test-------");
 
         struct AP_Vector *vector;
         vector = malloc( sizeof(struct AP_Vector) );
 
-        LOGI("Start init vector AP_VECTOR_FLOAT\n");
+        LOGI("Start init vector AP_VECTOR_FLOAT");
         ap_vector_init(vector, AP_VECTOR_FLOAT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
-        LOGI("Push data 1.0f - 10.0f into vector\n");
+        LOGI("Push data 1.0f - 10.0f into vector");
         for (float f = 1.0f; (11.0f - f ) > 0.001f ; f += 1.0f) {
                 ap_vector_push_back(vector, (char*) &f);
         }
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Push data 11.0f-20.0f into vector\n");
+        LOGI("Push data 11.0f-20.0f into vector");
         float fArray[10] = {
                 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f, 17.0f, 18.0f,
                 19.0f, 20.0f};
         ap_vector_insert_back(vector, (char*) &fArray, 10 * sizeof(float));
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Start free vector\n");
+        LOGI("Start free vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector\n");
+        LOGI("Finished free vector");
         print_vector(vector);
 
-        LOGI("Start init vector AP_VECTOR_CHAR\n");
+        LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
         free(vector);
         vector = NULL;
@@ -200,33 +200,33 @@ void test_vector_uint()
         struct AP_Vector *vector;
         vector = malloc( sizeof(struct AP_Vector) );
 
-        LOGI("Start init vector AP_VECTOR_UINT\n");
+        LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
-        LOGI("Push data 1 - 10 into vector\n");
+        LOGI("Push data 1 - 10 into vector");
         for (unsigned u = 1; u <= 10 ; u += 1) {
                 ap_vector_push_back(vector, (char*) &u);
         }
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Push data 11 - 20 into vector\n");
+        LOGI("Push data 11 - 20 into vector");
         unsigned uArray[10] = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
         ap_vector_insert_back(vector, (char*) &uArray, 10 * sizeof(unsigned));
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Start free vector\n");
+        LOGI("Start free vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector\n");
+        LOGI("Finished free vector");
         print_vector(vector);
 
-        LOGI("Start init vector AP_VECTOR_CHAR\n");
+        LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
         free(vector);
         vector = NULL;
@@ -236,38 +236,38 @@ void test_vector_uint()
 
 void test_vector_int()
 {
-        LOGI("-------AP_Vector INT test-------\n");
+        LOGI("-------AP_Vector INT test-------");
 
         struct AP_Vector *vector;
         vector = malloc( sizeof(struct AP_Vector) );
 
-        LOGI("Start init vector AP_VECTOR_UINT\n");
+        LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
-        LOGI("Push data 1 - 10 into vector\n");
+        LOGI("Push data 1 - 10 into vector");
         for (int u = 1; u <= 10 ; u += 1) {
                 ap_vector_push_back(vector, (char*) &u);
         }
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Push data 11 - 20 into vector\n");
+        LOGI("Push data 11 - 20 into vector");
         int uArray[10] = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
         ap_vector_insert_back(vector, (char*) &uArray, 10 * sizeof(int));
-        LOGI("Push finished\n");
+        LOGI("Push finished");
 
         print_vector(vector);
 
-        LOGI("Start free vector\n");
+        LOGI("Start free vector");
         ap_vector_free(vector);
-        LOGI("Finished free vector\n");
+        LOGI("Finished free vector");
         print_vector(vector);
 
-        LOGI("Start init vector AP_VECTOR_CHAR\n");
+        LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_INT);
-        LOGI("Finished init vector\n");
+        LOGI("Finished init vector");
 
         free(vector);
         vector = NULL;

@@ -89,7 +89,7 @@ int ap_texture_free()
                 glDeleteTextures(1, &(ptr[i].id));
                 free(ptr[i].path);
                 free(ptr[i].type);
-                LOGD("deleted texture id: %u\n", ptr[i].id);
+                LOGD("deleted texture id: %u", ptr[i].id);
         }
 
         ap_vector_free(&texture_vector);
@@ -126,7 +126,7 @@ GLuint ap_texture_load(const char *const path, int format)
         data = stbi_load_from_memory(
                 file_data, assetLength, &width, &height, &nr_channels, 0);
         AAsset_close(path_asset);
-        LOGD("path %s width: %d, height: %d, channel %d\n",
+        LOGD("path %s width: %d, height: %d, channel %d",
                 path, width, height, nr_channels);
         #else
 
@@ -142,9 +142,9 @@ GLuint ap_texture_load(const char *const path, int format)
                         width, height, 0, format,
                         GL_UNSIGNED_BYTE, data);
                 glGenerateMipmap(GL_TEXTURE_2D);
-                LOGI("Loaded texture: %s\n", path);
+                LOGI("Loaded texture: %s", path);
         } else {
-                LOGE("Failed to load texture: %s\n", path);
+                LOGE("Failed to load texture: %s", path);
         }
 
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -167,7 +167,7 @@ unsigned int ap_texture_from_file(
         int buffer_length = strlen(path) + strlen(directory) + 1;
         char *path_buffer = malloc(sizeof(char) * buffer_length);
         if (path_buffer == NULL) {
-                LOGE("Malloc failed.\n");
+                LOGE("Malloc failed.");
                 return 0;
         }
         sprintf(path_buffer, "%s%s", directory, path);
@@ -202,7 +202,7 @@ unsigned int ap_texture_from_file(
 
         #endif
 
-        LOGD("path %s width: %d, height: %d, channel %d\n",
+        LOGD("path %s width: %d, height: %d, channel %d",
                 path_buffer, width, height, nr_components);
 
         if (data) {
@@ -236,7 +236,7 @@ unsigned int ap_texture_from_file(
 
                 stbi_image_free(data);
         } else {
-                LOGE("Failed to load texture: %s\n", path_buffer);
+                LOGE("Failed to load texture: %s", path_buffer);
                 stbi_image_free(data);
         }
         return texture_id;

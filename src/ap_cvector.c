@@ -49,7 +49,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
                 case AP_VECTOR_UNDEFINED:
                 default:
-                LOGW("Unknow vector type: %d\n", vector->type);
+                LOGW("Unknow vector type: %d", vector->type);
                 return size;
         }
         return size;
@@ -151,7 +151,7 @@ int ap_vector_insert_back(struct AP_Vector *vector, char *pStart, size_t size)
                 return AP_ERROR_MALLOC_FAILED;
                 }
                 vector->capacity *= 2;
-                LOGI("Realloc vector capacity: %d\n", vector->capacity);
+                LOGI("Realloc vector capacity: %d", vector->capacity);
         }
         int offset = type_size * (vector->length) / (int) sizeof(char);
         char *new_data = vector->data + offset;

@@ -230,7 +230,7 @@ int ap_render_finish()
 
 int ap_resize_screen_buffer(int width, int height)
 {
-        LOGD("Resize buffer to width: %d, height: %d\n", width, height);
+        LOGD("Resize buffer to width: %d, height: %d", width, height);
         screen_width = width;
         screen_height = height;
         glViewport(0, 0, width, height);

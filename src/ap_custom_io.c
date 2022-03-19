@@ -121,13 +121,13 @@ size_t ap_custom_fsize_proc(C_STRUCT aiFile* ai_file)
 
         int current = ftell((FILE*) ai_file->UserData);
         if (current < 0) {
-                LOGE("ftell error\n");
+                LOGE("ftell error");
                 return 0;
         }
         fseek((FILE*) ai_file->UserData, 0l, SEEK_END);
         int length = ftell((FILE*) ai_file->UserData);
         if (length < 0) {
-                LOGE("ftell error\n");
+                LOGE("ftell error");
                 return 0;
         }
         fseek((FILE*) ai_file->UserData, current, SEEK_SET);

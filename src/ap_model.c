@@ -154,7 +154,7 @@ int ap_model_free()
                 model_array[i].texture = NULL;
         }
         ap_vector_free(&model_vector);
-        LOGD("free models\n");
+        LOGD("free models");
 
         return 0;
 }
@@ -210,7 +210,7 @@ int ap_model_load_ptr(struct AP_Model *model, const char *path)
         if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE
            || !scene->mRootNode)
         {
-                LOGE("Assimp import failed: \n%s\n", aiGetErrorString());
+                LOGE("Assimp import failed: \n%s", aiGetErrorString());
                 return AP_ERROR_ASSIMP_IMPORT_FAILED;
         }
 
