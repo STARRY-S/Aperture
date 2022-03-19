@@ -87,6 +87,14 @@ struct AP_Vector *ap_model_load_material_textures(
     const char* name
 );
 
+int ap_model_generate_async(
+        const char *path,
+        unsigned int *model_id,
+        ap_callback_func_t cb)
+{
+        return 0;
+}
+
 int ap_model_generate(const char *path, unsigned int *model_id)
 {
         if (!path || !model_id) {

@@ -42,7 +42,7 @@ int ap_render_general_initialize()
         );
 
         // TODO: Seperate the light setup param in individual function
-        vec3 light_ambient = { 0.80f, 0.80f, 0.80f };
+        vec3 light_ambient = { 0.8f, 0.8f, 0.8f };
         vec3 light_diffuse = { 0.5f, 0.5f, 0.5f };
         vec3 light_specular = { 5.0f, 5.0f, 5.0f };
 
@@ -143,8 +143,6 @@ int ap_render_main()
 
         ap_shader_set_mat4(light_shader, "view", view[0]);
         ap_shader_set_mat4(light_shader, "projection", projection[0]);
-
-
 
         // optimize depth test
         bool enable_mobile_type = false;

@@ -52,7 +52,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
         case AP_VECTOR_UNDEFINED:
         default:
-                LOGW("Unknow vector type: %d", vector->type);
+                LOGW("unknow vector type: %d", vector->type);
                 return size;
         }
         return size;
@@ -67,12 +67,9 @@ int ap_vector_init(struct AP_Vector *vector, int vector_type)
         vector->type = vector_type;
         int size = ap_vector_data_type_size(vector);
         vector->capacity = AP_VECTOR_DEFAULT_CAPACITY;
-        /**
-         * Do not use malloc here to avoid infinite recursion
-         */
         vector->data = AP_MALLOC(size * AP_VECTOR_DEFAULT_CAPACITY);
         if (vector->data == NULL) {
-                LOGE("Malloc failed for vector.");
+                LOGE("malloc failed for vector.");
                 return AP_ERROR_MALLOC_FAILED;
         }
         memset(vector->data, 0, size * AP_VECTOR_DEFAULT_CAPACITY);
@@ -124,7 +121,7 @@ int ap_vector_push_back(struct AP_Vector *vector, const char* data)
                         size * vector->capacity * 2
                 );
                 if (vector->data == NULL) {
-                        LOGE("Failed to realloc vector memory.");
+                        LOGE("failed to realloc vector memory.");
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 vector->capacity *= 2;
@@ -153,11 +150,11 @@ int ap_vector_insert_back(struct AP_Vector *vector, char *start, size_t size)
                         size * vector->capacity * 2
                 );
                 if (vector->data == NULL) {
-                        LOGE("Failed to realloc vector memory.");
+                        LOGE("failed to realloc vector memory.");
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 vector->capacity *= 2;
-                LOGI("Realloc vector capacity: %d", vector->capacity);
+                LOGD("realloc vector capacity: %d", vector->capacity);
         }
         int offset = type_size * (vector->length) / (int) sizeof(char);
         char *new_data = vector->data + offset;

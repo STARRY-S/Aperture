@@ -154,6 +154,8 @@ typedef enum {
         AP_ERROR_LENGTH
 } AP_Types;
 
+typedef int (*ap_callback_func_t)(void* param, int reserve);
+
 inline static void AP_CHECK(int i)
 {
         if (i > 0 && i < AP_ERROR_LENGTH) {
