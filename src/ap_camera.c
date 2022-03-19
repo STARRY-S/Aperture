@@ -77,7 +77,7 @@ int ap_camera_free()
 {
         camera_using = NULL;    // for safety purpose
         ap_vector_free(&camera_vector);
-        LOGD("free cameras");
+        LOGD("ap_free cameras");
 
         return 0;
 }

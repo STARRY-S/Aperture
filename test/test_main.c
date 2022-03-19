@@ -12,5 +12,12 @@ int main(int argc, char **argv)
 
     test_vector_int();
 
+    LOGD("Debug msg");
+    LOGI("Info msg");
+    LOGW("Warn msg");
+    LOGE("Error msg");
+
+    test_ap_memory();
+
     return 0;
 }

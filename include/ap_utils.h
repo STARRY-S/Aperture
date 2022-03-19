@@ -7,6 +7,7 @@
 
 // show debug message
 #define AP_DEBUG
+#define AP_DEFAULT_BUFFER_SIZE 128
 
 #include "cglm/cglm.h"
 
@@ -170,6 +171,16 @@ const float* ap_get_default_cube_vertices();
  */
 int ap_get_default_cube_vertices_length();
 
-#define AP_DEFAULT_BUFFER_SIZE 128
+void *ap_get_default_vector_ptr();
+
+void* ap_malloc(int size);
+
+void* ap_realloc(void* ptr, int size);
+
+void ap_free(void* ptr);
+
+int ap_unreleased_pointer_get_len();
+
+void ap_unreleased_pointer_print();
 
 #endif // AP_UTILS_H

@@ -146,11 +146,11 @@ int ap_model_free()
         model_using = NULL;    // for safety purpose
         struct AP_Model *model_array = (struct AP_Model*) model_vector.data;
         for (int i = 0; i < model_vector.length; ++i) {
-                free(model_array[i].directory);
+                ap_free(model_array[i].directory);
                 model_array[i].directory = NULL;
-                free(model_array[i].mesh);
+                ap_free(model_array[i].mesh);
                 model_array[i].mesh = NULL;
-                free(model_array[i].texture);
+                ap_free(model_array[i].texture);
                 model_array[i].texture = NULL;
         }
         ap_vector_free(&model_vector);
@@ -174,7 +174,7 @@ int ap_model_init_ptr(struct AP_Model *model, const char *path, bool gamma)
                 }
         }
         if (dir_char_location >= 0) {
-                char *dir_path = malloc(sizeof(char) * (dir_char_location + 2));
+                char *dir_path = ap_malloc(sizeof(char) * (dir_char_location + 2));
                 memcpy(dir_path, path, (dir_char_location + 1) * sizeof(char));
                 dir_path[dir_char_location + 1] = '\0';
                 model->directory = dir_path;
@@ -443,7 +443,7 @@ int ap_model_texture_loaded_push_back(
         }
 
         // add a new texture struct object into model
-        model->texture = realloc(model->texture,
+        model->texture = ap_realloc(model->texture,
                 sizeof(struct AP_Texture) * (model->texture_length + 1));
         if (model->texture == NULL) {
                 LOGE("Realloc error.");
@@ -468,7 +468,7 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         }
 
         // add a new mesh struct object into model
-        model->mesh = realloc(
+        model->mesh = ap_realloc(
                 model->mesh,
                 sizeof(struct AP_Mesh) * (model->mesh_length + 1)
         );

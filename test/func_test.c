@@ -59,6 +59,12 @@ void print_vector(struct AP_Vector *vector)
                 }
                 printf("\n");
                 break;
+        case AP_VECTOR_POINTER:
+                char **ptr_arr = (char**) vector->data;
+                for (int i = 0; i < vector->length; ++i) {
+                        printf("%p \n", ptr_arr[i]);
+                }
+                break;
         default:
                 printf("\n");
                 break;
@@ -115,7 +121,7 @@ void test_vector_char()
         LOGI("-------AP_Vector Char test-------");
 
         struct AP_Vector *vector;
-        vector = malloc( sizeof(struct AP_Vector) );
+        vector = ap_malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_CHAR");
         ap_vector_init(vector, AP_VECTOR_CHAR);
@@ -144,7 +150,7 @@ void test_vector_char()
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        free(vector);
+        ap_free(vector);
         vector = NULL;
 
         printf("------AP_Vector test finished--------\n\n");
@@ -155,7 +161,7 @@ void test_vector_float()
         LOGI("-------AP_Vector Float test-------");
 
         struct AP_Vector *vector;
-        vector = malloc( sizeof(struct AP_Vector) );
+        vector = ap_malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_FLOAT");
         ap_vector_init(vector, AP_VECTOR_FLOAT);
@@ -187,7 +193,7 @@ void test_vector_float()
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        free(vector);
+        ap_free(vector);
         vector = NULL;
 
         printf("------AP_Vector float finished--------\n\n");
@@ -198,7 +204,7 @@ void test_vector_uint()
         LOGI("-------AP_Vector UINT test-------\n");
 
         struct AP_Vector *vector;
-        vector = malloc( sizeof(struct AP_Vector) );
+        vector = ap_malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
@@ -228,7 +234,7 @@ void test_vector_uint()
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        free(vector);
+        ap_free(vector);
         vector = NULL;
 
         printf("------AP_Vector UINT finished--------\n\n");
@@ -239,7 +245,7 @@ void test_vector_int()
         LOGI("-------AP_Vector INT test-------");
 
         struct AP_Vector *vector;
-        vector = malloc( sizeof(struct AP_Vector) );
+        vector = ap_malloc( sizeof(struct AP_Vector) );
 
         LOGI("Start init vector AP_VECTOR_UINT");
         ap_vector_init(vector, AP_VECTOR_UINT);
@@ -269,8 +275,32 @@ void test_vector_int()
         ap_vector_init(vector, AP_VECTOR_INT);
         LOGI("Finished init vector");
 
-        free(vector);
+        ap_free(vector);
         vector = NULL;
 
         printf("------AP_Vector INT finished--------\n\n");
+}
+
+void test_ap_memory()
+{
+        struct AP_Vector *vector = ap_get_default_vector_ptr();
+        char *str = ap_malloc(10 * sizeof(char));
+        strcpy(str, "hello");
+        LOGI("%s", str);
+        print_vector(vector);
+
+        str = ap_realloc(str, 20 * sizeof(char));
+        LOGI("%s", str);
+        print_vector(vector);
+
+        char *str2 = ap_malloc(10);
+        print_vector(vector);
+
+        ap_free(str);
+        print_vector(vector);
+
+        ap_free(str2);
+        print_vector(vector);
+
+        return;
 }

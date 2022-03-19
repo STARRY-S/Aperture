@@ -37,7 +37,7 @@ struct aiFile* ap_custom_file_open_proc(
         }
         #endif
 
-        struct aiFile *ai_file = malloc(sizeof(struct aiFile));
+        struct aiFile *ai_file = ap_malloc(sizeof(struct aiFile));
         if (ai_file == NULL) {
                 // AP_ERROR_MALLOC_FAILED;
                 return NULL;

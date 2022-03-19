@@ -8,5 +8,6 @@ void test_vector_float();
 void test_vector_char();
 void test_vector_uint();
 void test_vector_int();
+void test_ap_memory();
 
 #endif
