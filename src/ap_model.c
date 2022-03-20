@@ -350,11 +350,13 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         vec_diffuse_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_DIFFUSE, "texture_diffuse"
         );
-        ap_vector_insert_back(
-                &vec_textures,
-                vec_diffuse_ptr->data,
-                size * vec_diffuse_ptr->length
-        );
+        if (vec_diffuse_ptr->length > 0) {
+                ap_vector_insert_back(
+                        &vec_textures,
+                        vec_diffuse_ptr->data,
+                        size * vec_diffuse_ptr->length
+                );
+        }
         ap_vector_free(vec_diffuse_ptr);
 
         // 2. specular maps
@@ -362,11 +364,13 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         vec_specular_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_SPECULAR, "texture_specular"
         );
-        ap_vector_insert_back(
-                &vec_textures,
-                vec_specular_ptr->data,
-                size * vec_specular_ptr->length
-        );
+        if (vec_specular_ptr->length > 0) {
+                ap_vector_insert_back(
+                        &vec_textures,
+                        vec_specular_ptr->data,
+                        size * vec_specular_ptr->length
+                );
+        }
         ap_vector_free(vec_specular_ptr);
 
         // 3. normal maps
@@ -374,11 +378,13 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         vec_normal_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_HEIGHT, "texture_normal"
         );
-        ap_vector_insert_back(
-                &vec_textures,
-                vec_normal_ptr->data,
-                size * vec_normal_ptr->length
-        );
+        if (vec_normal_ptr->length > 0) {
+                ap_vector_insert_back(
+                        &vec_textures,
+                        vec_normal_ptr->data,
+                        size * vec_normal_ptr->length
+                );
+        }
         ap_vector_free(vec_normal_ptr);
 
         // 4. height maps
@@ -386,11 +392,13 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         vec_height_ptr = ap_model_load_material_textures(
                 model, material, aiTextureType_AMBIENT, "texture_height"
         );
-        ap_vector_insert_back(
-                &vec_textures,
-                vec_height_ptr->data,
-                size * vec_height_ptr->length
-        );
+        if (vec_height_ptr->length > 0) {
+                ap_vector_insert_back(
+                        &vec_textures,
+                        vec_height_ptr->data,
+                        size * vec_height_ptr->length
+                );
+        }
         ap_vector_free(vec_height_ptr);
 
         // return a mesh object created from the extracted mesh data
