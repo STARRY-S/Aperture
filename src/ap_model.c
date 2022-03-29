@@ -12,6 +12,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/cfileio.h>
 #include <stb_image.h>
+#include <pthread.h>
 
 static struct AP_Vector model_vector = { 0, 0, 0, 0 };
 static struct AP_Model *model_using = NULL;
@@ -87,11 +88,52 @@ struct AP_Vector *ap_model_load_material_textures(
     const char* name
 );
 
+/**
+ * local function to load model in a singal thread
+ * @param data struct AP_Model_Thread_Param
+ * @return void* NULL
+ */
+void* ap_model_gen_thread_func(void* data)
+{
+        struct AP_Model_Thread_Param *param = data;
+
+        #ifndef __ANDROID__
+        // use a shared thread window context
+        if (param->context != NULL) {
+                glfwMakeContextCurrent((GLFWwindow *)param->context);
+        }
+        #endif
+
+        AP_CHECK( ap_model_generate(param->path, &param->id) );
+        param->cb(data, 0);
+        return 0;
+}
+
 int ap_model_generate_async(
         const char *path,
-        unsigned int *model_id,
+        void *context,
         ap_callback_func_t cb)
 {
+        int ret = 0;
+        pthread_t tid = 0;
+        struct AP_Model_Thread_Param *param = AP_MALLOC(
+                sizeof(struct AP_Model_Thread_Param)
+        );
+        if (!param) {
+                return AP_ERROR_MALLOC_FAILED;
+        }
+        memset(param, 0, sizeof(struct AP_Model_Thread_Param));
+        param->id = 0;
+        param->path = AP_MALLOC(sizeof(char) * (strlen(path) + 1));
+        strcpy(param->path, path);
+        param->context = context;
+        param->cb = cb;
+
+        ret = pthread_create(&tid, NULL, ap_model_gen_thread_func, param);
+        if (ret) {
+                LOGE("failed to create thread, ret %d", ret);
+                return AP_ERROR_INIT_FAILED;
+        }
         return 0;
 }
 
@@ -444,8 +486,10 @@ struct AP_Vector *ap_model_load_material_textures(
                                 str.data, model->directory, false);
                         ptr = ap_texture_get_ptr(texture_id);
                 }
-                ap_vector_push_back(&vec_texture, (const char*) ptr);
-                AP_CHECK( ap_model_texture_loaded_push_back(model, ptr) );
+                if (ptr) {
+                        ap_vector_push_back(&vec_texture, (const char*) ptr);
+                        ap_model_texture_loaded_push_back(model, ptr);
+                }
         }
         return &vec_texture;
 }
@@ -455,6 +499,7 @@ int ap_model_texture_loaded_push_back(
         struct AP_Texture *texture)
 {
         if (model == NULL || texture == NULL) {
+                LOGD("model %p, texture %p", model, texture);
                 return AP_ERROR_INVALID_PARAMETER;
         }
 

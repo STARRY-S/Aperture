@@ -14,11 +14,13 @@ int ap_texture_generate(
         const char *directory,
         bool gamma)
 {
+        *texture_id = 0;
         if (texture_vector.data == NULL) {
                 ap_vector_init(&texture_vector, AP_VECTOR_TEXTURE);
         }
         unsigned int id = ap_texture_from_file(path, directory, gamma);
         if (id == 0) {
+                LOGW("failed to load texture %s", path);
                 return AP_ERROR_TEXTURE_FAILED;
         }
 
@@ -162,6 +164,9 @@ unsigned int ap_texture_from_file(
 
         unsigned int texture_id;
         glGenTextures(1, &texture_id);
+        if (texture_id == 0) {
+                LOGW("glGenTextures failed");
+        }
 
         int width, height, nr_components;
         int buffer_length = strlen(path) + strlen(directory) + 1;

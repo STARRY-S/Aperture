@@ -15,6 +15,13 @@ struct AP_Model {
         char *directory;
 };
 
+struct AP_Model_Thread_Param {
+        unsigned int id;
+        char *path;
+        void *context;
+        ap_callback_func_t cb;
+};
+
 /**
  * @brief generate a model
  * @param path [in] path to model
@@ -22,6 +29,12 @@ struct AP_Model {
  * @return int AP_Types
  */
 int ap_model_generate(const char *path, unsigned int *model_id);
+
+int ap_model_generate_async(
+        const char *path,
+        void *context,
+        ap_callback_func_t cb
+);
 
 /**
  * @brief init a model struct object with its pointer

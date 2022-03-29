@@ -5,6 +5,8 @@
 #include "ap_model.h"
 #include "ap_memory.h"
 #include "ap_utils.h"
+#include "ap_model.h"
+#include <pthread.h>
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
@@ -304,4 +306,63 @@ void test_ap_memory()
         // print_vector(vector);
 
         return;
+}
+
+int model_generated = 0;
+unsigned model_id = 0;
+
+static int ap_model_thread_cb(void* data, int reserve)
+{
+        model_generated = 1;
+        struct AP_Model_Thread_Param *param = data;
+
+        LOGD("generated model %s", param->path);
+        LOGD("model id %u", param->id);
+        model_generated = param->id;
+        AP_FREE(param->path);
+        AP_FREE(param);
+        return 0;
+}
+
+void test_model_async()
+{
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+        #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        #endif
+
+        glfwWindowHint( GLFW_VISIBLE, GL_FALSE );
+        GLFWwindow* threadWin = glfwCreateWindow(
+                1, 1, "Thread Window", NULL, NULL );
+
+        glfwWindowHint( GLFW_VISIBLE, GL_TRUE );
+        GLFWwindow* window = NULL;
+        window = glfwCreateWindow(400, 400,
+                "test", NULL, threadWin);
+
+        if (window == NULL)
+        {
+                LOGE("Failed to create GLFW window.");
+                glfwTerminate();
+                return;
+        }
+
+        glfwMakeContextCurrent(window);
+
+        const char *test_path = "backpack/backpack.obj";
+        ap_model_generate_async(test_path, window, ap_model_thread_cb);
+        while (!glfwWindowShouldClose(window)) {
+                if (!model_generated) {
+                        LOGD("waiting");
+                }
+                // refresh
+                glfwSwapBuffers(window);
+                glfwPollEvents();
+        }
+        LOGI("generated model id %u", model_id);
+        ap_memory_release();
 }
