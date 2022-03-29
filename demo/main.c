@@ -5,6 +5,7 @@
 #include "ap_utils.h"
 #include "ap_render.h"
 #include "ap_camera.h"
+#include <stdlib.h>
 
 #define AP_DEMO_CAMERA_NUMBER 5
 
@@ -16,6 +17,7 @@ void mouse_button_callback(GLFWwindow *win, int button, int action, int mods);
 void scroll_callback(GLFWwindow *win, double x_offset, double y_offset);
 void processInput(GLFWwindow *win);
 
+GLFWwindow* window = NULL;
 const GLFWvidmode* mode;
 
 float delta_time = 0.0f; // delta time between last frame time
@@ -63,7 +65,7 @@ int main(int argc, char **argv)
         glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
         glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
 
-        GLFWwindow* window = NULL;
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         if (full_screen_mode) {
                 window = glfwCreateWindow(mode->width, mode->height,
                         WINDOW_TITLE, glfwGetPrimaryMonitor(), NULL);
@@ -82,6 +84,7 @@ int main(int argc, char **argv)
         glfwSetWindowPos(window, (1920 - SCREEN_WIDTH) / 2,
                         (1080 - SCREEN_HEIGHT) / 2 );
         glfwMakeContextCurrent(window);
+        ap_set_context_ptr(window);
 
         if (full_screen_mode)
                 ap_resize_screen_buffer(mode->width, mode->height);
@@ -105,6 +108,8 @@ int main(int argc, char **argv)
         }
 
         ap_camera_use(camera_ids[camera_use_id]);
+        // sleep(2);
+        glfwShowWindow(window);
 
         while (!glfwWindowShouldClose(window))
         {
