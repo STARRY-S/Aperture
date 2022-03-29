@@ -36,8 +36,15 @@ int ap_camera_use(unsigned int camera_id)
         }
 
         struct AP_Camera *tmp_cam = (struct AP_Camera*) camera_vector.data;
-        camera_using = tmp_cam + (camera_id - 1);
+        // camera_using = tmp_cam + (camera_id - 1);
+        for (int i = 0; i < camera_vector.length; ++i) {
+                if (tmp_cam[i].id == camera_id) {
+                        camera_using = tmp_cam + i;
+                        return 0;
+                }
+        }
 
+        LOGW("failed to use camera: id %u not found", camera_id);
         return 0;
 }
 

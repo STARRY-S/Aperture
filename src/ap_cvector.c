@@ -48,7 +48,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 size = sizeof(struct AP_Vertex);
                 break;
         case AP_VECTOR_POINTER:
-                size = sizeof (char*);
+                size = sizeof(char*);
                 break;
         case AP_VECTOR_UNDEFINED:
         default:

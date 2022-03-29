@@ -156,10 +156,10 @@ typedef enum {
 
 typedef int (*ap_callback_func_t)(void* param, int reserve);
 
-inline static void AP_CHECK(int i)
+inline static void AP_CHECK(int check_i)
 {
-        if (i > 0 && i < AP_ERROR_LENGTH) {
-                LOGE("%s", AP_ERROR_NAME[i]);
+        if (check_i > 0 && check_i < AP_ERROR_LENGTH) {
+                LOGE("%s", AP_ERROR_NAME[check_i]);
         }
 }
 

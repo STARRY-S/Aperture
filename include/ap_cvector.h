@@ -79,7 +79,7 @@ int ap_vector_insert_back(
  * Remove data from vector data
  * @param start pointer points to the data to be removed
  * @param end pointer points to the next data
- * @param size size of data to be removed, 
+ * @param size size of data to be removed,
  *             should be divisible by `ap_vector_data_type_size()`
  */
 int ap_vector_remove_data(

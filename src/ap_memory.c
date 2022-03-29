@@ -38,7 +38,8 @@ int ap_memory_vector_push(char *ptr)
                 pointer_vector.capacity *= 2;
                 pointer_vector.data = (char*) realloc(
                         pointer_vector.data,
-                        pointer_vector.capacity * sizeof(char*));
+                        pointer_vector.capacity * sizeof(char*)
+                );
                 if (pointer_vector.data == NULL) {
                         LOGE("ap_memory: vector realloc failed");
                         exit(1);
