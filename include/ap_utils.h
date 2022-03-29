@@ -62,37 +62,14 @@ static const char *AP_MOBILE_NAME[AP_MOBILE_LENGTH] = {
         "x86"
 };
 
-/**
- * @brief Get the Local A Asset Manager object
- * @return void* pointer points to asset manager
- */
 void *ap_get_asset_manager();
 
-/**
- * @brief Set Asset Manager
- * @param pManager pointer points to asset manager
- * @return int AP_Types
- */
 int ap_set_asset_manager(void *pManager);
 
-/**
- * @brief Set the Mobile Name
- * @param pName const char *
- * @return int AP_Types
- */
 int ap_set_mobile_name(const char *pName);
 
-/**
- * @brief Get the Mobile Name
- * @return const char*
- */
 const char* ap_get_mobile_name();
 
-/**
- * @brief Get Mobile Type
- * @param pMobileName
- * @return int AP_MOBILE_Types
- */
 int ap_get_mobile_type(const char *pMobileName);
 
 #else   // NOT ANDROID
@@ -163,15 +140,12 @@ inline static void AP_CHECK(int check_i)
         }
 }
 
-/**
- * @brief Get the vertices of a cude
- * @return const float*
- */
 const float* ap_get_default_cube_vertices();
 
-/**
- * @brief Get the length of cube vertices
- */
 int ap_get_default_cube_vertices_length();
+
+int ap_set_context_ptr(void* ptr);
+
+void* ap_get_context_ptr();
 
 #endif // AP_UTILS_H

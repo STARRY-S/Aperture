@@ -7,6 +7,21 @@
 
 struct AP_Vector texture_vector = { 0, 0, 0, 0 };
 
+int ap_texture_preload(
+        const char *name,       // texture_diffuse or other type
+        const char *path,       // file name
+        const char *dir,        // path to file
+        bool gamma)             // reserve
+{
+        unsigned int ret = 0;
+        int i = ap_texture_generate(&ret, name, path, dir, gamma);
+        if (ret == 0) {
+                LOGW("failed to preload texture");
+                AP_CHECK(i);
+        }
+        return 0;
+}
+
 int ap_texture_generate(
         unsigned int *texture_id,
         const char *name,

@@ -30,12 +30,6 @@ struct AP_Model_Thread_Param {
  */
 int ap_model_generate(const char *path, unsigned int *model_id);
 
-int ap_model_generate_async(
-        const char *path,
-        void *context,
-        ap_callback_func_t cb
-);
-
 /**
  * @brief init a model struct object with its pointer
  * @param model pointer points to a new model

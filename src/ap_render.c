@@ -100,7 +100,6 @@ int ap_render_general_initialize()
                                 &backpack_model_ids[i]
                         )
                 );
-                AP_CHECK( ap_model_use(backpack_model_ids[i]) );
         }
 
         // depth test

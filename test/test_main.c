@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
     // test_ap_memory();
 
-    test_model_async();
+    // test_model_async();
 
     return 0;
 }

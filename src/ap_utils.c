@@ -30,6 +30,8 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "UNKNOWN"
 };
 
+void* glfw_window_context_ptr = NULL;
+
 #ifdef __ANDROID__
 
 static AAssetManager *local_asset_manager = NULL;
@@ -148,4 +150,15 @@ const float* ap_get_default_cube_vertices()
 int ap_get_default_cube_vertices_length()
 {
     return sizeof(ap_utils_cube_vertices);
+}
+
+int ap_set_context_ptr(void* ptr)
+{
+        glfw_window_context_ptr = ptr;
+        return 0;
+}
+
+void* ap_get_context_ptr()
+{
+        return glfw_window_context_ptr;
 }

@@ -17,6 +17,13 @@ struct AP_Texture {
         char *path;
 };
 
+int ap_texture_preload(
+        const char *name,       // texture_diffuse or other type
+        const char *path,       // file name
+        const char *dir,        // path to file
+        bool gamma
+);
+
 int ap_texture_generate(
         unsigned int *texture_id,
         const char *name,
