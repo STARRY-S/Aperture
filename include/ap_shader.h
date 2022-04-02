@@ -27,6 +27,8 @@ void ap_shader_set_int  (GLuint program, const char *const name, GLuint num);
 
 void ap_shader_set_vec3 (GLuint program, const char *const name, float *vec);
 
+void ap_shader_set_vec4 (GLuint program, const char *const name, float *vec);
+
 void ap_shader_set_mat4 (GLuint program, const char *const name, float *mat);
 
 unsigned int ap_get_current_shader();

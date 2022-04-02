@@ -258,6 +258,12 @@ void ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
         glUniform3fv(location, 1, vec);
 }
 
+void ap_shader_set_vec4(GLuint program, const char *const name, float *vec)
+{
+        GLuint location = glGetUniformLocation(program, name);
+        glUniform4fv(location, 1, vec);
+}
+
 void ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
 {
         GLuint location = glGetUniformLocation(program, name);

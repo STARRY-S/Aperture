@@ -2,6 +2,7 @@
 #define AP_MESH_H
 #include "ap_utils.h"
 #include "ap_texture.h"
+#include <stdbool.h>
 
 struct AP_Mesh {
         struct AP_Vertex* vertices;   // array, use malloc, need free.

@@ -175,8 +175,7 @@ unsigned int ap_texture_from_file(
         const char *directory,
         bool gamma)
 {
-        stbi_set_flip_vertically_on_load(true);
-
+        // stbi_set_flip_vertically_on_load(true);
         unsigned int texture_id;
         glGenTextures(1, &texture_id);
         if (texture_id == 0) {
@@ -222,7 +221,7 @@ unsigned int ap_texture_from_file(
 
         #endif
 
-        LOGD("path %s width: %d, height: %d, channel %d",
+        LOGI("path %s width: %d, height: %d, channel %d",
                 path_buffer, width, height, nr_components);
 
         if (data) {
@@ -246,12 +245,12 @@ unsigned int ap_texture_from_file(
                 glTexParameteri(
                         GL_TEXTURE_2D,
                         GL_TEXTURE_MIN_FILTER,
-                        GL_LINEAR_MIPMAP_LINEAR
+                        GL_NEAREST_MIPMAP_NEAREST
                 );
                 glTexParameteri(
                         GL_TEXTURE_2D,
                         GL_TEXTURE_MAG_FILTER,
-                        GL_LINEAR
+                        GL_NEAREST
                 );
 
                 stbi_image_free(data);

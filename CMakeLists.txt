@@ -7,7 +7,7 @@ project("aperture"
     VERSION 0.1.3
 )
 
-set(C_FLAGS "-Wall -std=c11 -g")
+set(C_FLAGS "-Wall -std=c11 -g -lm")
 set(CMAKE_C_FLAGS ${C_FLAGS})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 # set assimp library name
@@ -59,14 +59,29 @@ else()
     endif()
 endif()
 
-add_library(
-    # The name of the library.
-    "aperture"
-    # The library as a shared library.
-    SHARED
-    # source files
-    ${APERTURE_SRC_DIR}
-)
+if(ANDROID)
+    add_library(
+        # The name of the library.
+        "aperture"
+        # The library as a shared library.
+        SHARED
+        # source files
+        ${APERTURE_SRC_DIR}
+        "demo/demo_utils.c"
+        "demo/demo_light.c"
+        "demo/native-lib.c"
+    )
+else()
+    add_library(
+        # The name of the library.
+        "aperture"
+        # The library as a shared library.
+        SHARED
+        # source files
+        ${APERTURE_SRC_DIR}
+    )
+endif()
+
 set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
 if(ANDROID)
@@ -138,6 +153,6 @@ else()
         ${ASSIMP_LIB_NAME}
     )
 
-    file(COPY ${CMAKE_SOURCE_DIR}/src/glsl DESTINATION ${CMAKE_BINARY_DIR})
-    file(COPY ${CMAKE_SOURCE_DIR}/src/backpack DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/demo/glsl DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/demo/mc DESTINATION ${CMAKE_BINARY_DIR})
 endif()

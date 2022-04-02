@@ -73,8 +73,8 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
 
         camera->yaw = -90.0f;
         camera->pitch = 0.0f;
-        camera->speed = 2.5f;
-        camera->sensitivity = 0.05f;
+        camera->speed = 1.0f;
+        camera->sensitivity = 0.04f;
         camera->zoom = 45.0f;
 
         return 0;

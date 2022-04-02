@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 // show debug message
-#define AP_DEBUG
+// #define AP_DEBUG
 #define AP_DEFAULT_BUFFER_SIZE 128
 
 #include "cglm/cglm.h"
@@ -147,5 +147,11 @@ int ap_get_default_cube_vertices_length();
 int ap_set_context_ptr(void* ptr);
 
 void* ap_get_context_ptr();
+
+int ap_get_buffer_width();
+
+int ap_get_buffer_height();
+
+int ap_set_buffer(int w, int h);
 
 #endif // AP_UTILS_H

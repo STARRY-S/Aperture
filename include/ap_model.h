@@ -15,13 +15,6 @@ struct AP_Model {
         char *directory;
 };
 
-struct AP_Model_Thread_Param {
-        unsigned int id;
-        char *path;
-        void *context;
-        ap_callback_func_t cb;
-};
-
 /**
  * @brief generate a model
  * @param path [in] path to model
