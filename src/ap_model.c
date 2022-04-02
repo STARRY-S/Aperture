@@ -105,6 +105,7 @@ int ap_model_generate(const char *path, unsigned int *model_id)
         model.id = model_vector.length + 1;
         ap_vector_push_back(&model_vector, (const char*) &model);
         *model_id = model.id;
+        LOGD("generated model %s id %d", path, *model_id);
 
         return 0;
 }

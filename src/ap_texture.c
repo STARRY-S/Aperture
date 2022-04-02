@@ -204,8 +204,6 @@ unsigned int ap_texture_from_file(
                 path_buffer = NULL;
                 return 0;
         }
-        AP_FREE(path_buffer);
-        path_buffer = NULL;
         file_length = AAsset_getLength(path_asset);
 
         unsigned char *file_data =
@@ -220,7 +218,6 @@ unsigned int ap_texture_from_file(
         data = stbi_load(path_buffer, &width, &height, &nr_components, 0);
 
         #endif
-
         LOGI("path %s width: %d, height: %d, channel %d",
                 path_buffer, width, height, nr_components);
 
@@ -258,6 +255,9 @@ unsigned int ap_texture_from_file(
                 LOGE("Failed to load texture: %s", path_buffer);
                 stbi_image_free(data);
         }
+
+        AP_FREE(path_buffer);
+        path_buffer = NULL;
         return texture_id;
 }
 
