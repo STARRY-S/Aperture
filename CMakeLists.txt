@@ -10,6 +10,7 @@ project("aperture"
 set(C_FLAGS "-Wall -std=c11 -g -lm")
 set(CMAKE_C_FLAGS ${C_FLAGS})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
 # set assimp library name
 set(ASSIMP_LIB_NAME "assimp")
 
@@ -33,11 +34,8 @@ if(ANDROID)
     )
 
     set_property(TARGET assimp PROPERTY IMPORTED_LOCATION ${ASSIMP_LIB_DIR})
-elseif(WIN32)
-    # Windows
-    message(STATUS "WIN32 Not supported yet.")
-else()
-    # Linux or any other Unix like system
+else(ANDROID)
+    # Linux/Unix and Win32 system
     set(OpenGL_GL_PREFERENCE LEGACY)
 
     find_package(${ASSIMP_LIB_NAME} REQUIRED)
@@ -56,8 +54,16 @@ else()
             IMPORTED_LOCATION
             "${assimp_LIBRARIES}"
         )
-    endif()
-endif()
+        if(WIN32)
+            set_target_properties(
+                ${ASSIMP_LIB_NAME}
+                PROPERTIES
+                IMPORTED_IMPLIB
+                "${assimp_LIBRARIES}"
+            )
+        endif(WIN32)
+    endif(assimp_FOUND)
+endif(ANDROID)
 
 if(ANDROID)
     add_library(
@@ -71,7 +77,7 @@ if(ANDROID)
         "demo/demo_light.c"
         "demo/native-lib.c"
     )
-else()
+else(ANDROID)
     add_library(
         # The name of the library.
         "aperture"
@@ -80,7 +86,7 @@ else()
         # source files
         ${APERTURE_SRC_DIR}
     )
-endif()
+endif(ANDROID)
 
 set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
@@ -109,11 +115,8 @@ if(ANDROID)
         GLESv3
         ${ASSIMP_LIB_NAME}
     )
-elseif(WIN32)
-    # Windows
-    message(STATUS "WIN32 not supported yet...")
-else()
-    # Linux, or any other Unix like system
+else(ANDROID)
+    # Linux/Unix Win32 system
 
     # Build demo
     add_executable(
@@ -135,6 +138,7 @@ else()
         "aperture"
         ${ASSIMP_LIB_NAME}
     )
+    set_target_properties("aperture_demo" PROPERTIES LINKER_LANGUAGE C)
 
     # link libraries to test
     target_link_libraries(
@@ -144,15 +148,17 @@ else()
         "aperture"
         ${ASSIMP_LIB_NAME}
     )
+    set_target_properties("test" PROPERTIES LINKER_LANGUAGE C)
 
-    # link librarys to libgame_engine
+    # link librarys to libaperture
     target_link_libraries(
         "aperture"
         ${OPENGL_gl_LIBRARY}
         glfw
         ${ASSIMP_LIB_NAME}
     )
+    set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
     file(COPY ${CMAKE_SOURCE_DIR}/demo/glsl DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/demo/mc DESTINATION ${CMAKE_BINARY_DIR})
-endif()
+endif(ANDROID)
