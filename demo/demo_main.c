@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 #include "demo_main.h"
@@ -82,6 +83,8 @@ int main(int argc, char **argv)
                         (1080 - SCREEN_HEIGHT) / 2 );
         glfwMakeContextCurrent(window);
         ap_set_context_ptr(window);
+        // GLAD init GL function pointers
+        ap_render_general_initialize();
 
         if (full_screen_mode)
                 ap_resize_screen_buffer(mode->width, mode->height);

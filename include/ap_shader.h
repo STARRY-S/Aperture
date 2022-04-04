@@ -1,7 +1,6 @@
 #ifndef AP_SHADER_H
 #define AP_SHADER_H
 
-#include <GLES3/gl3.h>
 #include <stdio.h>
 
 /**

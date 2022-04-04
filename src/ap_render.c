@@ -1,4 +1,3 @@
-#include <GLES3/gl3.h>
 #include <assimp/cfileio.h>
 
 #include "ap_render.h"
@@ -12,6 +11,20 @@
 
 int ap_render_general_initialize()
 {
+#ifdef __ANDROID__
+        // init for android
+#else
+        if (ap_get_context_ptr() == NULL) {
+                LOGE("aperture general init failed");
+                return AP_ERROR_INIT_FAILED;
+        }
+
+        if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
+        {
+                LOGE("failed to init GLAD");
+                return AP_ERROR_INIT_FAILED;
+        }
+#endif
         return EXIT_SUCCESS;
 }
 

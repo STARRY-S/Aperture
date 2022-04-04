@@ -74,6 +74,7 @@ int ap_get_mobile_type(const char *pMobileName);
 
 #else   // NOT ANDROID
 
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 #define AP_COLOR_RED     "\x1b[31m"

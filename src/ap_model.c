@@ -6,7 +6,10 @@
 #include "ap_vertex.h"
 #include "ap_shader.h"
 
-#include <GLES3/gl3.h>
+#ifndef __ANDROID__
+#include "glad/glad.h"
+#endif
+
 #include <assimp/cimport.h>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

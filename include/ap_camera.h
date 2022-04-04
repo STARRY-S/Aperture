@@ -8,7 +8,6 @@
 #ifndef AP_CAMERA_H
 #define AP_CAMERA_H
 
-#include <GLES3/gl3.h>
 #include <stdio.h>
 #include <stdbool.h>
 

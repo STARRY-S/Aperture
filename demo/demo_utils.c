@@ -37,7 +37,6 @@ int demo_init()
 {
         demo_setup_light();
         // Setup GameEngine
-        ap_render_general_initialize();
         // init model
         AP_CHECK(
                 ap_model_generate(MODEL_FILE_NAME, &model_id)

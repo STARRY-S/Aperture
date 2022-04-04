@@ -2,10 +2,8 @@
 #include <assimp/scene.h>          // Output data structure
 #include <assimp/postprocess.h>    // Post processing flags
 
-#include <GLES3/gl3.h>
-
-#include "ap_mesh.h"
 #include "ap_utils.h"
+#include "ap_mesh.h"
 #include "ap_shader.h"
 #include "ap_texture.h"
 #include "ap_vertex.h"

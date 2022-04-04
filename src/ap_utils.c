@@ -1,5 +1,3 @@
-#include <GLES3/gl3.h>
-
 #include <assimp/cfileio.h>
 
 #include <stdio.h>

@@ -1,13 +1,6 @@
 #ifndef AP_TEXTURE_H
 #define AP_TEXTURE_H
 
-#include <GLES3/gl3.h>
-#include <GLES3/gl3ext.h>
-
-#ifndef __ANDROID__
-#include <GLFW/glfw3.h>
-#endif
-
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -44,7 +37,7 @@ struct AP_Texture *ap_texture_get_ptr(unsigned int id);
  * @param format texture format
  * @return Texture ID
  */
-GLuint ap_texture_load(const char *const path, int format);
+unsigned int ap_texture_load(const char *const path, int format);
 
 /**
  * Load texture from file

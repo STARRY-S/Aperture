@@ -1,4 +1,6 @@
-#include <GLES3/gl3.h>
+#ifndef __ANDROID__
+#include "glad/glad.h"
+#endif
 
 #include <stdio.h>
 #include <string.h>
