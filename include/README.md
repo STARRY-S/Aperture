@@ -9,3 +9,6 @@ Dependencies
 
 - [stb_image](https://github.com/nothings/stb)
   License: MIT
+
+- [GLAD](https://github.com/dav1dde/glad-web)
+  Use GLAD [website](https://glad.dav1d.de/) to generate GL header files.
