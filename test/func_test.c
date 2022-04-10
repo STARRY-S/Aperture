@@ -7,6 +7,7 @@
 #include "ap_utils.h"
 #include "ap_model.h"
 #include <pthread.h>
+#include "ap_audio.h"
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
@@ -367,3 +368,16 @@ void test_ap_memory()
 //         LOGI("generated model id %u", model_id);
 //         ap_memory_release();
 // }
+
+void test_audio()
+{
+        LOGI("start init ap_audio");
+        ap_audio_init();
+
+        LOGI("start ap_audio_load_buffer");
+        unsigned buffer_id = ap_audio_load_buffer("sound/test.wav");
+
+        LOGI("start ap_audio_play_buffer_sync");
+        ap_audio_play_buffer_sync(buffer_id);
+        LOGI("audio test finished");
+}

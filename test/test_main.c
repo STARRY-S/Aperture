@@ -21,5 +21,7 @@ int main(int argc, char **argv)
 
     // test_model_async();
 
+    test_audio();
+
     return 0;
 }
