@@ -14,7 +14,6 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/cfileio.h>
-#include <stb_image.h>
 #include <pthread.h>
 
 static struct AP_Vector model_vector = { 0, 0, 0, 0 };

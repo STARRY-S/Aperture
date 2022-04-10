@@ -3,7 +3,7 @@
 #include "ap_cvector.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "stb/stb_image.h"
 
 struct AP_Vector texture_vector = { 0, 0, 0, 0 };
 
