@@ -41,6 +41,8 @@ else(ANDROID)
     find_package(${ASSIMP_LIB_NAME} REQUIRED)
     find_package(glfw3 REQUIRED)
     find_package(OpenGL REQUIRED)
+    find_package(OpenAL REQUIRED)
+    find_package(ALUT REQUIRED)
 
     if (assimp_FOUND)
         add_library(
@@ -137,6 +139,8 @@ else(ANDROID)
         glfw
         "aperture"
         ${ASSIMP_LIB_NAME}
+        ${OPENAL_LIBRARY}
+        ${ALUT_LIBRARIES}
     )
     set_target_properties("aperture_demo" PROPERTIES LINKER_LANGUAGE C)
 
@@ -147,6 +151,8 @@ else(ANDROID)
         glfw
         "aperture"
         ${ASSIMP_LIB_NAME}
+        # ${OPENAL_LIBRARY}
+        ${ALUT_LIBRARIES}
     )
     set_target_properties("test" PROPERTIES LINKER_LANGUAGE C)
 
@@ -156,9 +162,12 @@ else(ANDROID)
         ${OPENGL_gl_LIBRARY}
         glfw
         ${ASSIMP_LIB_NAME}
+        ${OPENAL_LIBRARY}
+        ${ALUT_LIBRARIES}
     )
     set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
     file(COPY ${CMAKE_SOURCE_DIR}/demo/glsl DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/demo/mc DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/demo/sound DESTINATION ${CMAKE_BINARY_DIR})
 endif(ANDROID)
