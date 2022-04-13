@@ -2,3 +2,5 @@ build/
 .idea/
 .vscode/
 ffmpeg/
+ap_decode.c
+ap_decode_1.c
