@@ -19,9 +19,15 @@ int main(int argc, char **argv)
 
     // test_ap_memory();
 
-    // test_model_async();
+    // // test_model_async();
 
-    test_audio();
+    // test_audio();
+
+    test_decode();
+
+    // test_audio();
+
+    // test_ap_decode();
 
     return 0;
 }
