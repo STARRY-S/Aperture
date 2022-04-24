@@ -6,6 +6,7 @@
 #include "ap_cvector.h"
 #include "ap_shader.h"
 #include "cglm/cglm.h"
+#include "ap_audio.h"
 
 #include <math.h>
 
@@ -23,7 +24,7 @@ GLuint model_id = 0;
 GLuint camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
 GLuint camera_use_id = 0;
 
-vec3 light_position = { 1.0f, 8.0f, 1.0f };
+vec4 light_position = { 1.0f, 8.0f, 1.0f, 0.0f };
 
 GLuint light_shader = 0, cube_shader = 0;
 GLuint light_texture = 0;
@@ -31,10 +32,15 @@ GLuint VBO = 0;
 GLuint light_cube_VAO = 0;
 bool enable_mobile_type = false;
 
+unsigned audio_buffer_id = 0;
+
+struct AP_Audio *audio = NULL;
+
 int demo_setup_light();
 
 int demo_init()
 {
+        ap_audio_init();
         demo_setup_light();
         // Setup GameEngine
         // init model
@@ -70,7 +76,12 @@ int demo_init()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // cull face
-        glEnable(GL_CULL_FACE);
+        // glEnable(GL_CULL_FACE);
+
+        ap_audio_open_file_decode("sound/c418-haggstorm.mp3", &audio);
+        if (audio && audio->buffer_id > 0) {
+                ap_audio_play_buffer(audio->buffer_id);
+        }
 
         return 0;
 }
@@ -116,9 +127,9 @@ int demo_setup_light()
         );
         glEnableVertexAttribArray(2);
 
-        vec3 light_ambient = { 1.0f, 0.95f, 0.9f };
-        vec3 light_diffuse = { 0.5f, 0.5f, 0.5f };
-        vec3 light_specular = { 5.0f, 5.0f, 5.0f };
+        vec4 light_ambient = { 1.0f, 0.95f, 0.9f, 1.0f };
+        vec4 light_diffuse = { 0.5f, 0.5f, 0.5f, 1.0f };
+        vec4 light_specular = { 5.0f, 5.0f, 5.0f, 1.0f };
 
         ap_shader_use(light_shader);
         ap_shader_set_int(light_shader, "material.diffuse", 0);
@@ -207,5 +218,7 @@ int demo_finished()
         glDeleteBuffers(1, &VBO);
 
         ap_render_finish();
+        ap_audio_delete_buffer(audio_buffer_id);
+        ap_audio_finish();
         return 0;
 }
