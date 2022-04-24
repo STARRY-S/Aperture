@@ -25,6 +25,10 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "CAMERA_NOT_SET",
         "SHADER_NOT_SET",
         "MODEL_NOT_SET",
+        "BUFFER_GEN_FAILED",
+        "DECODE_FAILED",
+        "DECODE_NOT_INIT",
+        "DECODE_FMT_NSUPPORT",
         "UNKNOWN"
 };
 
