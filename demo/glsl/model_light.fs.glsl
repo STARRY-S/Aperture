@@ -6,7 +6,7 @@ out vec4 FragColor;
 struct Material {
     sampler2D diffuse;
     sampler2D specular;
-    sampler2D normal;
+    // sampler2D normal;
     float shininess;
 };
 
@@ -32,9 +32,10 @@ uniform Light light;
 
 void main()
 {
-    vec4 ambient = light.ambient * texture(material.diffuse, TexCoords);
+    vec4 ambient = texture(material.diffuse, TexCoords);
     if(ambient.a < 0.01)
         discard;
+    ambient *= light.ambient;
 
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);
@@ -46,18 +47,18 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec4 specular = light.specular * spec * texture(material.specular, TexCoords);
 
-    vec4 emission = texture(material.normal, TexCoords);
+    // vec4 emission = texture(material.normal, TexCoords);
 
     float distance    = length(light.position - FragPos);
     float attenuation = 1.0f / (light.constant + light.linear * distance
                 + light.quadratic * (distance * distance));
 
-    attenuation = max(attenuation, 0.1);
+    attenuation = max(attenuation, 0.2);
     ambient.xyz  *= attenuation;
     diffuse.xyz  *= attenuation;
     specular.xyz *= attenuation;
-    emission.xyz *= attenuation;
+    // emission.xyz *= attenuation;
 
-    vec4 result = ambient + diffuse + specular + emission;
+    vec4 result = ambient + diffuse + specular;
     FragColor = result;
 }
