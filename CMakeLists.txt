@@ -43,22 +43,13 @@ else(ANDROID)
     find_package(OpenGL REQUIRED)
     find_package(OpenAL REQUIRED)
     find_package(ALUT REQUIRED)
+    find_package(FFmpeg REQUIRED)
 
-    # Find FFMpeg libraries
-    find_library(AVCODEC_LIBRARY avcodec)
-    message(STATUS "AVCodec library: ${AVCODEC_LIBRARY}")
-    find_library(AVFORMAT_LIBRARY avformat)
-    message(STATUS "AVFormat library: ${AVFORMAT_LIBRARY}")
-    find_library(AVUTIL_LIBRARY avutil)
-    message(STATUS "AVUtil library: ${AVUTIL_LIBRARY}")
-    find_library(AVDEVICE_LIBRARY avdevice)
-    message(STATUS "AVDevice library: ${AVDEVICE_LIBRARY}")
-
-    # FFMpeg include directories
-    find_path(AVCODEC_INCLUDE_DIR libavcodec/avcodec.h)
-    find_path(AVFORMAT_INCLUDE_DIR libavformat/avformat.h)
-    find_path(AVUTIL_INCLUDE_DIR libavutil/avutil.h)
-    find_path(AVDEVICE_INCLUDE_DIR libavdevice/avdevice.h)
+    if (FFmpeg_FOUND)
+        include_directories(
+            ${FFmpeg_INCLUDE_DIRS}
+        )
+    endif(FFmpeg_FOUND)
 
     if (assimp_FOUND)
         add_library(
@@ -167,7 +158,6 @@ else(ANDROID)
         glfw
         "aperture"
         ${ASSIMP_LIB_NAME}
-        # ${OPENAL_LIBRARY}
         ${ALUT_LIBRARIES}
     )
     set_target_properties("test" PROPERTIES LINKER_LANGUAGE C)
@@ -180,11 +170,7 @@ else(ANDROID)
         ${ASSIMP_LIB_NAME}
         ${OPENAL_LIBRARY}
         ${ALUT_LIBRARIES}
-
-        ${AVCODEC_LIBRARY}
-        ${AVFORMAT_LIBRARY}
-        ${AVUTIL_LIBRARY}
-        ${AVDEVICE_LIBRARY}
+        ${FFmpeg_LIBRARIES}
     )
     set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
