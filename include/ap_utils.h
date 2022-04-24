@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 // show debug message
-// #define AP_DEBUG
+#define AP_DEBUG
 #define AP_DEFAULT_BUFFER_SIZE 128
 
 #include "cglm/cglm.h"
@@ -128,6 +128,10 @@ typedef enum {
         AP_ERROR_CAMERA_NOT_SET,        // camera not set
         AP_ERROR_SHADER_NOT_SET,        // shader not set
         AP_ERROR_MODEL_NOT_SET,         // model not set
+        AP_AUDIO_BUFFER_GEN_FAILED,     // audio buffer generate failed
+        AP_ERROR_DECODE_FAILED,         // decode failed
+        AP_ERROR_DECODE_NOT_INIT,       // decode not initialized
+        AP_ERROR_DECODE_FMT_NSUPPORT,   // decode format doest not support
         AP_ERROR_UNKNOWN,               // unknown error
         AP_ERROR_LENGTH
 } AP_Types;

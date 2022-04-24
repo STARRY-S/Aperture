@@ -1,15 +1,18 @@
 #include "ap_audio.h"
 #include "ap_utils.h"
+#include "ap_decode.h"
 
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <AL/alut.h>
+#include <AL/alext.h>
+#include <libavcodec/avcodec.h>
 
 #include <pthread.h>
 
-ALCdevice *device = NULL;
-ALCcontext *context = NULL;
-const ALCchar *device_name = NULL;
+static ALCdevice *device = NULL;
+static ALCcontext *context = NULL;
+static const ALCchar *device_name = NULL;
 
 static inline void ap_audio_check(const char *msg)
 {
@@ -104,41 +107,101 @@ static inline void ap_audio_check_alut(const char* msg)
         }
 }
 
-static inline ALenum ap_audio_to_al_format(short channels, short samples)
+static inline int ap_audio_fmt_al_2_ap(int al_fmt)
 {
-	bool stereo = (channels > 1);
-
-	if (samples == 16) {
-		if (stereo)
-			return AL_FORMAT_STEREO16;
-		else
-			return AL_FORMAT_MONO16;
-        } else if (samples == 8) {
-		if (stereo)
-			return AL_FORMAT_STEREO8;
-		else
-			return AL_FORMAT_MONO8;
-	}
-
-        return -1;
+        int fmt = AP_AUDIO_FMT_UNKNOWN;
+        switch (al_fmt)
+        {
+        case AL_FORMAT_STEREO8:
+        case AL_FORMAT_MONO8:
+                fmt = AP_AUDIO_FMT_U8;
+                break;
+        case AL_FORMAT_MONO16:
+        case AL_FORMAT_STEREO16:
+                fmt = AP_AUDIO_FMT_S16;
+                break;
+#ifdef AL_EXT_float32
+        case AL_FORMAT_MONO_FLOAT32:
+        case AL_FORMAT_STEREO_FLOAT32:
+                fmt = AP_AUDIO_FMT_FLT;
+                break;
+#endif // AL_EXT_float32
+#ifdef AL_EXT_double
+        case AL_FORMAT_MONO_DOUBLE_EXT:
+        case AL_FORMAT_STEREO_DOUBLE_EXT:
+                fmt = AP_AUDIO_FMT_DBL;
+                break;
+#endif  // AL_EXT_double
+        default:
+                break;
+        }
+        if (fmt == 0) {
+                LOGW("ap_audio_fmt_al_2_ap: unknow format %d", al_fmt);
+        }
+        return fmt;
 }
 
-static inline int ap_audo_list_device(const ALCchar *devices)
+static inline int ap_audio_get_channels_by_AL(int al_fmt)
 {
-	const ALCchar *device = devices, *next = devices + 1;
-	size_t len = 0;
+        int channel = 0;
+        switch (al_fmt)
+        {
+        case AL_FORMAT_STEREO8:
+        case AL_FORMAT_STEREO16:
+#ifdef AL_EXT_float32
+        case AL_FORMAT_STEREO_FLOAT32:
+#endif // AL_EXT_float32
+#ifdef AL_EXT_double
+        case AL_FORMAT_STEREO_DOUBLE_EXT:
+#endif  // AL_EXT_double
+                channel = 2;
+                break;
+        case AL_FORMAT_MONO8:
+        case AL_FORMAT_MONO16:
+#ifdef AL_EXT_float32
+        case AL_FORMAT_MONO_FLOAT32:
+#endif // AL_EXT_float32
+#ifdef AL_EXT_double
+        case AL_FORMAT_MONO_DOUBLE_EXT:
+#endif  // AL_EXT_double
+                channel = 1;
+                break;
+        default:
+                break;
+        }
+        return channel;
+}
 
-	fprintf(stdout, "Devices list:\n");
-	fprintf(stdout, "----------\n");
-	while (device && *device != '\0' && next && *next != '\0') {
-		fprintf(stdout, "%s\n", device);
-		len = strlen(device);
-		device += (len + 1);
-		next += (len + 2);
-	}
-	fprintf(stdout, "----------\n");
+static inline int ap_audio_fmt_ap_2_al(int ap_audio_fmt, int channel)
+{
+        int al_fmt = 0;
+        switch (ap_audio_fmt)
+        {
+        case AP_AUDIO_FMT_U8:
+                al_fmt = (channel == 1) ? AL_FORMAT_MONO8 : AL_FORMAT_STEREO8;
+                break;
+        case AP_AUDIO_FMT_S16:
+                al_fmt = (channel == 1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16;
+                break;
+        case AP_AUDIO_FMT_S32:
+                // unsupported yet
+                break;
+        case AP_AUDIO_FMT_S64:
+                // unsupported yet
+                break;
+        case AP_AUDIO_FMT_FLT:
+                al_fmt = (channel == 1)
+                        ? AL_FORMAT_MONO_FLOAT32 : AL_FORMAT_STEREO_FLOAT32;
+                break;
+        case AP_AUDIO_FMT_DBL:
+                al_fmt = (channel == 1) ? AL_FORMAT_MONO_DOUBLE_EXT
+                        : AL_FORMAT_STEREO_DOUBLE_EXT;
+                break;
+        default:
+                break;
+        }
 
-        return 0;
+        return al_fmt;
 }
 
 int ap_audio_init()
@@ -146,14 +209,14 @@ int ap_audio_init()
         int res = 0;
         res = alutInitWithoutContext(NULL, NULL);
         if (res == 0) {
-                ap_audio_check_alut("init alut");
+                ap_audio_check_alut("alutInitWithoutContext");
                 return AP_ERROR_INIT_FAILED;
         }
 
         if (device_name == NULL) {
                 device_name = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+	        LOGD("ap_audio device name: %s", device_name);
         }
-
 
         if (device == NULL) {
                 device = alcOpenDevice(device_name);
@@ -162,7 +225,8 @@ int ap_audio_init()
                         return AP_ERROR_INIT_FAILED;
                 }
         }
-	LOGI("audio device: %s", alcGetString(device, ALC_DEVICE_SPECIFIER));
+
+        // Clear the error buffer
         alGetError();
 
         if (context == NULL) {
@@ -180,21 +244,21 @@ int ap_audio_init()
 	ALfloat orientation[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
 	alListenerfv(AL_ORIENTATION, orientation);
 	ap_audio_check("alListenerfv");
+        LOGD("ap_audio_init finished");
 
         return 0;
 }
 
-unsigned int ap_audio_load_buffer(const char* name)
+unsigned int ap_audio_load_buffer_WAV(const char* name)
 {
         ALsizei size = 0;
         ALfloat frequency = 0.0f;
-        ALenum format;
-        ALboolean loop = AL_FALSE;
-        const ALvoid* data = NULL;
+        ALenum format = 0;
+        ALvoid* data = NULL;
 
         data = alutLoadMemoryFromFile(name, &format, &size, &frequency);
         ap_audio_check_alut("alutLoadMemoryFromFile");
-        LOGI("name %s, format %d, size %d, freq %f", name, format, size, frequency);
+        LOGD("name %s, format %d, size %d, freq %f", name, format, size, frequency);
 
         ALuint buffer = 0;
         alGenBuffers((ALuint)1, &buffer);
@@ -204,58 +268,88 @@ unsigned int ap_audio_load_buffer(const char* name)
         }
         alBufferData(buffer, format, data, size, frequency);
         ap_audio_check("audio data");
+        free(data);
 
         return buffer;
 }
 
-int ap_audio_play_buffer_sync(unsigned int buffer)
+unsigned int ap_audio_load_buffer_memory(
+        const char* memory, int size, int format, float frequency)
 {
+        if (memory == NULL || size <= 0 || format <= 0) {
+                LOGE("ap_audio_load_buffer_memory: invalid parameter");
+                return 0;
+        }
+        ALuint buffer = 0;
+
+        alGenBuffers((ALuint)1, &buffer);
+        if (buffer == 0) {
+                ap_audio_check("alGenBuffers");
+                return 0;
+        }
+
+        if (frequency <= 0.0f) {
+                frequency = 44100.0f;
+        }
+
+        alBufferData(buffer, format, memory, size, frequency);
+        ap_audio_check("alBufferData");
+
+        return buffer;
+}
+
+int ap_audio_play_buffer_sync(unsigned int buffer, int loop)
+{
+        if (device == NULL || context == NULL) {
+                LOGE("failed to play audio: ap_audio is not initialized");
+                return AP_ERROR_INIT_FAILED;
+        }
+        // clear error
+        alGetError();
         // generate a source
         ALuint source;
         alGenSources((ALuint)1, &source);
+        ap_audio_check("alGenSources");
 
         alSourcef(source, AL_PITCH, 1);
-        // check for errors
-        alSourcef(source, AL_GAIN, 1);
-        // check for errors
-        alSource3f(source, AL_POSITION, 0, 0, 0);
-        // check for errors
-        alSource3f(source, AL_VELOCITY, 0, 0, 0);
-        // check for errors
-        alSourcei(source, AL_LOOPING, AL_TRUE);
-        // check for errros
+        ap_audio_check("alSourcef");
 
-        // bind a buffer to source
+        alSourcef(source, AL_GAIN, 1);
+        ap_audio_check("alSourcef");
+
+        alSource3f(source, AL_POSITION, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSource3f(source, AL_VELOCITY, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSourcei(source, AL_LOOPING, loop);
+        ap_audio_check("alSourcei");
+
         alSourcei(source, AL_BUFFER, buffer);
+        ap_audio_check("alSourcei");
 
         alSourcePlay(source);
-        // check for errors
+        ap_audio_check("alSourcePlay");
 
         ALint source_state = 0;
-        LOGI("playing %u", buffer);
+        LOGD("playing %u", buffer);
         alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-        // check for errors
         while (source_state == AL_PLAYING) {
                 alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-                // check for errors
+                ap_audio_check("alGetSourcei");
         }
 
         alDeleteSources(1, &source);
-        alDeleteBuffers(1, &buffer);
-        device = alcGetContextsDevice(context);
-        alcMakeContextCurrent(NULL);
-        alcDestroyContext(context);
-        alcCloseDevice(device);
 
         return 0;
 }
 
-void* ap_audio_play_buffer_func(void* data)
+static void* ap_audio_play_buffer_func(void* data)
 {
-        LOGI("ap_audio_play_buffer_func thread func");
         unsigned int buffer = *((unsigned*) data);
-        LOGI("%u", buffer);
-        ap_audio_play_buffer_sync(buffer);
+        LOGD("ap_audio_play_buffer_func: id %u", buffer);
+        ap_audio_play_buffer_sync(buffer, false);
         return NULL;
 }
 
@@ -269,8 +363,112 @@ int ap_audio_play_buffer(unsigned int buffer)
         return 0;
 }
 
+int ap_audio_delete_buffer(unsigned int buffer)
+{
+        alDeleteBuffers(1, &buffer);
+        return 0;
+}
+
+int ap_audio_struct_init(struct AP_Audio *audio)
+{
+        if (audio == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        memset(audio, 0, sizeof(struct AP_Audio));
+
+        return 0;
+}
+
+int ap_audio_open_file_WAV(const char* filename, struct AP_Audio **out_audio_p)
+{
+        struct AP_Audio *out_audio = *out_audio_p;
+        if (out_audio == NULL) {
+                out_audio = *out_audio_p = AP_MALLOC(sizeof(struct AP_Audio));
+                if (out_audio == NULL) {
+                        return AP_ERROR_MALLOC_FAILED;
+                }
+                ap_audio_struct_init(out_audio);
+        }
+
+        ALsizei size = 0;
+        ALfloat frequency = 0.0f;
+        ALenum format = 0;
+        ALvoid* data = alutLoadMemoryFromFile(
+                filename, &format, &size, &frequency);
+        ap_audio_check_alut("alutLoadMemoryFromFile");
+        out_audio->name = AP_MALLOC((strlen(filename) + 1) * sizeof(char));
+        strcpy(out_audio->name, filename);
+        out_audio->channels = ap_audio_get_channels_by_AL(format);
+        out_audio->data = data;
+        out_audio->format = ap_audio_fmt_al_2_ap(format);
+        out_audio->frequency = frequency;
+
+        ALuint buffer = 0;
+        alGenBuffers((ALuint)1, &buffer);
+        if (buffer == 0) {
+                ap_audio_check("alGenBuffers");
+                return AP_AUDIO_BUFFER_GEN_FAILED;
+        }
+        alBufferData(buffer, format, data, size, frequency);
+        ap_audio_check("alBufferData");
+        out_audio->buffer_id = buffer;
+
+        return 0;
+}
+
+int ap_audio_open_file_decode(
+        const char* filename, struct AP_Audio **out_audio_p)
+{
+        struct AP_Audio *out_audio = *out_audio_p;
+        if (out_audio == NULL) {
+                out_audio = *out_audio_p = AP_MALLOC(sizeof(struct AP_Audio));
+                if (out_audio == NULL) {
+                        return AP_ERROR_MALLOC_FAILED;
+                }
+                ap_audio_struct_init(out_audio);
+        }
+
+        float frequency = 0.0f;
+        int format = 0;
+        struct AP_Vector *tmp_vec = NULL;
+        ap_decode_to_memory(filename, &tmp_vec, &format, &frequency);
+        if (!tmp_vec || tmp_vec->length == 0) {
+                return AP_ERROR_DECODE_FAILED;
+        }
+
+        out_audio->name = AP_MALLOC((strlen(filename) + 1) * sizeof(char));
+        strcpy(out_audio->name, filename);
+        out_audio->channels = 2;
+        out_audio->data = tmp_vec->data;
+        out_audio->format = format;
+        out_audio->data_size = tmp_vec->length;
+
+        ALuint buffer = 0;
+        alGenBuffers((ALuint)1, &buffer);
+        if (buffer == 0) {
+                ap_audio_check("alGenBuffers");
+                return AP_AUDIO_BUFFER_GEN_FAILED;
+        }
+        int al_fmt = ap_audio_fmt_ap_2_al(format, out_audio->channels);
+        alBufferData(
+                buffer, al_fmt, tmp_vec->data,
+                out_audio->data_size, frequency
+        );
+        ap_audio_check("alBufferData");
+        out_audio->buffer_id = buffer;
+        AP_FREE(tmp_vec);
+
+        return 0;
+}
+
 int ap_audio_finish()
 {
+        device = alcGetContextsDevice(context);
+        alcMakeContextCurrent(NULL);
+        alcDestroyContext(context);
+        alcCloseDevice(device);
+
         alutExit();
         return 0;
 }
