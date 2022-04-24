@@ -154,7 +154,6 @@ int ap_vector_insert_back(struct AP_Vector *vector, char *start, size_t size)
                         return AP_ERROR_MALLOC_FAILED;
                 }
                 vector->capacity *= 2;
-                LOGD("realloc vector capacity: %d", vector->capacity);
         }
         int offset = type_size * (vector->length) / (int) sizeof(char);
         char *new_data = vector->data + offset;
