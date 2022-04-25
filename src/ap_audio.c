@@ -10,6 +10,8 @@
 
 #include <pthread.h>
 
+struct AP_Vector audio_vector = { 0, 0, 0, 0 };
+
 static ALCdevice *device = NULL;
 static ALCcontext *context = NULL;
 static const ALCchar *device_name = NULL;
@@ -107,40 +109,6 @@ static inline void ap_audio_check_alut(const char* msg)
         }
 }
 
-static inline int ap_audio_fmt_al_2_ap(int al_fmt)
-{
-        int fmt = AP_AUDIO_FMT_UNKNOWN;
-        switch (al_fmt)
-        {
-        case AL_FORMAT_STEREO8:
-        case AL_FORMAT_MONO8:
-                fmt = AP_AUDIO_FMT_U8;
-                break;
-        case AL_FORMAT_MONO16:
-        case AL_FORMAT_STEREO16:
-                fmt = AP_AUDIO_FMT_S16;
-                break;
-#ifdef AL_EXT_float32
-        case AL_FORMAT_MONO_FLOAT32:
-        case AL_FORMAT_STEREO_FLOAT32:
-                fmt = AP_AUDIO_FMT_FLT;
-                break;
-#endif // AL_EXT_float32
-#ifdef AL_EXT_double
-        case AL_FORMAT_MONO_DOUBLE_EXT:
-        case AL_FORMAT_STEREO_DOUBLE_EXT:
-                fmt = AP_AUDIO_FMT_DBL;
-                break;
-#endif  // AL_EXT_double
-        default:
-                break;
-        }
-        if (fmt == 0) {
-                LOGW("ap_audio_fmt_al_2_ap: unknow format %d", al_fmt);
-        }
-        return fmt;
-}
-
 static inline int ap_audio_get_channels_by_AL(int al_fmt)
 {
         int channel = 0;
@@ -172,7 +140,7 @@ static inline int ap_audio_get_channels_by_AL(int al_fmt)
         return channel;
 }
 
-static inline int ap_audio_fmt_ap_2_al(int ap_audio_fmt, int channel)
+int ap_audio_fmt_ap_2_al(int ap_audio_fmt, int channel)
 {
         int al_fmt = 0;
         switch (ap_audio_fmt)
@@ -202,6 +170,78 @@ static inline int ap_audio_fmt_ap_2_al(int ap_audio_fmt, int channel)
         }
 
         return al_fmt;
+}
+
+int ap_audio_fmt_av_2_ap(int av_fmt, const char *s)
+{
+        int fmt = 0;
+        switch (av_fmt)
+        {
+        case AV_SAMPLE_FMT_U8:
+        case AV_SAMPLE_FMT_U8P:
+                fmt = AP_AUDIO_FMT_U8;
+                break;
+        case AV_SAMPLE_FMT_S16:
+        case AV_SAMPLE_FMT_S16P:
+                fmt = AP_AUDIO_FMT_S16;
+                break;
+        case AV_SAMPLE_FMT_S32:
+        case AV_SAMPLE_FMT_S32P:
+                fmt = AP_AUDIO_FMT_S32;
+                break;
+        case AV_SAMPLE_FMT_FLT:
+        case AV_SAMPLE_FMT_FLTP:
+                fmt = AP_AUDIO_FMT_FLT;
+                break;
+        case AV_SAMPLE_FMT_DBL:
+        case AV_SAMPLE_FMT_DBLP:
+                fmt = AP_AUDIO_FMT_DBL;
+                break;
+        case AV_SAMPLE_FMT_S64:
+        case AV_SAMPLE_FMT_S64P:
+                fmt = AP_AUDIO_FMT_S64;
+        default:
+                break;
+        }
+        if (fmt == 0) {
+                LOGW("ap_audio_fmt_av_2_ap: unrecognized format %d %s",
+                        av_fmt, s);
+        }
+        return fmt;
+}
+
+int ap_audio_fmt_al_2_ap(int al_fmt)
+{
+        int fmt = AP_AUDIO_FMT_UNKNOWN;
+        switch (al_fmt)
+        {
+        case AL_FORMAT_STEREO8:
+        case AL_FORMAT_MONO8:
+                fmt = AP_AUDIO_FMT_U8;
+                break;
+        case AL_FORMAT_MONO16:
+        case AL_FORMAT_STEREO16:
+                fmt = AP_AUDIO_FMT_S16;
+                break;
+#ifdef AL_EXT_float32
+        case AL_FORMAT_MONO_FLOAT32:
+        case AL_FORMAT_STEREO_FLOAT32:
+                fmt = AP_AUDIO_FMT_FLT;
+                break;
+#endif // AL_EXT_float32
+#ifdef AL_EXT_double
+        case AL_FORMAT_MONO_DOUBLE_EXT:
+        case AL_FORMAT_STEREO_DOUBLE_EXT:
+                fmt = AP_AUDIO_FMT_DBL;
+                break;
+#endif  // AL_EXT_double
+        default:
+                break;
+        }
+        if (fmt == 0) {
+                LOGW("ap_audio_fmt_al_2_ap: unknow format %d", al_fmt);
+        }
+        return fmt;
 }
 
 int ap_audio_init()
@@ -244,132 +284,82 @@ int ap_audio_init()
 	ALfloat orientation[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
 	alListenerfv(AL_ORIENTATION, orientation);
 	ap_audio_check("alListenerfv");
+
+        // initialize vector
+        ap_vector_init(&audio_vector, AP_VECTOR_AUDIO);
+
         LOGD("ap_audio_init finished");
 
         return 0;
 }
 
-unsigned int ap_audio_load_buffer_WAV(const char* name)
+static void* ap_audio_play_thread_func(void* data)
 {
-        ALsizei size = 0;
-        ALfloat frequency = 0.0f;
-        ALenum format = 0;
-        ALvoid* data = NULL;
-
-        data = alutLoadMemoryFromFile(name, &format, &size, &frequency);
-        ap_audio_check_alut("alutLoadMemoryFromFile");
-        LOGD("name %s, format %d, size %d, freq %f", name, format, size, frequency);
-
-        ALuint buffer = 0;
-        alGenBuffers((ALuint)1, &buffer);
-        if (buffer == 0) {
-                ap_audio_check("audio buffer");
-                return 0;
-        }
-        alBufferData(buffer, format, data, size, frequency);
-        ap_audio_check("audio data");
-        free(data);
-
-        return buffer;
-}
-
-unsigned int ap_audio_load_buffer_memory(
-        const char* memory, int size, int format, float frequency)
-{
-        if (memory == NULL || size <= 0 || format <= 0) {
-                LOGE("ap_audio_load_buffer_memory: invalid parameter");
-                return 0;
-        }
-        ALuint buffer = 0;
-
-        alGenBuffers((ALuint)1, &buffer);
-        if (buffer == 0) {
-                ap_audio_check("alGenBuffers");
-                return 0;
-        }
-
-        if (frequency <= 0.0f) {
-                frequency = 44100.0f;
-        }
-
-        alBufferData(buffer, format, memory, size, frequency);
-        ap_audio_check("alBufferData");
-
-        return buffer;
-}
-
-int ap_audio_play_buffer_sync(unsigned int buffer, int loop)
-{
-        if (device == NULL || context == NULL) {
-                LOGE("failed to play audio: ap_audio is not initialized");
-                return AP_ERROR_INIT_FAILED;
-        }
-        // clear error
-        alGetError();
-        // generate a source
-        ALuint source;
-        alGenSources((ALuint)1, &source);
-        ap_audio_check("alGenSources");
-
-        alSourcef(source, AL_PITCH, 1);
-        ap_audio_check("alSourcef");
-
-        alSourcef(source, AL_GAIN, 1);
-        ap_audio_check("alSourcef");
-
-        alSource3f(source, AL_POSITION, 0, 0, 0);
-        ap_audio_check("alSource3f");
-
-        alSource3f(source, AL_VELOCITY, 0, 0, 0);
-        ap_audio_check("alSource3f");
-
-        alSourcei(source, AL_LOOPING, loop);
-        ap_audio_check("alSourcei");
-
-        alSourcei(source, AL_BUFFER, buffer);
-        ap_audio_check("alSourcei");
-
-        alSourcePlay(source);
-        ap_audio_check("alSourcePlay");
-
+        struct AP_Audio *audio = (struct AP_Audio*) data;
+        // LOGD("ap_audio_play_buffer_func: id %u", audio->buffer_id);
         ALint source_state = 0;
-        LOGD("playing %u", buffer);
-        alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-        while (source_state == AL_PLAYING) {
-                alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-                ap_audio_check("alGetSourcei");
+        alSourcePlay(audio->source_id);
+        alGetSourcei(audio->source_id, AL_SOURCE_STATE, &source_state);
+        while (source_state == AL_PLAYING || source_state == AL_PAUSED) {
+                alGetSourcei(audio->source_id, AL_SOURCE_STATE, &source_state);
         }
-
-        alDeleteSources(1, &source);
-
-        return 0;
-}
-
-static void* ap_audio_play_buffer_func(void* data)
-{
-        unsigned int buffer = *((unsigned*) data);
-        LOGD("ap_audio_play_buffer_func: id %u", buffer);
-        ap_audio_play_buffer_sync(buffer, false);
+        AP_FREE(audio);
         return NULL;
 }
 
-int ap_audio_play_buffer(unsigned int buffer)
+static inline int ap_audio_play_ptr(
+        const struct AP_Audio *audio,
+        ap_callback_func_t cb)
 {
+        if (audio == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (audio->source_id == 0) {
+                LOGW("failed to play audio: unknown source id");
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
         pthread_t pid = 0;
-        static unsigned int tmp;
-        tmp = buffer;
-        pthread_create(&pid, NULL, ap_audio_play_buffer_func, &tmp);
+        struct AP_Audio *tmp_audio = AP_MALLOC(sizeof(struct AP_Audio));
+        memcpy(tmp_audio, audio, sizeof(struct AP_Audio));
+        tmp_audio->cb = (cb) ? cb : NULL;
+        pthread_create(&pid, NULL, ap_audio_play_thread_func, tmp_audio);
 
         return 0;
 }
 
-int ap_audio_delete_buffer(unsigned int buffer)
+static inline int ap_audio_pause_ptr(const struct AP_Audio *audio)
 {
-        alDeleteBuffers(1, &buffer);
+        if (audio == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (audio->source_id == 0) {
+                LOGW("failed to play audio: unknown source id");
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        alSourcePause(audio->source_id);
         return 0;
 }
 
-int ap_audio_struct_init(struct AP_Audio *audio)
+static inline int ap_audio_stop_ptr(const struct AP_Audio *audio)
+{
+        if (audio == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (audio->source_id == 0) {
+                LOGW("failed to play audio: unknown source id");
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        alSourceStop(audio->source_id);
+        return 0;
+}
+
+static inline int ap_audio_struct_init(struct AP_Audio *audio)
 {
         if (audio == NULL) {
                 return AP_ERROR_INVALID_PARAMETER;
@@ -380,7 +370,9 @@ int ap_audio_struct_init(struct AP_Audio *audio)
         return 0;
 }
 
-int ap_audio_open_file_WAV(const char* filename, struct AP_Audio **out_audio_p)
+static inline int ap_audio_open_file_WAV_ptr(
+        const char* filename,
+        struct AP_Audio **out_audio_p)
 {
         struct AP_Audio *out_audio = *out_audio_p;
         if (out_audio == NULL) {
@@ -399,10 +391,14 @@ int ap_audio_open_file_WAV(const char* filename, struct AP_Audio **out_audio_p)
         ap_audio_check_alut("alutLoadMemoryFromFile");
         out_audio->name = AP_MALLOC((strlen(filename) + 1) * sizeof(char));
         strcpy(out_audio->name, filename);
-        out_audio->channels = ap_audio_get_channels_by_AL(format);
         out_audio->data = data;
+        out_audio->data_size = size;
+        out_audio->channels = ap_audio_get_channels_by_AL(format);
         out_audio->format = ap_audio_fmt_al_2_ap(format);
         out_audio->frequency = frequency;
+
+        // clear error
+        alGetError();
 
         ALuint buffer = 0;
         alGenBuffers((ALuint)1, &buffer);
@@ -412,13 +408,37 @@ int ap_audio_open_file_WAV(const char* filename, struct AP_Audio **out_audio_p)
         }
         alBufferData(buffer, format, data, size, frequency);
         ap_audio_check("alBufferData");
-        out_audio->buffer_id = buffer;
+
+        // generate a source
+        ALuint source;
+        alGenSources((ALuint)1, &source);
+        ap_audio_check("alGenSources");
+
+        alSourcef(source, AL_PITCH, 1);
+        ap_audio_check("alSourcef");
+
+        alSourcef(source, AL_GAIN, 1);
+        ap_audio_check("alSourcef");
+
+        alSource3f(source, AL_POSITION, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSource3f(source, AL_VELOCITY, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSourcei(source, AL_LOOPING, false);
+        ap_audio_check("alSourcei");
+
+        alSourcei(source, AL_BUFFER, buffer);
+        ap_audio_check("alSourcei");
+        out_audio->source_id = source;
 
         return 0;
 }
 
-int ap_audio_open_file_decode(
-        const char* filename, struct AP_Audio **out_audio_p)
+static inline int ap_audio_open_file_MP3_ptr(
+        const char* filename,
+        struct AP_Audio **out_audio_p)
 {
         struct AP_Audio *out_audio = *out_audio_p;
         if (out_audio == NULL) {
@@ -439,10 +459,14 @@ int ap_audio_open_file_decode(
 
         out_audio->name = AP_MALLOC((strlen(filename) + 1) * sizeof(char));
         strcpy(out_audio->name, filename);
-        out_audio->channels = 2;
         out_audio->data = tmp_vec->data;
-        out_audio->format = format;
         out_audio->data_size = tmp_vec->length;
+        out_audio->channels = 2;
+        out_audio->format = format;
+        out_audio->frequency = frequency;
+
+        // clear error
+        alGetError();
 
         ALuint buffer = 0;
         alGenBuffers((ALuint)1, &buffer);
@@ -456,10 +480,144 @@ int ap_audio_open_file_decode(
                 out_audio->data_size, frequency
         );
         ap_audio_check("alBufferData");
-        out_audio->buffer_id = buffer;
+
+        // generate a source
+        ALuint source;
+        alGenSources((ALuint)1, &source);
+        ap_audio_check("alGenSources");
+
+        alSourcef(source, AL_PITCH, 1);
+        ap_audio_check("alSourcef");
+
+        alSourcef(source, AL_GAIN, 1);
+        ap_audio_check("alSourcef");
+
+        alSource3f(source, AL_POSITION, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSource3f(source, AL_VELOCITY, 0, 0, 0);
+        ap_audio_check("alSource3f");
+
+        alSourcei(source, AL_LOOPING, false);
+        ap_audio_check("alSourcei");
+
+        alSourcei(source, AL_BUFFER, buffer);
+        ap_audio_check("alSourcei");
+        out_audio->source_id = source;
         AP_FREE(tmp_vec);
 
         return 0;
+}
+
+static inline int ap_audio_release_ptr(struct AP_Audio *audio)
+{
+        if (audio == NULL) {
+                return 0;
+        }
+
+        if (audio->name != NULL) {
+                AP_FREE(audio->name);
+        }
+
+        if (audio->data != NULL) {
+                AP_FREE(audio->data);
+        }
+
+        if (audio->source_id) {
+                alDeleteSources(1, &audio->source_id);
+        }
+
+        memset(audio, 0, sizeof(struct AP_Audio));
+        return 0;
+}
+
+static inline struct AP_Audio* ap_audio_get_ptr(unsigned int id)
+{
+        if (id == 0) {
+                return 0;
+        }
+
+        struct AP_Audio *data = (struct AP_Audio*) audio_vector.data;
+        struct AP_Audio *ptr = NULL;
+        for (int i = 0; i < audio_vector.length; ++i) {
+                ptr = data + i;
+                if (ptr->id == id) {
+                        return ptr;
+                }
+        }
+
+        LOGW("audio id %u not found", id);
+        return NULL;
+}
+
+int ap_audio_load_MP3(const char *name, unsigned int *id)
+{
+        if (id == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_Audio *audio = NULL;
+        *id = 0;
+        int ret = ap_audio_open_file_MP3_ptr(name, &audio);
+        if (audio == NULL || ret != 0) {
+                return ret;
+        }
+        audio->id = audio_vector.length + 1;
+        ret = ap_vector_push_back(&audio_vector, (const char*) audio);
+        if (ret != 0) {
+                ap_audio_release_ptr(audio);
+                AP_CHECK(ret);
+                AP_FREE(audio);
+        } else {
+                AP_FREE(audio);
+                *id = audio_vector.length;
+        }
+
+        return ret;
+}
+
+int ap_audio_load_WAV(const char *name, unsigned int *id)
+{
+        if (id == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_Audio *audio = NULL;
+        *id = 0;
+        int ret = ap_audio_open_file_WAV_ptr(name, &audio);
+        if (audio == NULL || ret != 0) {
+                return ret;
+        }
+        audio->id = audio_vector.length + 1;
+        ret = ap_vector_push_back(&audio_vector, (const char*) audio);
+        if (ret != 0) {
+                ap_audio_release_ptr(audio);
+                AP_CHECK(ret);
+                AP_FREE(audio);
+        } else {
+                AP_FREE(audio);
+                *id = audio_vector.length;
+        }
+
+        return ret;
+}
+
+int ap_audio_play(unsigned int id, ap_callback_func_t cb)
+{
+        struct AP_Audio *ptr = ap_audio_get_ptr(id);
+        return ap_audio_play_ptr(ptr, cb);
+}
+
+int ap_audio_pause(unsigned int id)
+{
+        struct AP_Audio *ptr = ap_audio_get_ptr(id);
+        return ap_audio_pause_ptr(ptr);
+}
+
+int ap_audio_stop(unsigned int id)
+{
+        struct AP_Audio *ptr = ap_audio_get_ptr(id);
+        return ap_audio_stop_ptr(ptr);
 }
 
 int ap_audio_finish()
@@ -470,5 +628,15 @@ int ap_audio_finish()
         alcCloseDevice(device);
 
         alutExit();
+
+        struct AP_Audio *ptr, *data = NULL;
+        data = (struct AP_Audio*) audio_vector.data;
+        for (int i = 0; i < audio_vector.length; ++i) {
+                ptr = data + i;
+                ap_audio_release_ptr(ptr);
+        }
+
+        ap_vector_free(&audio_vector);
+
         return 0;
 }

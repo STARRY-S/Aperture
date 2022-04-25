@@ -43,44 +43,6 @@ static inline int ap_decode_check_avcodec(const char *name, int ret)
         return ret;
 }
 
-static inline int ap_decode_fmt_av_2_ap(int av_fmt, const char *s)
-{
-        int fmt = 0;
-        switch (av_fmt)
-        {
-        case AV_SAMPLE_FMT_U8:
-        case AV_SAMPLE_FMT_U8P:
-                fmt = AP_AUDIO_FMT_U8;
-                break;
-        case AV_SAMPLE_FMT_S16:
-        case AV_SAMPLE_FMT_S16P:
-                fmt = AP_AUDIO_FMT_S16;
-                break;
-        case AV_SAMPLE_FMT_S32:
-        case AV_SAMPLE_FMT_S32P:
-                fmt = AP_AUDIO_FMT_S32;
-                break;
-        case AV_SAMPLE_FMT_FLT:
-        case AV_SAMPLE_FMT_FLTP:
-                fmt = AP_AUDIO_FMT_FLT;
-                break;
-        case AV_SAMPLE_FMT_DBL:
-        case AV_SAMPLE_FMT_DBLP:
-                fmt = AP_AUDIO_FMT_DBL;
-                break;
-        case AV_SAMPLE_FMT_S64:
-        case AV_SAMPLE_FMT_S64P:
-                fmt = AP_AUDIO_FMT_S64;
-        default:
-                break;
-        }
-        if (fmt == 0) {
-                LOGW("ap_decode_fmt_av_2_ap: unrecognized format %d %s",
-                        av_fmt, s);
-        }
-        return fmt;
-}
-
 static inline int ap_decode_get_fmt_from_sample_fmt(
         const char **fmt, enum AVSampleFormat sample_fmt)
 {
@@ -276,7 +238,7 @@ static int ap_decode_audio(
         }
         ap_decode_frame_packet(cdc_ctx, frame, NULL, fp_out, out_vec);
 
-        *format = ap_decode_fmt_av_2_ap(cdc_ctx->sample_fmt, fmt);
+        *format = ap_audio_fmt_av_2_ap(cdc_ctx->sample_fmt, fmt);
         *frequency = (float) cdc_ctx->sample_rate;
         LOGD("decoded audio: %s\n\tsamplerate: %d, channel %d, size: %.2lfM",
                 input_file, cdc_ctx->sample_rate, cdc_ctx->channels,
