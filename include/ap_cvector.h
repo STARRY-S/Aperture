@@ -20,6 +20,7 @@ typedef enum {
         AP_VECTOR_MESH,             // AP_Mesh vector
         AP_VECTOR_MODEL,            // Model vector
         AP_VECTOR_CAMERA,           // Camera vector
+        AP_VECTOR_AUDIO,            // Audio vector
         AP_VECTOR_CHAR,             // Char vector
         AP_VECTOR_INT,              // Integer vector
         AP_VECTOR_UINT,             // Unsigned int vector

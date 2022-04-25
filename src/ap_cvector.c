@@ -5,6 +5,7 @@
 #include "ap_texture.h"
 #include "ap_vertex.h"
 #include "ap_camera.h"
+#include "ap_audio.h"
 
 /**
  * Check whether vector is initialized or not
@@ -37,6 +38,9 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
         case AP_VECTOR_CAMERA:
                 size = sizeof(struct AP_Camera);
+                break;
+        case AP_VECTOR_AUDIO:
+                size = sizeof(struct AP_Audio);
                 break;
         case AP_VECTOR_CHAR:
                 size = sizeof(char);
@@ -126,7 +130,7 @@ int ap_vector_push_back(struct AP_Vector *vector, const char* data)
                 }
                 vector->capacity *= 2;
         }
-        int offset = size * (vector->length ) / (int) sizeof(char);
+        int offset = size * (vector->length) / (int) sizeof(char);
         char *new_data = vector->data + offset;
         memcpy(new_data, data, size);
         vector->length++;
