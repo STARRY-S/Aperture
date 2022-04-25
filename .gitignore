@@ -4,3 +4,4 @@ build/
 ffmpeg/
 src/experimental
 *.wav
+*.mp3
