@@ -32,10 +32,6 @@ GLuint VBO = 0;
 GLuint light_cube_VAO = 0;
 bool enable_mobile_type = false;
 
-unsigned audio_buffer_id = 0;
-
-struct AP_Audio *audio = NULL;
-
 int demo_setup_light();
 
 int demo_init()
@@ -78,9 +74,15 @@ int demo_init()
         // cull face
         // glEnable(GL_CULL_FACE);
 
-        ap_audio_open_file_decode("sound/c418-haggstorm.mp3", &audio);
-        if (audio && audio->buffer_id > 0) {
-                ap_audio_play_buffer(audio->buffer_id);
+        // ap_audio_open_file_MP3("sound/c418-haggstorm.mp3", &audio);
+        // if (audio && audio->buffer_id > 0) {
+        //         // ap_audio_play_buffer(audio->buffer_id);
+        // }
+
+        unsigned int audio_id = 0;
+        ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
+        if (audio_id > 0) {
+                ap_audio_play(audio_id, NULL);
         }
 
         return 0;
@@ -218,7 +220,6 @@ int demo_finished()
         glDeleteBuffers(1, &VBO);
 
         ap_render_finish();
-        ap_audio_delete_buffer(audio_buffer_id);
         ap_audio_finish();
         return 0;
 }

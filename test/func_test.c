@@ -9,6 +9,7 @@
 #include <pthread.h>
 #include "ap_audio.h"
 #include "ap_decode.h"
+#include <stdlib.h>
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
@@ -372,15 +373,15 @@ void test_ap_memory()
 
 void test_audio()
 {
-        LOGI("start init ap_audio");
-        ap_audio_init();
+        // LOGI("start init ap_audio");
+        // ap_audio_init();
 
-        LOGI("start ap_audio_load_buffer");
-        unsigned buffer_id = ap_audio_load_buffer_WAV("sound/test.wav");
+        // LOGI("start ap_audio_load_buffer");
+        // unsigned buffer_id = ap_audio_load_buffer_WAV("sound/test.wav");
 
-        LOGI("start ap_audio_play_buffer_sync");
-        ap_audio_play_buffer_sync(buffer_id, 0);
-        LOGI("audio test finished");
+        // LOGI("start ap_audio_play_buffer_sync");
+        // ap_audio_play_buffer_sync(buffer_id, 0);
+        // LOGI("audio test finished");
 }
 
 void test_decode()
@@ -391,11 +392,12 @@ void test_decode()
         ret = ap_decode_to_file("sound/c418-haggstorm.mp3", "decoded.pcm");
         AP_CHECK(ret);
 
-        struct AP_Audio *audio = NULL;
-        ret = ap_audio_open_file_decode("sound/c418-haggstorm.mp3", &audio);
+        unsigned int id = 0;
+        ret = ap_audio_load_MP3("sound/c418-haggstorm.mp3", &id);
         AP_CHECK(ret);
-        LOGI("audio al_buffer id: %u", audio->buffer_id);
-        if (audio->buffer_id > 0) {
-                ap_audio_play_buffer_sync(audio->buffer_id, 1);
+        LOGI("audio id: %u", id);
+        if (id > 0) {
+                ap_audio_play(id, NULL);
+                sleep(100);
         }
 }
