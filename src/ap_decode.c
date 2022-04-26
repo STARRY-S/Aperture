@@ -135,10 +135,11 @@ static int ap_decode_audio(
         const char *output_file,        // [in] output file name
         struct AP_Vector *out_vec,      // [out] vector stores audio PCM data
         int *format,                    // [out] format in AP_Audio_FMT
-        float *frequency                // [out] frequency
+        float *frequency,               // [out] frequency
+        int *channels
 )
 {
-        if (!format || !frequency) {
+        if (!format || !frequency || !channels) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
@@ -151,6 +152,7 @@ static int ap_decode_audio(
 
         *format = 0;
         *frequency = 0.0f;
+        *channels = 0;
 
         int ret = avformat_open_input(&fmt_ctx, input_file, NULL, NULL);
         if (ap_decode_check_avcodec("avformat_open_input", ret) < 0) {
@@ -240,6 +242,7 @@ static int ap_decode_audio(
 
         *format = ap_audio_fmt_av_2_ap(cdc_ctx->sample_fmt, fmt);
         *frequency = (float) cdc_ctx->sample_rate;
+        *channels = cdc_ctx->channels;
         LOGD("decoded audio: %s\n\tsamplerate: %d, channel %d, size: %.2lfM",
                 input_file, cdc_ctx->sample_rate, cdc_ctx->channels,
                 (out_vec) ? (double) out_vec->length / 1024 / 1024 : 0.0
@@ -259,10 +262,12 @@ static int ap_decode_audio(
 
 int ap_decode_to_file(const char* filename, const char *out_name)
 {
-        int format = 0;
+        int format = 0, channels = 0;
         float frequency = 0;
 #ifndef __ANDROID__
-        return ap_decode_audio(filename, out_name, NULL, &format, &frequency);
+        return ap_decode_audio(
+                filename, out_name, NULL, &format, &frequency, &channels
+        );
 #else	// __ANDROID__
         LOGW("ap_decode_to_file: does not support android yet");
         return AP_ERROR_DECODE_FAILED;
@@ -273,9 +278,10 @@ int ap_decode_to_memory(
         const char* filename,
         struct AP_Vector **out_vec_p,
         int *ap_format,
-        float *frequency)
+        float *frequency,
+        int *channels)
 {
-        if (!out_vec_p || !ap_format || !frequency) {
+        if (!out_vec_p || !ap_format || !frequency || !channels) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
@@ -290,7 +296,9 @@ int ap_decode_to_memory(
 
         int ret = ap_vector_init(out_vec, AP_VECTOR_CHAR);
         AP_CHECK(ret);
-        ret = ap_decode_audio(filename, NULL, out_vec, ap_format, frequency);
+        ret = ap_decode_audio(
+                filename, NULL, out_vec, ap_format, frequency, channels
+        );
         AP_CHECK(ret);
 
         return ret;

@@ -451,10 +451,10 @@ static inline int ap_audio_open_file_MP3_ptr(
         }
 
         float frequency = 0.0f;
-        int format = 0;
+        int format = 0, channels = 0;
         struct AP_Vector *tmp_vec = NULL;
-        ap_decode_to_memory(filename, &tmp_vec, &format, &frequency);
-        if (!tmp_vec || tmp_vec->length == 0) {
+        ap_decode_to_memory(filename, &tmp_vec, &format, &frequency, &channels);
+        if (!tmp_vec || tmp_vec->length == 0 || channels == 0) {
                 return AP_ERROR_DECODE_FAILED;
         }
 
@@ -462,7 +462,7 @@ static inline int ap_audio_open_file_MP3_ptr(
         strcpy(out_audio->name, filename);
         out_audio->data = tmp_vec->data;
         out_audio->data_size = tmp_vec->length;
-        out_audio->channels = 2;
+        out_audio->channels = channels;
         out_audio->format = format;
         out_audio->frequency = frequency;
 

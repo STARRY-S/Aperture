@@ -19,13 +19,15 @@ int ap_decode_to_file(const char* filename, const char *out_name);
  * @param out_vec_p [out] pointer points to the pointer of vector
  * @param ap_format [out] AP_Audio_format
  * @param frequency [out] frequency
+ * @param channels  [out] channels
  * @return int AP_Types
  */
 int ap_decode_to_memory(
         const char* filename,
         struct AP_Vector **out_vec_p,
         int *ap_format,
-        float *frequency
+        float *frequency,
+        int *channels
 );
 
 #endif
