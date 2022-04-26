@@ -135,6 +135,10 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
                 glfwSetWindowShouldClose(window, GL_TRUE);
         }
 
+        if (key == GLFW_KEY_L && action == GLFW_PRESS) {
+                spot_light_enabled = !spot_light_enabled;
+        }
+
         // if (key == GLFW_KEY_C && action == GLFW_PRESS) {
         //         if (camera_use_id >= 0
         //             && camera_use_id <  - 1) {
