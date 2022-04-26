@@ -432,6 +432,7 @@ static inline int ap_audio_open_file_WAV_ptr(
         alSourcei(source, AL_BUFFER, buffer);
         ap_audio_check("alSourcei");
         out_audio->source_id = source;
+        alDeleteBuffers(1, &buffer);
 
         return 0;
 }
@@ -505,6 +506,7 @@ static inline int ap_audio_open_file_MP3_ptr(
         ap_audio_check("alSourcei");
         out_audio->source_id = source;
         AP_FREE(tmp_vec);
+        alDeleteBuffers(1, &buffer);
 
         return 0;
 }
