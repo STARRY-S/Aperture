@@ -159,6 +159,22 @@ int ap_camera_get_zoom(int *zoom)
         return 0;
 }
 
+int ap_camera_get_front(float *vec)
+{
+        if (camera_using == NULL) {
+                return AP_ERROR_CAMERA_NOT_SET;
+        }
+
+        if (vec == NULL) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        vec[0] = camera_using->front[0];
+        vec[1] = camera_using->front[1];
+        vec[2] = camera_using->front[2];
+        return 0;
+}
+
 int ap_camera_process_movement(int direction, float delta_time)
 {
         if (camera_using == NULL) {

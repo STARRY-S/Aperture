@@ -47,6 +47,7 @@ int ap_camera_free();
 int ap_camera_get_view_matrix(mat4 *temp);
 int ap_camera_get_position(float *vec);
 int ap_camera_get_zoom(int *zoom);
+int ap_camera_get_front(float *vec);
 
 int ap_camera_process_movement(int direction, float delta_time);
 int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);
