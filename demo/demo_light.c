@@ -69,9 +69,9 @@ static int demo_setup_spot_light()
         ap_shader_set_float(light_shader, "spot_light.quadratic", 0.032f);
 
         ap_shader_set_float(light_shader,
-                "spot_light.cut_off", (float) cos(glm_rad(12.5f)));
+                "spot_light.cut_off", (float) cos(glm_rad(22.5f)));
         ap_shader_set_float(light_shader,
-                "spot_light.outer_cut_off", (float) cos(glm_rad(15.0f)));
+                "spot_light.outer_cut_off", (float) cos(glm_rad(25.0f)));
         return 0;
 }
 
