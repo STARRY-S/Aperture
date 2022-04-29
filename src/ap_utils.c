@@ -188,3 +188,31 @@ int ap_set_buffer(int w, int h)
         ap_buffer_width = w;
         return 0;
 }
+
+static int fps = 0;
+int ap_update_fps()
+{
+        static long long frames = 0;
+        static double since = 0.0;
+
+        ++frames;
+        // get time, in seconds
+        double now = glfwGetTime();
+        double elapsed = now - since;
+        if (elapsed >= 1.0) {
+                fps = round(frames / elapsed);
+                frames = 0;
+                since = now;
+                LOGD("fps: %d", fps);
+        }
+
+        return 0;
+}
+
+int ap_get_fps(int *p)
+{
+        if (p) {
+                *p = fps;
+        }
+        return 0;
+}

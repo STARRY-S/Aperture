@@ -114,6 +114,7 @@ int main(int argc, char **argv)
 
                 // GameEngine main renderer
                 demo_render();
+                ap_update_fps();
 
                 // refresh
                 glfwSwapBuffers(window);
