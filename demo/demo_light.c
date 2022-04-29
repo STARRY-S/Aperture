@@ -10,9 +10,9 @@ vec3 point_light_diffuse = { 0.2f, 0.2f, 0.2f };
 vec3 point_light_specular = { 1.0f, 1.0f, 1.0f };
 
 vec3 dir_light_direction = { -1.0f, -1.0f, -0.0f };
-vec3 dir_light_ambient   = { 0.053f, 0.05f,  0.051f };
+vec3 dir_light_ambient   = { 0.53f, 0.5f,  0.52f };
 vec3 dir_light_diffuse   = { 0.4f,  0.4f,  0.4f  };
-vec3 dir_light_specular  = { 0.5f,  0.5f,  0.5f  };
+vec3 dir_light_specular  = { 0.2f,  0.2f,  0.2f  };
 
 vec3 spot_light_ambient = {0.0f, 0.0f, 0.0f};
 vec3 spot_light_diffuse = {1.0f, 1.0f, 1.0f};
@@ -89,7 +89,11 @@ int demo_setup_light()
                 &cube_shader
         );
 
-        light_texture = ap_texture_from_file("lamp.png", "mc/", false);
+        light_texture = ap_texture_from_file(
+                "redstone_lamp_on.png",
+                "mc/tex/minecraft/block/",
+                false
+        );
         ap_shader_set_int(cube_shader, "texture0", 0);
 
         // light cube initialize

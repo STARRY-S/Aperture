@@ -12,13 +12,13 @@
 #include <math.h>
 
 #ifndef MODEL_FILE_NAME
-#define MODEL_FILE_NAME "mc/minecraft.obj"
+#define MODEL_FILE_NAME "mc/spawn.obj"
 #endif
 
 #ifdef __ANDROID__
 #define AP_DEMO_CAMERA_NUMBER 1
 #else
-#define AP_DEMO_CAMERA_NUMBER 5
+#define AP_DEMO_CAMERA_NUMBER 1
 #endif
 
 unsigned int model_id = 0;
@@ -28,10 +28,10 @@ unsigned int camera_use_id = 0;
 bool spot_light_enabled = false;
 
 vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
-        {1.0f, 8.0f, 1.0f},
-        {5.0f, 9.0f, 1.0f},
-        {10.0f, 11.0f, 1.0f},
-        {-10.0f, 10.0f, 1.0f}
+        {0.0f, 55.0f, 6.0f},
+        {10.0f, 55.0f, 6.0f},
+        {-30.0f, 55.0f, 6.0f},
+        {30.0f, 55.0f, 6.0f}
 };
 
 unsigned int light_shader = 0, cube_shader = 0;
@@ -54,7 +54,8 @@ int demo_init()
         for (int i = 0; i < AP_DEMO_CAMERA_NUMBER; ++i) {
                 ap_camera_generate(&camera_ids[i]);
                 ap_camera_use(camera_ids[i]);
-                ap_camera_set_position(0.0f, (float) i + 8.0f, 1.0f);
+                ap_camera_set_position(0.0f, (float) i + 55.0f, 0.0f);
+                ap_camera_set_speed(5.0f);
         }
         ap_camera_use(camera_ids[camera_use_id]);
 
@@ -78,12 +79,7 @@ int demo_init()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // cull face
-        // glEnable(GL_CULL_FACE);
-
-        // ap_audio_open_file_MP3("sound/c418-haggstorm.mp3", &audio);
-        // if (audio && audio->buffer_id > 0) {
-        //         // ap_audio_play_buffer(audio->buffer_id);
-        // }
+        glEnable(GL_CULL_FACE);
 
         unsigned int audio_id = 0;
         ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
@@ -154,8 +150,6 @@ int demo_render()
         for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
                 glm_mat4_identity(mat_model);
                 glm_translate(mat_model, light_positions[i]);
-                vec3 cube_scale = { 0.2f, 0.2f, 0.2f };
-                glm_scale(mat_model, cube_scale);  // smaller
                 ap_shader_set_mat4(cube_shader, "model", mat_model[0]);
                 glBindVertexArray(light_cube_VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
