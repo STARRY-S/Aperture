@@ -51,13 +51,11 @@ See [Aperture-Android](https://github.com/STARRY-S/Aperture-Android)
 1. Install [MSYS2](https://www.msys2.org/).
 2. Install mingw64 build dependencies.
    ```
-   $ pacman -S mingw-w64-x86_64-gcc     # C compiler
-   $ pacman -S mingw-w64-x86_64-cmake   # CMake
-   $ pacman -S mingw-w64-x86_64-mesa    # OpenGL utils
-   $ pacman -S mingw-w64-x86_64-assimp  # Assimp model import library
-   $ pacman -S mingw-w64-x86_64-cglm    # C GL Math library
-   $ pacman -S mingw-w64-x86_64-glfw    # OpenGL window library
-   $ pacman -S mingw-w64-x86_64-ninja   # Ninja
+   $ pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake \
+         mingw-w64-x86_64-mesa     mingw-w64-x86_64-assimp \
+         mingw-w64-x86_64-cglm     mingw-w64-x86_64-glfw   \
+         mingw-w64-x86_64-ninja    mingw-w64-x86_64-openal \
+         mingw-w64-x86_64-freealut mingw-w64-x86_64-ffmpeg
    ```
 3. Update the system enviroment, add the `msys64/mingw64/bin` folder to `PATH` variable.
    ![](images/env.png)
