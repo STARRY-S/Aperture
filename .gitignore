@@ -2,6 +2,7 @@ build/
 .idea/
 .vscode/
 ffmpeg/
+minecraft/
 src/experimental
 *.wav
 *.mp3
