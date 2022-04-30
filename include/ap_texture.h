@@ -1,13 +1,14 @@
 #ifndef AP_TEXTURE_H
 #define AP_TEXTURE_H
 
-#include <stdio.h>
-#include <stdbool.h>
+#include "cglm/cglm.h"
 
 struct AP_Texture {
         unsigned int id;
         char *type;
         char *path;
+        vec4 diffuse;
+        vec4 specular;
 };
 
 int ap_texture_preload(

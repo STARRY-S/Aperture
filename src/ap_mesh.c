@@ -167,7 +167,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 GL_STATIC_DRAW
         );
 
-        // position
+        // position (顶点位置)
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(
                 0,
@@ -177,7 +177,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 sizeof(struct AP_Vertex),
                 (void*)0
         );
-        // normal
+        // normal (顶点法线)
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(
                 1,
@@ -187,7 +187,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
                 sizeof(struct AP_Vertex),
                 (void*) offsetof(struct AP_Vertex, normal)
         );
-        // texture coords
+        // texture coords (顶点纹理坐标)
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(
                 2,
@@ -232,23 +232,26 @@ int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
                 glActiveTexture(GL_TEXTURE0 + i);
                 // retrieve texture number
                 char texture_num[32] = { 0 };
-                const char *texture_name = mesh->textures[i].type;
-                if (strcmp(texture_name, "texture_diffuse") == 0) {
-                        sprintf(texture_num, "%u", diffuse_nr++);
-                } else if (strcmp(texture_name, "texture_specular") == 0) {
-                        sprintf(texture_num, "%u", specular_nr++);
-                } else if (strcmp(texture_name, "texture_normal") == 0) {
-                        sprintf(texture_num, "%u", normal_nr++);
-                } else if (strcmp(texture_name, "texture_height") == 0) {
-                        sprintf(texture_num, "%u", height_nr++);
+                const char *name = mesh->textures[i].type;
+                float *diffuse = mesh->textures[i].diffuse;
+                float *specular = mesh->textures[i].specular;
+                if (name && !strcmp(name, "texture_diffuse")) {
+                        sprintf(name, "%u", diffuse_nr++);
+                } else if (name && strcmp(name, "texture_specular")) {
+                        sprintf(name, "%u", specular_nr++);
+                } else if (name && strcmp(name, "texture_normal")) {
+                        sprintf(name, "%u", normal_nr++);
+                } else if (name && strcmp(name, "texture_height")) {
+                        sprintf(name, "%u", height_nr++);
                 }
-
-                sprintf(buffer, "%s%s", texture_name, texture_num);
+                sprintf(buffer, "%s%s", name, texture_num);
                 // now set the sampler to the correct texture unit
                 GLint location = glGetUniformLocation(shader, buffer);
                 glUniform1i(location, i);
                 // and finally bind the texture
                 glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
+                ap_shader_set_vec4(shader, "material.vec_diffuse", diffuse);
+                ap_shader_set_vec4(shader, "material.vec_specular", specular);
         }
 
         // draw mesh

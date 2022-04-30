@@ -372,7 +372,7 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         // 3. normal maps
         struct AP_Vector *vec_normal_ptr = NULL;
         vec_normal_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_HEIGHT, "texture_normal"
+                model, material, aiTextureType_NORMALS, "texture_normal"
         );
         if (vec_normal_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -386,7 +386,7 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         // 4. height maps
         struct AP_Vector *vec_height_ptr;
         vec_height_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_AMBIENT, "texture_height"
+                model, material, aiTextureType_HEIGHT, "texture_height"
         );
         if (vec_height_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -441,10 +441,34 @@ struct AP_Vector *ap_model_load_material_textures(
                         ptr = ap_texture_get_ptr(texture_id);
                 }
                 if (ptr) {
-                        ap_vector_push_back(&vec_texture, (const char*) ptr);
+                        ap_vector_push_back(&vec_texture, (char*) ptr);
                         ap_model_texture_loaded_push_back(model, ptr);
                 }
         }
+
+        struct AP_Texture *ptr = AP_MALLOC(sizeof(struct AP_Texture));
+        struct aiColor4D diff_color = { 0.f, 0.f, 0.f, 0.0f };
+        struct aiColor4D spec_color = { 0.f, 0.f, 0.f, 0.0f };
+        aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &diff_color);
+        aiGetMaterialColor(mat, AI_MATKEY_COLOR_SPECULAR, &spec_color);
+        if (diff_color.r || diff_color.g || diff_color.b ||
+             spec_color.r || spec_color.g || spec_color.b)
+        {
+                memset(ptr, 0, sizeof(struct AP_Texture));
+                ptr->diffuse[0] = diff_color.r;
+                ptr->diffuse[1] = diff_color.g;
+                ptr->diffuse[2] = diff_color.b;
+                ptr->diffuse[3] = diff_color.a;
+                ptr->specular[0] = spec_color.r;
+                ptr->specular[1] = spec_color.g;
+                ptr->specular[2] = spec_color.b;
+                ptr->specular[3] = spec_color.a;
+                ap_vector_push_back(&vec_texture, (char*) ptr);
+                ap_model_texture_loaded_push_back(model, ptr);
+        }
+        AP_FREE(ptr);
+        ptr = NULL;
+
         return &vec_texture;
 }
 

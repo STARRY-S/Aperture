@@ -7,6 +7,8 @@ struct Material {
     sampler2D diffuse;
     sampler2D specular;
     float shininess;
+    vec4 vec_diffuse;
+    vec4 vec_specular;
 };
 
 struct DirectLight {
@@ -57,6 +59,7 @@ uniform PointLight point_lights[NR_POINT_LIGHTS];
 uniform SpotLight spot_light;
 uniform Material material;
 uniform bool spot_light_enabled;
+uniform bool material_texture_disabled;
 
 vec3 calc_dir_light(DirectLight light, vec3 normal, vec3 viewDir);
 vec3 calc_point_light(
@@ -68,11 +71,16 @@ vec4 material_specular;
 
 void main()
 {
-    material_diffuse = texture(material.diffuse, TexCoords);
+    if (material_texture_disabled) {
+        material_diffuse = material.vec_diffuse;
+        material_specular = material.vec_specular;
+    } else {
+        material_diffuse = texture(material.diffuse, TexCoords);
+        material_specular = texture(material.specular, TexCoords);
+    }
     if (material_diffuse.a < 0.001) {
         discard;
     }
-    material_specular = texture(material.specular, TexCoords);
 
     // properties
     vec3 norm = normalize(Normal);

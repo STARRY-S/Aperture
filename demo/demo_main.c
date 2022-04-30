@@ -140,6 +140,10 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
                 spot_light_enabled = !spot_light_enabled;
         }
 
+        if (key == GLFW_KEY_T && action == GLFW_PRESS) {
+                material_texture_disabled = !material_texture_disabled;
+        }
+
         // if (key == GLFW_KEY_C && action == GLFW_PRESS) {
         //         if (camera_use_id >= 0
         //             && camera_use_id <  - 1) {

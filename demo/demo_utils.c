@@ -26,6 +26,7 @@ unsigned int camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
 unsigned int camera_use_id = 0;
 
 bool spot_light_enabled = false;
+bool material_texture_disabled = false;
 
 vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
         {0.0f, 55.0f, 6.0f},
@@ -110,7 +111,8 @@ int demo_render()
         ap_shader_set_vec3(light_shader, "spot_light.direction", cam_direction);
         ap_shader_set_int(light_shader,
                 "spot_light_enabled", spot_light_enabled);
-        demo_update_light();
+        ap_shader_set_int(light_shader,
+                "material_texture_disabled", material_texture_disabled);
 
         // view/projection transformations
         mat4 view;

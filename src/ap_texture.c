@@ -106,7 +106,6 @@ int ap_texture_free()
                 glDeleteTextures(1, &(ptr[i].id));
                 AP_FREE(ptr[i].path);
                 AP_FREE(ptr[i].type);
-                LOGD("deleted texture id: %u", ptr[i].id);
         }
 
         ap_vector_free(&texture_vector);
@@ -143,8 +142,6 @@ GLuint ap_texture_load(const char *const path, int format)
         data = stbi_load_from_memory(
                 file_data, assetLength, &width, &height, &nr_channels, 0);
         AAsset_close(path_asset);
-        LOGD("path %s width: %d, height: %d, channel %d",
-                path, width, height, nr_channels);
         #else
 
         data = stbi_load(path, &width, &height, &nr_channels, 0);
@@ -218,8 +215,8 @@ unsigned int ap_texture_from_file(
         data = stbi_load(path_buffer, &width, &height, &nr_components, 0);
 
         #endif
-        LOGI("path %s width: %d, height: %d, channel %d",
-                path_buffer, width, height, nr_components);
+        // LOGD("path %s width: %d, height: %d, channel %d",
+        //         path_buffer, width, height, nr_components);
 
         if (data) {
                 GLenum format = 0;
