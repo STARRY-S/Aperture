@@ -22,6 +22,7 @@ typedef enum {
         AP_VECTOR_CAMERA,           // Camera vector
         AP_VECTOR_AUDIO,            // Audio vector
         AP_VECTOR_CHAR,             // Char vector
+        AP_VECTOR_CHARACTOR,        // Charactor vector
         AP_VECTOR_INT,              // Integer vector
         AP_VECTOR_UINT,             // Unsigned int vector
         AP_VECTOR_FLOAT,            // Float vector

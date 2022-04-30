@@ -1,5 +1,6 @@
 #include "ap_cvector.h"
 #include "ap_utils.h"
+#include "ap_render.h"
 #include "ap_mesh.h"
 #include "ap_model.h"
 #include "ap_texture.h"
@@ -50,6 +51,9 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
         case AP_VECTOR_VERTEX:
                 size = sizeof(struct AP_Vertex);
+                break;
+        case AP_VECTOR_CHARACTOR:
+                size = sizeof(struct AP_Character);
                 break;
         case AP_VECTOR_POINTER:
                 size = sizeof(char*);

@@ -34,7 +34,9 @@ vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
         {30.0f, 55.0f, 6.0f}
 };
 
-unsigned int light_shader = 0, cube_shader = 0;
+vec3 ortho_cube_pos = { 0, 0, 0 };
+
+unsigned int light_shader = 0, cube_shader = 0, ortho_shader = 0;
 unsigned int light_texture = 0;
 unsigned int VBO = 0;
 unsigned int light_cube_VAO = 0;
@@ -42,8 +44,10 @@ bool enable_mobile_type = false;
 
 int demo_init()
 {
+        ap_render_general_initialize();
         ap_audio_init();
         demo_setup_light();
+        ap_render_init_font(DEMO_FONT_PATH, 42);
         // Setup GameEngine
         // init model
         AP_CHECK(
@@ -71,21 +75,14 @@ int demo_init()
         }
         #endif // __ANDROID__
 
-        // depth test
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        // cull face
-        glEnable(GL_CULL_FACE);
-
         unsigned int audio_id = 0;
         ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
         if (audio_id > 0) {
                 ap_audio_play(audio_id, NULL);
         }
+
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
 
         return 0;
 }
@@ -96,6 +93,13 @@ int demo_render()
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ap_shader_use(light_shader);
+
+        // depth test
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        // cull face
+        glEnable(GL_CULL_FACE);
 
         vec3 cam_position = { 0.0f, 0.0f, 0.0f };
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
@@ -138,6 +142,7 @@ int demo_render()
         glm_translate(mat_model, model_position);
         ap_shader_set_mat4(light_shader, "model", (float *) mat_model);
         ap_model_use(model_id);
+
         AP_CHECK( ap_model_draw() );
 
         // render the lamp cube
@@ -155,8 +160,22 @@ int demo_render()
                 glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
+        vec4 color = {0.9, 0.9, 0.9, 1.0};
+        int screen_height = ap_get_buffer_height();
+        // render text on the top left
+        static char buffer[128];
+        float fps = 0;
+        ap_render_get_fps(&fps);
+        sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
+                cam_position[0], cam_position[1], cam_position[2],
+                cam_direction[0], cam_direction[1], cam_direction[2], fps);
+        ap_render_text_line(buffer, 5.0, screen_height - 26.0, 1.0, color);
+
         glBindVertexArray(0);
         ap_shader_use(0);
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_BLEND);
+
         return EXIT_SUCCESS;
 }
 

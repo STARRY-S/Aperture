@@ -106,6 +106,7 @@ int main(int argc, char **argv)
         {
                 // input
                 processInput(window);
+                ap_render_flush();
 
                 // time
                 float current_frame_time = glfwGetTime();
@@ -114,7 +115,6 @@ int main(int argc, char **argv)
 
                 // GameEngine main renderer
                 demo_render();
-                ap_update_fps();
 
                 // refresh
                 glfwSwapBuffers(window);
