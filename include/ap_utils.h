@@ -159,8 +159,4 @@ int ap_get_buffer_height();
 
 int ap_set_buffer(int w, int h);
 
-int ap_update_fps();
-
-int ap_get_fps(int *p);
-
 #endif // AP_UTILS_H
