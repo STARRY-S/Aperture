@@ -103,7 +103,7 @@ static inline int ap_decode_frame_packet(
         }
 
         if ((ret != AVERROR(EAGAIN)) && (ret != AVERROR_EOF)) {
-                fprintf(stderr, "avcodec_receive_packet failed.\n");
+                LOGE("avcodec_receive_packet failed");
                 return AP_ERROR_DECODE_FAILED;
         }
         return 0;

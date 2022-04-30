@@ -110,8 +110,8 @@ int ap_shader_free()
 }
 
 GLuint ap_compile_shader(
-    GLenum type,
-    const char *const shader_src)
+        GLenum type,
+        const char *const shader_src)
 {
         GLuint shader = 0;
         GLint compiled = 0;
@@ -179,7 +179,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         FILE *fp = NULL;
 
         if (!(fp = fopen(shader_path, "r"))) {
-                fprintf(stderr, "Open file %s failed.\n", shader_path);
+                LOGE("Open file %s failed", shader_path);
                 return 1;
         }
         // sets the file position to end of file
@@ -187,7 +187,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         length = ftell(fp);
         rewind(fp);
         if (!(buffer = (char*) AP_MALLOC(length))) {
-                fprintf(stderr, "Malloc Error.\n");
+                LOGE("Malloc Error");
                 fclose(fp);
                 return 1;
         }
