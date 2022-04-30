@@ -44,6 +44,7 @@ else(ANDROID)
     find_package(OpenAL REQUIRED)
     find_package(ALUT REQUIRED)
     find_package(FFmpeg REQUIRED)
+    find_package(Freetype REQUIRED)
 
     if (FFmpeg_FOUND)
         include_directories(
@@ -72,6 +73,12 @@ else(ANDROID)
             )
         endif(WIN32)
     endif(assimp_FOUND)
+
+    if (FREETYPE_FOUND)
+        include_directories(
+            ${FREETYPE_INCLUDE_DIRS}
+        )
+    endif(FREETYPE_FOUND)
 endif(ANDROID)
 
 if(ANDROID)
@@ -171,10 +178,13 @@ else(ANDROID)
         ${OPENAL_LIBRARY}
         ${ALUT_LIBRARIES}
         ${FFmpeg_LIBRARIES}
+        ${FREETYPE_LIBRARIES}
     )
     set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
     file(COPY ${CMAKE_SOURCE_DIR}/demo/glsl DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/demo/mc DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/demo/sound DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/demo/fonts DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/src/ap_glsl DESTINATION ${CMAKE_BINARY_DIR})
 endif(ANDROID)
