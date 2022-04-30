@@ -332,6 +332,8 @@ int ap_render_finish()
         glDeleteBuffers(1, &renderer.font_VBO);
         glDeleteVertexArrays(1, &renderer.font_VAO);
 
+        ap_vector_free(&charactor_vector);
+
         return EXIT_SUCCESS;
 }
 
