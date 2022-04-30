@@ -398,6 +398,8 @@ void test_decode()
         LOGI("audio id: %u", id);
         if (id > 0) {
                 ap_audio_play(id, NULL);
-                sleep(100);
+                while (1) {
+                        continue;
+                }
         }
 }
