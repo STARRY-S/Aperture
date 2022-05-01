@@ -11,6 +11,7 @@
 #include "ap_model.h"
 #include "ap_mesh.h"
 #include "ap_custom_io.h"
+#include "ap_audio.h"
 
 struct AP_Renderer {
         // FPS
@@ -320,11 +321,12 @@ int ap_render_flush()
 
 int ap_render_finish()
 {
+        ap_vector_free(&charactor_vector);
         ap_camera_free();
         ap_shader_free();
         ap_model_free();
         ap_texture_free();
-        ap_memory_release();
+        ap_audio_free();
 
         FT_Done_Face(renderer.ft_face);
         FT_Done_FreeType(renderer.ft_library);
@@ -332,7 +334,7 @@ int ap_render_finish()
         glDeleteBuffers(1, &renderer.font_VBO);
         glDeleteVertexArrays(1, &renderer.font_VAO);
 
-        ap_vector_free(&charactor_vector);
+        ap_memory_release();
 
         return EXIT_SUCCESS;
 }

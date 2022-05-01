@@ -101,10 +101,8 @@ int ap_shader_free()
         unsigned int *program_ptr = (unsigned*) shader_vector.data;
         for (int i = 0; i < shader_vector.length; ++i) {
                 glDeleteProgram(program_ptr[i]);
-                LOGD("deleted OpenGL program: %u", program_ptr[i]);
         }
         ap_vector_free(&shader_vector);
-        LOGD("free shader programs");
 
         return 0;
 }

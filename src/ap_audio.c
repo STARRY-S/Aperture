@@ -288,8 +288,6 @@ int ap_audio_init()
         // initialize vector
         ap_vector_init(&audio_vector, AP_VECTOR_AUDIO);
 
-        LOGD("ap_audio_init finished");
-
         return 0;
 }
 
@@ -622,7 +620,7 @@ int ap_audio_stop(unsigned int id)
         return ap_audio_stop_ptr(ptr);
 }
 
-int ap_audio_finish()
+int ap_audio_free()
 {
         device = alcGetContextsDevice(context);
         alcMakeContextCurrent(NULL);
