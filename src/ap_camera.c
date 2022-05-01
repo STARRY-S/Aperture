@@ -112,15 +112,15 @@ int ap_camera_get_view_matrix(mat4 *temp)
                 return AP_ERROR_CAMERA_NOT_SET;
         }
 
-        vec3 cameraTarget = { 0.0f, 0.0f, 0.0f };
+        vec3 target = { 0.0f, 0.0f, 0.0f };
         glm_vec3_add(
                 camera_using->position,
                 camera_using->front,
-                cameraTarget
+                target
         );
         glm_lookat(
                 camera_using->position,
-                cameraTarget,
+                target,
                 camera_using->up,
                 *temp
         );
