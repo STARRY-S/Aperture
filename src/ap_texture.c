@@ -7,24 +7,9 @@
 
 struct AP_Vector texture_vector = { 0, 0, 0, 0 };
 
-int ap_texture_preload(
-        const char *name,       // texture_diffuse or other type
-        const char *path,       // file name
-        const char *dir,        // path to file
-        bool gamma)             // reserve
-{
-        unsigned int ret = 0;
-        int i = ap_texture_generate(&ret, name, path, dir, gamma);
-        if (ret == 0) {
-                LOGW("failed to preload texture");
-                AP_CHECK(i);
-        }
-        return 0;
-}
-
 int ap_texture_generate(
         unsigned int *texture_id,
-        const char *name,
+        int type,
         const char *path,
         const char *directory,
         bool gamma)
@@ -43,10 +28,43 @@ int ap_texture_generate(
         memset(&texture, 0, sizeof(struct AP_Texture));
 
         texture.id = id;
+        texture.type = type;
         ap_texture_set_path(&texture, path);
-        ap_texture_set_type(&texture, name);
 
         ap_vector_push_back(&texture_vector, (const char*) &texture);
+        *texture_id = id;
+
+        return 0;
+}
+
+int ap_texture_generate_RGBA(
+        unsigned int *texture_id,
+        float color[4],
+        int size,
+        int type)
+{
+        if (color == NULL || size <= 0 || size >= 10000) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (texture_vector.data == NULL) {
+                ap_vector_init(&texture_vector, AP_VECTOR_TEXTURE);
+        }
+        unsigned int id = ap_texture_from_RGBA(color, size);
+        if (id == 0) {
+                LOGW("failed to load texture from color (%.1f,%.1f,%.1f,%.1f)",
+                        color[0], color[1], color[2], color[3]
+                );
+                return AP_ERROR_TEXTURE_FAILED;
+        }
+        struct AP_Texture texture;
+        memset(&texture, 0, sizeof(struct AP_Texture));
+
+        texture.id = id;
+        texture.type = type;
+        memcpy(&texture.RGBA, color, sizeof(float) * 4);
+        // texture.diffuse
+        ap_vector_push_back(&texture_vector, (char*) &texture);
         *texture_id = id;
 
         return 0;
@@ -69,102 +87,50 @@ struct AP_Texture *ap_texture_get_ptr(unsigned int id)
         return NULL;
 }
 
-struct AP_Texture *ap_texture_get_ptr_from_path(const char *path)
+struct AP_Texture *ap_texture_get_ptr_by_path(const char *path)
 {
         if (path == NULL || texture_vector.data == NULL) {
-                // INVALID_PARAMETER
+                LOGE("ap_texture_get_ptr_by_path: INVALID PARAM");
                 return NULL;
         }
 
         struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
         for (int i = 0; i < texture_vector.length; ++i) {
-                if (strcmp(path, ptr[i].path) == 0) {
+                if (ptr[i].path && strcmp(path, ptr[i].path) == 0) {
                         return ptr + i;
                 }
         }
         return NULL;
 }
 
-const char* ap_texture_get_type(unsigned int id)
+struct AP_Texture *ap_texture_get_ptr_by_RGBA(float color[4])
 {
-        struct AP_Texture *ptr = ap_texture_get_ptr(id);
-        if (ptr == NULL) {
+        if (color == NULL || texture_vector.data == NULL) {
+                LOGE("ap_texture_get_ptr_by_RGBA: INVALID PARAM");
                 return NULL;
-        }
-
-        return ptr->type;
-}
-
-int ap_texture_free()
-{
-        if (texture_vector.data == NULL) {
-                return 0;
         }
 
         struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
         for (int i = 0; i < texture_vector.length; ++i) {
-                glDeleteTextures(1, &(ptr[i].id));
-                AP_FREE(ptr[i].path);
-                AP_FREE(ptr[i].type);
+                if (EQUAL(color[0], ptr[i].RGBA[0])
+                   && EQUAL(color[1], ptr[i].RGBA[1])
+                   && EQUAL(color[2], ptr[i].RGBA[2])
+                   && EQUAL(color[3], ptr[i].RGBA[3]) )
+                {
+                        return ptr + i;
+                }
         }
-
-        ap_vector_free(&texture_vector);
-        memset(&texture_vector, 0, sizeof(struct AP_Vector));
-        return 0;
+        return NULL;
 }
 
-GLuint ap_texture_load(const char *const path, int format)
+int ap_texture_get_type(unsigned int id)
 {
-        int width, height, nr_channels;
-        unsigned int texture;
-        unsigned char *data = NULL;
-
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-
-        // texture wrapping parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        // texture filtering parameters
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-        stbi_set_flip_vertically_on_load(true);
-
-        #ifdef __ANDROID__
-        AAssetManager *manager = ap_get_asset_manager();
-        AAsset *path_asset = AAssetManager_open(
-                manager, path, AASSET_MODE_UNKNOWN);
-        off_t assetLength = AAsset_getLength(path_asset);
-        unsigned char *file_data =
-                (unsigned char *) AAsset_getBuffer(path_asset);
-        data = stbi_load_from_memory(
-                file_data, assetLength, &width, &height, &nr_channels, 0);
-        AAsset_close(path_asset);
-        #else
-
-        data = stbi_load(path, &width, &height, &nr_channels, 0);
-
-        #endif
-
-        if (data) {
-                // target, level, format,
-                // w, h, 0(always), origin_format,
-                // data_format, data
-                glTexImage2D(GL_TEXTURE_2D, 0, format,
-                        width, height, 0, format,
-                        GL_UNSIGNED_BYTE, data);
-                glGenerateMipmap(GL_TEXTURE_2D);
-                LOGI("Loaded texture: %s", path);
-        } else {
-                LOGE("Failed to load texture: %s", path);
+        struct AP_Texture *ptr = ap_texture_get_ptr(id);
+        if (ptr == NULL) {
+                return 0;
         }
 
-        glBindTexture(GL_TEXTURE_2D, 0);
-        stbi_image_free(data);
-
-        return texture;
+        return ptr->type;
 }
 
 unsigned int ap_texture_from_file(
@@ -183,13 +149,15 @@ unsigned int ap_texture_from_file(
         int buffer_length = strlen(path) + strlen(directory) + 1;
         char *path_buffer = AP_MALLOC(sizeof(char) * buffer_length);
         if (path_buffer == NULL) {
-                LOGE("Malloc failed.");
+                LOGE("malloc failed");
                 return 0;
         }
         sprintf(path_buffer, "%s%s", directory, path);
 
         unsigned char *data = NULL;
+
         #ifdef __ANDROID__
+
         int file_length = 0;
         AAssetManager *manager = ap_get_asset_manager();
         AAsset *path_asset = AAssetManager_open(
@@ -215,47 +183,96 @@ unsigned int ap_texture_from_file(
         data = stbi_load(path_buffer, &width, &height, &nr_components, 0);
 
         #endif
-        // LOGD("path %s width: %d, height: %d, channel %d",
-        //         path_buffer, width, height, nr_components);
 
-        if (data) {
-                GLenum format = 0;
-                if (nr_components == 1)
-                format = GL_RED;
-                else if (nr_components == 3)
-                format = GL_RGB;
-                else if (nr_components == 4)
-                format = GL_RGBA;
-
-                glBindTexture(GL_TEXTURE_2D, texture_id);
-                glTexImage2D(
-                        GL_TEXTURE_2D, 0, (int) format, width, height, 0,
-                        format, GL_UNSIGNED_BYTE, data
-                );
-                glGenerateMipmap(GL_TEXTURE_2D);
-
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                glTexParameteri(
-                        GL_TEXTURE_2D,
-                        GL_TEXTURE_MIN_FILTER,
-                        GL_NEAREST_MIPMAP_NEAREST
-                );
-                glTexParameteri(
-                        GL_TEXTURE_2D,
-                        GL_TEXTURE_MAG_FILTER,
-                        GL_NEAREST
-                );
-
-                stbi_image_free(data);
-        } else {
+        if (!data) {
                 LOGE("Failed to load texture: %s", path_buffer);
-                stbi_image_free(data);
+                glDeleteTextures(1, &texture_id);
+                AP_FREE(path_buffer);
+                path_buffer = NULL;
+                return 0;
         }
 
+        int format = 0;
+        if (nr_components == 1) {
+                format = GL_RED;
+        } else if (nr_components == 3) {
+                format = GL_RGB;
+        } else if (nr_components == 4) {
+                format = GL_RGBA;
+        }
+
+        glBindTexture(GL_TEXTURE_2D, texture_id);
+        glTexImage2D(
+                GL_TEXTURE_2D, 0, format, width, height, 0,
+                format, GL_UNSIGNED_BYTE, data
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MIN_FILTER,
+                GL_NEAREST_MIPMAP_NEAREST
+        );
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MAG_FILTER,
+                GL_NEAREST
+        );
+
+        stbi_image_free(data);
         AP_FREE(path_buffer);
         path_buffer = NULL;
         return texture_id;
+}
+
+unsigned int ap_texture_from_RGBA(vec4 color, int size)
+{
+        unsigned char* data = (unsigned char*) AP_MALLOC(
+                4 * size * size * sizeof(unsigned char)
+        );
+        memset(data, 0, 4 * size * size * sizeof(unsigned char));
+        if (data == NULL) {
+                LOGE("malloc failed");
+                return 0;
+        }
+
+        unsigned int texture = 0;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        // set texture wrap parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // set texture filter parameters
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MIN_FILTER,
+                GL_NEAREST_MIPMAP_NEAREST
+        );
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MAG_FILTER,
+                GL_NEAREST
+        );
+
+        for (int i = 0; i < (size * size); ++i) {
+                data[i * 4 + 0] = (unsigned char)(color[0] * 255.0f); // R
+                data[i * 4 + 1] = (unsigned char)(color[1] * 255.0f); // G
+                data[i * 4 + 2] = (unsigned char)(color[2] * 255.0f); // B
+                data[i * 4 + 3] = (unsigned char)(color[3] * 255.0f); // A
+        }
+        glTexImage2D(
+                GL_TEXTURE_2D, 0, GL_RGBA, size, size,
+                0, GL_RGBA, GL_UNSIGNED_BYTE, data
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        AP_FREE(data);
+
+        return texture;
 }
 
 int ap_texture_init(struct AP_Texture *texture)
@@ -268,19 +285,19 @@ int ap_texture_init(struct AP_Texture *texture)
         return 0;
 }
 
-int ap_texture_set_type(struct AP_Texture *texture, const char *name)
+int ap_texture_free()
 {
-        if (texture == NULL || name == NULL) {
-                return AP_ERROR_INVALID_POINTER;
+        if (texture_vector.data == NULL) {
+                return 0;
         }
 
-        if (texture->type != NULL) {
-                LOGD("Try to AP_FREE old texture type pointer: 0X%p", texture);
-                AP_FREE(texture->type);
-                texture->type = NULL;
+        struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
+        for (int i = 0; i < texture_vector.length; ++i) {
+                glDeleteTextures(1, &(ptr[i].id));
+                AP_FREE(ptr[i].path);
         }
-        texture->type = AP_MALLOC(sizeof(char) * (strlen(name) + 1) );
-        strcpy(texture->type, name);
+
+        ap_vector_free(&texture_vector);
         return 0;
 }
 

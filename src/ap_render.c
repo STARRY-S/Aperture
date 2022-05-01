@@ -24,6 +24,9 @@ struct AP_Renderer {
         FT_Library ft_library;
         FT_Face    ft_face;
         bool font_initialized;
+
+        mat4 ortho_matrix;
+        mat4 perspective_matrix;
 };
 
 // Aperture engine only have one renderer as the main renderer

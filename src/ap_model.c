@@ -79,15 +79,15 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
  * @param model
  * @param mat
  * @param type
- * @param name
+ * @param ap_type
  * @return Pointer points to a static vector,
- *         need use ap_vector_free to AP_FREE its data after use.
+ *         need use ap_vector_free to free its data after use.
  */
 struct AP_Vector *ap_model_load_material_textures(
     struct AP_Model *model,
     struct aiMaterial *mat,
     enum aiTextureType type,
-    const char* name
+    int ap_type
 );
 
 int ap_model_generate(const char *path, unsigned int *model_id)
@@ -158,7 +158,6 @@ int ap_model_free()
                 model_array[i].texture = NULL;
         }
         ap_vector_free(&model_vector);
-        LOGD("AP_FREE models");
 
         return 0;
 }
@@ -344,7 +343,8 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         size_t size = sizeof(struct AP_Texture);
         struct AP_Vector *vec_diffuse_ptr = NULL;
         vec_diffuse_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_DIFFUSE, "texture_diffuse"
+                model, material,
+                aiTextureType_DIFFUSE, AP_TEXTURE_TYPE_DIFFUSE
         );
         if (vec_diffuse_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -358,7 +358,8 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         // 2. specular maps
         struct AP_Vector *vec_specular_ptr = NULL;
         vec_specular_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_SPECULAR, "texture_specular"
+                model, material,
+                aiTextureType_SPECULAR, AP_TEXTURE_TYPE_SPECULAR
         );
         if (vec_specular_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -372,7 +373,8 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         // 3. normal maps
         struct AP_Vector *vec_normal_ptr = NULL;
         vec_normal_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_NORMALS, "texture_normal"
+                model, material,
+                aiTextureType_NORMALS, AP_TEXTURE_TYPE_NORMAL
         );
         if (vec_normal_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -386,7 +388,8 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
         // 4. height maps
         struct AP_Vector *vec_height_ptr;
         vec_height_ptr = ap_model_load_material_textures(
-                model, material, aiTextureType_HEIGHT, "texture_height"
+                model, material,
+                aiTextureType_HEIGHT, AP_TEXTURE_TYPE_HEIGHT
         );
         if (vec_height_ptr->length > 0) {
                 ap_vector_insert_back(
@@ -419,7 +422,7 @@ struct AP_Vector *ap_model_load_material_textures(
         struct AP_Model *model,
         struct aiMaterial *mat,
         enum aiTextureType type,
-        const char* name)
+        int ap_type)
 {
         static struct AP_Vector vec_texture;
         ap_vector_init(&vec_texture, AP_VECTOR_TEXTURE);
@@ -433,10 +436,10 @@ struct AP_Vector *ap_model_load_material_textures(
                         NULL, NULL, NULL, NULL, NULL, NULL
                 );
                 struct AP_Texture *ptr = NULL;
-                ptr = ap_texture_get_ptr_from_path(str.data);
+                ptr = ap_texture_get_ptr_by_path(str.data);
                 if (ptr == NULL) {
                         GLuint texture_id = 0;
-                        ap_texture_generate(&texture_id, name,
+                        ap_texture_generate(&texture_id, ap_type,
                                 str.data, model->directory, false);
                         ptr = ap_texture_get_ptr(texture_id);
                 }
@@ -446,28 +449,31 @@ struct AP_Vector *ap_model_load_material_textures(
                 }
         }
 
-        struct AP_Texture *ptr = AP_MALLOC(sizeof(struct AP_Texture));
-        struct aiColor4D diff_color = { 0.f, 0.f, 0.f, 0.0f };
-        struct aiColor4D spec_color = { 0.f, 0.f, 0.f, 0.0f };
-        aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &diff_color);
-        aiGetMaterialColor(mat, AI_MATKEY_COLOR_SPECULAR, &spec_color);
-        if (diff_color.r || diff_color.g || diff_color.b ||
-             spec_color.r || spec_color.g || spec_color.b)
-        {
-                memset(ptr, 0, sizeof(struct AP_Texture));
-                ptr->diffuse[0] = diff_color.r;
-                ptr->diffuse[1] = diff_color.g;
-                ptr->diffuse[2] = diff_color.b;
-                ptr->diffuse[3] = diff_color.a;
-                ptr->specular[0] = spec_color.r;
-                ptr->specular[1] = spec_color.g;
-                ptr->specular[2] = spec_color.b;
-                ptr->specular[3] = spec_color.a;
+        struct aiColor4D ai_color = { 0.f, 0.f, 0.f, 0.0f };
+        if (ap_type == AP_TEXTURE_TYPE_DIFFUSE) {
+                aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &ai_color);
+        } else if (ap_type == AP_TEXTURE_TYPE_SPECULAR) {
+                aiGetMaterialColor(mat, AI_MATKEY_COLOR_SPECULAR, &ai_color);
+        }
+
+        if (!(ai_color.r || ai_color.g || ai_color.b)) {
+                return &vec_texture;
+        }
+
+        unsigned int id = 0;
+        vec4 color = { 0.0f };
+        memcpy(color, &ai_color, sizeof(float) * 4);
+        struct AP_Texture *ptr = ap_texture_get_ptr_by_RGBA(color);
+        if (ptr == NULL) {
+                ap_texture_generate_RGBA(
+                        &id, color, 16, AP_TEXTURE_TYPE_DIFFUSE
+                );
+                ptr = ap_texture_get_ptr(id);
+        }
+        if (ptr) {
                 ap_vector_push_back(&vec_texture, (char*) ptr);
                 ap_model_texture_loaded_push_back(model, ptr);
         }
-        AP_FREE(ptr);
-        ptr = NULL;
 
         return &vec_texture;
 }
@@ -477,7 +483,6 @@ int ap_model_texture_loaded_push_back(
         struct AP_Texture *texture)
 {
         if (model == NULL || texture == NULL) {
-                LOGD("model %p, texture %p", model, texture);
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
@@ -485,16 +490,17 @@ int ap_model_texture_loaded_push_back(
         model->texture = AP_REALLOC(model->texture,
                 sizeof(struct AP_Texture) * (model->texture_length + 1));
         if (model->texture == NULL) {
-                LOGE("Realloc error.");
+                LOGE("realloc error");
                 return AP_ERROR_MALLOC_FAILED;
         }
         struct AP_Texture *texture_new =
                 model->texture + (model->texture_length);
         model->texture_length++;
         ap_texture_init(texture_new);
-        ap_texture_set_type(texture_new, texture->type);
+        texture_new->type = texture->type;
         ap_texture_set_path(texture_new, texture->path);
         texture_new->id = texture->id;
+        memcpy(texture_new->RGBA, texture->RGBA, sizeof(float) * 4);
 
         return 0;
 }

@@ -122,6 +122,7 @@ int main(int argc, char **argv)
         }
 
         ap_render_finish();
+        demo_finished();
         glfwTerminate();
         return 0;
 }
@@ -141,7 +142,9 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
-                material_texture_disabled = !material_texture_disabled;
+                if (++material_number > 1) {
+                        material_number = 0;
+                }
         }
 
         // if (key == GLFW_KEY_C && action == GLFW_PRESS) {

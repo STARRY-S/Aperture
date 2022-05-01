@@ -89,7 +89,8 @@ int demo_setup_light()
                 &cube_shader
         );
 
-        light_texture = ap_texture_from_file(
+        ap_texture_generate(&light_texture,
+                AP_TEXTURE_TYPE_DIFFUSE,
                 "redstone_lamp_on.png",
                 "mc/tex/minecraft/block/",
                 false
@@ -130,7 +131,6 @@ int demo_update_light()
         ap_shader_use(light_shader);
         demo_setup_directional_light();
         demo_setup_point_lights();
-        ap_shader_set_float(light_shader, "material.shininess", 16.0f);
         demo_setup_spot_light();
 
         return 0;

@@ -26,7 +26,7 @@ unsigned int camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
 unsigned int camera_use_id = 0;
 
 bool spot_light_enabled = false;
-bool material_texture_disabled = false;
+int material_number = 0;
 
 vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
         {0.0f, 55.0f, 6.0f},
@@ -112,7 +112,10 @@ int demo_render()
         ap_shader_set_int(light_shader,
                 "spot_light_enabled", spot_light_enabled);
         ap_shader_set_int(light_shader,
-                "material_texture_disabled", material_texture_disabled);
+                "material_number", material_number);
+        static char buffer[AP_DEFAULT_BUFFER_SIZE];
+        sprintf(buffer, "material[%d].shininess", material_number);
+        ap_shader_set_float(light_shader, buffer, 16.0f);
 
         // view/projection transformations
         mat4 view;
@@ -165,7 +168,6 @@ int demo_render()
         vec4 color = {0.9, 0.9, 0.9, 1.0};
         int screen_height = ap_get_buffer_height();
         // render text on the top left
-        static char buffer[128];
         float fps = 0;
         ap_render_get_fps(&fps);
         sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
@@ -186,7 +188,5 @@ int demo_finished()
         glDeleteVertexArrays(1, &light_cube_VAO);
         glDeleteBuffers(1, &VBO);
 
-        ap_render_finish();
-        ap_audio_finish();
         return 0;
 }

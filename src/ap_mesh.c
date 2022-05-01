@@ -151,7 +151,6 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
 
         glBindVertexArray(mesh->VAO);
         glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
-
         glBufferData(
                 GL_ARRAY_BUFFER,
                 mesh->vertices_length * sizeof(struct AP_Vertex),
@@ -220,38 +219,36 @@ int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
         }
 
         // bind appropriate texture
-        unsigned int diffuse_nr  = 1;
-        unsigned int specular_nr = 1;
-        unsigned int normal_nr   = 1;
-        unsigned int height_nr   = 1;
-        char buffer[AP_DEFAULT_BUFFER_SIZE];
+        unsigned int diffuse_nr  = 0;
+        unsigned int specular_nr = 0;
+        unsigned int normal_nr   = 0;
+        unsigned int height_nr   = 0;
+        static char buffer[AP_DEFAULT_BUFFER_SIZE];
 
-        for(int i = 0; i < mesh->texture_length; i++)
+        for(int i = 0; i < mesh->texture_length
+                && i < AP_TEXTURE_UNIT_MAX_NUM; i++)
         {
                 // active proper texture before binding
                 glActiveTexture(GL_TEXTURE0 + i);
                 // retrieve texture number
-                char texture_num[32] = { 0 };
-                const char *name = mesh->textures[i].type;
-                float *diffuse = mesh->textures[i].diffuse;
-                float *specular = mesh->textures[i].specular;
-                if (name && !strcmp(name, "texture_diffuse")) {
-                        sprintf(name, "%u", diffuse_nr++);
-                } else if (name && strcmp(name, "texture_specular")) {
-                        sprintf(name, "%u", specular_nr++);
-                } else if (name && strcmp(name, "texture_normal")) {
-                        sprintf(name, "%u", normal_nr++);
-                } else if (name && strcmp(name, "texture_height")) {
-                        sprintf(name, "%u", height_nr++);
+                int texture_num = 0;
+                int ap_type = mesh->textures[i].type;
+                if (ap_type == AP_TEXTURE_TYPE_DIFFUSE) {
+                        texture_num = diffuse_nr++;
+                } else if (ap_type == AP_TEXTURE_TYPE_SPECULAR) {
+                        texture_num = specular_nr++;
+                } else if (ap_type == AP_TEXTURE_TYPE_NORMAL) {
+                        texture_num = normal_nr++;
+                } else if (ap_type == AP_TEXTURE_TYPE_HEIGHT) {
+                        texture_num = height_nr++;
                 }
-                sprintf(buffer, "%s%s", name, texture_num);
+                const char* name = ap_texture_type_2_str(ap_type);
+                sprintf(buffer, name, texture_num);
                 // now set the sampler to the correct texture unit
-                GLint location = glGetUniformLocation(shader, buffer);
+                int location = glGetUniformLocation(shader, buffer);
                 glUniform1i(location, i);
                 // and finally bind the texture
                 glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
-                ap_shader_set_vec4(shader, "material.vec_diffuse", diffuse);
-                ap_shader_set_vec4(shader, "material.vec_specular", specular);
         }
 
         // draw mesh
@@ -259,7 +256,6 @@ int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
         glDrawElements(GL_TRIANGLES, mesh->indices_length, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
-        // always good practice to set everything back to defaults once configured :)
         glActiveTexture(GL_TEXTURE0);
         return AP_ERROR_SUCCESS;
 }
