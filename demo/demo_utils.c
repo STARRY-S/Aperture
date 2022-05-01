@@ -37,11 +37,12 @@ vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
 
 vec3 ortho_cube_pos = { 0, 0, 0 };
 
-unsigned int light_shader = 0, cube_shader = 0, ortho_shader = 0;
+unsigned int cube_shader = 0;
 unsigned int light_texture = 0;
-unsigned int VBO = 0;
 unsigned int light_cube_VAO = 0;
 bool enable_mobile_type = false;
+
+static char buffer[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
 int demo_init()
 {
@@ -49,7 +50,6 @@ int demo_init()
         ap_audio_init();
         demo_setup_light();
         ap_render_init_font(DEMO_FONT_PATH, 42);
-        // Setup GameEngine
         // init model
         AP_CHECK(
                 ap_model_generate(MODEL_FILE_NAME, &model_id)
@@ -93,7 +93,7 @@ int demo_render()
         // render
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        ap_shader_use(light_shader);
+
 
         // depth test
         glEnable(GL_BLEND);
@@ -102,60 +102,29 @@ int demo_render()
         // cull face
         glEnable(GL_CULL_FACE);
 
-        vec3 cam_position = { 0.0f, 0.0f, 0.0f };
-        vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
-        ap_camera_get_position(cam_position);
-        ap_camera_get_front(cam_direction);
-        ap_shader_set_vec3(light_shader, "viewPos", cam_position);
-        ap_shader_set_vec3(light_shader, "spot_light.position", cam_position);
-        ap_shader_set_vec3(light_shader, "spot_light.direction", cam_direction);
-        ap_shader_set_int(light_shader,
-                "spot_light_enabled", spot_light_enabled);
-        ap_shader_set_int(light_shader,
-                "material_number", material_number);
-        static char buffer[AP_DEFAULT_BUFFER_SIZE];
-        sprintf(buffer, "material[%d].shininess", material_number);
-        ap_shader_set_float(light_shader, buffer, 16.0f);
-
-        // view/projection transformations
-        mat4 view;
-        mat4 projection;
-        glm_mat4_identity(view);
-        glm_mat4_identity(projection);
-        ap_camera_get_view_matrix(&view);
-
-        int zoom = 0;
-        ap_camera_get_zoom(&zoom);
-        glm_perspective(
-                glm_rad(zoom),
-                (float) ap_get_buffer_width() / (float) ap_get_buffer_height(),
-                0.1f, 100.0f, projection
-        );
-
-        ap_shader_set_mat4(light_shader, "view", view[0]);
-        ap_shader_set_mat4(light_shader, "projection", projection[0]);
-        ap_shader_set_int(light_shader, "optDepth", enable_mobile_type);
-
+        // Setup model matrix
         mat4 mat_model;
         vec3 model_position = { 0.0, 0.0, 0.0 };
-        // render the loaded model
         glm_mat4_identity(mat_model);
-        // translate it down so it's at the center of the scene
         vec3 model_scale = { 1.0f, 1.0f, 1.0f };
-        // it's a bit too big for our scene, so scale it down
         glm_scale(mat_model, model_scale);
         glm_translate(mat_model, model_position);
-        ap_shader_set_mat4(light_shader, "model", (float *) mat_model);
+        ap_render_set_model_mat((float *) mat_model);
+        // render the model
         ap_model_use(model_id);
-
         AP_CHECK( ap_model_draw() );
 
         // render the lamp cube
+        ap_shader_use(cube_shader);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, light_texture);
-        ap_shader_use(cube_shader);
-        ap_shader_set_mat4(cube_shader, "projection", projection[0]);
-        ap_shader_set_mat4(cube_shader, "view", view[0]);
+        // ap_render_get
+        float *projection = NULL;
+        ap_render_get_persp_matrix(&projection);
+        ap_shader_set_mat4(cube_shader, "projection", projection);
+        float *view = NULL;
+        ap_render_get_view_matrix(&view);
+        ap_shader_set_mat4(cube_shader, "view", view);
 
         for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
                 glm_mat4_identity(mat_model);
@@ -170,6 +139,10 @@ int demo_render()
         // render text on the top left
         float fps = 0;
         ap_render_get_fps(&fps);
+        vec3 cam_position = { 0.0f, 0.0f, 0.0f };
+        vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
+        ap_camera_get_position(cam_position);
+        ap_camera_get_front(cam_direction);
         sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
                 cam_position[0], cam_position[1], cam_position[2],
                 cam_direction[0], cam_direction[1], cam_direction[2], fps);
@@ -186,7 +159,6 @@ int demo_render()
 int demo_finished()
 {
         glDeleteVertexArrays(1, &light_cube_VAO);
-        glDeleteBuffers(1, &VBO);
 
         return 0;
 }

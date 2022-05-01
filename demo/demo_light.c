@@ -3,6 +3,7 @@
 #include "ap_utils.h"
 #include "ap_shader.h"
 #include "ap_texture.h"
+#include "ap_light.h"
 #include "cglm/cglm.h"
 
 vec3 point_light_ambient = { 0.32f, 0.3f, 0.31f };
@@ -20,69 +21,53 @@ vec3 spot_light_specular = {1.0f, 1.0f, 1.0f};
 
 static int demo_setup_point_lights()
 {
-        char *buffer = AP_MALLOC(sizeof(char) * 64);
+        float param[AP_LIGHT_PARAM_NUM] = { 1.0f, 0.09f, 0.032f };
         for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
-                sprintf(buffer, "point_lights[%d].position", i);
-                ap_shader_set_vec3(light_shader, buffer, light_positions[i]);
-                sprintf(buffer, "point_lights[%d].ambient", i);
-                ap_shader_set_vec3(light_shader, buffer, point_light_ambient);
-                sprintf(buffer, "point_lights[%d].diffuse", i);
-                ap_shader_set_vec3(light_shader, buffer, point_light_diffuse);
-                sprintf(buffer, "point_lights[%d].specular", i);
-                ap_shader_set_vec3(light_shader, buffer, point_light_specular);
-
-                sprintf(buffer, "point_lights[%d].constant", i);
-                ap_shader_set_float(light_shader, buffer, 1.0f);
-                sprintf(buffer, "point_lights[%d].linear", i);
-                ap_shader_set_float(light_shader, buffer, 0.09f);
-                sprintf(buffer, "point_lights[%d].quadratic", i);
-                ap_shader_set_float(light_shader, buffer, 0.032f);
+                unsigned id = 0;
+                ap_light_generate_point(
+                        &id,
+                        light_positions[i],
+                        point_light_ambient,
+                        point_light_diffuse,
+                        point_light_specular,
+                        param
+                );
         }
 
-        AP_FREE(buffer);
         return 0;
 }
 
 static int demo_setup_directional_light()
 {
-        ap_shader_set_vec3(
-                light_shader, "direct_light.direction", dir_light_direction);
-        ap_shader_set_vec3(
-                light_shader, "direct_light.ambient", dir_light_ambient);
-        ap_shader_set_vec3(
-                light_shader, "direct_light.diffuse", dir_light_diffuse);
-        ap_shader_set_vec3(
-                light_shader, "direct_light.specular", dir_light_specular);
+        ap_light_setup_directional(
+                dir_light_direction,
+                dir_light_ambient,
+                dir_light_diffuse,
+                dir_light_specular
+        );
         return 0;
 }
 
 static int demo_setup_spot_light()
 {
-        ap_shader_set_vec3(light_shader,
-                "spot_light.ambient", spot_light_ambient);
-        ap_shader_set_vec3(light_shader,
-                "spot_light.diffuse", spot_light_diffuse);
-        ap_shader_set_vec3(light_shader,
-                "spot_light.specular", spot_light_specular);
-        ap_shader_set_float(light_shader, "spot_light.contant", 1.0f);
-        ap_shader_set_float(light_shader, "spot_light.linear", 0.09f);
-        ap_shader_set_float(light_shader, "spot_light.quadratic", 0.032f);
+        float param[AP_LIGHT_PARAM_NUM] = {
+                1.0f, 0.09f, 0.032f,
+                (float) cos(glm_rad(22.5f)),    // cut_off
+                (float) cos(glm_rad(25.0f))     // outer_cut_off
+        };
 
-        ap_shader_set_float(light_shader,
-                "spot_light.cut_off", (float) cos(glm_rad(22.5f)));
-        ap_shader_set_float(light_shader,
-                "spot_light.outer_cut_off", (float) cos(glm_rad(25.0f)));
+        ap_light_setup_spot(
+                spot_light_ambient,
+                spot_light_diffuse,
+                spot_light_specular,
+                param
+        );
+
         return 0;
 }
 
 int demo_setup_light()
 {
-        ap_shader_generate(
-                "glsl/light_multiple.vs.glsl",
-                "glsl/light_multiple.fs.glsl",
-                &light_shader
-        );
-
         ap_shader_generate(
                 "glsl/model_loading.vs.glsl",
                 "glsl/model_loading.fs.glsl",
@@ -95,10 +80,11 @@ int demo_setup_light()
                 "mc/tex/minecraft/block/",
                 false
         );
-        ap_shader_set_int(cube_shader, "texture0", 0);
+        ap_shader_set_int(cube_shader, "texture_diffuse0", 0);
 
         // light cube initialize
         const float* cube_vertices = ap_get_default_cube_vertices();
+        unsigned int VBO = 0;
         glGenBuffers(1, &VBO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(
@@ -128,10 +114,11 @@ int demo_setup_light()
 
 int demo_update_light()
 {
-        ap_shader_use(light_shader);
         demo_setup_directional_light();
         demo_setup_point_lights();
         demo_setup_spot_light();
+        ap_light_set_material_shininess(16.0f);
+        ap_light_send_data();
 
         return 0;
 }

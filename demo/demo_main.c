@@ -86,10 +86,11 @@ int main(int argc, char **argv)
         // GLAD init GL function pointers
         ap_render_general_initialize();
 
+        demo_init();
         if (full_screen_mode)
-                ap_resize_screen_buffer(mode->width, mode->height);
+                ap_render_resize_buffer(mode->width, mode->height);
         else
-                ap_resize_screen_buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+                ap_render_resize_buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         glfwSetCursorPosCallback(window, mouse_callback);
@@ -97,8 +98,6 @@ int main(int argc, char **argv)
         glfwSetMouseButtonCallback(window, mouse_button_callback);
         glfwSetKeyCallback(window, key_callback);
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-        demo_init();
 
         glfwShowWindow(window);
 
@@ -139,12 +138,14 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
 
         if (key == GLFW_KEY_L && action == GLFW_PRESS) {
                 spot_light_enabled = !spot_light_enabled;
+                ap_render_set_spot_light_open(spot_light_enabled);
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
                 if (++material_number > 1) {
                         material_number = 0;
                 }
+                ap_render_set_material_num(material_number);
         }
 
         // if (key == GLFW_KEY_C && action == GLFW_PRESS) {
@@ -231,5 +232,5 @@ void scroll_callback(GLFWwindow* window, double x_offset, double y_offset)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-        ap_resize_screen_buffer(width, height);
+        ap_render_resize_buffer(width, height);
 }
