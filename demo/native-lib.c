@@ -41,7 +41,7 @@ Java_moe_starrys_game_1engine_GLES3JNILib_setNativeAssetManager(JNIEnv *env, jcl
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_updateBufferSize(JNIEnv *env, jclass clazz, jint width,
                                                            jint height) {
-        ap_resize_screen_buffer(width, height);
+        ap_render_resize_buffer(width, height);
 }
 
 JNIEXPORT jint JNICALL

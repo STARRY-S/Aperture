@@ -7,6 +7,7 @@
 #include "ap_vertex.h"
 #include "ap_camera.h"
 #include "ap_audio.h"
+#include "ap_light.h"
 
 /**
  * Check whether vector is initialized or not
@@ -54,6 +55,9 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
         case AP_VECTOR_CHARACTOR:
                 size = sizeof(struct AP_Character);
+                break;
+        case AP_VECTOR_LIGHT:
+                size = sizeof(struct AP_Light);
                 break;
         case AP_VECTOR_POINTER:
                 size = sizeof(char*);

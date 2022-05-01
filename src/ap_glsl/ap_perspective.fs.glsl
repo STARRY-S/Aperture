@@ -46,7 +46,7 @@ struct SpotLight {
     vec3 specular;
 };
 
-#define NR_POINT_LIGHTS 4
+#define NR_POINT_LIGHTS 128
 #define NR_MATERIALS 16
 
 in vec3 FragPos;
@@ -55,11 +55,12 @@ in vec2 TexCoords;
 
 uniform vec3 viewPos;
 
-uniform PointLight point_lights[NR_POINT_LIGHTS];
 uniform Material material[NR_MATERIALS];
 
+uniform PointLight point_light[NR_POINT_LIGHTS];
 uniform SpotLight spot_light;
 uniform DirectLight direct_light;
+
 uniform bool spot_light_enabled;
 uniform int material_number;
 
@@ -90,7 +91,7 @@ void main()
     vec3 result = calc_dir_light(direct_light, norm, viewDir);
     // point lights
     for(int i = 0; i < NR_POINT_LIGHTS; i++) {
-        result += calc_point_light(point_lights[i], norm, FragPos, viewDir);
+        result += calc_point_light(point_light[i], norm, FragPos, viewDir);
     }
     // spot light
     if (spot_light_enabled) {
@@ -120,6 +121,11 @@ vec3 calc_dir_light(DirectLight light, vec3 normal, vec3 viewDir)
 // calculates the color when using a point light.
 vec3 calc_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
+    if (light.constant == 0.0 && light.linear == 0.0
+        && light.quadratic == 0.0)
+    {
+        return vec3(0.0);
+    }
     vec3 light_direction = normalize(light.position - fragPos);
     // diffuse shading
     float diff = max(dot(normal, light_direction), 0.0);

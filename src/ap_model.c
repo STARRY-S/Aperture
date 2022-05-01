@@ -5,6 +5,7 @@
 #include "ap_texture.h"
 #include "ap_vertex.h"
 #include "ap_shader.h"
+#include "ap_render.h"
 
 #ifndef __ANDROID__
 #include "glad/glad.h"
@@ -15,6 +16,28 @@
 #include <assimp/postprocess.h>
 #include <assimp/cfileio.h>
 #include <pthread.h>
+
+/**
+ * @brief init a model struct object with its pointer
+ * @param model pointer points to a new model
+ * @param path model path
+ * @param gamma reserve, default false
+ * @return int AP_Types
+ */
+static int ap_model_init_ptr(
+        struct AP_Model *model, const char *path, bool gamma
+);
+
+/**
+ * @brief Draw model with specific OpenGL shader ID and model pointer.
+ *
+ * @param model pointer points to the AP_Model struct object
+ * @param shader OpenGL shader program ID
+ * @return int
+ */
+static int ap_model_draw_ptr_shader(
+        struct AP_Model *model, unsigned int shader
+);
 
 static struct AP_Vector model_vector = { 0, 0, 0, 0 };
 static struct AP_Model *model_using = NULL;
@@ -131,16 +154,21 @@ int ap_model_use(unsigned int model_id)
 
 int ap_model_draw()
 {
-        unsigned int shader_id = ap_get_current_shader();
-        if (shader_id == 0) {
-                return AP_ERROR_SHADER_NOT_SET;
-        }
+        unsigned int old_shader = ap_get_current_shader();
+        unsigned int render_persp_shader_id = 0;
+        ap_render_get_persp_shader(&render_persp_shader_id);
 
         if (model_using == NULL) {
                 return AP_ERROR_MODEL_NOT_SET;
         }
 
-        ap_model_draw_ptr_shader(model_using, shader_id);
+        if (render_persp_shader_id == 0) {
+                return AP_ERROR_SHADER_NOT_SET;
+        }
+
+        ap_shader_use(render_persp_shader_id);
+        ap_model_draw_ptr_shader(model_using, render_persp_shader_id);
+        ap_shader_use(old_shader);
 
         return 0;
 }
@@ -162,7 +190,8 @@ int ap_model_free()
         return 0;
 }
 
-int ap_model_init_ptr(struct AP_Model *model, const char *path, bool gamma)
+static int ap_model_init_ptr(
+        struct AP_Model *model, const char *path, bool gamma)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
@@ -529,7 +558,8 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         return 0;
 }
 
-int ap_model_draw_ptr_shader(struct AP_Model *model, unsigned int shader)
+static int ap_model_draw_ptr_shader(
+        struct AP_Model *model, unsigned int shader)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;

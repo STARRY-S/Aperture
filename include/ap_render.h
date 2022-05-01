@@ -7,9 +7,17 @@
 #ifndef AP_RENDERER_H
 #define AP_RENDERER_H
 
+#include <stdbool.h>
+
 #ifndef AP_FONT_SIZE
 #define AP_FONT_SIZE 32
 #endif
+
+#define AP_RENDER_NAME_VIEW    "view"
+#define AP_RENDER_NAME_VIEWPOS "viewPos"
+#define AP_RENDER_NAME_PROJECTION "projection"
+#define AP_RENDER_NAME_MODEL   "model"
+#define AP_RENDER_NAME_MATERIAL_NUM "material_number"
 
 struct AP_Character {
         unsigned int texture_id;   // id handle of the glyph texture
@@ -22,7 +30,7 @@ struct AP_Character {
 int ap_render_general_initialize();
 int ap_render_main();
 int ap_render_finish();
-int ap_resize_screen_buffer(int width, int height);
+int ap_render_resize_buffer(int width, int height);
 
 /**
  * @brief Init font renderer
@@ -70,5 +78,21 @@ int ap_render_text_line(
 int ap_render_flush();
 
 int ap_render_get_fps(float *p);
+
+int ap_render_get_persp_matrix(float **mat);
+int ap_render_get_ortho_matrix(float **mat);
+int ap_render_get_view_matrix(float **mat);
+int ap_render_get_ortho_shader(unsigned int *p);
+int ap_render_get_persp_shader(unsigned int *p);
+
+/**
+ * @brief Set model matrix before render model
+ *
+ * @param mat
+ * @return int
+ */
+int ap_render_set_model_mat(float *mat);
+int ap_render_set_spot_light_open(bool b);
+int ap_render_set_material_num(int n);
 
 #endif // AP_RENDERER_H

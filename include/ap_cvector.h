@@ -15,7 +15,7 @@
 
 typedef enum {
         AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
-        AP_VECTOR_VERTEX,           // Vertex vector
+        AP_VECTOR_VERTEX = 0x0101,  // Vertex vector
         AP_VECTOR_TEXTURE,          // Texture vector
         AP_VECTOR_MESH,             // AP_Mesh vector
         AP_VECTOR_MODEL,            // Model vector
@@ -23,11 +23,11 @@ typedef enum {
         AP_VECTOR_AUDIO,            // Audio vector
         AP_VECTOR_CHAR,             // Char vector
         AP_VECTOR_CHARACTOR,        // Charactor vector
+        AP_VECTOR_LIGHT,            // Light vector
         AP_VECTOR_INT,              // Integer vector
         AP_VECTOR_UINT,             // Unsigned int vector
         AP_VECTOR_FLOAT,            // Float vector
         AP_VECTOR_POINTER,          // char* pointer array
-        AP_VECTOR_LENGTH            // never use this
 } AP_VECTOR_Types;
 
 struct AP_Vector {

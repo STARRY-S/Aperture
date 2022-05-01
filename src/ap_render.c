@@ -12,6 +12,7 @@
 #include "ap_mesh.h"
 #include "ap_custom_io.h"
 #include "ap_audio.h"
+#include "ap_light.h"
 
 struct AP_Renderer {
         // FPS
@@ -20,13 +21,18 @@ struct AP_Renderer {
         // font buffer
         unsigned int font_VAO;
         unsigned int font_VBO;
-        unsigned int font_shader;
         FT_Library ft_library;
         FT_Face    ft_face;
         bool font_initialized;
 
+        unsigned int ortho_shader;      // Orthographic
+        unsigned int persp_shader;
+
         mat4 ortho_matrix;
-        mat4 perspective_matrix;
+        mat4 persp_matrix;
+        mat4 view_matrix;
+        bool spot_light_enabled;
+        int material_num;
 };
 
 // Aperture engine only have one renderer as the main renderer
@@ -56,11 +62,16 @@ int ap_render_general_initialize()
         }
 
 #endif
-        // load ortho shader, for fonts rendering
         ap_shader_generate(
-                "ap_glsl/ap_ortho_font.vs.glsl",
-                "ap_glsl/ap_ortho_font.fs.glsl",
-                &renderer.font_shader
+                "ap_glsl/ap_orthographic.vs.glsl",
+                "ap_glsl/ap_orthographic.fs.glsl",
+                &renderer.ortho_shader
+        );
+
+        ap_shader_generate(
+                "ap_glsl/ap_perspective.vs.glsl",
+                "ap_glsl/ap_perspective.fs.glsl",
+                &renderer.persp_shader
         );
 
         ap_render_initialized = true;
@@ -219,8 +230,8 @@ int ap_render_text_line(
         }
 
         glBindVertexArray(renderer.font_VAO);
-        ap_shader_use(renderer.font_shader);
-        ap_shader_set_vec4(renderer.font_shader, "color", color);
+        ap_shader_use(renderer.ortho_shader);
+        ap_shader_set_vec4(renderer.ortho_shader, "color", color);
 
         // enable blend
         glEnable(GL_BLEND);
@@ -291,21 +302,7 @@ int ap_render_get_fps(float *p)
 
 int ap_render_flush()
 {
-        // renderer ortho matrix
-        mat4 projection;
-        ap_shader_use(renderer.font_shader);
-        glm_mat4_identity(projection);
-        vec4 ortho_proj = {0.0f, 0.0f, 0.0f};
-        glm_ortho(
-                (float) 0.0,
-                (float) ap_get_buffer_width(),
-                (float) 0.0,
-                (float) ap_get_buffer_height(),
-                -1.0, 1.0, &ortho_proj
-        );
-        ap_shader_set_mat4(renderer.font_shader, "projection", ortho_proj);
-        ap_shader_use(0);
-
+        unsigned int using_shader = ap_get_current_shader();
         // calculate FPS
         static long long frames = 0;
         static double since = 0.0;
@@ -319,6 +316,46 @@ int ap_render_flush()
                 since = now;
         }
 
+        ap_shader_use(renderer.persp_shader);
+        glm_mat4_identity(renderer.view_matrix);
+        ap_camera_get_view_matrix(&renderer.view_matrix);
+        ap_shader_set_mat4(
+                renderer.persp_shader,
+                AP_RENDER_NAME_VIEW,
+                renderer.view_matrix[0]
+        );
+        vec3 view_pos = {0.0f};
+        ap_camera_get_position(view_pos);
+        ap_shader_set_vec3(
+                renderer.persp_shader,
+                AP_RENDER_NAME_VIEWPOS,
+                view_pos
+        );
+        ap_shader_set_vec3(
+                renderer.persp_shader,
+                "spot_light.position",
+                view_pos
+        );
+        vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
+        ap_camera_get_front(cam_direction);
+        ap_shader_set_vec3(
+                renderer.persp_shader,
+                "spot_light.direction",
+                cam_direction
+        );
+        ap_shader_set_int(
+                renderer.persp_shader,
+                "spot_light_enabled",
+                renderer.spot_light_enabled
+        );
+        ap_shader_set_int(
+                renderer.persp_shader,
+                AP_RENDER_NAME_MATERIAL_NUM,
+                renderer.material_num
+        );
+
+        ap_shader_use(using_shader);
+
         return 0;
 }
 
@@ -330,6 +367,7 @@ int ap_render_finish()
         ap_model_free();
         ap_texture_free();
         ap_audio_free();
+        ap_light_free();
 
         FT_Done_Face(renderer.ft_face);
         FT_Done_FreeType(renderer.ft_library);
@@ -342,10 +380,119 @@ int ap_render_finish()
         return EXIT_SUCCESS;
 }
 
-int ap_resize_screen_buffer(int width, int height)
+int ap_render_resize_buffer(int width, int height)
 {
         LOGD("Resize buffer to width: %d, height: %d", width, height);
         ap_set_buffer(width, height);
         glViewport(0, 0, width, height);
+
+        unsigned int old_shader = ap_get_current_shader();
+        int zoom = 0;
+        ap_camera_get_zoom(&zoom);
+        ap_shader_use(renderer.persp_shader);
+        glm_mat4_identity(renderer.persp_matrix);
+        glm_perspective(
+                glm_rad(zoom),
+                (float) ap_get_buffer_width() / ap_get_buffer_height(),
+                0.1f, (float) 15 * 16,  // view distance
+                renderer.persp_matrix
+        );
+        ap_shader_set_mat4(
+                renderer.persp_shader,
+                AP_RENDER_NAME_PROJECTION,
+                renderer.persp_matrix[0]
+        );
+
+        // renderer ortho matrix
+        ap_shader_use(renderer.ortho_shader);
+        glm_mat4_identity(renderer.ortho_matrix);
+        glm_ortho(
+                0.0f, (float) ap_get_buffer_width(),
+                0.0f, (float) ap_get_buffer_height(),
+                -1.0f, 1.0f, renderer.ortho_matrix
+        );
+        ap_shader_set_mat4(
+                renderer.ortho_shader,
+                AP_RENDER_NAME_PROJECTION,
+                renderer.ortho_matrix[0]
+        );
+        ap_shader_use(old_shader);
+
+        return 0;
+}
+
+int ap_render_get_persp_matrix(float **mat)
+{
+        if (!mat) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *mat = renderer.persp_matrix[0];
+        return 0;
+}
+
+int ap_render_get_ortho_matrix(float **mat)
+{
+        if (!mat) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *mat = renderer.ortho_matrix[0];
+        return 0;
+}
+
+int ap_render_get_view_matrix(float **mat)
+{
+        if (!mat) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *mat = renderer.view_matrix[0];
+
+        return 0;
+}
+
+int ap_render_get_persp_shader(unsigned int *p)
+{
+        if (*p) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *p = renderer.persp_shader;
+
+        return 0;
+}
+
+int ap_render_get_ortho_shader(unsigned int *p)
+{
+        if (*p) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *p = renderer.ortho_shader;
+
+        return 0;
+}
+
+int ap_render_set_model_mat(float *mat)
+{
+        if (renderer.persp_shader == 0) {
+                return AP_ERROR_INIT_FAILED;
+        }
+        unsigned int using_shader = ap_get_current_shader();
+
+        ap_shader_use(renderer.persp_shader);
+        ap_shader_set_mat4(renderer.persp_shader,
+                AP_RENDER_NAME_MODEL, mat
+        );
+        ap_shader_use(using_shader);
+
+        return 0;
+}
+
+int ap_render_set_spot_light_open(bool b)
+{
+        renderer.spot_light_enabled = b;
+        return 0;
+}
+
+int ap_render_set_material_num(int n)
+{
+        renderer.material_num = n;
         return 0;
 }
