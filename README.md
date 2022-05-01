@@ -13,12 +13,19 @@ Current status (TODOs)
 - [x] Texture load
 - [x] Model import  (Finished, but unstable)
 - [x] Lightning stimulation
+    - [x] Directional light
+    - [x] Point lights
+    - [x] Spot lights
+    - [x] Diffuse texture
+    - [x] Specular texture
+    - [ ] Normal texture
 - [ ] Cross platform:
     - [x] Windows
     - [x] Android (see [Aperture-Android](https://github.com/STARRY-S/GameEngine-Android))
     - [x] Linux
     - [ ] ~~Mac OS~~ (I will add it when I have a Mac)
 - [x] Music & Sound engine
+- [x] Font rendering
 - [ ] Network
 - [ ] Physic engine
 - [ ] GUI tools (User graphics)
@@ -28,6 +35,8 @@ Current status (TODOs)
 
 Minecraft model:
 ![](images/demo-mc-2.png)
+
+![](images/demo-mc-single-color.png)
 
 Backpack model:
 ![](images/demo-backpack.png)
