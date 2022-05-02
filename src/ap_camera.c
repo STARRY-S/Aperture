@@ -75,7 +75,7 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
         camera->pitch = 0.0f;
         camera->speed = 1.0f;
         camera->sensitivity = 0.04f;
-        camera->zoom = 45.0f;
+        camera->zoom = 65.0f;
 
         return 0;
 }
@@ -285,10 +285,10 @@ int ap_camera_process_scroll(float y_offset)
         }
         camera_using->zoom -= y_offset;
 
-        if (camera_using->zoom < 1.0f) {
-                camera_using->zoom = 1.0f;
-        } else if (camera_using->zoom > 45.0f) {
-                camera_using->zoom = 45.0f;
+        if (camera_using->zoom < 1.f) {
+                camera_using->zoom = 1.f;
+        } else if (camera_using->zoom > 65.0f) {
+                camera_using->zoom = 65.0f;
         }
         return 0;
 }

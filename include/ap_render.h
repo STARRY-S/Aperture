@@ -94,5 +94,6 @@ int ap_render_get_persp_shader(unsigned int *p);
 int ap_render_set_model_mat(float *mat);
 int ap_render_set_spot_light_open(bool b);
 int ap_render_set_material_num(int n);
+int ap_render_set_view_distance(int n);
 
 #endif // AP_RENDERER_H

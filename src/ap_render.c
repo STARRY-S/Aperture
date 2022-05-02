@@ -25,14 +25,15 @@ struct AP_Renderer {
         FT_Face    ft_face;
         bool font_initialized;
 
-        unsigned int ortho_shader;      // Orthographic
-        unsigned int persp_shader;
+        unsigned int ortho_shader; // Orthographic
+        unsigned int persp_shader; // Perspective
 
         mat4 ortho_matrix;
         mat4 persp_matrix;
         mat4 view_matrix;
         bool spot_light_enabled;
-        int material_num;
+        int material_num;          // material[material_num]
+        int view_distance;
 };
 
 // Aperture engine only have one renderer as the main renderer
@@ -73,6 +74,7 @@ int ap_render_general_initialize()
                 "ap_glsl/ap_perspective.fs.glsl",
                 &renderer.persp_shader
         );
+        renderer.view_distance = 16 * 16;
 
         ap_render_initialized = true;
         return EXIT_SUCCESS;
@@ -302,7 +304,7 @@ int ap_render_get_fps(float *p)
 
 int ap_render_flush()
 {
-        unsigned int using_shader = ap_get_current_shader();
+        unsigned int old_shader = ap_get_current_shader();
         // calculate FPS
         static long long frames = 0;
         static double since = 0.0;
@@ -354,7 +356,23 @@ int ap_render_flush()
                 renderer.material_num
         );
 
-        ap_shader_use(using_shader);
+        int zoom = 0;
+        ap_camera_get_zoom(&zoom);
+        ap_shader_use(renderer.persp_shader);
+        glm_mat4_identity(renderer.persp_matrix);
+        glm_perspective(
+                glm_rad(zoom),
+                (float) ap_get_buffer_width() / ap_get_buffer_height(),
+                0.01f, (float) renderer.view_distance,
+                renderer.persp_matrix
+        );
+        ap_shader_set_mat4(
+                renderer.persp_shader,
+                AP_RENDER_NAME_PROJECTION,
+                renderer.persp_matrix[0]
+        );
+
+        ap_shader_use(old_shader);
 
         return 0;
 }
@@ -387,21 +405,6 @@ int ap_render_resize_buffer(int width, int height)
         glViewport(0, 0, width, height);
 
         unsigned int old_shader = ap_get_current_shader();
-        int zoom = 0;
-        ap_camera_get_zoom(&zoom);
-        ap_shader_use(renderer.persp_shader);
-        glm_mat4_identity(renderer.persp_matrix);
-        glm_perspective(
-                glm_rad(zoom),
-                (float) ap_get_buffer_width() / ap_get_buffer_height(),
-                0.1f, (float) 15 * 16,  // view distance
-                renderer.persp_matrix
-        );
-        ap_shader_set_mat4(
-                renderer.persp_shader,
-                AP_RENDER_NAME_PROJECTION,
-                renderer.persp_matrix[0]
-        );
 
         // renderer ortho matrix
         ap_shader_use(renderer.ortho_shader);
@@ -474,13 +477,16 @@ int ap_render_set_model_mat(float *mat)
         if (renderer.persp_shader == 0) {
                 return AP_ERROR_INIT_FAILED;
         }
-        unsigned int using_shader = ap_get_current_shader();
+        if (!mat) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
 
+        unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.persp_shader);
         ap_shader_set_mat4(renderer.persp_shader,
                 AP_RENDER_NAME_MODEL, mat
         );
-        ap_shader_use(using_shader);
+        ap_shader_use(old_shader);
 
         return 0;
 }
@@ -493,6 +499,16 @@ int ap_render_set_spot_light_open(bool b)
 
 int ap_render_set_material_num(int n)
 {
+        if (n > AP_TEXTURE_UNIT_MAX_NUM) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
         renderer.material_num = n;
+        return 0;
+}
+
+int ap_render_set_view_distance(int n)
+{
+        renderer.view_distance = n;
         return 0;
 }
