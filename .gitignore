@@ -6,3 +6,6 @@ minecraft/
 src/experimental
 *.wav
 *.mp3
+*.mtl
+*.obj
+*.png
