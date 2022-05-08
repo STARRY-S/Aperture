@@ -1,6 +1,8 @@
 #ifndef AP_TEXTURE_H
 #define AP_TEXTURE_H
 
+#include "ap_utils.h"
+#include "ap_shader.h"
 #include "cglm/cglm.h"
 
 /**
@@ -26,16 +28,16 @@ static inline const char* ap_texture_type_2_str(int t)
         switch (t)
         {
         case AP_TEXTURE_TYPE_DIFFUSE:
-                return "material[%d].diffuse";
+                return AP_SP_MT_DIFFUSE;
         case AP_TEXTURE_TYPE_SPECULAR:
-                return "material[%d].specular";
+                return AP_SP_MT_SPECULAR;
         case AP_TEXTURE_TYPE_NORMAL:
-                return "material[%d].normal";
+                return AP_SP_MT_NORMAL;
         case AP_TEXTURE_TYPE_HEIGHT:
-                return "material[%d].height";
+                return AP_SP_MT_HEIGHT;
         }
 
-        return "texture_unknown";
+        return NULL;
 }
 
 struct AP_Texture {
