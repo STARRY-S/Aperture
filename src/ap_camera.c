@@ -1,5 +1,6 @@
 #include "ap_camera.h"
 #include "ap_cvector.h"
+#include "ap_render.h"
 #include "ap_utils.h"
 
 static struct AP_Vector camera_vector = { 0, 0, 0, 0 };
@@ -36,10 +37,10 @@ int ap_camera_use(unsigned int camera_id)
         }
 
         struct AP_Camera *tmp_cam = (struct AP_Camera*) camera_vector.data;
-        // camera_using = tmp_cam + (camera_id - 1);
         for (int i = 0; i < camera_vector.length; ++i) {
                 if (tmp_cam[i].id == camera_id) {
                         camera_using = tmp_cam + i;
+                        LOGD("use camera %d", camera_id);
                         return 0;
                 }
         }
@@ -65,7 +66,7 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
 
         camera->front[0] = 0.0f;
         camera->front[1] = 0.0f;
-        camera->front[2] = 1.0f;
+        camera->front[2] = -1.0f;
 
         camera->right[0] = 0.0f;
         camera->right[0] = 0.0f;
@@ -178,17 +179,19 @@ int ap_camera_get_front(float *vec)
         return 0;
 }
 
-int ap_camera_process_movement(int direction, float delta_time)
+int ap_camera_process_movement(int direction, int speed_up)
 {
         if (camera_using == NULL) {
                 return AP_ERROR_CAMERA_NOT_SET;
         }
 
-        float velocity = camera_using->speed * delta_time;
+        float dt = 0.0f;
+        ap_render_get_dt(&dt);
+        float velocity = camera_using->speed * dt * speed_up;
         vec3 temp = { 0.0f, 0.0f, 0.0f };
         switch (direction)
         {
-        case AP_CAMERA_FORWARD:
+        case AP_CAMERA_MOV_FORWARD:
         {
                 glm_vec3_scale(camera_using->front, velocity, temp);
                 glm_vec3_add(
@@ -252,7 +255,7 @@ int ap_camera_process_movement(int direction, float delta_time)
                 );
                 break;
         }
-                default:
+        default:
                 break;
         }
         return 0;

@@ -16,13 +16,10 @@ void mouse_callback(GLFWwindow *win, double x_pos, double y_pos);
 void mouse_cursor_callback(GLFWwindow *win, double x_pos, double y_pos);
 void mouse_button_callback(GLFWwindow *win, int button, int action, int mods);
 void scroll_callback(GLFWwindow *win, double x_offset, double y_offset);
-void processInput(GLFWwindow *win);
+void process_input(GLFWwindow *win);
 
 GLFWwindow* window = NULL;
 const GLFWvidmode* mode;
-
-float delta_time = 0.0f; // delta time between last frame time
-float last_frame_time = 0.0f; // last frame time
 
 float last_x = 400, last_y = 300;
 bool first_mouse = true;
@@ -31,21 +28,20 @@ bool left_button_pressed = false;
 
 int main(int argc, char **argv)
 {
-        if (argc == 2) {
-                if (!strcmp(argv[1], "-h")) {
-                        printf("Usage: \n");
-                        printf("\t%s -f -- Full Screen Mode\n", argv[0]);
-                        printf("\tW S A D -- Camea movement\n");
-                        printf("\tLCtrl   -- Speedup movement\n");
-                        printf("\tC       -- Change camera\n");
-                        printf("\tESC / Q -- Exit\n");
+        if (argc == 2 && !strcmp(argv[1], "-h")) {
+                printf("%s -f -- Full Screen Mode\n\n", argv[0]);
+                printf("\tW S A D -- Camea movement\n");
+                printf("\tLCtrl   -- Speedup movement\n");
+                printf("\tC       -- Change camera\n");
+                printf("\tT       -- Change texture\n");
+                printf("\tL       -- Turn ON/OFF spot light\n");
+                printf("\tESC / Q -- Exit\n");
 
-                        return EXIT_SUCCESS;
-                }
+                return 0;
+        }
 
-                if (!strcmp(argv[1], "-f")) {
-                        full_screen_mode = true;
-                }
+        if (argc == 2 && !strcmp(argv[1], "-f")) {
+                full_screen_mode = true;
         }
 
         glfwInit();
@@ -79,18 +75,19 @@ int main(int argc, char **argv)
                 return -1;
         }
 
-        glfwSetWindowPos(window, (1920 - SCREEN_WIDTH) / 2,
-                        (1080 - SCREEN_HEIGHT) / 2 );
+        glfwSetWindowPos(window, (mode->width - SCREEN_WIDTH) / 2,
+                        (mode->height - SCREEN_HEIGHT) / 2 );
         glfwMakeContextCurrent(window);
         ap_set_context_ptr(window);
         // GLAD init GL function pointers
         ap_render_general_initialize();
 
         demo_init();
-        if (full_screen_mode)
+        if (full_screen_mode) {
                 ap_render_resize_buffer(mode->width, mode->height);
-        else
+        } else {
                 ap_render_resize_buffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+        }
 
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         glfwSetCursorPosCallback(window, mouse_callback);
@@ -104,13 +101,8 @@ int main(int argc, char **argv)
         while (!glfwWindowShouldClose(window))
         {
                 // input
-                processInput(window);
+                process_input(window);
                 ap_render_flush();
-
-                // time
-                float current_frame_time = glfwGetTime();
-                delta_time = current_frame_time - last_frame_time;
-                last_frame_time = current_frame_time;
 
                 // GameEngine main renderer
                 demo_render();
@@ -148,27 +140,26 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
                 ap_render_set_material_num(material_number);
         }
 
-        // if (key == GLFW_KEY_C && action == GLFW_PRESS) {
-        //         if (camera_use_id >= 0
-        //             && camera_use_id <  - 1) {
-        //                 ap_camera_use(camera_ids[++camera_use_id]);
-        //         } else {
-        //                 camera_use_id = 0;
-        //                 ap_camera_use(camera_ids[camera_use_id]);
-        //         }
-        //         LOGI("Use camera: %u", camera_ids[camera_use_id]);
-        // }
+        if (key == GLFW_KEY_C && action == GLFW_PRESS) {
+                if (camera_use_id >= 0
+                        && camera_use_id < AP_DEMO_CAMERA_NUMBER - 1) {
+                        ap_camera_use(camera_ids[++camera_use_id]);
+                } else {
+                        camera_use_id = 0;
+                        ap_camera_use(camera_ids[camera_use_id]);
+                }
+        }
 }
 
-void processInput(GLFWwindow *window)
+void process_input(GLFWwindow *window)
 {
-        float speed = delta_time;
+        float speed = 1.0f;
         if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
                 speed *= 3.0f;
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_FORWARD, speed);
+                ap_camera_process_movement(AP_CAMERA_MOV_FORWARD, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
                 ap_camera_process_movement(AP_CAMERA_MOV_BACKWARD, speed);
@@ -197,8 +188,7 @@ void mouse_callback(GLFWwindow *window, double x_pos, double y_pos)
         //         return;
         // }
 
-        if(first_mouse)
-        {
+        if(first_mouse) {
                 last_x = x_pos;
                 last_y = y_pos;
                 first_mouse = false;

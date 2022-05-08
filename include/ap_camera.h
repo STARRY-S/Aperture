@@ -15,7 +15,7 @@
 #include "cglm/call.h"
 
 enum AP_Camera_Movements {
-        AP_CAMERA_FORWARD,
+        AP_CAMERA_MOV_FORWARD,
         AP_CAMERA_MOV_BACKWARD,
         AP_CAMERA_MOV_LEFT,
         AP_CAMERA_MOV_RIGHT,
@@ -49,7 +49,7 @@ int ap_camera_get_position(float *vec);
 int ap_camera_get_zoom(int *zoom);
 int ap_camera_get_front(float *vec);
 
-int ap_camera_process_movement(int direction, float delta_time);
+int ap_camera_process_movement(int direction, int speed_up);
 int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);
 int ap_camera_process_scroll(float y_offset);
 

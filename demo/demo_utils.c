@@ -15,12 +15,6 @@
 #define MODEL_FILE_NAME "mc/spawn.obj"
 #endif
 
-#ifdef __ANDROID__
-#define AP_DEMO_CAMERA_NUMBER 1
-#else
-#define AP_DEMO_CAMERA_NUMBER 1
-#endif
-
 unsigned int model_id = 0;
 unsigned int camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
 unsigned int camera_use_id = 0;
