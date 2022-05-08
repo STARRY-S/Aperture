@@ -117,8 +117,6 @@ int ap_light_send_data()
 
         ap_shader_use(shader);
         struct AP_Light *light = (struct AP_Light*) point_light_vector.data;
-        static char buf[AP_DEFAULT_BUFFER_SIZE] = { 0 };
-        static char base[32] = { 0 };
         int point_nr = 0;
         // send point lights data
         for (int i = 0; i < point_light_vector.length
@@ -130,77 +128,93 @@ int ap_light_send_data()
                 if (p->type != AP_LIGHT_POINT) {
                         continue;
                 }
-                sprintf(base, "%s[%d].",
-                        ap_light_type_2_str(p->type), point_nr++
-                );
 
                 // position
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_POSITION);
-                ap_shader_set_vec3(shader, buf, p->position);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_POSITION);
+                ap_shader_set_vec3(shader,
+                        ap_shader_name(AP_SP_PL_POSITION), p->position);
                 // ambient
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
-                ap_shader_set_vec3(shader, buf, p->ambient);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
+                ap_shader_set_vec3(shader,
+                        ap_shader_name(AP_SP_PL_AMBIENT), p->ambient);
                 // diffuse
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
-                ap_shader_set_vec3(shader, buf, p->diffuse);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
+                ap_shader_set_vec3(shader,
+                        ap_shader_name(AP_SP_PL_DIFFUSE), p->diffuse);
                 // specular
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
-                ap_shader_set_vec3(shader, buf, p->specular);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
+                ap_shader_set_vec3(shader,
+                        ap_shader_name(AP_SP_PL_SPECULAR), p->specular);
                 // constant
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CONSTANT);
-                ap_shader_set_float(shader, buf, p->param[0]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CONSTANT);
+                ap_shader_set_float(shader,
+                        ap_shader_name(AP_SP_PL_CONSTANT), p->param[0]);
                 // linear
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_LINEAR);
-                ap_shader_set_float(shader, buf, p->param[1]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_LINEAR);
+                ap_shader_set_float(shader,
+                        ap_shader_name(AP_SP_PL_LINEAR), p->param[1]);
                 // quadratic
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_QUADRATIC);
-                ap_shader_set_float(shader, buf, p->param[2]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_QUADRATIC);
+                ap_shader_set_float(shader,
+                        ap_shader_name(AP_SP_PL_QUADRATIC), p->param[2]);
         }
 
         // send directional light data
         if (direct_light.type == AP_LIGHT_DIRECTIONAL) {
-                sprintf(base, "%s.", ap_light_type_2_str(AP_LIGHT_DIRECTIONAL));
                 // direction
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIRECTION);
-                ap_shader_set_vec3(shader, buf, direct_light.direction);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIRECTION);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_DL_DIRECTION),
+                        direct_light.direction);
                 // ambient
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
-                ap_shader_set_vec3(shader, buf, direct_light.ambient);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_DL_AMBIENT),
+                        direct_light.ambient);
                 // diffuse
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
-                ap_shader_set_vec3(shader, buf, direct_light.diffuse);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_DL_DIFFUSE),
+                        direct_light.diffuse);
                 // specular
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
-                ap_shader_set_vec3(shader, buf, direct_light.specular);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_DL_SPECULAR),
+                        direct_light.specular);
         }
 
         // send spot light data
         if (spot_light.type == AP_LIGHT_SPOT) {
-                sprintf(base, "%s.", ap_light_type_2_str(AP_LIGHT_SPOT));
                 // ambient
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
-                ap_shader_set_vec3(shader, buf, spot_light.ambient);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_AMBIENT);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_SL_AMBIENT),
+                        spot_light.ambient);
                 // diffuse
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
-                ap_shader_set_vec3(shader, buf, spot_light.diffuse);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_DIFFUSE);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_SL_AMBIENT),
+                        spot_light.diffuse);
                 // specular
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
-                ap_shader_set_vec3(shader, buf, spot_light.specular);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_SPECULAR);
+                ap_shader_set_vec3(shader, ap_shader_name(AP_SP_SL_SPECULAR),
+                        spot_light.specular);
                 // constant
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CONSTANT);
-                ap_shader_set_float(shader, buf, spot_light.param[0]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CONSTANT);
+                ap_shader_set_float(shader, ap_shader_name(AP_SP_SL_CONSTANT),
+                        spot_light.param[0]);
                 // linear
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_LINEAR);
-                ap_shader_set_float(shader, buf, spot_light.param[1]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_LINEAR);
+                ap_shader_set_float(shader, ap_shader_name(AP_SP_SL_LINEAR),
+                        spot_light.param[1]);
                 // quadratic
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_QUADRATIC);
-                ap_shader_set_float(shader, buf, spot_light.param[2]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_QUADRATIC);
+                ap_shader_set_float(shader, ap_shader_name(AP_SP_SL_QUADRATIC),
+                        spot_light.param[2]);
                 // cut_off
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CUTOFF);
-                ap_shader_set_float(shader, buf, spot_light.param[3]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_CUTOFF);
+                ap_shader_set_float(shader, ap_shader_name(AP_SP_SL_CUTOFF),
+                        spot_light.param[3]);
                 // outer_cut_off
-                sprintf(buf, "%s%s", base, AP_LIGHT_NAME_OUTER_CUTOFF);
-                ap_shader_set_float(shader, buf, spot_light.param[4]);
+                // sprintf(buf, "%s%s", base, AP_LIGHT_NAME_OUTER_CUTOFF);
+                ap_shader_set_float(shader,
+                        ap_shader_name(AP_SP_SL_OUTER_CUTOFF),
+                        spot_light.param[4]
+                );
         }
         ap_shader_use(old_shader);
 
@@ -217,13 +231,13 @@ int ap_light_set_material_shininess(float shininess)
         }
 
         ap_shader_use(shader);
-        static char buffer[AP_DEFAULT_BUFFER_SIZE] = { 0 };
         for (int i = 0; i < AP_TEXTURE_UNIT_MAX_NUM; ++i) {
-                sprintf(buffer, "%s[%d].%s",
-                        AP_LIGHT_NAME_MATERIAL, i,
-                        AP_LIGHT_NAME_SHININESS
-                );
-                ap_shader_set_float(shader, buffer, shininess);
+                // sprintf(buffer, "%s[%d].%s",
+                //         AP_LIGHT_NAME_MATERIAL, i,
+                //         AP_LIGHT_NAME_SHININESS
+                // );
+                ap_shader_set_float(shader,
+                        ap_shader_name(AP_SP_MT_SHININESS), shininess);
         }
         ap_shader_use(old_shader);
 

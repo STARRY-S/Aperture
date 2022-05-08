@@ -13,12 +13,6 @@
 #define AP_FONT_SIZE 32
 #endif
 
-#define AP_RENDER_NAME_VIEW    "view"
-#define AP_RENDER_NAME_VIEWPOS "viewPos"
-#define AP_RENDER_NAME_PROJECTION "projection"
-#define AP_RENDER_NAME_MODEL   "model"
-#define AP_RENDER_NAME_MATERIAL_NUM "material_number"
-
 struct AP_Character {
         unsigned int texture_id;   // id handle of the glyph texture
         int size[2];               // size of glyph
@@ -77,6 +71,7 @@ int ap_render_text_line(
  */
 int ap_render_flush();
 
+int ap_render_get_font_ptr(char c, struct AP_Character **ptr);
 int ap_render_get_fps(float *p);
 
 int ap_render_get_persp_matrix(float **mat);

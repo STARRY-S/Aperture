@@ -53,9 +53,9 @@ in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
 
-uniform vec3 viewPos;
+uniform vec3 view_pos;
 
-uniform Material material[NR_MATERIALS];
+uniform Material materials[NR_MATERIALS];
 
 uniform PointLight point_light[NR_POINT_LIGHTS];
 uniform SpotLight spot_light;
@@ -75,9 +75,9 @@ float shininess;
 
 void main()
 {
-    material_diffuse = texture(material[material_number].diffuse, TexCoords);
-    material_specular = texture(material[material_number].specular, TexCoords);
-    shininess = material[material_number].shininess;
+    material_diffuse = texture(materials[material_number].diffuse, TexCoords);
+    material_specular = texture(materials[material_number].specular, TexCoords);
+    shininess = materials[material_number].shininess;
 
     if (material_diffuse.a < 0.001) {
         discard;
@@ -85,7 +85,7 @@ void main()
 
     // properties
     vec3 norm = normalize(Normal);
-    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 viewDir = normalize(view_pos - FragPos);
 
     // directional lighting
     vec3 result = calc_dir_light(direct_light, norm, viewDir);

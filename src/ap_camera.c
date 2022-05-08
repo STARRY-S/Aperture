@@ -65,7 +65,11 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
 
         camera->front[0] = 0.0f;
         camera->front[1] = 0.0f;
-        camera->front[2] = -1.0f;
+        camera->front[2] = 1.0f;
+
+        camera->right[0] = 0.0f;
+        camera->right[0] = 0.0f;
+        camera->right[0] = 0.0f;
 
         camera->up[0] = 0.0f;
         camera->up[1] = 1.0f;
@@ -287,8 +291,8 @@ int ap_camera_process_scroll(float y_offset)
 
         if (camera_using->zoom < 1.f) {
                 camera_using->zoom = 1.f;
-        } else if (camera_using->zoom > 65.0f) {
-                camera_using->zoom = 65.0f;
+        } else if (camera_using->zoom > 100.0f) {
+                camera_using->zoom = 100.0f;
         }
         return 0;
 }

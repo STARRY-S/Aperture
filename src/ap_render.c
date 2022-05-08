@@ -32,7 +32,7 @@ struct AP_Renderer {
         mat4 persp_matrix;
         mat4 view_matrix;
         bool spot_light_enabled;
-        int material_num;          // material[material_num]
+        int material_num;          // materials[material_num]
         int view_distance;
 };
 
@@ -294,6 +294,24 @@ int ap_render_text_line(
         return 0;
 }
 
+int ap_render_get_font_ptr(char c, struct AP_Character **ptr)
+{
+        if (!ptr) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        *ptr = NULL;
+        struct AP_Character *index = NULL;
+        for (int j = 0; j < charactor_vector.length; ++j) {
+                index = (struct AP_Character*) charactor_vector.data;
+                if (index[j].c == c) {
+                        *ptr = index + j;
+                        break;
+                }
+        }
+        return 0;
+}
+
 int ap_render_get_fps(float *p)
 {
         if (p) {
@@ -323,19 +341,22 @@ int ap_render_flush()
         ap_camera_get_view_matrix(&renderer.view_matrix);
         ap_shader_set_mat4(
                 renderer.persp_shader,
-                AP_RENDER_NAME_VIEW,
+                // AP_RENDER_NAME_VIEW,
+                ap_shader_name(AP_SP_VIEW),
                 renderer.view_matrix[0]
         );
         vec3 view_pos = {0.0f};
         ap_camera_get_position(view_pos);
         ap_shader_set_vec3(
                 renderer.persp_shader,
-                AP_RENDER_NAME_VIEWPOS,
+                // AP_RENDER_NAME_VIEWPOS,
+                ap_shader_name(AP_SP_VIEW),
                 view_pos
         );
         ap_shader_set_vec3(
                 renderer.persp_shader,
-                "spot_light.position",
+                // "spot_light.position",
+                ap_shader_name(AP_SP_SL_POSITION),
                 view_pos
         );
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
@@ -352,7 +373,8 @@ int ap_render_flush()
         );
         ap_shader_set_int(
                 renderer.persp_shader,
-                AP_RENDER_NAME_MATERIAL_NUM,
+                // AP_RENDER_NAME_MATERIAL_NUM,
+                ap_shader_name(AP_SP_MATERIAL_NUMBER),
                 renderer.material_num
         );
 
@@ -368,7 +390,8 @@ int ap_render_flush()
         );
         ap_shader_set_mat4(
                 renderer.persp_shader,
-                AP_RENDER_NAME_PROJECTION,
+                // AP_RENDER_NAME_PROJECTION,
+                ap_shader_name(AP_SP_PROJECTION),
                 renderer.persp_matrix[0]
         );
 
@@ -416,7 +439,8 @@ int ap_render_resize_buffer(int width, int height)
         );
         ap_shader_set_mat4(
                 renderer.ortho_shader,
-                AP_RENDER_NAME_PROJECTION,
+                // AP_RENDER_NAME_PROJECTION,
+                ap_shader_name(AP_SO_PROJECTION),
                 renderer.ortho_matrix[0]
         );
         ap_shader_use(old_shader);
@@ -484,7 +508,9 @@ int ap_render_set_model_mat(float *mat)
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.persp_shader);
         ap_shader_set_mat4(renderer.persp_shader,
-                AP_RENDER_NAME_MODEL, mat
+                // AP_RENDER_NAME_MODEL,
+                ap_shader_name(AP_SP_MODEL),
+                mat
         );
         ap_shader_use(old_shader);
 

@@ -18,20 +18,6 @@
 #define AP_LIGHT_PARAM_NUM 8
 #endif  // AP_LIGHT_PARAM_NUM
 
-#define AP_LIGHT_NAME_AMBIENT   "ambient"
-#define AP_LIGHT_NAME_DIFFUSE   "diffuse"
-#define AP_LIGHT_NAME_SPECULAR  "specular"
-#define AP_LIGHT_NAME_DIRECTION "direction"
-#define AP_LIGHT_NAME_POSITION  "position"
-#define AP_LIGHT_NAME_CONSTANT  "constant"
-#define AP_LIGHT_NAME_LINEAR    "linear"
-#define AP_LIGHT_NAME_QUADRATIC "quadratic"
-#define AP_LIGHT_NAME_CUTOFF    "cut_off"
-#define AP_LIGHT_NAME_OUTER_CUTOFF "outer_cut_off"
-#define AP_LIGHT_NAME_SHININESS "shininess"
-#define AP_LIGHT_NAME_MATERIAL  "material"
-#define AP_LIGHT_NAME_SPOT_LIGHT_ENABLED "spot_light_enabled"
-
 typedef enum {
         AP_LIGHT_UNKNOWN = 0,
         AP_LIGHT_POINT = 0x2001,
