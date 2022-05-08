@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <sys/time.h>
 
 #include "ap_utils.h"
 #include "ap_shader.h"
@@ -176,6 +177,19 @@ int ap_get_buffer_width()
 int ap_get_buffer_height()
 {
         return ap_buffer_height;
+}
+
+double ap_get_time()
+{
+        static struct timeval now, start;
+        static bool started = false;
+        if (!started) {
+                gettimeofday(&start, NULL);
+                started = true;
+        }
+        gettimeofday(&now, NULL);
+        double time = (now.tv_sec - start.tv_sec) + (now.tv_usec) / 1e6;
+        return time;
 }
 
 int ap_set_buffer(int w, int h)

@@ -157,6 +157,8 @@ int ap_get_buffer_width();
 
 int ap_get_buffer_height();
 
+double ap_get_time();
+
 int ap_set_buffer(int w, int h);
 
 #endif // AP_UTILS_H
