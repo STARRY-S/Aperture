@@ -7,7 +7,7 @@
 #ifndef AP_RENDERER_H
 #define AP_RENDERER_H
 
-#include <stdbool.h>
+#include "ap_utils.h"
 
 #ifndef AP_FONT_SIZE
 #define AP_FONT_SIZE 32
@@ -79,6 +79,8 @@ int ap_render_get_ortho_matrix(float **mat);
 int ap_render_get_view_matrix(float **mat);
 int ap_render_get_ortho_shader(unsigned int *p);
 int ap_render_get_persp_shader(unsigned int *p);
+int ap_render_get_dt(float *dt);
+int ap_render_get_cft(float *cft);
 
 /**
  * @brief Set model matrix before render model
@@ -90,5 +92,6 @@ int ap_render_set_model_mat(float *mat);
 int ap_render_set_spot_light_open(bool b);
 int ap_render_set_material_num(int n);
 int ap_render_set_view_distance(int n);
+int ap_render_set_main_func(ap_callback_func_t func);
 
 #endif // AP_RENDERER_H

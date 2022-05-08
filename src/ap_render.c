@@ -1,3 +1,6 @@
+#ifndef __ANDROID__
+#endif
+
 #include <assimp/cfileio.h>
 
 #include <ft2build.h>
@@ -15,8 +18,10 @@
 #include "ap_light.h"
 
 struct AP_Renderer {
-        // FPS
-        float fps;
+        float fps;      // frame per second
+        float dt;       // delta time (cft - lft)
+        float lft;      // last frame time
+        float cft;      // current frame time
 
         // font buffer
         unsigned int font_VAO;
@@ -34,6 +39,8 @@ struct AP_Renderer {
         bool spot_light_enabled;
         int material_num;          // materials[material_num]
         int view_distance;
+
+        ap_callback_func_t main_func;
 };
 
 // Aperture engine only have one renderer as the main renderer
@@ -47,6 +54,8 @@ int ap_render_general_initialize()
                 return 0;
         }
         memset(&renderer, 0, sizeof(struct AP_Renderer));
+        // setup startup time
+        ap_get_time();
 
 #ifdef __ANDROID__
         // init for android
@@ -323,58 +332,44 @@ int ap_render_get_fps(float *p)
 int ap_render_flush()
 {
         unsigned int old_shader = ap_get_current_shader();
-        // calculate FPS
-        static long long frames = 0;
-        static double since = 0.0;
+        // TODO: implement get time
+        renderer.cft = ap_get_time();
+        renderer.dt = renderer.cft - renderer.lft;
+        renderer.lft = renderer.cft;
+        static int frames = 0;
+        static float since = 0.0f;
+        if (since < 0.001f) {
+                since = renderer.cft;
+        }
         ++frames;
-        // get time, in seconds
-        double now = glfwGetTime();
-        double elapsed = now - since;
+        double elapsed = renderer.cft - since;
         if (elapsed >= 1.0) {
                 renderer.fps = frames / elapsed;
                 frames = 0;
-                since = now;
+                since = renderer.cft;
         }
 
         ap_shader_use(renderer.persp_shader);
         glm_mat4_identity(renderer.view_matrix);
         ap_camera_get_view_matrix(&renderer.view_matrix);
         ap_shader_set_mat4(
-                renderer.persp_shader,
-                // AP_RENDER_NAME_VIEW,
-                ap_shader_name(AP_SP_VIEW),
-                renderer.view_matrix[0]
-        );
+                renderer.persp_shader, AP_SP_VIEW, renderer.view_matrix[0]);
         vec3 view_pos = {0.0f};
         ap_camera_get_position(view_pos);
         ap_shader_set_vec3(
-                renderer.persp_shader,
-                // AP_RENDER_NAME_VIEWPOS,
-                ap_shader_name(AP_SP_VIEW),
-                view_pos
-        );
+                renderer.persp_shader, AP_SP_VIEW, view_pos);
         ap_shader_set_vec3(
-                renderer.persp_shader,
-                // "spot_light.position",
-                ap_shader_name(AP_SP_SL_POSITION),
-                view_pos
-        );
+                renderer.persp_shader, AP_SP_SL_POSITION, view_pos);
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_front(cam_direction);
         ap_shader_set_vec3(
-                renderer.persp_shader,
-                "spot_light.direction",
-                cam_direction
-        );
+                renderer.persp_shader, AP_SP_SL_DIRECTION, cam_direction);
         ap_shader_set_int(
-                renderer.persp_shader,
-                "spot_light_enabled",
+                renderer.persp_shader, AP_SP_SPOT_LIGHT_ENABLED,
                 renderer.spot_light_enabled
         );
         ap_shader_set_int(
-                renderer.persp_shader,
-                // AP_RENDER_NAME_MATERIAL_NUM,
-                ap_shader_name(AP_SP_MATERIAL_NUMBER),
+                renderer.persp_shader, AP_SP_MATERIAL_NUMBER,
                 renderer.material_num
         );
 
@@ -390,11 +385,9 @@ int ap_render_flush()
         );
         ap_shader_set_mat4(
                 renderer.persp_shader,
-                // AP_RENDER_NAME_PROJECTION,
-                ap_shader_name(AP_SP_PROJECTION),
+                AP_SP_PROJECTION,
                 renderer.persp_matrix[0]
         );
-
         ap_shader_use(old_shader);
 
         return 0;
@@ -440,7 +433,7 @@ int ap_render_resize_buffer(int width, int height)
         ap_shader_set_mat4(
                 renderer.ortho_shader,
                 // AP_RENDER_NAME_PROJECTION,
-                ap_shader_name(AP_SO_PROJECTION),
+                AP_SO_PROJECTION,
                 renderer.ortho_matrix[0]
         );
         ap_shader_use(old_shader);
@@ -496,6 +489,24 @@ int ap_render_get_ortho_shader(unsigned int *p)
         return 0;
 }
 
+int ap_render_get_dt(float *dt)
+{
+        if (!dt) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *dt = renderer.dt;
+        return 0;
+}
+
+int ap_render_get_cft(float *cft)
+{
+        if (!cft) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *cft = renderer.cft;
+        return 0;
+}
+
 int ap_render_set_model_mat(float *mat)
 {
         if (renderer.persp_shader == 0) {
@@ -509,7 +520,7 @@ int ap_render_set_model_mat(float *mat)
         ap_shader_use(renderer.persp_shader);
         ap_shader_set_mat4(renderer.persp_shader,
                 // AP_RENDER_NAME_MODEL,
-                ap_shader_name(AP_SP_MODEL),
+                AP_SP_MODEL,
                 mat
         );
         ap_shader_use(old_shader);
@@ -536,5 +547,14 @@ int ap_render_set_material_num(int n)
 int ap_render_set_view_distance(int n)
 {
         renderer.view_distance = n;
+        return 0;
+}
+
+int ap_render_set_main_func(ap_callback_func_t func)
+{
+        if (!func) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        renderer.main_func = func;
         return 0;
 }
