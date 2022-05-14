@@ -14,15 +14,6 @@
 #include "cglm/cglm.h"
 #include "cglm/call.h"
 
-enum AP_Camera_Movements {
-        AP_CAMERA_MOV_FORWARD,
-        AP_CAMERA_MOV_BACKWARD,
-        AP_CAMERA_MOV_LEFT,
-        AP_CAMERA_MOV_RIGHT,
-        AP_CAMERA_MOV_UP,
-        AP_CAMERA_MOV_DOWN
-};
-
 struct AP_Camera {
         int id;
 
@@ -61,6 +52,7 @@ int ap_camera_set_pitch(float pitch);
 int ap_camera_set_sensitivity(float sensitivity);
 int ap_camera_set_speed(float speed);
 int ap_camera_set_zoom(float zoom);
+unsigned int ap_get_current_camera_id();
 
 struct AP_Camera* ap_get_current_camera();
 

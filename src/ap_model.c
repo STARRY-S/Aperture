@@ -166,6 +166,14 @@ int ap_model_draw()
                 return AP_ERROR_SHADER_NOT_SET;
         }
 
+        mat4 mat_model;
+        glm_mat4_identity(mat_model);
+        glm_scale(mat_model, model_using->scale);
+        glm_translate(mat_model, model_using->pos);
+        glm_rotate(mat_model, model_using->rotate_angle,
+                model_using->rotate_axis);
+        ap_render_set_model_mat((float *) mat_model);
+
         ap_shader_use(render_persp_shader_id);
         ap_model_draw_ptr_shader(model_using, render_persp_shader_id);
         ap_shader_use(old_shader);
@@ -198,6 +206,12 @@ static int ap_model_init_ptr(
         }
 
         memset(model, 0, sizeof(struct AP_Model));
+        model->pos[0] = model->pos[1] = model->pos[2] = 0.0f;
+        model->scale[0] = model->scale[1] = model->scale[2] = 1.0f;
+        model->rotate_angle = 0.0f;
+        model->rotate_axis[0]
+                = model->rotate_axis[1]
+                = model->rotate_axis[2] = 0.0f;
 
         int dir_char_location = 0;
         for (int i = 0; i < strlen(path); ++i) {
@@ -569,5 +583,33 @@ static int ap_model_draw_ptr_shader(
                 ap_mesh_draw(&model->mesh[i], shader);
         }
 
+        return 0;
+}
+
+int ap_model_set_pos(float pos[3])
+{
+        if (!model_using) {
+                return AP_ERROR_MODEL_NOT_SET;
+        }
+        memcpy(model_using->pos, pos, VEC3_SIZE);
+        return 0;
+}
+
+int ap_model_set_scale(float scale[3])
+{
+        if (!model_using) {
+                return AP_ERROR_MODEL_NOT_SET;
+        }
+        memcpy(model_using->scale, scale, VEC3_SIZE);
+        return 0;
+}
+
+int ap_model_set_rotate(float axis[3], float angle)
+{
+        if (!model_using) {
+                return AP_ERROR_MODEL_NOT_SET;
+        }
+        model_using->rotate_angle = angle;
+        memcpy(model_using->rotate_axis, axis, VEC3_SIZE);
         return 0;
 }

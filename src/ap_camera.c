@@ -2,6 +2,7 @@
 #include "ap_cvector.h"
 #include "ap_render.h"
 #include "ap_utils.h"
+#include "ap_physic.h"
 
 static struct AP_Vector camera_vector = { 0, 0, 0, 0 };
 static struct AP_Camera *camera_using = NULL;
@@ -40,7 +41,6 @@ int ap_camera_use(unsigned int camera_id)
         for (int i = 0; i < camera_vector.length; ++i) {
                 if (tmp_cam[i].id == camera_id) {
                         camera_using = tmp_cam + i;
-                        LOGD("use camera %d", camera_id);
                         return 0;
                 }
         }
@@ -191,7 +191,7 @@ int ap_camera_process_movement(int direction, int speed_up)
         vec3 temp = { 0.0f, 0.0f, 0.0f };
         switch (direction)
         {
-        case AP_CAMERA_MOV_FORWARD:
+        case AP_DIRECTION_FORWARD:
         {
                 glm_vec3_scale(camera_using->front, velocity, temp);
                 glm_vec3_add(
@@ -201,7 +201,7 @@ int ap_camera_process_movement(int direction, int speed_up)
                 );
                 break;
         }
-        case AP_CAMERA_MOV_BACKWARD:
+        case AP_DIRECTION_BACKWORD:
         {
                 glm_vec3_scale(camera_using->front, velocity, temp);
                 glm_vec3_sub(
@@ -211,7 +211,7 @@ int ap_camera_process_movement(int direction, int speed_up)
                 );
                 break;
         }
-        case AP_CAMERA_MOV_LEFT:
+        case AP_DIRECTION_LEFT:
         {
                 glm_vec3_cross(camera_using->front, camera_using->up, temp);
                 glm_vec3_normalize(temp);
@@ -223,7 +223,7 @@ int ap_camera_process_movement(int direction, int speed_up)
                 );
                 break;
         }
-        case AP_CAMERA_MOV_RIGHT:
+        case AP_DIRECTION_RIGHT:
         {
                 glm_vec3_cross(camera_using->front, camera_using->up, temp);
                 glm_vec3_normalize(temp);
@@ -235,7 +235,7 @@ int ap_camera_process_movement(int direction, int speed_up)
                 );
                 break;
         }
-        case AP_CAMERA_MOV_UP:
+        case AP_DIRECTION_UP:
         {
                 glm_vec3_scale(camera_using->up, velocity, temp);
                 glm_vec3_add(
@@ -245,7 +245,7 @@ int ap_camera_process_movement(int direction, int speed_up)
                 );
                 break;
         }
-        case AP_CAMERA_MOV_DOWN:
+        case AP_DIRECTION_DOWN:
         {
                 glm_vec3_scale(camera_using->up, velocity, temp);
                 glm_vec3_sub(
@@ -389,4 +389,9 @@ int ap_camera_set_zoom(float zoom)
 struct AP_Camera* ap_get_current_camera()
 {
         return camera_using;
+}
+
+unsigned int ap_get_current_camera_id()
+{
+        return camera_using->id;
 }

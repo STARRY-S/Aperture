@@ -8,6 +8,7 @@
 #include "ap_utils.h"
 #include "ap_render.h"
 #include "ap_camera.h"
+#include "ap_physic.h"
 #include <stdlib.h>
 
 void key_callback(GLFWwindow *win, int key, int s, int action, int mods);
@@ -155,26 +156,27 @@ void process_input(GLFWwindow *window)
 {
         float speed = 1.0f;
         if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-                speed *= 3.0f;
+                speed *= 2.0f;
         }
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_FORWARD, speed);
+                ap_creature_process_move(AP_DIRECTION_FORWARD, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_BACKWARD, speed);
+                ap_creature_process_move(AP_DIRECTION_BACKWORD, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_LEFT, speed);
+                ap_creature_process_move(AP_DIRECTION_LEFT, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_RIGHT, speed);
+                ap_creature_process_move(AP_DIRECTION_RIGHT, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_DOWN, speed);
+                ap_creature_process_move(AP_DIRECTION_DOWN, speed);
         }
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-                ap_camera_process_movement(AP_CAMERA_MOV_UP, speed);
+                // ap_creature_process_move(AP_DIRECTION_UP, speed);
+                ap_creature_jump();
         }
 }
 

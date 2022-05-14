@@ -8,11 +8,12 @@
 #include "ap_shader.h"
 #include "cglm/cglm.h"
 #include "ap_audio.h"
+#include "ap_physic.h"
 
 #include <math.h>
 
 #ifndef MODEL_FILE_NAME
-#define MODEL_FILE_NAME "mc/spawn.obj"
+#define MODEL_FILE_NAME "mc/mc-game.obj"
 #endif
 
 unsigned int model_id = 0;
@@ -23,7 +24,7 @@ bool spot_light_enabled = false;
 int material_number = 0;
 
 vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
-        {0.0f, 55.0f, 6.0f},
+        {0.0f, 2.0f, 0.0f},
         {10.0f, 55.0f, 6.0f},
         {-30.0f, 55.0f, 6.0f},
         {30.0f, 55.0f, 6.0f}
@@ -38,6 +39,11 @@ bool enable_mobile_type = false;
 
 static char buffer[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
+struct AP_PCreature *player = NULL;
+unsigned int creature_id = 0;
+struct AP_Vector barrier_id_vector = { 0, 0, 0, 0 };
+
+
 int demo_init()
 {
         ap_render_general_initialize();
@@ -45,18 +51,45 @@ int demo_init()
         demo_setup_light();
         ap_render_init_font(DEMO_FONT_PATH, 42);
         // init model
-        AP_CHECK(
-                ap_model_generate(MODEL_FILE_NAME, &model_id)
-        );
+        AP_CHECK(ap_model_generate(MODEL_FILE_NAME, &model_id));
+        ap_model_use(model_id);
 
         // camera
-        for (int i = 0; i < AP_DEMO_CAMERA_NUMBER; ++i) {
-                ap_camera_generate(&camera_ids[i]);
-                ap_camera_use(camera_ids[i]);
-                ap_camera_set_position(0.0f, (float) i + 55.0f, 0.0f);
-                ap_camera_set_speed(5.0f);
+        vec3 player_size = { 0.8f, 1.8f, 0.8f };
+        AP_CHECK( ap_physic_generate_creature(&creature_id, player_size) );
+        ap_creature_use(creature_id);
+        vec3 player_pos = {0.0f, 0.0f, 0.0f};
+        ap_creature_set_pos(player_pos);
+        vec3 eyes_offset = { 0.0f, 1.0f, 0.0f };
+        ap_creature_set_camera_offset(eyes_offset);
+        AP_CHECK( ap_physic_get_creature_ptr(creature_id, &player) );
+        if (player == NULL || creature_id == 0) {
+                LOGE("FATAL: failed to generate player");
+                exit(-1);
         }
-        ap_camera_use(camera_ids[camera_use_id]);
+
+        // Setup barriers
+        ap_vector_init(&barrier_id_vector, AP_VECTOR_INT);
+        unsigned int barrier_id = 0;
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        if (barrier_id == 0) {
+                LOGE("failed to generate ground barriar");
+                exit(-1);
+        }
+        struct AP_PBarrier *tmp_barrier = NULL;
+        ap_barrier_get_ptr(barrier_id, &tmp_barrier);
+        if (tmp_barrier == NULL) {
+                LOGE("failed to get ground barriar pointer");
+                exit(-1);
+        }
+        // set ground
+        // ground size (100, 1, 100)
+        tmp_barrier->box.size[0] = tmp_barrier->box.size[2] = 100.0f;
+        tmp_barrier->box.size[1] = 1.0f;
+        // ground position (0, 0, 0)
+        tmp_barrier->box.pos[0] = tmp_barrier->box.pos[1]
+                = tmp_barrier->box.pos[2] = 0.0f;
+        tmp_barrier->box.pos[1] = -0.5f;
 
         #ifdef __ANDROID__
         int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
@@ -96,14 +129,8 @@ int demo_render()
         // cull face
         glEnable(GL_CULL_FACE);
 
-        // Setup model matrix
-        mat4 mat_model;
-        vec3 model_position = { 0.0, 0.0, 0.0 };
-        glm_mat4_identity(mat_model);
-        vec3 model_scale = { 1.0f, 1.0f, 1.0f };
-        glm_scale(mat_model, model_scale);
-        glm_translate(mat_model, model_position);
-        ap_render_set_model_mat((float *) mat_model);
+        // update player
+        ap_physic_update_creature();
         // render the model
         ap_model_use(model_id);
         AP_CHECK( ap_model_draw() );
@@ -120,6 +147,7 @@ int demo_render()
         ap_render_get_view_matrix(&view);
         ap_shader_set_mat4(cube_shader, "view", view);
 
+        mat4 mat_model;
         for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
                 glm_mat4_identity(mat_model);
                 glm_translate(mat_model, light_positions[i]);
@@ -130,6 +158,7 @@ int demo_render()
 
         vec4 color = {0.9, 0.9, 0.9, 1.0};
         int screen_height = ap_get_buffer_height();
+        int screen_width = ap_get_buffer_width();
         // render text on the top left
         float fps = 0;
         ap_render_get_fps(&fps);
@@ -137,10 +166,14 @@ int demo_render()
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_position(cam_position);
         ap_camera_get_front(cam_direction);
-        sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
+        sprintf(buffer, "CAM(%.1f, %.1f, %.1f) VIEW(%.1f, %.1f, %.1f) %4.1ffps",
                 cam_position[0], cam_position[1], cam_position[2],
                 cam_direction[0], cam_direction[1], cam_direction[2], fps);
-        ap_render_text_line(buffer, 5.0, screen_height - 26.0, 1.0, color);
+        ap_render_text_line(buffer, 10.0, screen_height - 30.0, 1.0, color);
+        sprintf(buffer, "fly: %d SPD(%.1f, %.1f, %.1f)",
+                player->floating, player->move.speed[0], player->move.speed[1],
+                player->move.speed[2]);
+        ap_render_text_line(buffer, 10.0, screen_height - 60.0, 1.0, color);
 
         glBindVertexArray(0);
         ap_shader_use(0);

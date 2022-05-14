@@ -16,12 +16,14 @@
 #include "ap_custom_io.h"
 #include "ap_audio.h"
 #include "ap_light.h"
+#include "ap_physic.h"
 
 struct AP_Renderer {
         float fps;      // frame per second
         float dt;       // delta time (cft - lft)
         float lft;      // last frame time
         float cft;      // current frame time
+        unsigned long long frame_count;
 
         // font buffer
         unsigned int font_VAO;
@@ -56,6 +58,7 @@ int ap_render_general_initialize()
         memset(&renderer, 0, sizeof(struct AP_Renderer));
         // setup startup time
         ap_get_time();
+        ap_physic_init();
 
 #ifdef __ANDROID__
         // init for android
@@ -331,8 +334,8 @@ int ap_render_get_fps(float *p)
 
 int ap_render_flush()
 {
+        ++renderer.frame_count;
         unsigned int old_shader = ap_get_current_shader();
-        // TODO: implement get time
         renderer.cft = ap_get_time();
         renderer.dt = renderer.cft - renderer.lft;
         renderer.lft = renderer.cft;

@@ -12,6 +12,12 @@
 #include "cglm/cglm.h"
 #include "ap_memory.h"
 
+#define VEC2_SIZE sizeof(vec2)
+#define VEC3_SIZE sizeof(vec3)
+#define VEC4_SIZE sizeof(vec4)
+#define MAT4_SIZE sizeof(mat4)
+#define MAT3_SIZE sizeof(mat3)
+
 #ifdef __ANDROID__
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
