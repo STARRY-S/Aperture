@@ -11,7 +11,7 @@ Current status (TODOs)
 ----
 
 - [x] Texture load
-- [x] Model import  (Finished, but unstable)
+- [x] Model import
 - [x] Lightning stimulation
     - [x] Directional light
     - [x] Point lights
@@ -20,15 +20,21 @@ Current status (TODOs)
     - [x] Specular texture
     - [ ] Normal texture
 - [ ] Cross platform:
-    - [x] Windows
-    - [x] Android (see [Aperture-Android](https://github.com/STARRY-S/GameEngine-Android))
+    - [x] Windows (Need update, out of date)
+    - [x] Android (see [Aperture-Android](https://github.com/STARRY-S/GameEngine-Android)) (Need update, out of date)
     - [x] Linux
     - [ ] ~~Mac OS~~ (I will add it when I have a Mac)
 - [x] Music & Sound engine
 - [x] Font rendering
 - [ ] Network
-- [ ] Physic engine
+- [ ] Physic engine (WIP)
+    - [ ] Collision detection (WIP)
+    - [x] Gravaty
+    - [x] Jumping
+    - [ ] hit
 - [ ] GUI tools (User graphics)
+    - [x] Orthographic shader program
+    - [x] Font rendering
 - [ ] Database
 
 ## Demo
