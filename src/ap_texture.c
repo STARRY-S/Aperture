@@ -20,7 +20,6 @@ int ap_texture_generate(
         }
         unsigned int id = ap_texture_from_file(path, directory, gamma);
         if (id == 0) {
-                LOGW("failed to load texture %s", path);
                 return AP_ERROR_TEXTURE_FAILED;
         }
 

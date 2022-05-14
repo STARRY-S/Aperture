@@ -100,16 +100,16 @@ void AP_FREE(void* ptr)
         if (ptr == NULL) {
                 return;
         }
-        free(ptr);
         ap_memory_vector_popup(ptr);
+        free(ptr);
 }
 
 void* AP_REALLOC(void *ptr, int size)
 {
-        char* ptr_new = realloc(ptr, size);
         if (ptr != NULL) {
                 ap_memory_vector_popup(ptr);
         }
+        char* ptr_new = realloc(ptr, size);
         ap_memory_vector_push(ptr_new);
         return ptr_new;
 }
