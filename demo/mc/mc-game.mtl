@@ -1,0 +1,164 @@
+
+newmtl minecraft_entity-armorstand-wood
+Kd 0.5849 0.5028 0.3669
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/entity/armorstand/wood.png
+map_d tex/minecraft/entity/armorstand/wood_a.png
+
+newmtl minecraft_block-grass_block_top
+Kd 0.3640 0.5742 0.2261
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/grass_block_top.png
+
+newmtl minecraft_block-stone
+Kd 0.4923 0.4923 0.4923
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/stone.png
+
+newmtl minecraft_block-scaffolding_bottom
+Kd 0.8172 0.7098 0.3922
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/scaffolding_bottom.png
+map_d tex/minecraft/block/scaffolding_bottom_a.png
+
+newmtl minecraft_block-dirt
+Kd 0.5265 0.3776 0.2627
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/dirt.png
+
+newmtl minecraft_models-armor-gold_layer_1
+Kd 0.9183 0.7589 0.2567
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/models/armor/gold_layer_1.png
+map_d tex/minecraft/models/armor/gold_layer_1_a.png
+
+newmtl minecraft_block-glowstone
+Kd 0.6736 0.5144 0.3306
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/glowstone.png
+
+newmtl minecraft_block-rail_corner
+Kd 0.5100 0.4511 0.3524
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/rail_corner.png
+map_d tex/minecraft/block/rail_corner_a.png
+
+newmtl minecraft_block-birch_planks
+Kd 0.7548 0.6874 0.4755
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/birch_planks.png
+
+newmtl minecraft_block-smooth_stone
+Kd 0.6223 0.6223 0.6223
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/smooth_stone.png
+
+newmtl minecraft_block-scaffolding_top
+Kd 0.6862 0.5272 0.3149
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/scaffolding_top.png
+map_d tex/minecraft/block/scaffolding_top_a.png
+
+newmtl minecraft_block-dandelion
+Kd 0.5792 0.6755 0.1705
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/dandelion.png
+map_d tex/minecraft/block/dandelion_a.png
+
+newmtl minecraft_block-grass_path_top
+Kd 0.5815 0.4772 0.2562
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/grass_path_top.png
+
+newmtl minecraft_block-grass
+Kd 0.1571 0.3982 0.0528
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/grass.png
+map_d tex/minecraft/block/grass_a.png
+
+newmtl minecraft_block-glass_pane_top
+Kd 0.8298 0.9398 0.9575
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/glass_pane_top.png
+map_d tex/minecraft/block/glass_pane_top_a.png
+
+newmtl minecraft_block-grass_block_side
+Kd 0.4972 0.4201 0.2572
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/grass_block_side.png
+
+newmtl minecraft_block-poppy
+Kd 0.5045 0.2542 0.1480
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/poppy.png
+map_d tex/minecraft/block/poppy_a.png
+
+newmtl minecraft_block-oxeye_daisy
+Kd 0.7033 0.7939 0.5622
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/oxeye_daisy.png
+map_d tex/minecraft/block/oxeye_daisy_a.png
+
+newmtl minecraft_block-azure_bluet
+Kd 0.6643 0.8020 0.4996
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/azure_bluet.png
+map_d tex/minecraft/block/azure_bluet_a.png
+
+newmtl minecraft_block-rail
+Kd 0.4931 0.4379 0.3473
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/rail.png
+map_d tex/minecraft/block/rail_a.png
+
+newmtl minecraft_block-tall_grass_top
+Kd 0.1626 0.4094 0.0538
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/tall_grass_top.png
+map_d tex/minecraft/block/tall_grass_top_a.png
+
+newmtl minecraft_block-cornflower
+Kd 0.3124 0.4754 0.5746
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/cornflower.png
+map_d tex/minecraft/block/cornflower_a.png
+
+newmtl minecraft_block-tall_grass_bottom
+Kd 0.1378 0.3507 0.0449
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/tall_grass_bottom.png
+map_d tex/minecraft/block/tall_grass_bottom_a.png
+
+newmtl minecraft_block-glass
+Kd 0.6895 0.8389 0.8589
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/glass.png
+map_d tex/minecraft/block/glass_a.png
+
+newmtl minecraft_block-dark_oak_planks
+Kd 0.2614 0.1690 0.0793
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/dark_oak_planks.png
+
+newmtl minecraft_block-polished_andesite
+Kd 0.5187 0.5284 0.5255
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/polished_andesite.png
+
+newmtl minecraft_block-lantern
+Kd 0.4181 0.3624 0.3324
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/lantern.png
+map_d tex/minecraft/block/lantern_a.png
+
+newmtl minecraft_models-armor-diamond_layer_1
+Kd 0.2961 0.8639 0.7995
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/models/armor/diamond_layer_1.png
+map_d tex/minecraft/models/armor/diamond_layer_1_a.png
+
+newmtl minecraft_block-scaffolding_side
+Kd 0.8104 0.7014 0.3869
+Ks 0.0000 0.0000 0.0000
+map_Kd tex/minecraft/block/scaffolding_side.png
+map_d tex/minecraft/block/scaffolding_side_a.png
