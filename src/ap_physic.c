@@ -46,7 +46,7 @@ int ap_physic_generate_creature(unsigned int *id, float size[3])
         int ret = 0;
         creature.id = creature_vector.length + 1;
         creature.move_speed = 5.0f;     // speed of camera movement
-        creature.jump_speed = 5.5f;
+        creature.jump_speed = 5.0f;
         creature.move.acceleration[1] = -AP_G;  // gravaty
         memcpy(creature.box.size, size, VEC3_SIZE);
         unsigned int cam_id = 0;

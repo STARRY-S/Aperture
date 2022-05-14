@@ -166,11 +166,11 @@ int demo_render()
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_position(cam_position);
         ap_camera_get_front(cam_direction);
-        sprintf(buffer, "CAM(%.1f, %.1f, %.1f) VIEW(%.1f, %.1f, %.1f) %4.1ffps",
+        sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
                 cam_position[0], cam_position[1], cam_position[2],
                 cam_direction[0], cam_direction[1], cam_direction[2], fps);
         ap_render_text_line(buffer, 10.0, screen_height - 30.0, 1.0, color);
-        sprintf(buffer, "fly: %d SPD(%.1f, %.1f, %.1f)",
+        sprintf(buffer, "fly: %d (%.1f, %.1f, %.1f)",
                 player->floating, player->move.speed[0], player->move.speed[1],
                 player->move.speed[2]);
         ap_render_text_line(buffer, 10.0, screen_height - 60.0, 1.0, color);
