@@ -80,7 +80,7 @@ int main(int argc, char **argv)
                         (mode->height - SCREEN_HEIGHT) / 2 );
         glfwMakeContextCurrent(window);
         ap_set_context_ptr(window);
-        // GLAD init GL function pointers
+        // init game engine
         ap_render_general_initialize();
 
         demo_init();

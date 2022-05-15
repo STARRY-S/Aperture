@@ -105,7 +105,9 @@ int demo_init()
         ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
 
         vec4 aim_color = { 1.0f, 1.0f, 1.0f, 0.5f };
-        ap_render_set_aim_cross(40, 3, aim_color);
+        ap_render_set_aim_cross(40, 2, aim_color);
+        ap_v4_set(aim_color, 1.0f, 1.0f, 1.0f, 1.0f);
+        ap_render_set_aim_dot(4, aim_color);
 
         #ifdef __ANDROID__
         int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
@@ -122,7 +124,7 @@ int demo_init()
         unsigned int audio_id = 0;
         ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
         if (audio_id > 0) {
-                // ap_audio_play(audio_id, NULL);
+                ap_audio_play(audio_id, NULL);
         }
 
         glEnable(GL_DEPTH_TEST);
@@ -136,7 +138,6 @@ int demo_render()
         // render
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 
         // depth test
         glEnable(GL_BLEND);
@@ -155,7 +156,6 @@ int demo_render()
         ap_shader_use(cube_shader);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, light_texture);
-        // ap_render_get
         float *projection = NULL;
         ap_render_get_persp_matrix(&projection);
         ap_shader_set_mat4(cube_shader, "projection", projection);
@@ -174,8 +174,6 @@ int demo_render()
 
         vec4 color = {0.9, 0.9, 0.9, 1.0};
         int screen_height = ap_get_buffer_height();
-        // int screen_width = ap_get_buffer_width();
-        // render text on the top left
         float fps = 0;
         ap_render_get_fps(&fps);
         vec3 cam_position = { 0.0f, 0.0f, 0.0f };
@@ -192,7 +190,8 @@ int demo_render()
                 player->floating, player->move.speed[0], player->move.speed[1],
                 player->move.speed[2]);
         ap_render_text_line(buffer, 10.0, screen_height - 60.0, 1.0, color);
-        ap_render_aim();
+        ap_render_aim_dot();
+        ap_render_aim_cross();
 
         glBindVertexArray(0);
         ap_shader_use(0);

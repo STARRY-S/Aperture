@@ -71,7 +71,13 @@ int ap_render_text_line(
  */
 int ap_render_flush();
 
-int ap_render_aim();
+/**
+ * @brief Render aiming points
+ *
+ * @return int
+ */
+int ap_render_aim_cross();
+int ap_render_aim_dot();
 
 int ap_render_get_font_ptr(char c, struct AP_Character **ptr);
 int ap_render_get_fps(float *p);
@@ -96,5 +102,6 @@ int ap_render_set_material_num(int n);
 int ap_render_set_view_distance(int n);
 int ap_render_set_main_func(ap_callback_func_t func);
 int ap_render_set_aim_cross(int length, int width, vec4 color);
+int ap_render_set_aim_dot(int size, vec4 color);
 
 #endif // AP_RENDERER_H
