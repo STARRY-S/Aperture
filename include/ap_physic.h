@@ -187,4 +187,18 @@ int ap_ball_ball_collision_move(
         struct AP_PBall *movable_ball
 );
 
+/**
+ * @brief Set the central position of the barrier
+ *
+ * @param id barrier ID
+ * @param pos vec3
+ * @return int AP_Types
+ */
+int ap_barrier_set_pos(unsigned int id, float pos[3]);
+
+/**
+ * @see ap_barrier_set_pos
+ */
+int ap_barrier_set_size(unsigned int id, float size[3]);
+
 #endif // AP_PHYSIC_H

@@ -257,10 +257,9 @@ unsigned int ap_texture_from_RGBA(vec4 color, int size)
         );
 
         for (int i = 0; i < (size * size); ++i) {
-                data[i * 4 + 0] = (unsigned char)(color[0] * 255.0f); // R
-                data[i * 4 + 1] = (unsigned char)(color[1] * 255.0f); // G
-                data[i * 4 + 2] = (unsigned char)(color[2] * 255.0f); // B
-                data[i * 4 + 3] = (unsigned char)(color[3] * 255.0f); // A
+                for (int j = 0; j < 4; ++j) {
+                        data[i * 4 + j] = (color[j] * 255);
+                }
         }
         glTexImage2D(
                 GL_TEXTURE_2D, 0, GL_RGBA, size, size,

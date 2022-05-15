@@ -46,7 +46,7 @@ int ap_physic_generate_creature(unsigned int *id, float size[3])
         int ret = 0;
         creature.id = creature_vector.length + 1;
         creature.move_speed = 5.0f;     // speed of camera movement
-        creature.jump_speed = 5.0f;
+        creature.jump_speed = 5.5f;
         creature.move.acceleration[1] = -AP_G;  // gravaty
         memcpy(creature.box.size, size, VEC3_SIZE);
         unsigned int cam_id = 0;
@@ -137,7 +137,6 @@ int ap_physic_update_creature()
 
 int ap_physic_update_creature_ptr(struct AP_PCreature *ptr)
 {
-        static bool first_update = true;
         if (!ptr) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
@@ -177,8 +176,6 @@ int ap_physic_update_creature_ptr(struct AP_PCreature *ptr)
                 creature_using->box.pos[1] = 5.0f;
                 LOGD("creature fall out of the world");
         }
-
-        first_update = false;
 
         return 0;
 }
@@ -514,10 +511,11 @@ int ap_box_box_collision_move(
                 }
         }
         if (on_top != NULL) {
-                *on_top = (flag == 0x05);
+                *on_top = (flag == 0x05 && (dis[1] - min_dis[1] < 0.01f));
         }
         // check if creature box is in barrial box or not
         if (flag != 0x07) {
+                // LOGD("on_top = %d, flag = %d", *on_top, flag);
                 return 0;
         }
 
@@ -549,5 +547,27 @@ int ap_box_box_collision_move(
                 }
         }
 
+        return 0;
+}
+
+int ap_barrier_set_pos(unsigned int id, float pos[3])
+{
+        struct AP_PBarrier *barrier = NULL;
+        ap_barrier_get_ptr(id, &barrier);
+        if (!barrier) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        memcpy(barrier->box.pos, pos, VEC3_SIZE);
+        return 0;
+}
+
+int ap_barrier_set_size(unsigned int id, float size[3])
+{
+        struct AP_PBarrier *barrier = NULL;
+        ap_barrier_get_ptr(id, &barrier);
+        if (!barrier) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        memcpy(barrier->box.size, size, VEC3_SIZE);
         return 0;
 }

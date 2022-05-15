@@ -17,6 +17,8 @@
 #define VEC4_SIZE sizeof(vec4)
 #define MAT4_SIZE sizeof(mat4)
 #define MAT3_SIZE sizeof(mat3)
+#define UINT_SIZE sizeof(unsigned int)
+#define  INT_SIZE sizeof(int)
 
 #ifdef __ANDROID__
 #include <android/asset_manager.h>

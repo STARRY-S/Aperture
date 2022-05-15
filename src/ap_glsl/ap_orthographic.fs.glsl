@@ -10,11 +10,8 @@ uniform vec4 color;
 
 void main()
 {
-    vec4 font_color = vec4(1.0);
-    if (color != vec4(0.0)) {
-        font_color = color;
-    }
-
-    FragColor = vec4(
-        font_color.xyz, texture(texture1, TexCoord).r * font_color.w);
+    vec4 fg_color = color;
+    fg_color.a *= texture(texture1, TexCoord.xy).r;
+    FragColor = fg_color;
+    // FragColor = vec4(color.rgba);
 }

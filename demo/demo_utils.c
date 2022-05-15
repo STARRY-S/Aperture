@@ -9,8 +9,7 @@
 #include "cglm/cglm.h"
 #include "ap_audio.h"
 #include "ap_physic.h"
-
-#include <math.h>
+#include "ap_math.h"
 
 #ifndef MODEL_FILE_NAME
 #define MODEL_FILE_NAME "mc/mc-game.obj"
@@ -54,42 +53,59 @@ int demo_init()
         AP_CHECK(ap_model_generate(MODEL_FILE_NAME, &model_id));
         ap_model_use(model_id);
 
-        // camera
-        vec3 player_size = { 0.8f, 1.8f, 0.8f };
-        AP_CHECK( ap_physic_generate_creature(&creature_id, player_size) );
+        // Player (creature)
+        vec3 tmp;
+        ap_v3_set(tmp, 0.8f, 1.8f, 0.8f);
+        AP_CHECK( ap_physic_generate_creature(&creature_id, tmp) );
         ap_creature_use(creature_id);
-        vec3 player_pos = {0.0f, 0.0f, 0.0f};
-        ap_creature_set_pos(player_pos);
-        vec3 eyes_offset = { 0.0f, 1.0f, 0.0f };
-        ap_creature_set_camera_offset(eyes_offset);
-        AP_CHECK( ap_physic_get_creature_ptr(creature_id, &player) );
+        ap_v3_set(tmp, 0.f, 0.f, 0.f);
+        ap_creature_set_pos(tmp);
+        ap_v3_set(tmp, 0.f, 1.f, 0.f);
+        ap_creature_set_camera_offset(tmp);
+
+        ap_physic_get_creature_ptr(creature_id, &player);
         if (player == NULL || creature_id == 0) {
                 LOGE("FATAL: failed to generate player");
                 exit(-1);
         }
 
         // Setup barriers
-        ap_vector_init(&barrier_id_vector, AP_VECTOR_INT);
+        ap_vector_init(&barrier_id_vector, AP_VECTOR_UINT);
         unsigned int barrier_id = 0;
+        // generate a ground barrier
         ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
-        if (barrier_id == 0) {
-                LOGE("failed to generate ground barriar");
-                exit(-1);
-        }
-        struct AP_PBarrier *tmp_barrier = NULL;
-        ap_barrier_get_ptr(barrier_id, &tmp_barrier);
-        if (tmp_barrier == NULL) {
-                LOGE("failed to get ground barriar pointer");
-                exit(-1);
-        }
-        // set ground
         // ground size (100, 1, 100)
-        tmp_barrier->box.size[0] = tmp_barrier->box.size[2] = 100.0f;
-        tmp_barrier->box.size[1] = 1.0f;
+        ap_v3_set(tmp, 100.f, 1.f, 100.f);
+        ap_barrier_set_size(barrier_id, tmp);
         // ground position (0, 0, 0)
-        tmp_barrier->box.pos[0] = tmp_barrier->box.pos[1]
-                = tmp_barrier->box.pos[2] = 0.0f;
-        tmp_barrier->box.pos[1] = -0.5f;
+        ap_v3_set(tmp, 0.f, -0.5f, 0.f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        // generate four pillar barriers
+        vec3 pillar_poss[4] = {
+                { 0.0f, 2.0f, -5.0f },
+                { 0.0f, 2.0f, 5.0f },
+                { 5.0f, 2.0f, 0.0f },
+                { -5.0f, 2.0f, 0.0f }
+        };
+        for (int i = 0; i < 4; ++i) {
+                ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+                ap_v3_set(tmp, 1.f, 4.f, 1.f);
+                ap_barrier_set_size(barrier_id, tmp);
+                ap_barrier_set_pos(barrier_id, pillar_poss[i]);
+                ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+        }
+
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        ap_v3_set(tmp, 3.0f, 1.0f, 3.0f);
+        ap_barrier_set_size(barrier_id, tmp);
+        ap_v3_set(tmp, 11.f, 0.5f, -2.f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        vec4 aim_color = { 1.0f, 1.0f, 1.0f, 0.5f };
+        ap_render_set_aim_cross(40, 3, aim_color);
 
         #ifdef __ANDROID__
         int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
@@ -106,7 +122,7 @@ int demo_init()
         unsigned int audio_id = 0;
         ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
         if (audio_id > 0) {
-                ap_audio_play(audio_id, NULL);
+                // ap_audio_play(audio_id, NULL);
         }
 
         glEnable(GL_DEPTH_TEST);
@@ -158,7 +174,7 @@ int demo_render()
 
         vec4 color = {0.9, 0.9, 0.9, 1.0};
         int screen_height = ap_get_buffer_height();
-        int screen_width = ap_get_buffer_width();
+        // int screen_width = ap_get_buffer_width();
         // render text on the top left
         float fps = 0;
         ap_render_get_fps(&fps);
@@ -167,13 +183,16 @@ int demo_render()
         ap_camera_get_position(cam_position);
         ap_camera_get_front(cam_direction);
         sprintf(buffer, "(%.1f, %.1f, %.1f) (%.1f, %.1f, %.1f) %4.1ffps",
-                cam_position[0], cam_position[1], cam_position[2],
+                player->box.pos[0],
+                player->box.pos[1] - (player->box.size[1] / 2),
+                player->box.pos[2],
                 cam_direction[0], cam_direction[1], cam_direction[2], fps);
         ap_render_text_line(buffer, 10.0, screen_height - 30.0, 1.0, color);
-        sprintf(buffer, "fly: %d (%.1f, %.1f, %.1f)",
+        sprintf(buffer, "float: %d (%.1f, %.1f, %.1f)",
                 player->floating, player->move.speed[0], player->move.speed[1],
                 player->move.speed[2]);
         ap_render_text_line(buffer, 10.0, screen_height - 60.0, 1.0, color);
+        ap_render_aim();
 
         glBindVertexArray(0);
         ap_shader_use(0);

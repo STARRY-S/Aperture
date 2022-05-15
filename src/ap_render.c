@@ -42,6 +42,10 @@ struct AP_Renderer {
         int material_num;          // materials[material_num]
         int view_distance;
 
+        unsigned int aim_texture_id;    // texture id of aim
+        int aim_width;                  // the image width of aim
+        vec4 aim_color;
+
         ap_callback_func_t main_func;
 };
 
@@ -244,6 +248,7 @@ int ap_render_text_line(
         }
 
         glBindVertexArray(renderer.font_VAO);
+        unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
         ap_shader_set_vec4(renderer.ortho_shader, "color", color);
 
@@ -264,7 +269,6 @@ int ap_render_text_line(
                         }
                 }
                 if (!p) {
-                        LOGW("unable to render char %c", text[i]);
                         continue;
                 }
                 float xpos = x + p->bearing[0] * scale;
@@ -301,8 +305,123 @@ int ap_render_text_line(
         glDisable(GL_BLEND);
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
-        ap_shader_use(0);
+        ap_shader_use(old_shader);
 
+        return 0;
+}
+
+int ap_render_set_aim_cross(int length, int width, vec4 color)
+{
+        // generate image
+        unsigned char *data = AP_MALLOC(
+                length * length * sizeof(unsigned char) * 4
+        );
+        memset(data, 0, length * length * sizeof(unsigned char) * 4);
+        int min = (length - width) / 2;
+        int max = (length + width) / 2;
+        for (int i = 0; i < length; ++i) {
+                for (int j = 0; j < length; ++j) {
+                        if (!((i >= min && i < max) || (j >= min && j < max))) {
+                                continue;
+                        }
+                        int offset = (i * length + j) * 4;
+                        for (int k = 0; k < 4; ++k) {
+                                data[offset + k] = color[k] * 255;
+                        }
+                }
+        }
+        unsigned int texture = 0;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        // set texture wrap parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // set texture filter parameters
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MIN_FILTER,
+                GL_NEAREST_MIPMAP_NEAREST
+        );
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MAG_FILTER,
+                GL_NEAREST
+        );
+
+        glTexImage2D(
+                GL_TEXTURE_2D, 0, GL_RGBA, length, length,
+                0, GL_RGBA, GL_UNSIGNED_BYTE, data
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        renderer.aim_texture_id = texture;
+        renderer.aim_width = length;
+        memcpy(renderer.aim_color, color, VEC4_SIZE);
+        LOGD("set aim, tex id %u", texture);
+        LOGD("color %.1f, %.1f, %.1f %.1f", color[0], color[1],
+                color[2], color[3]);
+        AP_FREE(data);
+
+        return 0;
+}
+
+int ap_render_aim()
+{
+        if (renderer.font_VAO == 0 || renderer.font_VBO == 0) {
+                LOGE("failed to render aim: buffer uninitialized");
+                return AP_ERROR_INIT_FAILED;
+        }
+
+        glBindVertexArray(renderer.font_VAO);
+        ap_shader_use(renderer.ortho_shader);
+        ap_shader_set_vec4(renderer.ortho_shader, "color", renderer.aim_color);
+
+        // enable blend
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindVertexArray(renderer.font_VAO);
+
+        float w, h;
+        w = h = renderer.aim_width;
+        float xpos = (ap_get_buffer_width() - w) / 2;
+        float ypos = (ap_get_buffer_height() - h) / 2;
+
+        // LOGD("w h %f %f", w, h);
+        // update VBO for each character
+        float vertices[6][4] = {
+                // xpos     ypos        tex coord
+                { xpos,     ypos + h,   0.0f, 0.0f },
+                { xpos,     ypos,       0.0f, 1.0f },
+                { xpos + w, ypos,       1.0f, 1.0f },
+
+                { xpos,     ypos + h,   0.0f, 0.0f },
+                { xpos + w, ypos,       1.0f, 1.0f },
+                { xpos + w, ypos + h,   1.0f, 0.0f }
+        };
+        glBindTexture(GL_TEXTURE_2D, renderer.aim_texture_id);
+        // update content of VBO memory
+        glBindBuffer(GL_ARRAY_BUFFER, renderer.font_VBO);
+        glBufferSubData(
+                GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices
+        );
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glDisable(GL_BLEND);
+        glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        return 0;
+}
+
+int ap_render_set_aim_dot(int dot_size)
+{
+        if (renderer.ortho_shader == 0) {
+                return 0;
+        }
         return 0;
 }
 
@@ -337,7 +456,9 @@ int ap_render_flush()
         ++renderer.frame_count;
         unsigned int old_shader = ap_get_current_shader();
         renderer.cft = ap_get_time();
-        renderer.dt = renderer.cft - renderer.lft;
+        if (renderer.lft != 0) {
+                renderer.dt = renderer.cft - renderer.lft;
+        }
         renderer.lft = renderer.cft;
         static int frames = 0;
         static float since = 0.0f;
