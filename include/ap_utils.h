@@ -19,6 +19,8 @@
 #define MAT3_SIZE sizeof(mat3)
 #define UINT_SIZE sizeof(unsigned int)
 #define  INT_SIZE sizeof(int)
+#define UCHAR_SIZE sizeof(unsigned char)
+#define CHAR_SIZE sizeof(char)
 
 #ifdef __ANDROID__
 #include <android/asset_manager.h>
@@ -157,16 +159,6 @@ const float* ap_get_default_cube_vertices();
 
 int ap_get_default_cube_vertices_length();
 
-int ap_set_context_ptr(void* ptr);
-
-void* ap_get_context_ptr();
-
-int ap_get_buffer_width();
-
-int ap_get_buffer_height();
-
 double ap_get_time();
-
-int ap_set_buffer(int w, int h);
 
 #endif // AP_UTILS_H

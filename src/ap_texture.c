@@ -273,6 +273,41 @@ unsigned int ap_texture_from_RGBA(vec4 color, int size)
         return texture;
 }
 
+unsigned int ap_texture_from_data_rgba(const unsigned char *data, int w, int h)
+{
+        if (!data) {
+                return 0;
+        }
+
+        unsigned int texture = 0;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        // set texture wrap parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // set texture filter parameters
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MIN_FILTER,
+                GL_NEAREST_MIPMAP_NEAREST
+        );
+        glTexParameteri(
+                GL_TEXTURE_2D,
+                GL_TEXTURE_MAG_FILTER,
+                GL_NEAREST
+        );
+
+        glTexImage2D(
+                GL_TEXTURE_2D, 0, GL_RGBA, w, h,
+                0, GL_RGBA, GL_UNSIGNED_BYTE, data
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        return texture;
+}
+
 int ap_texture_init(struct AP_Texture *texture)
 {
         if (texture == NULL) {

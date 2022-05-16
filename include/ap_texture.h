@@ -125,6 +125,16 @@ unsigned int ap_texture_from_file(
 unsigned int ap_texture_from_RGBA(float color[4], int size);
 
 /**
+ * @brief Generate texture from RGBA data
+ *
+ * @param data pointer points to rgba data
+ * @param w width
+ * @param h height
+ * @return OpenGL Texture ID
+ */
+unsigned int ap_texture_from_data_rgba(const unsigned char *data, int w, int h);
+
+/**
  * Initialize texture struct object, set the memory data to zero
  * @param texture
  * @return AP_Types

@@ -53,8 +53,9 @@
 // Orthographic vertex shader uniform variables
 #define AP_SO_PROJECTION        "projection"
 // Orthographic fragment shader uniform variables
-#define AP_SO_TEXTURE1          "texture1"
+#define AP_SO_TEXTURE           "texture%d"
 #define AP_SO_COLOR             "color"
+#define AP_SO_TEXTURE_NUM       "texture_num"
 
 /**
  * @brief Generate a openGL program with shader

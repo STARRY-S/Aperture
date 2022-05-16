@@ -103,5 +103,14 @@ int ap_render_set_view_distance(int n);
 int ap_render_set_main_func(ap_callback_func_t func);
 int ap_render_set_aim_cross(int length, int width, vec4 color);
 int ap_render_set_aim_dot(int size, vec4 color);
+int ap_render_ortho_image_texture(
+        ivec2 pos, ivec2 size, unsigned int tex_id, int tex_num);
+
+int ap_get_buffer_width();
+int ap_get_buffer_height();
+void* ap_get_context_ptr();
+
+int ap_set_buffer(int w, int h);
+int ap_set_context_ptr(void* ptr);
 
 #endif // AP_RENDERER_H

@@ -33,8 +33,6 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "UNKNOWN"
 };
 
-void* glfw_window_context_ptr = NULL;
-
 #ifdef __ANDROID__
 
 static AAssetManager *local_asset_manager = NULL;
@@ -145,9 +143,6 @@ static const float ap_utils_cube_vertices[] = {
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
 };
 
-int ap_buffer_width = 0;
-int ap_buffer_height = 0;
-
 const float* ap_get_default_cube_vertices()
 {
     return ap_utils_cube_vertices;
@@ -156,27 +151,6 @@ const float* ap_get_default_cube_vertices()
 int ap_get_default_cube_vertices_length()
 {
     return sizeof(ap_utils_cube_vertices);
-}
-
-int ap_set_context_ptr(void* ptr)
-{
-        glfw_window_context_ptr = ptr;
-        return 0;
-}
-
-void* ap_get_context_ptr()
-{
-        return glfw_window_context_ptr;
-}
-
-int ap_get_buffer_width()
-{
-        return ap_buffer_width;
-}
-
-int ap_get_buffer_height()
-{
-        return ap_buffer_height;
 }
 
 double ap_get_time()
@@ -190,15 +164,4 @@ double ap_get_time()
         gettimeofday(&now, NULL);
         double time = (now.tv_sec - start.tv_sec) + (now.tv_usec) / 1e6;
         return time;
-}
-
-int ap_set_buffer(int w, int h)
-{
-        if (w <= 0 && h <= 0) {
-                return AP_ERROR_INVALID_PARAMETER;
-        }
-
-        ap_buffer_height = h;
-        ap_buffer_width = w;
-        return 0;
 }

@@ -26,9 +26,9 @@ struct AP_Renderer {
         float cft;      // current frame time
         unsigned long long frame_count;
 
-        // font buffer
-        unsigned int font_VAO;
-        unsigned int font_VBO;
+        // VAO and VBO for orthographic
+        unsigned int ortho_VAO;
+        unsigned int ortho_VBO;
         FT_Library ft_library;
         FT_Face    ft_face;
         bool font_initialized;
@@ -53,6 +53,7 @@ struct AP_Renderer {
         int dot_aim_size;
         vec4 dot_aim_color;             // color of the dot aim
 
+        vec4 buffer_clear_color;
         ap_callback_func_t main_func;
 };
 
@@ -60,6 +61,9 @@ struct AP_Renderer {
 static struct AP_Renderer renderer;
 static struct AP_Vector charactor_vector = { 0, 0, 0, 0 };
 static bool ap_render_initialized = false;
+static void *window_context = NULL;
+static int renderer_buffer_width;
+static int renderer_buffer_height;
 
 int ap_render_general_initialize()
 {
@@ -75,7 +79,7 @@ int ap_render_general_initialize()
         // init for android
 #else
         if (ap_get_context_ptr() == NULL) {
-                LOGE("aperture general init failed");
+                LOGE("FATAL: aperture general init failed");
                 return AP_ERROR_INIT_FAILED;
         }
 
@@ -148,15 +152,17 @@ int ap_render_init_font(const char *path, int size)
                 return AP_ERROR_INIT_FAILED;
         }
 
-        glGenVertexArrays(1, &renderer.font_VAO);
-        glGenBuffers(1, &renderer.font_VBO);
-        glBindVertexArray(renderer.font_VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, renderer.font_VBO);
+        unsigned int old_shader = ap_get_current_shader();
+        ap_shader_use(renderer.ortho_shader);
+        glGenVertexArrays(1, &renderer.ortho_VAO);
+        glGenBuffers(1, &renderer.ortho_VBO);
+        glBindVertexArray(renderer.ortho_VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, renderer.ortho_VBO);
         glBufferData(
                 GL_ARRAY_BUFFER,
                 sizeof(float) * 6 * 4,
                 NULL,
-                GL_DYNAMIC_DRAW
+                GL_STREAM_DRAW
         );
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(
@@ -182,6 +188,14 @@ int ap_render_init_font(const char *path, int size)
                 charactor.advance = advance;
                 ap_vector_push_back(&charactor_vector, (void*) &charactor);
         }
+
+        for (int i = 0; i < 2; ++i) {
+                char buffer[32];
+                sprintf(buffer, AP_SO_TEXTURE, i + 1);
+                ap_shader_set_int(renderer.ortho_shader, buffer, i);
+        }
+
+        ap_shader_use(old_shader);
 
         return 0;
 }
@@ -249,22 +263,26 @@ int ap_render_text_line(
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
-        if (renderer.font_VAO == 0 || renderer.font_VBO == 0) {
+        if (renderer.ortho_VAO == 0 || renderer.ortho_VBO == 0) {
                 LOGE("failed to render font: buffer uninitialized");
                 return AP_ERROR_INIT_FAILED;
         }
 
-        glBindVertexArray(renderer.font_VAO);
+        glBindVertexArray(renderer.ortho_VAO);
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
-        ap_shader_set_vec4(renderer.ortho_shader, "color", color);
+        ap_shader_set_vec4(renderer.ortho_shader, AP_SO_COLOR, color);
+        // set texture num to 0 for font rendering
+        ap_shader_set_int(
+                renderer.ortho_shader, AP_SO_TEXTURE_NUM, 0
+        );
 
         // enable blend
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindVertexArray(renderer.font_VAO);
+        glBindVertexArray(renderer.ortho_VAO);
         int length = strlen(text);
         for (int i = 0; i < length; ++i) {
                 struct AP_Character *index = NULL, *p = NULL;
@@ -296,7 +314,7 @@ int ap_render_text_line(
                  // render glyph texture over quad
                 glBindTexture(GL_TEXTURE_2D, p->texture_id);
                 // update content of VBO memory
-                glBindBuffer(GL_ARRAY_BUFFER, renderer.font_VBO);
+                glBindBuffer(GL_ARRAY_BUFFER, renderer.ortho_VBO);
                 glBufferSubData(
                         GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices
                 );
@@ -370,55 +388,30 @@ int ap_render_set_aim_cross(int length, int width, vec4 color)
 
 int ap_render_aim_cross()
 {
-        if (renderer.font_VAO == 0 || renderer.font_VBO == 0) {
+        if (renderer.ortho_VAO == 0 || renderer.ortho_VBO == 0) {
                 LOGE("failed to render aim: buffer uninitialized");
                 return AP_ERROR_INIT_FAILED;
         }
 
-        glBindVertexArray(renderer.font_VAO);
+        glBindVertexArray(renderer.ortho_VAO);
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
         ap_shader_set_vec4(
                 renderer.ortho_shader,
-                "color", renderer.cross_aim_color
+                AP_SO_COLOR, renderer.cross_aim_color
         );
 
-        // enable blend
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindVertexArray(renderer.font_VAO);
-
-        float w, h;
-        w = h = renderer.cross_aim_width;
-        float xpos = (ap_get_buffer_width() - w) / 2;
-        float ypos = (ap_get_buffer_height() - h) / 2;
-
-        // LOGD("w h %f %f", w, h);
-        // update VBO for each character
-        float vertices[6][4] = {
-                // xpos     ypos        tex coord
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos,     ypos,       0.0f, 1.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
-
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
-                { xpos + w, ypos + h,   1.0f, 0.0f }
+        ivec2 size = {
+                renderer.cross_aim_width,
+                renderer.cross_aim_width
         };
-        glBindTexture(GL_TEXTURE_2D, renderer.cross_aim_texture_id);
-        // update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, renderer.font_VBO);
-        glBufferSubData(
-                GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices
+        ivec2 pos = {
+                (ap_get_buffer_width() - size[0]) / 2,
+                (ap_get_buffer_height() - size[1]) / 2
+        };
+        ap_render_ortho_image_texture(
+                pos, size, renderer.cross_aim_texture_id, 0
         );
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glDisable(GL_BLEND);
-        glBindVertexArray(0);
-        glBindTexture(GL_TEXTURE_2D, 0);
         ap_shader_use(old_shader);
 
         return 0;
@@ -472,45 +465,77 @@ int ap_render_set_aim_dot(int size, vec4 color)
 
 int ap_render_aim_dot()
 {
-        if (renderer.font_VAO == 0 || renderer.font_VBO == 0) {
+        if (renderer.ortho_VAO == 0 || renderer.ortho_VBO == 0) {
                 LOGE("failed to render aim: buffer uninitialized");
                 return AP_ERROR_INIT_FAILED;
         }
 
-        glBindVertexArray(renderer.font_VAO);
-        unsigned int old_shader = ap_get_current_shader();
+        glBindVertexArray(renderer.ortho_VAO);
         ap_shader_use(renderer.ortho_shader);
         ap_shader_set_vec4(
                 renderer.ortho_shader,
-                "color", renderer.dot_aim_color
+                AP_SO_COLOR, renderer.dot_aim_color
+        );
+
+        // enable blend
+        ivec2 size = {
+                renderer.dot_aim_size,
+                renderer.dot_aim_size
+        };
+        ivec2 pos = {
+                (ap_get_buffer_width() - size[0]) / 2,
+                (ap_get_buffer_height() - size[1]) / 2
+        };
+        ap_render_ortho_image_texture(
+                pos, size, renderer.dot_aim_texture_id, 0
+        );
+
+        return 0;
+}
+
+int ap_render_ortho_image_texture(
+        ivec2 pos, ivec2 size, unsigned int tex_id, int tex_num)
+{
+        if (tex_num > 2 || tex_num < 0) {
+                tex_num = 0;
+        }
+
+        if (renderer.ortho_VAO == 0 || renderer.ortho_VBO == 0) {
+                LOGE("failed to render aim: buffer uninitialized");
+                return AP_ERROR_INIT_FAILED;
+        }
+
+        glBindVertexArray(renderer.ortho_VAO);
+        unsigned int old_shader = ap_get_current_shader();
+        ap_shader_use(renderer.ortho_shader);
+        ap_shader_set_int(
+                renderer.ortho_shader, AP_SO_TEXTURE_NUM, tex_num
         );
 
         // enable blend
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindVertexArray(renderer.font_VAO);
+        glActiveTexture(GL_TEXTURE0 + tex_num);
+        glBindVertexArray(renderer.ortho_VAO);
 
-        float w, h;
-        w = h = renderer.dot_aim_size;
-        float xpos = (ap_get_buffer_width() - w) / 2;
-        float ypos = (ap_get_buffer_height() - h) / 2;
+        float w = (float) size[0];
+        float h = (float) size[1];
 
         // update VBO for each character
         float vertices[6][4] = {
-                // xpos     ypos        tex coord
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos,     ypos,       0.0f, 1.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
+                // xpos       ypos        tex coord
+                { pos[0],     pos[1] + h,   0.0f, 0.0f },
+                { pos[0],     pos[1],       0.0f, 1.0f },
+                { pos[0] + w, pos[1],       1.0f, 1.0f },
 
-                { xpos,     ypos + h,   0.0f, 0.0f },
-                { xpos + w, ypos,       1.0f, 1.0f },
-                { xpos + w, ypos + h,   1.0f, 0.0f }
+                { pos[0],     pos[1] + h,   0.0f, 0.0f },
+                { pos[0] + w, pos[1],       1.0f, 1.0f },
+                { pos[0] + w, pos[1] + h,   1.0f, 0.0f }
         };
-        glBindTexture(GL_TEXTURE_2D, renderer.dot_aim_texture_id);
+        glBindTexture(GL_TEXTURE_2D, tex_id);
         // update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, renderer.font_VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, renderer.ortho_VBO);
         glBufferSubData(
                 GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices
         );
@@ -630,8 +655,8 @@ int ap_render_finish()
         FT_Done_Face(renderer.ft_face);
         FT_Done_FreeType(renderer.ft_library);
 
-        glDeleteBuffers(1, &renderer.font_VBO);
-        glDeleteVertexArrays(1, &renderer.font_VAO);
+        glDeleteBuffers(1, &renderer.ortho_VBO);
+        glDeleteVertexArrays(1, &renderer.ortho_VAO);
 
         ap_memory_release();
 
@@ -656,7 +681,6 @@ int ap_render_resize_buffer(int width, int height)
         );
         ap_shader_set_mat4(
                 renderer.ortho_shader,
-                // AP_RENDER_NAME_PROJECTION,
                 AP_SO_PROJECTION,
                 renderer.ortho_matrix[0]
         );
@@ -781,4 +805,42 @@ int ap_render_set_main_func(ap_callback_func_t func)
         }
         renderer.main_func = func;
         return 0;
+}
+
+int ap_render_main_loop()
+{
+        return 0;
+}
+
+int ap_set_buffer(int w, int h)
+{
+        if (w <= 0 && h <= 0) {
+                LOGE("failed to set buffer width and height");
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        renderer_buffer_width = w;
+        renderer_buffer_height = h;
+        return 0;
+}
+
+int ap_get_buffer_width()
+{
+        return renderer_buffer_width;
+}
+
+int ap_get_buffer_height()
+{
+        return renderer_buffer_height;
+}
+
+int ap_set_context_ptr(void* ptr)
+{
+        window_context = ptr;
+        return 0;
+}
+
+void* ap_get_context_ptr()
+{
+        return window_context;
 }
