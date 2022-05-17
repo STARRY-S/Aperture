@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 # Project declaration
 project("aperture"
     LANGUAGES C
-    VERSION 0.1.3
+    VERSION 0.2.0
 )
 
 set(C_FLAGS "-Wall -std=c11 -g")
