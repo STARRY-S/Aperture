@@ -2,9 +2,12 @@
 #include "ap_utils.h"
 #include "ap_decode.h"
 
+#if !AP_PLATFORM_ANDROID
+#include <AL/alut.h>
+#endif
+
 #include <AL/al.h>
 #include <AL/alc.h>
-#include <AL/alut.h>
 #include <AL/alext.h>
 #include <libavcodec/avcodec.h>
 
@@ -43,6 +46,7 @@ static inline void ap_audio_check(const char *msg)
 
 static inline void ap_audio_check_alut(const char* msg)
 {
+#if !AP_PLATFORM_ANDROID
         int error = alutGetError();
         const char* reason = NULL;
         switch (error)
@@ -107,6 +111,7 @@ static inline void ap_audio_check_alut(const char* msg)
         if (reason != NULL) {
                 LOGE("%s: %s", msg, reason);
         }
+#endif
 }
 
 static inline int ap_audio_get_channels_by_AL(int al_fmt)
@@ -246,12 +251,14 @@ int ap_audio_fmt_al_2_ap(int al_fmt)
 
 int ap_audio_init()
 {
-        int res = 0;
-        res = alutInitWithoutContext(NULL, NULL);
-        if (res == 0) {
+#if !AP_PLATFORM_ANDROID
+        int ret = 0;
+        ret = alutInitWithoutContext(NULL, NULL);
+        if (ret == 0) {
                 ap_audio_check_alut("alutInitWithoutContext");
                 return AP_ERROR_INIT_FAILED;
         }
+#endif
 
         if (device_name == NULL) {
                 device_name = alcGetString(NULL, ALC_DEVICE_SPECIFIER);
@@ -372,6 +379,9 @@ static inline int ap_audio_open_file_WAV_ptr(
         const char* filename,
         struct AP_Audio **out_audio_p)
 {
+#if AP_PLATFORM_ANDROID
+        LOGE("failed to open WAV file: ALUT is not supported yet");
+#else
         struct AP_Audio *out_audio = *out_audio_p;
         if (out_audio == NULL) {
                 out_audio = *out_audio_p = AP_MALLOC(sizeof(struct AP_Audio));
@@ -431,6 +441,7 @@ static inline int ap_audio_open_file_WAV_ptr(
         ap_audio_check("alSourcei");
         out_audio->source_id = source;
         alDeleteBuffers(1, &buffer);
+#endif
 
         return 0;
 }
@@ -627,8 +638,9 @@ int ap_audio_free()
         alcDestroyContext(context);
         alcCloseDevice(device);
 
+#if !AP_PLATFORM_ANDROID
         alutExit();
-
+#endif
         struct AP_Audio *ptr, *data = NULL;
         data = (struct AP_Audio*) audio_vector.data;
         for (int i = 0; i < audio_vector.length; ++i) {
