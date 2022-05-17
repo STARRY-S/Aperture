@@ -33,7 +33,7 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "UNKNOWN"
 };
 
-#ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 
 static AAssetManager *local_asset_manager = NULL;
 static char mobile_name[AP_DEFAULT_BUFFER_SIZE] = { 0 };

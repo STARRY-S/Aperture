@@ -7,10 +7,6 @@
 #include "ap_shader.h"
 #include "ap_render.h"
 
-#ifndef __ANDROID__
-#include "glad/glad.h"
-#endif
-
 #include <assimp/cimport.h>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -163,6 +159,7 @@ int ap_model_draw()
         }
 
         if (render_persp_shader_id == 0) {
+                LOGE("failed to draw model: perspective shader is 0");
                 return AP_ERROR_SHADER_NOT_SET;
         }
 

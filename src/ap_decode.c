@@ -154,6 +154,12 @@ static int ap_decode_audio(
         *frequency = 0.0f;
         *channels = 0;
 
+#if AP_PLATFORM_ANDROID
+        // TODO: add custom IO for ffmpeg on android platform
+        LOGW("ap_decode_audio: not supported on android yet");
+        return AP_ERROR_DECODE_FAILED;
+#endif
+
         int ret = avformat_open_input(&fmt_ctx, input_file, NULL, NULL);
         if (ap_decode_check_avcodec("avformat_open_input", ret) < 0) {
                 return AP_ERROR_DECODE_FAILED;
@@ -256,15 +262,14 @@ static int ap_decode_audio(
                 fclose(fp_out);
         }
         ap_decode_audio_exit(frame, packet, cdc_ctx, fmt_ctx);
-
         return 0;
 }
 
 int ap_decode_to_file(const char* filename, const char *out_name)
 {
+#if !AP_PLATFORM_ANDROID
         int format = 0, channels = 0;
         float frequency = 0;
-#ifndef __ANDROID__
         return ap_decode_audio(
                 filename, out_name, NULL, &format, &frequency, &channels
         );

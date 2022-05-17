@@ -1,6 +1,4 @@
-#ifndef __ANDROID__
-#include "glad/glad.h"
-#endif
+
 
 #include <stdio.h>
 #include <string.h>
@@ -115,6 +113,7 @@ GLuint ap_compile_shader(
         GLint compiled = 0;
 
         if (!(shader = glCreateShader(type))) {
+//        if (shader == 0) {
                 LOGE("glCreateShader failed, type %d.", type);
                 return 0;
         }
@@ -146,7 +145,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         int length = 0;
         char *buffer = NULL;
 
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         AAssetManager *pLocalAssetManager =
                 (AAssetManager *) ap_get_asset_manager();
         if (!pLocalAssetManager) {
@@ -172,7 +171,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         AAsset_read(mAsset, buffer, length);
         AAsset_close(mAsset);
 
-        #else   // NOT ANDROID
+#else   // NOT ANDROID
 
         FILE *fp = NULL;
 
@@ -197,7 +196,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
                 strncat(buffer, temp_line, AP_DEFAULT_BUFFER_SIZE);
         fclose(fp);
 
-        #endif  // NOT ANDROID
+#endif  // NOT ANDROID
 
         buffer[length] = '\0';
         result = ap_compile_shader(type, buffer);

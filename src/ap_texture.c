@@ -155,7 +155,7 @@ unsigned int ap_texture_from_file(
 
         unsigned char *data = NULL;
 
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 
         int file_length = 0;
         AAssetManager *manager = ap_get_asset_manager();
@@ -177,11 +177,11 @@ unsigned int ap_texture_from_file(
         );
         AAsset_close(path_asset);
 
-        #else
+#else
 
         data = stbi_load(path_buffer, &width, &height, &nr_components, 0);
 
-        #endif
+#endif
 
         if (!data) {
                 LOGE("Failed to load texture: %s", path_buffer);

@@ -1,6 +1,3 @@
-#ifndef __ANDROID__
-#endif
-
 #include <assimp/cfileio.h>
 
 #include <ft2build.h>
@@ -75,32 +72,39 @@ int ap_render_general_initialize()
         ap_get_time();
         ap_physic_init();
 
-#ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         // init for android
 #else
         if (ap_get_context_ptr() == NULL) {
                 LOGE("FATAL: aperture general init failed");
                 return AP_ERROR_INIT_FAILED;
         }
-
         if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
         {
                 LOGE("failed to init GLAD");
                 return AP_ERROR_INIT_FAILED;
         }
-
 #endif
+
         ap_shader_generate(
                 "ap_glsl/ap_orthographic.vs.glsl",
                 "ap_glsl/ap_orthographic.fs.glsl",
                 &renderer.ortho_shader
         );
+        if (renderer.ortho_shader == 0) {
+                LOGE("failed to init renderer: ortho shader compile failed");
+                exit(-1);
+        }
 
         ap_shader_generate(
                 "ap_glsl/ap_perspective.vs.glsl",
                 "ap_glsl/ap_perspective.fs.glsl",
                 &renderer.persp_shader
         );
+        if (renderer.persp_shader == 0) {
+                LOGE("failed to init renderer: perspective shader compile failed");
+                exit(-1);
+        }
         renderer.view_distance = 16 * 16;
 
         ap_render_initialized = true;
@@ -120,12 +124,50 @@ int ap_render_init_font(const char *path, int size)
         int error = 0;
         if (!renderer.ft_library && !renderer.ft_face) {
                 FT_Init_FreeType(&renderer.ft_library);
+#if AP_PLATFORM_ANDROID
+                char *buffer = NULL;
+                int length;
+                AAssetManager *pLocalAssetManager =
+                        (AAssetManager *) ap_get_asset_manager();
+                if (!pLocalAssetManager) {
+                    LOGE("pLocalAssetManager is NULL, failed to read file.");
+                    return 0;
+                }
+                AAsset *mAsset = NULL;
+                mAsset = AAssetManager_open(
+                        pLocalAssetManager,
+                        path,
+                        AASSET_MODE_UNKNOWN
+                );
+                if (mAsset == NULL) {
+                    LOGE("read font failed: %s", path);
+                    return 0;
+                }
+                length = AAsset_getLength(mAsset);
+                buffer = AP_MALLOC(sizeof(char) * length);
+                if (buffer == NULL) {
+                    LOGE("MALLOG FAILED.");
+                    return 0;
+                }
+                AAsset_read(mAsset, buffer, length);
+                AAsset_close(mAsset);
+                ap_get_asset_manager();
+                error = FT_New_Memory_Face(
+                        renderer.ft_library,
+                        (void*) buffer,
+                        length,
+                        0,
+                        &renderer.ft_face
+                );
+                AP_FREE(buffer);
+#else
                 error = FT_New_Face(
                         renderer.ft_library,
                         path,
                         0,
                         &renderer.ft_face
                 );
+#endif
         }
         if (error) {
                 LOGE("failed to initialize freetype %d", error);
@@ -143,9 +185,9 @@ int ap_render_init_font(const char *path, int size)
         }
 
         if (size) {
-                error = FT_Set_Pixel_Sizes(renderer.ft_face, 0, size);
+                 error = FT_Set_Pixel_Sizes(renderer.ft_face, 0, size);
         } else {
-                error = FT_Set_Pixel_Sizes(renderer.ft_face, 0, AP_FONT_SIZE);
+                 error = FT_Set_Pixel_Sizes(renderer.ft_face, 0, AP_FONT_SIZE);
         }
         if (error) {
                 LOGE("failed to initialize freetype: %d", error);
@@ -207,11 +249,10 @@ int ap_render_char_2_texture(
                 LOGE("failed to char_2_texture: not initialized");
                 return AP_ERROR_INIT_FAILED;
         }
-
         int error = 0;
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         // load character glyph
-        error = FT_Load_Char(renderer.ft_face, c, FT_LOAD_RENDER);
+         error = FT_Load_Char(renderer.ft_face, c, FT_LOAD_RENDER);
         if (error) {
                 LOGE("freetype: failed to load glyph %d", error);
                 return 0;
@@ -252,7 +293,6 @@ int ap_render_char_2_texture(
         if (a) {
                 *a = renderer.ft_face->glyph->advance.x;
         }
-
         return 0;
 }
 
@@ -649,11 +689,11 @@ int ap_render_finish()
         ap_shader_free();
         ap_model_free();
         ap_texture_free();
-        ap_audio_free();
+        // ap_audio_free();
         ap_light_free();
 
-        FT_Done_Face(renderer.ft_face);
-        FT_Done_FreeType(renderer.ft_library);
+         FT_Done_Face(renderer.ft_face);
+         FT_Done_FreeType(renderer.ft_library);
 
         glDeleteBuffers(1, &renderer.ortho_VBO);
         glDeleteVertexArrays(1, &renderer.ortho_VAO);

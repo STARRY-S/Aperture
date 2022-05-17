@@ -18,7 +18,7 @@ struct aiFile* ap_custom_file_open_proc(
                 return NULL;
         }
 
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         AAssetManager *manager = ap_get_asset_manager();
         AAsset *asset_path = AAssetManager_open(
                 manager, file_name,
@@ -28,13 +28,13 @@ struct aiFile* ap_custom_file_open_proc(
                 // AP_ERROR_ASSET_OPEN_FAILED;
                 return NULL;
         }
-        #else
+#else
         FILE *fp = NULL;
         if (!(fp = fopen(file_name, mode))) {
                 LOGE("Failed to open: %s", file_name);
                 return NULL;
         }
-        #endif
+#endif
 
         struct aiFile *ai_file = AP_MALLOC(sizeof(struct aiFile));
         if (ai_file == NULL) {
@@ -49,11 +49,11 @@ struct aiFile* ap_custom_file_open_proc(
         ai_file->FileSizeProc = ap_custom_fsize_proc;
         ai_file->SeekProc     = ap_custom_fseek_proc;
         ai_file->FlushProc    = ap_custom_fflush_proc;
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         ai_file->UserData = (char *) asset_path;
-        #else
+#else
         ai_file->UserData = (char *) fp;
-        #endif
+#endif
 
         return ai_file;
 }
@@ -62,11 +62,11 @@ void ap_custom_file_close_proc(
         C_STRUCT aiFileIO* ai_file_io,
         C_STRUCT aiFile* ai_file)
 {
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         AAsset_close((AAsset *) ai_file->UserData);
-        #else
+#else
         fclose((FILE*) ai_file->UserData);
-        #endif
+#endif
 }
 
 size_t ap_custom_file_read_proc(
@@ -75,13 +75,13 @@ size_t ap_custom_file_read_proc(
         size_t size,
         size_t count)
 {
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         return AAsset_read(
                 (AAsset *) ai_file->UserData, buffer, size * count
         );
-        #else
+#else
         return fread(buffer, size, count, (FILE*) ai_file->UserData);
-        #endif
+#endif
 }
 
 size_t ap_custom_file_write_proc(
@@ -96,28 +96,22 @@ size_t ap_custom_file_write_proc(
 
 size_t ap_custom_ftell_proc(C_STRUCT aiFile* ai_file)
 {
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 
         long iRemainLength =
                 AAsset_getRemainingLength((AAsset*) ai_file->UserData);
         long iTotalLength = AAsset_getLength((AAsset*) ai_file->UserData);
         return iTotalLength - iRemainLength;
-
-        #else
-
+#else
         return ftell((FILE*) ai_file->UserData);
-
-        #endif
+#endif
 }
 
 size_t ap_custom_fsize_proc(C_STRUCT aiFile* ai_file)
 {
-        #ifdef __ANDROID__
-
+#if AP_PLATFORM_ANDROID
         return AAsset_getLength((AAsset*) ai_file->UserData);
-
-        #else
-
+#else
         int current = ftell((FILE*) ai_file->UserData);
         if (current < 0) {
                 LOGE("ftell error");
@@ -131,13 +125,12 @@ size_t ap_custom_fsize_proc(C_STRUCT aiFile* ai_file)
         }
         fseek((FILE*) ai_file->UserData, current, SEEK_SET);
         return length;
-
-        #endif
+#endif
 }
 
 void ap_custom_fflush_proc(C_STRUCT aiFile* ai_file)
 {
-        #ifndef __ANDROID__
+        #if !AP_PLATFORM_ANDROID
         fflush((FILE*) ai_file->UserData);
         #endif
 }
@@ -149,7 +142,7 @@ C_ENUM aiReturn ap_custom_fseek_proc(
 {
         int ret = -1;
 
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 
         ret = AAsset_seek(
                 (AAsset *) ai_file->UserData,
@@ -162,7 +155,7 @@ C_ENUM aiReturn ap_custom_fseek_proc(
 
         return -1;
 
-        #else
+#else
 
         switch (origin)
         {
@@ -184,5 +177,5 @@ C_ENUM aiReturn ap_custom_fseek_proc(
 
         return 0;
 
-        #endif
+#endif
 }
