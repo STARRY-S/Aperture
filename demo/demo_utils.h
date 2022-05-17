@@ -7,11 +7,11 @@
 #define DEMO_FONT_PATH "fonts/test.ttf"
 #endif
 
-#ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 #define AP_DEMO_CAMERA_NUMBER 1
-#else
+#else // AP_PLATFORM_ANDROID
 #define AP_DEMO_CAMERA_NUMBER 3
-#endif
+#endif // AP_PLATFORM_ANDROID
 
 extern unsigned int cube_shader, ortho_shader;
 extern unsigned int light_texture, light_cube_VAO;

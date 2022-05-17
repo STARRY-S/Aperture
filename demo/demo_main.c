@@ -103,7 +103,6 @@ int main(int argc, char **argv)
         {
                 // input
                 process_input(window);
-                ap_render_flush();
 
                 // GameEngine main renderer
                 demo_render();

@@ -109,7 +109,7 @@ int demo_init()
         ap_v4_set(aim_color, 1.0f, 1.0f, 1.0f, 1.0f);
         ap_render_set_aim_dot(4, aim_color);
 
-        #ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
         int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
         switch (iMobileType) {
                 case AP_MOBILE_GOOGLE:
@@ -119,13 +119,13 @@ int demo_init()
                 default:
                 enable_mobile_type = true;
         }
-        #endif // __ANDROID__
+#endif // __ANDROID__
 
-        unsigned int audio_id = 0;
-        ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
-        if (audio_id > 0) {
-                ap_audio_play(audio_id, NULL);
-        }
+       unsigned int audio_id = 0;
+       ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
+       if (audio_id > 0) {
+               ap_audio_play(audio_id, NULL);
+       }
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -135,6 +135,7 @@ int demo_init()
 
 int demo_render()
 {
+        ap_render_flush();
         // render
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
