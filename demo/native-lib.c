@@ -17,7 +17,7 @@
 #include "demo_main.h"
 #include "demo_utils.h"
 
-#ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 
 #include <jni.h>
 
@@ -57,10 +57,10 @@ JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass clazz,
                                                           jfloat x, jfloat y,
                                                           jboolean constrain_pitch) {
-        ap_camera_process_mouse_move(x, y, constrain_pitch);
+        ap_camera_process_mouse_move(x * 5, y * 5, constrain_pitch);
         return 0;
 }
 
-#else // __ANDROID__
+#else // AP_PLATFORM_ANDROID
 
 #endif
