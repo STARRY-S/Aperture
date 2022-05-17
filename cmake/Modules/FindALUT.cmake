@@ -30,21 +30,18 @@
 # http://www.boost.org/LICENSE_1_0.txt)
 # SPDX-License-Identifier: BSL-1.0
 
-set(ALUT_ROOT_DIR
-	"${ALUT_ROOT_DIR}"
-	CACHE
-	PATH
-	"Path to search for ALUT library")
+set(ALUT_ROOT_DIR "${ALUT_ROOT_DIR}" CACHE PATH
+    "Path to search for ALUT library")
 
 # Share search paths with OpenAL
 if(NOT "$ENV{OPENALDIR}" STREQUAL "")
-	if(NOT ALUT_ROOT_DIR)
-		set(ALUT_ROOT_DIR "$ENV{OPENALDIR}")
-	endif()
+    if(NOT ALUT_ROOT_DIR)
+        set(ALUT_ROOT_DIR "$ENV{OPENALDIR}")
+    endif()
 else()
-	if(ALUT_ROOT_DIR)
-		set(ENV{OPENALDIR} "${ALUT_ROOT_DIR}")
-	endif()
+    if(ALUT_ROOT_DIR)
+        set(ENV{OPENALDIR} "${ALUT_ROOT_DIR}")
+    endif()
 endif()
 
 
@@ -53,37 +50,37 @@ endif()
 # Configure ALUT
 ###
 find_path(ALUT_INCLUDE_DIR
-	NAMES
-	alut.h
-	HINTS
-	"${ALUT_ROOT_DIR}"
-	PATH_SUFFIXES
-	AL
-	alut
-	OpenAL
-	include
-	include/alut
-	include/freealut
-	include/AL
-	include/OpenAL
-	PATHS
-	/usr/local
-	/opt/local
-	/sw)
+    NAMES
+    alut.h
+    HINTS
+    "${ALUT_ROOT_DIR}"
+    PATH_SUFFIXES
+    AL
+    alut
+    OpenAL
+    include
+    include/alut
+    include/freealut
+    include/AL
+    include/OpenAL
+    PATHS
+    /usr/local
+    /opt/local
+    /sw)
 mark_as_advanced(ALUT_INCLUDE_DIR)
 
 find_library(ALUT_LIBRARY
-	NAMES
-	alut
-	HINTS
-	"${ALUT_ROOT_DIR}"
-	PATH_SUFFIXES
-	lib
-	lib64
-	PATHS
-	/usr/local
-	/opt/local
-	/sw)
+    NAMES
+    alut
+    HINTS
+    "${ALUT_ROOT_DIR}"
+    PATH_SUFFIXES
+    lib
+    lib64
+    PATHS
+    /usr/local
+    /opt/local
+    /sw)
 mark_as_advanced(ALUT_LIBRARY)
 
 ###
@@ -101,37 +98,37 @@ find_package(OpenAL QUIET)
 # all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(ALUT
-	DEFAULT_MSG
-	ALUT_LIBRARY
-	ALUT_INCLUDE_DIR
-	OPENAL_FOUND)
+    DEFAULT_MSG
+    ALUT_LIBRARY
+    ALUT_INCLUDE_DIR
+    OPENAL_FOUND)
 
 if(ALUT_FOUND)
-	set(ALUT_INCLUDE_DIRS "${OPENAL_INCLUDE_DIR}" "${ALUT_INCLUDE_DIR}")
-	set(ALUT_LIBRARIES "${OPENAL_LIBRARY}" ${ALUT_LIBRARY})
-	if(APPLE)
-		get_filename_component(_moddir ${CMAKE_CURRENT_LIST_FILE} PATH)
-		if("${OPENAL_INCLUDE_DIR}" MATCHES "\\.framework$")
-			# OpenAL is in a framework - need a workaround
-			set(OPENAL_WORKAROUND_INCLUDE_DIR
-				"${_moddir}/workarounds/mac-openal")
-			list(APPEND
-				ALUT_WORKAROUND_INCLUDE_DIRS
-				"${OPENAL_WORKAROUND_INCLUDE_DIR}")
-		endif()
-		if("${ALUT_INCLUDE_DIR}" MATCHES "\\.framework$")
-			# ALUT is in the OpenAL framework - need a workaround
-			set(ALUT_WORKAROUND_INCLUDE_DIR
-				"${_moddir}/workarounds/mac-alut-framework")
-			list(APPEND
-				ALUT_WORKAROUND_INCLUDE_DIRS
-				"${ALUT_WORKAROUND_INCLUDE_DIR}")
-		endif()
-	endif()
+    set(ALUT_INCLUDE_DIRS "${OPENAL_INCLUDE_DIR}" "${ALUT_INCLUDE_DIR}")
+    set(ALUT_LIBRARIES "${OPENAL_LIBRARY}" ${ALUT_LIBRARY})
+    if(APPLE)
+        get_filename_component(_moddir ${CMAKE_CURRENT_LIST_FILE} PATH)
+        if("${OPENAL_INCLUDE_DIR}" MATCHES "\\.framework$")
+            # OpenAL is in a framework - need a workaround
+            set(OPENAL_WORKAROUND_INCLUDE_DIR
+                "${_moddir}/workarounds/mac-openal")
+            list(APPEND
+                ALUT_WORKAROUND_INCLUDE_DIRS
+                "${OPENAL_WORKAROUND_INCLUDE_DIR}")
+        endif()
+        if("${ALUT_INCLUDE_DIR}" MATCHES "\\.framework$")
+            # ALUT is in the OpenAL framework - need a workaround
+            set(ALUT_WORKAROUND_INCLUDE_DIR
+                "${_moddir}/workarounds/mac-alut-framework")
+            list(APPEND
+                ALUT_WORKAROUND_INCLUDE_DIRS
+                "${ALUT_WORKAROUND_INCLUDE_DIR}")
+        endif()
+    endif()
 
-	if("${ALUT_INCLUDE_DIR}" MATCHES "AL$")
-		get_filename_component(_parent "${ALUT_INCLUDE_DIR}/.." ABSOLUTE)
-		list(APPEND ALUT_INCLUDE_DIRS "${_parent}")
-	endif()
-	mark_as_advanced(ALUT_ROOT_DIR)
+    if("${ALUT_INCLUDE_DIR}" MATCHES "AL$")
+        get_filename_component(_parent "${ALUT_INCLUDE_DIR}/.." ABSOLUTE)
+        list(APPEND ALUT_INCLUDE_DIRS "${_parent}")
+    endif()
+    mark_as_advanced(ALUT_ROOT_DIR)
 endif()

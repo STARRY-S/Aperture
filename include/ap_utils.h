@@ -9,6 +9,18 @@
 #define AP_DEBUG
 #define AP_DEFAULT_BUFFER_SIZE 128
 
+#if defined(__ANDROID__)
+#define AP_PLATFORM_ANDROID  1
+#elif defined(_WIN32) || defined(__CYGWIN__)
+#define AP_PLATFORM_WINDOWS  1
+#elif defined(__linux__)
+#define AP_PLATFORM_LINUX    1
+#elif defined(__unix__) || defined(unix)
+#define AP_PLATFORM_UNIX     1
+#elif defined(__APPLE__)
+#define AP_PLATFORM_MACOS    1
+#endif
+
 #include "cglm/cglm.h"
 #include "ap_memory.h"
 
@@ -22,7 +34,7 @@
 #define UCHAR_SIZE sizeof(unsigned char)
 #define CHAR_SIZE sizeof(char)
 
-#ifdef __ANDROID__
+#if AP_PLATFORM_ANDROID
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <android/log.h>

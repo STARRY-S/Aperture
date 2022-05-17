@@ -7,17 +7,24 @@
  *                               AP_SP_<STRUCT>_<NAME>
  * Aperture Shader Orthographic: AP_SO_<NAME>
  */
+
+#if AP_PLATFORM_ANDROID
+#include <GLES3/gl3.h>
+#else
+#include "glad/glad.h"
+#endif
+
 // Perspective vertex shader uniform variables
 #define AP_SP_MODEL             "model"
 #define AP_SP_VIEW              "view"
 #define AP_SP_PROJECTION        "projection"
 // Perspective fragment shader uniform variables
 #define AP_SP_MATERIALS         "materials"
-#define AP_SP_MT_DIFFUSE        "materials[%d].diffuse"
-#define AP_SP_MT_SPECULAR       "materials[%d].specular"
-#define AP_SP_MT_NORMAL         "materials[%d].normal"
-#define AP_SP_MT_HEIGHT         "materials[%d].height"
-#define AP_SP_MT_SHININESS      "materials[%d].shininess"
+#define AP_SP_MT_DIFFUSE        "materials_%d.diffuse"
+#define AP_SP_MT_SPECULAR       "materials_%d.specular"
+#define AP_SP_MT_NORMAL         "materials_%d.normal"
+#define AP_SP_MT_HEIGHT         "materials_%d.height"
+#define AP_SP_MT_SHININESS      "materials_%d.shininess"
 
 #define AP_SP_POINT_LIGHT       "point_light"
 #define AP_SP_PL_POSITION       "point_light.position"
