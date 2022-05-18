@@ -64,7 +64,6 @@ Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass cl
 
 JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_creatureMove(JNIEnv *env, jclass clazz, jint direction, jfloat speed) {
-        // TODO: implement creatureMove()
         switch (direction) {
         case 0: // forward
                 ap_creature_process_move(AP_DIRECTION_FORWARD, speed);

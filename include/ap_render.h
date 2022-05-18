@@ -149,6 +149,7 @@ int ap_render_set_aim_dot(int size, vec4 color);
 /**
  * @brief Use Logarithmic Depth Buffer
  *
+ * @deprecated z buffer optimized is enabled by default
  * @param b enabled
  * @return int
  */
