@@ -13,6 +13,7 @@
 #include "ap_utils.h"
 #include "ap_render.h"
 #include "ap_camera.h"
+#include "ap_physic.h"
 
 #include "demo_main.h"
 #include "demo_utils.h"
@@ -61,6 +62,37 @@ Java_moe_starrys_game_1engine_GLES3JNILib_cameraViewEvent(JNIEnv *env, jclass cl
         return 0;
 }
 
-#else // AP_PLATFORM_ANDROID
+JNIEXPORT jint JNICALL
+Java_moe_starrys_game_1engine_GLES3JNILib_creatureMove(JNIEnv *env, jclass clazz, jint direction, jfloat speed) {
+        // TODO: implement creatureMove()
+        switch (direction) {
+        case 0: // forward
+                ap_creature_process_move(AP_DIRECTION_FORWARD, speed);
+                break;
+        case 1: // backward
+                ap_creature_process_move(AP_DIRECTION_BACKWORD, speed);
+                break;
+        case 2: // left
+                ap_creature_process_move(AP_DIRECTION_LEFT, speed);
+                break;
+        case 3: // right
+                ap_creature_process_move(AP_DIRECTION_RIGHT, speed);
+                break;
+        default:
+                break;
+        }
+        return 0;
+}
+
+JNIEXPORT jint JNICALL
+Java_moe_starrys_game_1engine_GLES3JNILib_creatureJump(JNIEnv *env, jclass clazz) {
+        ap_creature_jump();
+}
+
+JNIEXPORT jint JNICALL
+Java_moe_starrys_game_1engine_GLES3JNILib_spotLightStatus(JNIEnv *env, jclass clazz,
+                                                          jboolean status) {
+        ap_render_set_spot_light_enabled(status);
+}
 
 #endif
