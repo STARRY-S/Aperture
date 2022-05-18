@@ -239,34 +239,59 @@ GLuint ap_shader_load_program(
         return program;
 }
 
-void ap_shader_set_float(GLuint program, const char *const name, float value)
+int ap_shader_set_float(GLuint program, const char *const name, float value)
 {
-        GLuint location = glGetUniformLocation(program, name);
+        int location = glGetUniformLocation(program, name);
+        if (location < 0) {
+                LOGD("shader failed to set float for %s %d", name, location);
+                return AP_ERROR_RENDER_FAILED;
+        }
         glUniform1f(location, value);
+        return 0;
 }
 
-void ap_shader_set_int(GLuint program, const char *const name, GLuint value)
+int ap_shader_set_int(GLuint program, const char *const name, GLuint value)
 {
-        GLuint location = glGetUniformLocation(program, name);
+        int location = glGetUniformLocation(program, name);
+        if (location < 0) {
+                LOGD("shader failed to set int for %s", name);
+                return AP_ERROR_RENDER_FAILED;
+        }
         glUniform1i(location, value);
+        return 0;
 }
 
-void ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
+int ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
 {
-        GLuint location = glGetUniformLocation(program, name);
+        int location = glGetUniformLocation(program, name);
+        if (location < 0) {
+                LOGD("shader failed to set vec3 for %s", name);
+                return AP_ERROR_RENDER_FAILED;
+        }
         glUniform3fv(location, 1, vec);
+        return 0;
 }
 
-void ap_shader_set_vec4(GLuint program, const char *const name, float *vec)
+int ap_shader_set_vec4(GLuint program, const char *const name, float *vec)
 {
-        GLuint location = glGetUniformLocation(program, name);
+        int location = glGetUniformLocation(program, name);
+        if (location < 0) {
+                LOGD("shader failed to set vec4 for %s", name);
+                return AP_ERROR_RENDER_FAILED;
+        }
         glUniform4fv(location, 1, vec);
+        return 0;
 }
 
-void ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
+int ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
 {
-        GLuint location = glGetUniformLocation(program, name);
+        int location = glGetUniformLocation(program, name);
+        if (location < 0) {
+                LOGD("shader failed to set mat4 for %s", name);
+                return AP_ERROR_RENDER_FAILED;
+        }
         glUniformMatrix4fv(location, 1, GL_FALSE, mat);
+        return 0;
 }
 
 unsigned int ap_get_current_shader()

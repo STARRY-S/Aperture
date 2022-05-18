@@ -17,7 +17,7 @@ extern unsigned int cube_shader, ortho_shader;
 extern unsigned int light_texture, light_cube_VAO;
 extern unsigned int model_id, camera_use_id, camera_ids[];
 extern float light_positions[][3];
-extern bool spot_light_enabled;
+extern bool spot_light_enabled, draw_light_cubes;
 extern int material_number;
 
 int demo_init();

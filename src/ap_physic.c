@@ -304,7 +304,6 @@ int ap_creature_jump()
         }
 
         if (!creature_using->floating) {
-                LOGD("start floating");
                 creature_using->floating = true;
         } else {
                 return 0;
@@ -540,7 +539,6 @@ int ap_box_box_collision_move(
                         / 2.0f;
         }
         if (creature_using->floating) {
-                LOGD("stop floating");
                 creature_using->floating = false;
                 if (on_top) {
                         *on_top = true;

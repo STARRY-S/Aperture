@@ -37,6 +37,8 @@ struct AP_Renderer {
         mat4 persp_matrix;
         mat4 view_matrix;
         bool spot_light_enabled;
+        bool point_light_enabled;
+        bool environment_light_enabled;
         int material_num;          // materials[material_num]
         int view_distance;
 
@@ -50,8 +52,10 @@ struct AP_Renderer {
         int dot_aim_size;
         vec4 dot_aim_color;             // color of the dot aim
 
-        vec4 buffer_clear_color;
+        vec4 buffer_clear_color;        // glClearColor
         ap_callback_func_t main_func;
+
+        bool zconflict_optimize;        // optimize zconflict
 };
 
 // Aperture engine only have one renderer as the main renderer
@@ -92,7 +96,7 @@ int ap_render_general_initialize()
                 &renderer.ortho_shader
         );
         if (renderer.ortho_shader == 0) {
-                LOGE("failed to init renderer: ortho shader compile failed");
+                LOGE("renderer failed: orthographic shader compile failed");
                 exit(-1);
         }
 
@@ -102,10 +106,22 @@ int ap_render_general_initialize()
                 &renderer.persp_shader
         );
         if (renderer.persp_shader == 0) {
-                LOGE("failed to init renderer: perspective shader compile failed");
+                LOGE("renderer failed: perspective shader compile failed");
                 exit(-1);
         }
-        renderer.view_distance = 16 * 16;
+        // default view distance is 6 chunk size
+        renderer.view_distance = 16 * 6;
+
+        // set texture number
+        ap_shader_use(renderer.persp_shader);
+        char buffer[AP_DEFAULT_BUFFER_SIZE] = {0};
+        for (int i = 0; i < AP_SP_MATERIALS_NR; ++i) {
+                sprintf(buffer, AP_SP_MT_DIFFUSE, i);
+                ap_shader_set_int(renderer.persp_shader, buffer, i);
+                sprintf(buffer, AP_SP_MT_SPECULAR, i);
+                ap_shader_set_int(renderer.persp_shader, buffer, i);
+        }
+        ap_shader_use(0);
 
         ap_render_initialized = true;
         return EXIT_SUCCESS;
@@ -642,24 +658,53 @@ int ap_render_flush()
         glm_mat4_identity(renderer.view_matrix);
         ap_camera_get_view_matrix(&renderer.view_matrix);
         ap_shader_set_mat4(
-                renderer.persp_shader, AP_SP_VIEW, renderer.view_matrix[0]);
+                renderer.persp_shader,
+                AP_SP_VIEW,
+                renderer.view_matrix[0]
+        );
         vec3 view_pos = {0.0f};
         ap_camera_get_position(view_pos);
         ap_shader_set_vec3(
-                renderer.persp_shader, AP_SP_VIEW, view_pos);
+                renderer.persp_shader,
+                AP_SP_VIEW_POS,
+                view_pos
+        );
         ap_shader_set_vec3(
-                renderer.persp_shader, AP_SP_SL_POSITION, view_pos);
+                renderer.persp_shader,
+                AP_SP_SL_POSITION,
+                view_pos
+        );
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_front(cam_direction);
         ap_shader_set_vec3(
-                renderer.persp_shader, AP_SP_SL_DIRECTION, cam_direction);
+                renderer.persp_shader,
+                AP_SP_SL_DIRECTION,
+                cam_direction
+        );
         ap_shader_set_int(
-                renderer.persp_shader, AP_SP_SPOT_LIGHT_ENABLED,
+                renderer.persp_shader,
+                AP_SP_SPOT_LIGHT_ENABLED,
                 renderer.spot_light_enabled
         );
         ap_shader_set_int(
-                renderer.persp_shader, AP_SP_MATERIAL_NUMBER,
+                renderer.persp_shader,
+                AP_SP_POINT_LIGHT_ENABLED,
+                renderer.point_light_enabled
+        );
+        ap_shader_set_int(
+                renderer.persp_shader,
+                AP_SP_ENV_LIGHT_ENABLED,
+                renderer.environment_light_enabled
+        );
+        ap_shader_set_int(
+                renderer.persp_shader,
+                AP_SP_MATERIAL_NUMBER,
                 renderer.material_num
+        );
+        ap_shader_set_float(
+                renderer.persp_shader,
+                AP_SP_VIEW_DISTANCE,
+                (float) renderer.view_distance
         );
 
         int zoom = 0;
@@ -669,7 +714,7 @@ int ap_render_flush()
         glm_perspective(
                 glm_rad(zoom),
                 (float) ap_get_buffer_width() / ap_get_buffer_height(),
-                0.01f, (float) renderer.view_distance,
+                0.1f, (float) renderer.view_distance,
                 renderer.persp_matrix
         );
         ap_shader_set_mat4(
@@ -816,9 +861,21 @@ int ap_render_set_model_mat(float *mat)
         return 0;
 }
 
-int ap_render_set_spot_light_open(bool b)
+int ap_render_set_spot_light_enabled(bool b)
 {
         renderer.spot_light_enabled = b;
+        return 0;
+}
+
+int ap_render_set_point_light_enabled(bool b)
+{
+        renderer.point_light_enabled = b;
+        return 0;
+}
+
+int ap_render_set_env_light_enabled(bool b)
+{
+        renderer.environment_light_enabled = b;
         return 0;
 }
 
@@ -832,9 +889,13 @@ int ap_render_set_material_num(int n)
         return 0;
 }
 
-int ap_render_set_view_distance(int n)
+int ap_render_set_view_distance(int distance)
 {
-        renderer.view_distance = n;
+        if (distance > 1024 || distance < 16) {
+                LOGE("failed to set view distance: invalid value");
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        renderer.view_distance = distance;
         return 0;
 }
 
@@ -849,6 +910,21 @@ int ap_render_set_main_func(ap_callback_func_t func)
 
 int ap_render_main_loop()
 {
+        return 0;
+}
+
+int ap_render_get_view_distance(int *p)
+{
+        if (!p) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+        *p = renderer.view_distance;
+        return 0;
+}
+
+int ap_render_set_optimize_zconflict(bool b)
+{
+        renderer.zconflict_optimize = b;
         return 0;
 }
 

@@ -2,7 +2,7 @@
 #define DEMO_LIGHT_H
 
 #ifndef DEMO_POINT_LIGHT_NUM
-#define DEMO_POINT_LIGHT_NUM 4
+#define DEMO_POINT_LIGHT_NUM 12
 #endif
 
 int demo_setup_light();

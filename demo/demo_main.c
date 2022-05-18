@@ -130,7 +130,7 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
 
         if (key == GLFW_KEY_L && action == GLFW_PRESS) {
                 spot_light_enabled = !spot_light_enabled;
-                ap_render_set_spot_light_open(spot_light_enabled);
+                ap_render_set_spot_light_enabled(spot_light_enabled);
         }
 
         if (key == GLFW_KEY_T && action == GLFW_PRESS) {
@@ -141,13 +141,10 @@ void key_callback(GLFWwindow *window, int key, int s, int action, int mods)
         }
 
         if (key == GLFW_KEY_C && action == GLFW_PRESS) {
-                if (camera_use_id >= 0
-                        && camera_use_id < AP_DEMO_CAMERA_NUMBER - 1) {
-                        ap_camera_use(camera_ids[++camera_use_id]);
-                } else {
-                        camera_use_id = 0;
-                        ap_camera_use(camera_ids[camera_use_id]);
-                }
+        }
+
+        if (key == GLFW_KEY_0 && action == GLFW_PRESS) {
+                draw_light_cubes = !draw_light_cubes;
         }
 }
 

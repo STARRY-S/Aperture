@@ -47,21 +47,29 @@ struct SpotLight {
 };
 
 #define NR_POINT_LIGHTS 128
-#define NR_MATERIALS 16
 
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
+in vec4 FragParam;
+
+in float flogz;
+in float Fcoef;
 
 uniform vec3 view_pos;
 
-uniform Material materials[NR_MATERIALS];
+uniform Material material_0;
+uniform Material material_1;
+uniform Material material_2;
+uniform Material material_3;
 
 uniform PointLight point_light[NR_POINT_LIGHTS];
 uniform SpotLight spot_light;
 uniform DirectLight direct_light;
 
 uniform bool spot_light_enabled;
+uniform bool point_light_enabled;
+uniform bool env_light_enabled;
 uniform int material_number;
 
 vec3 calc_dir_light(DirectLight light, vec3 normal, vec3 viewDir);
@@ -75,9 +83,24 @@ float shininess;
 
 void main()
 {
-    material_diffuse = texture(materials[material_number].diffuse, TexCoords);
-    material_specular = texture(materials[material_number].specular, TexCoords);
-    shininess = materials[material_number].shininess;
+    gl_FragDepth = log2(flogz) * Fcoef * 0.5;
+    if (material_number == 1) {
+        material_diffuse = texture(material_1.diffuse, TexCoords);
+        material_specular = texture(material_1.specular, TexCoords);
+        shininess = material_1.shininess;
+    } else if (material_number == 2) {
+        material_diffuse = texture(material_2.diffuse, TexCoords);
+        material_specular = texture(material_2.specular, TexCoords);
+        shininess = material_2.shininess;
+    } else if (material_number == 3) {
+        material_diffuse = texture(material_3.diffuse, TexCoords);
+        material_specular = texture(material_3.specular, TexCoords);
+        shininess = material_3.shininess;
+    } else {
+        material_diffuse = texture(material_0.diffuse, TexCoords);
+        material_specular = texture(material_0.specular, TexCoords);
+        shininess = material_0.shininess;
+    }
 
     if (material_diffuse.a < 0.001) {
         discard;
@@ -86,17 +109,24 @@ void main()
     // properties
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(view_pos - FragPos);
+    vec3 result;
 
     // directional lighting
-    vec3 result = calc_dir_light(direct_light, norm, viewDir);
+    if (env_light_enabled) {
+        result = calc_dir_light(direct_light, norm, viewDir);
+    } else {
+        FragColor = material_diffuse;
+        return;
+    }
     // point lights
-    for(int i = 0; i < NR_POINT_LIGHTS; i++) {
+    for(int i = 0; point_light_enabled && i < NR_POINT_LIGHTS; i++) {
         result += calc_point_light(point_light[i], norm, FragPos, viewDir);
     }
     // spot light
     if (spot_light_enabled) {
         result += calc_spot_light(spot_light, norm, FragPos, viewDir);
     }
+
     FragColor = vec4(result, material_diffuse.a);
 }
 

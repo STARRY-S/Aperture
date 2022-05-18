@@ -6,21 +6,26 @@
 #include "ap_light.h"
 #include "cglm/cglm.h"
 
-vec3 point_light_ambient = { 0.32f, 0.3f, 0.31f };
-vec3 point_light_diffuse = { 0.2f, 0.2f, 0.2f };
-vec3 point_light_specular = { 1.0f, 1.0f, 1.0f };
+vec3 point_light_ambient = { 0.45f, 0.4f, 0.4f };
+vec3 point_light_diffuse = { 0.5f, 0.5f, 0.5f };
+vec3 point_light_specular = { 0.2f, 0.2f, 0.2f };
 
 vec3 dir_light_direction = { -1.0f, -1.0f, -0.0f };
-vec3 dir_light_ambient   = { 0.53f, 0.5f,  0.52f };
+#if AP_PLATFORM_ANDROID
+vec3 dir_light_ambient   = { 0.43f, 0.4f,  0.42f };
+#else
+vec3 dir_light_ambient   = { 0.23f, 0.2f,  0.22f };
+#endif
 vec3 dir_light_diffuse   = { 0.4f,  0.4f,  0.4f  };
-vec3 dir_light_specular  = { 0.2f,  0.2f,  0.2f  };
+vec3 dir_light_specular  = { 0.3f,  0.3f,  0.3f  };
 
 vec3 spot_light_ambient = {0.0f, 0.0f, 0.0f};
 vec3 spot_light_diffuse = {1.0f, 1.0f, 1.0f};
-vec3 spot_light_specular = {1.0f, 1.0f, 1.0f};
+vec3 spot_light_specular = {0.5f, 0.5f, 0.5f};
 
 static int demo_setup_point_lights()
 {
+        // constant linear quadratic
         float param[AP_LIGHT_PARAM_NUM] = { 1.0f, 0.09f, 0.032f };
         for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
                 unsigned id = 0;
@@ -52,8 +57,8 @@ static int demo_setup_spot_light()
 {
         float param[AP_LIGHT_PARAM_NUM] = {
                 1.0f, 0.09f, 0.032f,
-                (float) cos(glm_rad(22.5f)),    // cut_off
-                (float) cos(glm_rad(25.0f))     // outer_cut_off
+                (float) cos(glm_rad(30.0f)),    // cut_off
+                (float) cos(glm_rad(35.0f))     // outer_cut_off
         };
 
         ap_light_setup_spot(
@@ -69,8 +74,8 @@ static int demo_setup_spot_light()
 int demo_setup_light()
 {
         ap_shader_generate(
-                "glsl/model_loading.vs.glsl",
-                "glsl/model_loading.fs.glsl",
+                "glsl/cube_light.vs.glsl",
+                "glsl/cube_light.fs.glsl",
                 &cube_shader
         );
 

@@ -89,6 +89,7 @@ int ap_render_get_ortho_shader(unsigned int *p);
 int ap_render_get_persp_shader(unsigned int *p);
 int ap_render_get_dt(float *dt);
 int ap_render_get_cft(float *cft);
+int ap_render_get_view_distance(int *p);
 
 /**
  * @brief Set model matrix before render model
@@ -97,14 +98,79 @@ int ap_render_get_cft(float *cft);
  * @return int
  */
 int ap_render_set_model_mat(float *mat);
-int ap_render_set_spot_light_open(bool b);
+
+/**
+ * @brief Set light enabled or not
+ *
+ * @param b
+ * @return int
+ */
+int ap_render_set_spot_light_enabled(bool b);
+int ap_render_set_point_light_enabled(bool b);
+int ap_render_set_env_light_enabled(bool b);
+
+/**
+ * @brief set using material number in persp shader program
+ *
+ * @param n
+ * @return int
+ */
 int ap_render_set_material_num(int n);
+
+/**
+ * @brief Set view distance
+ *
+ * @param n
+ * @return int
+ */
 int ap_render_set_view_distance(int n);
+
 int ap_render_set_main_func(ap_callback_func_t func);
+
+/**
+ * @brief Set cross aiming point parameters
+ *
+ * @param length image size: length * length pixels
+ * @param width line width
+ * @param color RGBA color value
+ * @return int
+ */
 int ap_render_set_aim_cross(int length, int width, vec4 color);
+
+/**
+ * @brief Set dot (square) aiming point parameters
+ *
+ * @param size dot size: size * size pixels
+ * @param color RGBA color value
+ * @return int
+ */
 int ap_render_set_aim_dot(int size, vec4 color);
+
+/**
+ * @brief Use Logarithmic Depth Buffer
+ *
+ * @param b enabled
+ * @return int
+ */
+int ap_render_set_optimize_zconflict(bool b);
+
+/**
+ * @brief Render a image on orthographic shader
+ *
+ * @param pos ivec2 picture position
+ * @param size ivec2 image size
+ * @param tex_id the texture ID
+ * @param tex_num which texture number should use:
+ * The tex num 0 is used for GL_RED format image,
+ * and it is used for rendering shapes (font, aiming point...)
+ *
+ * The tex num 1 is used for GL_REBA format image,
+ * it is used for rendering common images.
+ * @return int
+ */
 int ap_render_ortho_image_texture(
-        ivec2 pos, ivec2 size, unsigned int tex_id, int tex_num);
+        ivec2 pos, ivec2 size, unsigned int tex_id, int tex_num
+);
 
 int ap_get_buffer_width();
 int ap_get_buffer_height();

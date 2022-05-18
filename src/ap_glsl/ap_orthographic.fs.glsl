@@ -26,5 +26,7 @@ void main()
     } else {
         fg_color = tex2;
     }
+    // always set frag depth to 0 for ortho shader
+    gl_FragDepth = 0.0;
     FragColor = fg_color;
 }

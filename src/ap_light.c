@@ -106,6 +106,7 @@ int ap_light_send_data()
                 LOGE("failed to render lights: not initialized");
                 return AP_ERROR_INIT_FAILED;
         }
+        char buffer[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
         unsigned int old_shader = ap_get_current_shader();
         unsigned int shader = 0;
@@ -122,27 +123,32 @@ int ap_light_send_data()
         for (int i = 0; i < point_light_vector.length
                 && point_nr < AP_LIGHT_POINT_NUM; ++i)
         {
-
                 struct AP_Light *p = light + i;
 
                 if (p->type != AP_LIGHT_POINT) {
                         continue;
                 }
-
                 // position
-                ap_shader_set_vec3(shader, AP_SP_PL_POSITION, p->position);
+                sprintf(buffer, AP_SP_PL_POSITION, i);
+                ap_shader_set_vec3(shader, buffer, p->position);
                 // ambient
-                ap_shader_set_vec3(shader, AP_SP_PL_AMBIENT, p->ambient);
+                sprintf(buffer, AP_SP_PL_AMBIENT, i);
+                ap_shader_set_vec3(shader, buffer, p->ambient);
                 // diffuse
-                ap_shader_set_vec3(shader, AP_SP_PL_DIFFUSE, p->diffuse);
+                sprintf(buffer, AP_SP_PL_DIFFUSE, i);
+                ap_shader_set_vec3(shader, buffer, p->diffuse);
                 // specular
-                ap_shader_set_vec3(shader, AP_SP_PL_SPECULAR, p->specular);
+                sprintf(buffer, AP_SP_PL_SPECULAR, i);
+                ap_shader_set_vec3(shader, buffer, p->specular);
                 // constant
-                ap_shader_set_float(shader, AP_SP_PL_CONSTANT, p->param[0]);
+                sprintf(buffer, AP_SP_PL_CONSTANT, i);
+                ap_shader_set_float(shader, buffer, p->param[0]);
                 // linear
-                ap_shader_set_float(shader, AP_SP_PL_LINEAR, p->param[1]);
+                sprintf(buffer, AP_SP_PL_LINEAR, i);
+                ap_shader_set_float(shader, buffer, p->param[1]);
                 // quadratic
-                ap_shader_set_float(shader, AP_SP_PL_QUADRATIC, p->param[2]);
+                sprintf(buffer, AP_SP_PL_QUADRATIC, i);
+                ap_shader_set_float(shader, buffer, p->param[2]);
         }
 
         // send directional light data
@@ -205,8 +211,10 @@ int ap_light_set_material_shininess(float shininess)
         }
 
         ap_shader_use(shader);
+        char buffer[AP_DEFAULT_BUFFER_SIZE] = {0};
         for (int i = 0; i < AP_TEXTURE_UNIT_MAX_NUM; ++i) {
-                ap_shader_set_float(shader, AP_SP_MT_SHININESS, shininess);
+                sprintf(buffer, AP_SP_MT_SHININESS, i);
+                ap_shader_set_float(shader, buffer, shininess);
         }
         ap_shader_use(old_shader);
 

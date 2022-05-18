@@ -244,10 +244,6 @@ int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
                 }
                 const char* name = ap_texture_type_2_str(ap_type);
                 sprintf(buffer, name, texture_num);
-                // now set the sampler to the correct texture unit
-                int location = glGetUniformLocation(shader, buffer);
-                glUniform1i(location, i);
-                // and finally bind the texture
                 glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
         }
 

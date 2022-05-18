@@ -18,22 +18,26 @@
 #define AP_SP_MODEL             "model"
 #define AP_SP_VIEW              "view"
 #define AP_SP_PROJECTION        "projection"
+#define AP_SP_VIEW_DISTANCE     "view_distance"
 // Perspective fragment shader uniform variables
-#define AP_SP_MATERIALS         "materials"
-#define AP_SP_MT_DIFFUSE        "materials_%d.diffuse"
-#define AP_SP_MT_SPECULAR       "materials_%d.specular"
-#define AP_SP_MT_NORMAL         "materials_%d.normal"
-#define AP_SP_MT_HEIGHT         "materials_%d.height"
-#define AP_SP_MT_SHININESS      "materials_%d.shininess"
+#define AP_SP_MATERIALS_NR      4
+#define AP_SP_MATERIAL          "material"
+#define AP_SP_MT_DIFFUSE        "material_%d.diffuse"
+#define AP_SP_MT_DIFFUSE        "material_%d.diffuse"
+#define AP_SP_MT_SPECULAR       "material_%d.specular"
+#define AP_SP_MT_NORMAL         "material_%d.normal"
+#define AP_SP_MT_HEIGHT         "material_%d.height"
+#define AP_SP_MT_SHININESS      "material_%d.shininess"
 
+// AP_LIGHT_POINT_NUM = 128
 #define AP_SP_POINT_LIGHT       "point_light"
-#define AP_SP_PL_POSITION       "point_light.position"
-#define AP_SP_PL_CONSTANT       "point_light.constant"
-#define AP_SP_PL_LINEAR         "point_light.linear"
-#define AP_SP_PL_QUADRATIC      "point_light.quadratic"
-#define AP_SP_PL_AMBIENT        "point_light.ambient"
-#define AP_SP_PL_DIFFUSE        "point_light.diffuse"
-#define AP_SP_PL_SPECULAR       "point_light.specular"
+#define AP_SP_PL_POSITION       "point_light[%d].position"
+#define AP_SP_PL_CONSTANT       "point_light[%d].constant"
+#define AP_SP_PL_LINEAR         "point_light[%d].linear"
+#define AP_SP_PL_QUADRATIC      "point_light[%d].quadratic"
+#define AP_SP_PL_AMBIENT        "point_light[%d].ambient"
+#define AP_SP_PL_DIFFUSE        "point_light[%d].diffuse"
+#define AP_SP_PL_SPECULAR       "point_light[%d].specular"
 
 #define AP_SP_DIRECT_LIGHT      "direct_light"
 #define AP_SP_DL_DIRECTION      "direct_light.direction"
@@ -54,8 +58,10 @@
 #define AP_SP_SL_SPECULAR       "spot_light.specular"
 
 #define AP_SP_SPOT_LIGHT_ENABLED "spot_light_enabled"
+#define AP_SP_POINT_LIGHT_ENABLED "point_light_enabled"
+#define AP_SP_ENV_LIGHT_ENABLED  "env_light_enabled"
 #define AP_SP_MATERIAL_NUMBER    "material_number"
-#define AP_SP_VIEW_POS          "view_pos"
+#define AP_SP_VIEW_POS           "view_pos"
 
 // Orthographic vertex shader uniform variables
 #define AP_SO_PROJECTION        "projection"
@@ -81,15 +87,15 @@ int ap_shader_use(unsigned shader_program_id);
 
 int ap_shader_free();
 
-void ap_shader_set_float(GLuint program, const char *const name, float num);
+int ap_shader_set_float(GLuint program, const char *const name, float num);
 
-void ap_shader_set_int  (GLuint program, const char *const name, GLuint num);
+int ap_shader_set_int  (GLuint program, const char *const name, GLuint num);
 
-void ap_shader_set_vec3 (GLuint program, const char *const name, float *vec);
+int ap_shader_set_vec3 (GLuint program, const char *const name, float *vec);
 
-void ap_shader_set_vec4 (GLuint program, const char *const name, float *vec);
+int ap_shader_set_vec4 (GLuint program, const char *const name, float *vec);
 
-void ap_shader_set_mat4 (GLuint program, const char *const name, float *mat);
+int ap_shader_set_mat4 (GLuint program, const char *const name, float *mat);
 
 unsigned int ap_get_current_shader();
 

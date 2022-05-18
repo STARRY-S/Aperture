@@ -8,7 +8,7 @@
 /**
  * Define the maximum number of texture unit (纹理单元)
  */
-#define AP_TEXTURE_UNIT_MAX_NUM 16
+#define AP_TEXTURE_UNIT_MAX_NUM 4
 
 static inline int EQUAL(float a, float b)
 {

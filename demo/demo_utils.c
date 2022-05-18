@@ -20,13 +20,22 @@ unsigned int camera_ids[AP_DEMO_CAMERA_NUMBER] = { 0 };
 unsigned int camera_use_id = 0;
 
 bool spot_light_enabled = false;
+bool draw_light_cubes = false;
 int material_number = 0;
 
 vec3 light_positions[DEMO_POINT_LIGHT_NUM] = {
-        {0.0f, 2.0f, 0.0f},
-        {10.0f, 55.0f, 6.0f},
-        {-30.0f, 55.0f, 6.0f},
-        {30.0f, 55.0f, 6.0f}
+        {0.0f, 4.0f, 0.0f},
+        {-11.0f, 3.0f, -23.0f},
+        {-1.0f, 6.0f, -17.0f},
+        {-16.0f, 6.0f, -17.0f},
+        {29.0f, 3.0f, 46.0f},
+        {36.0f, 3.0f, 46.0f},
+        {23.0f, 4.0f, 18.0f},
+        {42.0f, 3.0f, 8.0f},
+        {28.0f, 3.0f, -6.0f},
+        {23.0f, 3.0f, -24.0f},
+        {10.0f, 2.0f, -35.0f},
+        {10.0f, 2.0f, -30.0f}
 };
 
 vec3 ortho_cube_pos = { 0, 0, 0 };
@@ -34,7 +43,6 @@ vec3 ortho_cube_pos = { 0, 0, 0 };
 unsigned int cube_shader = 0;
 unsigned int light_texture = 0;
 unsigned int light_cube_VAO = 0;
-bool enable_mobile_type = false;
 
 static char buffer[AP_DEFAULT_BUFFER_SIZE] = { 0 };
 
@@ -109,6 +117,8 @@ int demo_init()
         ap_v4_set(aim_color, 1.0f, 1.0f, 1.0f, 1.0f);
         ap_render_set_aim_dot(4, aim_color);
 
+        int view_distance = 16 * 10;
+        bool enable_mobile_type = false;
 #if AP_PLATFORM_ANDROID
         int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
         switch (iMobileType) {
@@ -119,13 +129,23 @@ int demo_init()
                 default:
                 enable_mobile_type = true;
         }
-#endif // __ANDROID__
+        view_distance = 16 * 6;
+        // Do not calculate point lights in Android platform
+        // FIXME: point calculate consumes a huge amount of performance
+        ap_render_set_point_light_enabled(false);
+        ap_render_set_env_light_enabled(true);
+#else
+        ap_render_set_point_light_enabled(true);
+        ap_render_set_env_light_enabled(true);
+#endif
+        ap_render_set_optimize_zconflict(true);
+        ap_render_set_view_distance(view_distance);
 
-       unsigned int audio_id = 0;
-       ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
-       if (audio_id > 0) {
-               ap_audio_play(audio_id, NULL);
-       }
+        unsigned int audio_id = 0;
+        ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
+        if (audio_id > 0) {
+                ap_audio_play(audio_id, NULL);
+        }
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -155,6 +175,13 @@ int demo_render()
 
         // render the lamp cube
         ap_shader_use(cube_shader);
+        int view_distance = 0;
+        ap_render_get_view_distance(&view_distance);
+        ap_shader_set_float(
+                cube_shader,
+                "view_distance",
+                (float) view_distance
+        );
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, light_texture);
         float *projection = NULL;
@@ -165,7 +192,7 @@ int demo_render()
         ap_shader_set_mat4(cube_shader, "view", view);
 
         mat4 mat_model;
-        for (int i = 0; i < DEMO_POINT_LIGHT_NUM; ++i) {
+        for (int i = 0; draw_light_cubes && i < DEMO_POINT_LIGHT_NUM; ++i) {
                 glm_mat4_identity(mat_model);
                 glm_translate(mat_model, light_positions[i]);
                 ap_shader_set_mat4(cube_shader, "model", mat_model[0]);
