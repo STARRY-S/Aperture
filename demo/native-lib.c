@@ -87,12 +87,14 @@ Java_moe_starrys_game_1engine_GLES3JNILib_creatureMove(JNIEnv *env, jclass clazz
 JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_creatureJump(JNIEnv *env, jclass clazz) {
         ap_creature_jump();
+        return 0;
 }
 
 JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_spotLightStatus(JNIEnv *env, jclass clazz,
                                                           jboolean status) {
         ap_render_set_spot_light_enabled(status);
+        return 0;
 }
 
 #endif
