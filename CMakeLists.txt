@@ -78,6 +78,7 @@ else(ANDROID)
     find_package(ALUT REQUIRED)
     find_package(FFmpeg REQUIRED)
     find_package(Freetype REQUIRED)
+    find_package(SQLite3 REQUIRED)
 
     if (FFmpeg_FOUND)
         include_directories(
@@ -108,10 +109,12 @@ else(ANDROID)
     endif(assimp_FOUND)
 
     if (FREETYPE_FOUND)
-        include_directories(
-            ${FREETYPE_INCLUDE_DIRS}
-        )
+        include_directories(${FREETYPE_INCLUDE_DIRS})
     endif(FREETYPE_FOUND)
+
+    if (SQLite3_FOUND)
+        include_directories(${SQLite3_INCLUDE_DIRS})
+    endif(SQLite3_FOUND)
 endif(ANDROID)
 
 if(ANDROID)
@@ -239,6 +242,7 @@ else(ANDROID)
         ${ALUT_LIBRARIES}
         ${FFmpeg_LIBRARIES}
         ${FREETYPE_LIBRARIES}
+        ${SQLite3_LIBRARIES}
     )
     set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
