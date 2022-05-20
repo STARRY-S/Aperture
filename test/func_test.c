@@ -9,6 +9,7 @@
 #include <pthread.h>
 #include "ap_audio.h"
 #include "ap_decode.h"
+#include "ap_sqlite.h"
 #include <stdlib.h>
 
 void print_vector(struct AP_Vector *vector);
@@ -373,15 +374,17 @@ void test_ap_memory()
 
 void test_audio()
 {
-        // LOGI("start init ap_audio");
-        // ap_audio_init();
+        LOGI("start init ap_audio");
+        ap_audio_init();
 
-        // LOGI("start ap_audio_load_buffer");
-        // unsigned buffer_id = ap_audio_load_buffer_WAV("sound/test.wav");
+        LOGI("start ap_audio_load_buffer");
+        unsigned buffer_id = 0;
+        ap_audio_load_WAV("sound/test.wav", &buffer_id);
 
-        // LOGI("start ap_audio_play_buffer_sync");
+        LOGI("start ap_audio_play_buffer_sync");
         // ap_audio_play_buffer_sync(buffer_id, 0);
-        // LOGI("audio test finished");
+        ap_audio_play(buffer_id, NULL);
+        LOGI("audio test finished");
 }
 
 void test_decode()
@@ -402,4 +405,32 @@ void test_decode()
                         continue;
                 }
         }
+}
+
+void test_sqlite()
+{
+        char *sql = "CREATE TABLE IF NOT EXISTS ap_creatures ( "
+                " ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                " POS_X TEXT, "
+                " POS_Y TEXT, "
+                " POS_Z TEXT, "
+                " VIEW_X TEXT, "
+                " VIEW_Y TEXT, "
+                " VIEW_Z TEXT "
+                " ); ";
+
+        ap_sqlite_init();
+        ap_sqlite_execute(sql, NULL);
+
+        // ap_sqlite_execute(
+        //         "insert into ap_creatures ( "
+        //         " POS_X, POS_Y, POS_Z, VIEW_X, VIEW_Y, VIEW_Z) values ( "
+        //         " '1.0', '1.0', '1.0', '2.0', '2.0', '2.0');"
+        // );
+
+        sql = "select * from ap_creatures";
+        ap_sqlite_execute(sql, NULL);
+
+        ap_sqlite_free();
+
 }

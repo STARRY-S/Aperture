@@ -23,11 +23,13 @@ int main(int argc, char **argv)
 
     // test_audio();
 
-    test_decode();
+    // test_decode();
 
     // test_audio();
 
     // test_ap_decode();
+
+    test_sqlite();
 
     return 0;
 }
