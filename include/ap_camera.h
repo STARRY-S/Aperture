@@ -45,10 +45,11 @@ int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);
 int ap_camera_process_scroll(float y_offset);
 
 int ap_camera_set_position(float x, float y, float z);
-int ap_camera_set_front(float x, float y, float z);
 int ap_camera_set_up(float x, float y, float z);
 int ap_camera_set_yaw(float yaw);
+int ap_camera_get_yaw(float *yaw);
 int ap_camera_set_pitch(float pitch);
+int ap_camera_get_pitch(float *pitch);
 int ap_camera_set_sensitivity(float sensitivity);
 int ap_camera_set_speed(float speed);
 int ap_camera_set_zoom(float zoom);

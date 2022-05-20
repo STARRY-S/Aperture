@@ -64,10 +64,6 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
         camera->position[1] = 0.0f;
         camera->position[2] = 0.0f;
 
-        camera->front[0] = 0.0f;
-        camera->front[1] = 0.0f;
-        camera->front[2] = -1.0f;
-
         camera->right[0] = 0.0f;
         camera->right[0] = 0.0f;
         camera->right[0] = 0.0f;
@@ -76,8 +72,13 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
         camera->up[1] = 1.0f;
         camera->up[2] = 0.0f;
 
-        camera->yaw = -90.0f;
+        // default set camera direction to (1,0,0) (yaw = 0, pitch = 0)
+        camera->front[0] = 1.0f;
+        camera->front[1] = 0.0f;
+        camera->front[2] = 0.0f;
+        camera->yaw = 0.0f;
         camera->pitch = 0.0f;
+
         camera->speed = 1.0f;
         camera->sensitivity = 0.04f;
         camera->zoom = 65.0f;
@@ -312,17 +313,39 @@ int ap_camera_set_position(float x, float y, float z)
         return 0;
 }
 
+#if 0
 int ap_camera_set_front(float x, float y, float z)
 {
         if (camera_using == NULL) {
                 return AP_ERROR_CAMERA_NOT_SET;
         }
 
-        camera_using->front[0] = x;
-        camera_using->front[1] = y;
-        camera_using->front[2] = z;
+        LOGD("set front %.3f, %.3f, %.3f", x, y, z);
+
+        // camera_using->front[0] = x;
+        // camera_using->front[1] = y;
+        // camera_using->front[2] = z;
+
+        vec3 front_yz = { 0, y, z };  // calc pitch
+        vec3 front_xz = { x, 0, z };  // calc yaw
+        vec3 x_dir = {1.0f, 0.0f, 0.0f};
+        vec3 y_dir = {0.0f, 1.0f, 0.0f};
+        vec3 z_dir = {0.0f, 0.0f, 1.0f};
+
+        glm_normalize(front_yz);
+        glm_normalize(front_xz);
+        // PI (rad) equals to 180 (degree)
+        // PI / 180 = 1 RAD / 1 DEG
+        // 1 degree = 1 radius * 180 / PI
+        float yaw = acosf(glm_dot(front_xz, z_dir)) * 180.0f / AP_PI;
+        float pitch = acosf(glm_dot(front_yz, x_dir)) * 180.0f / AP_PI;
+        camera_using->yaw = 0.0;
+        camera_using->pitch = -90.0;
+        ap_camera_update_vectors();
+
         return 0;
 }
+#endif
 
 int ap_camera_set_up(float x, float y, float z)
 {
@@ -343,6 +366,17 @@ int ap_camera_set_yaw(float yaw)
         }
 
         camera_using->yaw = yaw;
+        ap_camera_update_vectors();
+        return 0;
+}
+
+int ap_camera_get_yaw(float *yaw)
+{
+        if (!yaw || !camera_using) {
+                return yaw ? AP_ERROR_INVALID_PARAMETER
+                        : AP_ERROR_CAMERA_NOT_SET;
+        }
+        *yaw = camera_using->yaw;
         return 0;
 }
 
@@ -353,6 +387,17 @@ int ap_camera_set_pitch(float pitch)
         }
 
         camera_using->pitch = pitch;
+        ap_camera_update_vectors();
+        return 0;
+}
+
+int ap_camera_get_pitch(float *pitch)
+{
+        if (!pitch || !camera_using) {
+                return pitch ? AP_ERROR_INVALID_PARAMETER
+                        : AP_ERROR_CAMERA_NOT_SET;
+        }
+        *pitch = camera_using->pitch;
         return 0;
 }
 
@@ -393,5 +438,8 @@ struct AP_Camera* ap_get_current_camera()
 
 unsigned int ap_get_current_camera_id()
 {
+        if (camera_using == NULL) {
+                return 0;
+        }
         return camera_using->id;
 }

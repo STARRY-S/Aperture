@@ -15,6 +15,7 @@
 #include "ap_light.h"
 #include "ap_physic.h"
 #include "ap_math.h"
+#include "ap_sqlite.h"
 
 struct AP_Renderer {
         float fps;      // frame per second
@@ -75,6 +76,7 @@ int ap_render_general_initialize()
         // setup startup time
         ap_get_time();
         ap_physic_init();
+        ap_sqlite_init();
 
 #if AP_PLATFORM_ANDROID
         // init for android
