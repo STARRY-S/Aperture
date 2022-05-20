@@ -151,8 +151,7 @@ vec3 calc_dir_light(DirectLight light, vec3 normal, vec3 viewDir)
 // calculates the color when using a point light.
 vec3 calc_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
-    if (light.constant == 0.0 && light.linear == 0.0
-        && light.quadratic == 0.0)
+    if (light.constant == 0.0 && light.linear == 0.0 && light.quadratic == 0.0)
     {
         return vec3(0.0);
     }
