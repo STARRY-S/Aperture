@@ -112,8 +112,8 @@ int main(int argc, char **argv)
                 glfwPollEvents();
         }
 
-        ap_render_finish();
         demo_finished();
+        ap_render_finish();
         glfwTerminate();
         return 0;
 }

@@ -1,5 +1,7 @@
 #include "demo_utils.h"
 #include "demo_light.h"
+#include "demo_database.h"
+
 #include "ap_utils.h"
 #include "ap_render.h"
 #include "ap_model.h"
@@ -10,6 +12,7 @@
 #include "ap_audio.h"
 #include "ap_physic.h"
 #include "ap_math.h"
+#include "ap_sqlite.h"
 
 #ifndef MODEL_FILE_NAME
 #define MODEL_FILE_NAME "mc/mc-game.obj"
@@ -56,6 +59,7 @@ int demo_init()
         ap_render_general_initialize();
         ap_audio_init();
         demo_setup_light();
+        demo_setup_database();
         ap_render_init_font(DEMO_FONT_PATH, 42);
         // init model
         AP_CHECK(ap_model_generate(MODEL_FILE_NAME, &model_id));
@@ -66,10 +70,17 @@ int demo_init()
         ap_v3_set(tmp, 0.8f, 1.8f, 0.8f);
         AP_CHECK( ap_physic_generate_creature(&creature_id, tmp) );
         ap_creature_use(creature_id);
-        ap_v3_set(tmp, 0.f, 0.f, 0.f);
-        ap_creature_set_pos(tmp);
         ap_v3_set(tmp, 0.f, 1.f, 0.f);
         ap_creature_set_camera_offset(tmp);
+
+#if !AP_PLATFORM_ANDROID
+        ap_creature_set_pos(db_restore_creature_pos);
+        ap_camera_set_yaw(db_restore_creature_euler[0]);
+        ap_camera_set_pitch(db_restore_creature_euler[1]);
+#else
+        ap_v3_set(tmp, 0.f, 0.f, 0.f);
+        ap_creature_set_pos(tmp);
+#endif
 
         ap_physic_get_creature_ptr(creature_id, &player);
         if (player == NULL || creature_id == 0) {
@@ -118,17 +129,17 @@ int demo_init()
         ap_render_set_aim_dot(4, aim_color);
 
         int view_distance = 16 * 10;
-        bool enable_mobile_type = false;
 #if AP_PLATFORM_ANDROID
-        int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
-        switch (iMobileType) {
-                case AP_MOBILE_GOOGLE:
-                case AP_MOBILE_X86:
-                enable_mobile_type = false;
-                break;
-                default:
-                enable_mobile_type = true;
-        }
+        // bool enable_mobile_type = false;
+        // int iMobileType = ap_get_mobile_type(ap_get_mobile_name());
+        // switch (iMobileType) {
+        //         case AP_MOBILE_GOOGLE:
+        //         case AP_MOBILE_X86:
+        //         enable_mobile_type = false;
+        //         break;
+        //         default:
+        //         enable_mobile_type = true;
+        // }
         view_distance = 16 * 6;
         // Do not calculate point lights in Android platform
         // FIXME: point calculate consumes a huge amount of performance
@@ -231,6 +242,15 @@ int demo_render()
 
 int demo_finished()
 {
+        vec3 pos = {0}, front = {0};
+        ap_v3_set(pos, player->box.pos[0], player->box.pos[1],
+                player->box.pos[2]);
+        ap_camera_use(player->camera_id);
+        ap_camera_get_front(front);
+        vec2 euler = {0};
+        ap_camera_get_yaw(&euler[0]);
+        ap_camera_get_pitch(&euler[1]);
+        demo_save_database(pos, euler);
         glDeleteVertexArrays(1, &light_cube_VAO);
 
         return 0;

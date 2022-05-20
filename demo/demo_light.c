@@ -12,7 +12,7 @@ vec3 point_light_specular = { 0.2f, 0.2f, 0.2f };
 
 vec3 dir_light_direction = { -1.0f, -1.0f, -0.0f };
 #if AP_PLATFORM_ANDROID
-vec3 dir_light_ambient   = { 0.43f, 0.4f,  0.42f };
+vec3 dir_light_ambient   = { 0.53f, 0.5f,  0.52f };
 #else
 vec3 dir_light_ambient   = { 0.23f, 0.2f,  0.22f };
 #endif
