@@ -79,6 +79,7 @@ else(ANDROID)
     find_package(FFmpeg REQUIRED)
     find_package(Freetype REQUIRED)
     find_package(SQLite3 REQUIRED)
+    find_package(CURL REQUIRED)
 
     if (FFmpeg_FOUND)
         include_directories(
@@ -115,6 +116,10 @@ else(ANDROID)
     if (SQLite3_FOUND)
         include_directories(${SQLite3_INCLUDE_DIRS})
     endif(SQLite3_FOUND)
+
+    if (CURL_FOUND)
+        include_directories(${CURL_INCLUDE_DIRS})
+    endif(CURL_FOUND)
 endif(ANDROID)
 
 if(ANDROID)
@@ -124,6 +129,7 @@ if(ANDROID)
         ${APERTURE_SRC_DIR}
         "demo/demo_utils.c"
         "demo/demo_light.c"
+        "demo/demo_database.c"
         "demo/native-lib.c"
     )
 else(ANDROID)
@@ -232,17 +238,12 @@ else(ANDROID)
     )
     set_target_properties("test" PROPERTIES LINKER_LANGUAGE C)
 
-    # link librarys to libaperture
-    target_link_libraries(
-        "aperture"
-        ${OPENGL_gl_LIBRARY}
-        glfw
-        ${ASSIMP_LIB}
-        ${OPENAL_LIBRARY}
-        ${ALUT_LIBRARIES}
+    # link librarys to libapert
+        ap_camera_use(player->camera_id);
         ${FFmpeg_LIBRARIES}
         ${FREETYPE_LIBRARIES}
         ${SQLite3_LIBRARIES}
+        ${CURL_LIBRARIES}
     )
     set_target_properties("aperture" PROPERTIES LINKER_LANGUAGE C)
 
