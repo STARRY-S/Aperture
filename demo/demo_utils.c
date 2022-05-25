@@ -102,13 +102,33 @@ int demo_init()
         ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
 
         // generate four pillar barriers
-        vec3 pillar_poss[4] = {
-                { 0.0f, 2.0f, -5.0f },
-                { 0.0f, 2.0f, 5.0f },
-                { 5.0f, 2.0f, 0.0f },
-                { -5.0f, 2.0f, 0.0f }
+        vec3 pillar_poss[] = {
+                {   0.f, 2.f,  -5.f },
+                {   0.f, 2.f,   5.f },
+                {   5.f, 2.f,   0.f },
+                {  -5.f, 2.f,   0.f },
+                { -28.f, 2.f,  -6.f },
+                { -33.f, 2.f, -10.f },
+                { -29.f, 2.f, -15.f },
+                { -28.f, 2.f, -20.f },
+                { -28.f, 2.f, -25.f },
+                { -28.f, 2.f, -28.f },
+                { -28.f, 2.f, -32.f },
+                { -28.f, 2.f, -38.f },
+                { -27.f, 2.f, -41.f },
+                {  13.f, 2.f, -40.f },
+                {  23.f, 2.f, -41.f },
+                {  39.f, 2.f, -32.f },
+                {  20.f, 2.f, -28.f },
+                {  33.f, 2.f, -16.f },
+                {  40.f, 2.f,   3.f },
+                {  15.f, 2.f,  12.f },
+                {  29.f, 2.f,  46.f },
+                {  36.f, 2.f,  46.f },
+                { -30.f, 2.f, -10.f },
+                {  33.f, 2.f,  19.f }
         };
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < (sizeof(pillar_poss) / VEC3_SIZE); ++i) {
                 ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
                 ap_v3_set(tmp, 1.f, 4.f, 1.f);
                 ap_barrier_set_size(barrier_id, tmp);
@@ -122,6 +142,60 @@ int demo_init()
         ap_v3_set(tmp, 11.f, 0.5f, -2.f);
         ap_barrier_set_pos(barrier_id, tmp);
         ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        // house left wall
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        ap_v3_set(tmp, 13.0f, 4.0f, 1.0f);
+        ap_barrier_set_size(barrier_id, tmp);
+        ap_v3_set(tmp, -8.f, 2.f, -32.f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        // house back wall
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        ap_v3_set(tmp, 1.0f, 4.0f, 16.0f);
+        ap_barrier_set_size(barrier_id, tmp);
+        ap_v3_set(tmp, -16.f, 2.f, -24.f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        // house right wall
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        ap_v3_set(tmp, 1.0f, 4.0f, 16.0f);
+        ap_barrier_set_size(barrier_id, tmp);
+        ap_v3_set(tmp, -1.f, 2.f, -24.5f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        // house front wall
+        ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+        ap_v3_set(tmp, 11.0f, 4.0f, 1.0f);
+        ap_barrier_set_size(barrier_id, tmp);
+        ap_v3_set(tmp, -7.f, 2.f, -17.f);
+        ap_barrier_set_pos(barrier_id, tmp);
+        ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+
+        vec3 blocks[] = {
+                { -7.f, 0.5f, -30.f },
+                { -7.f, 0.5f, -31.f },
+                { -6.f, 1.5f, -30.f },
+                { -6.f, 1.5f, -31.f },
+                { -5.f, 2.5f, -30.f },
+                { -5.f, 2.5f, -31.f },
+                { -4.f, 3.5f, -30.f },
+                { -4.f, 3.5f, -31.f },
+                { -3.f, 4.5f, -30.f },
+                { -3.f, 4.5f, -31.f },
+                { -2.f, 4.5f, -30.f },
+                { -2.f, 4.5f, -31.f }
+        };
+        for (int i = 0; i < (sizeof(blocks) / VEC3_SIZE); ++i) {
+                ap_physic_generate_barrier(&barrier_id, AP_BARRIER_TYPE_BOX);
+                ap_v3_set(tmp, 1.f, 1.f, 1.f);
+                ap_barrier_set_size(barrier_id, tmp);
+                ap_barrier_set_pos(barrier_id, blocks[i]);
+                ap_vector_push_back(&barrier_id_vector, (char*) &barrier_id);
+        }
 
         vec4 aim_color = { 1.0f, 1.0f, 1.0f, 0.5f };
         ap_render_set_aim_cross(40, 2, aim_color);
