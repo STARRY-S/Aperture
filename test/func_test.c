@@ -143,7 +143,7 @@ void test_vector_char()
 
         print_vector(vector);
 
-        LOGI("Push data a - g into vector");
+        LOGI("Push data a - z into vector");
         ap_vector_insert_back(vector, "abcdefghijklmnopqrstuvwxyz", 26);
         LOGI("Push finished");
 
@@ -291,23 +291,30 @@ void test_vector_int()
 
 void test_ap_memory()
 {
+        LOGI("-------AP_MALLOC test-------");
+        LOGI("Malloc memory on heap, write data into it.");
         char *str = AP_MALLOC(10 * sizeof(char));
-        strcpy(str, "hello");
-        LOGI("%s", str);
+        strcpy(str, "ABCDEFG");
+        LOGI("Data: %s", str);
         // print_vector(vector);
 
+        LOGI("-------AP_REALLOC test-------");
         str = AP_REALLOC(str, 20 * sizeof(char));
-        LOGI("%s", str);
+        LOGI("Realloc memory, add more data:");
+        strcpy(str, "ABCDEFGHIJKLMN");
+        LOGI("Data: %s", str);
         // print_vector(vector);
 
         char *str2 = AP_MALLOC(10);
         // print_vector(vector);
 
+        LOGI("-------AP_FREE test-------");
         AP_FREE(str);
         // print_vector(vector);
 
         AP_FREE(str2);
         // print_vector(vector);
+        ap_memory_release();
 
         return;
 }
@@ -381,9 +388,13 @@ void test_audio()
         unsigned buffer_id = 0;
         ap_audio_load_WAV("sound/test.wav", &buffer_id);
 
-        LOGI("start ap_audio_play_buffer_sync");
-        // ap_audio_play_buffer_sync(buffer_id, 0);
+        LOGI("start ap_audio_play");
+        LOGI("Playing: sound/test.wav");
         ap_audio_play(buffer_id, NULL);
+        sleep(5);
+
+        LOGI("start free ap_audio");
+        // ap_audio_free();
         LOGI("audio test finished");
 }
 
@@ -409,18 +420,21 @@ void test_decode()
 
 void test_sqlite()
 {
-        char *sql = "CREATE TABLE IF NOT EXISTS ap_creatures ( "
-                " ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                " POS_X TEXT, "
-                " POS_Y TEXT, "
-                " POS_Z TEXT, "
-                " VIEW_X TEXT, "
-                " VIEW_Y TEXT, "
-                " VIEW_Z TEXT "
-                " ); ";
+        LOGI("start sqlite3 test:");
+        char *sql = "CREATE TABLE IF NOT EXISTS ap_creatures ( \n"
+                " ID INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                " POS_X TEXT, \n"
+                " POS_Y TEXT, \n"
+                " POS_Z TEXT, \n"
+                " YAW TEXT, \n"
+                " PITCH TEXT \n"
+                " ); \n";
 
+        LOGI("start init sqlite database");
         ap_sqlite_init();
+        LOGI("start execute SQL: \n%s", sql);
         ap_sqlite_execute(sql, NULL);
+        LOGI("SQL execute finished");
 
         // ap_sqlite_execute(
         //         "insert into ap_creatures ( "
@@ -429,8 +443,12 @@ void test_sqlite()
         // );
 
         sql = "select * from ap_creatures";
+        LOGI("start execute SQL: \n%s", sql);
         ap_sqlite_execute(sql, NULL);
+        LOGI("SQL execute finished");
 
+        LOGI("start free sqlite:");
         ap_sqlite_free();
+        LOGI("sqlite free finished");
 
 }
