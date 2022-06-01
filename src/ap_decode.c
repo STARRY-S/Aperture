@@ -153,14 +153,34 @@ static int ap_decode_audio(
         *format = 0;
         *frequency = 0.0f;
         *channels = 0;
+        int ret = 0;
 
 #if AP_PLATFORM_ANDROID
-        // TODO: add custom IO for ffmpeg on android platform
-        LOGW("ap_decode_audio: not supported on android yet");
-        return AP_ERROR_DECODE_FAILED;
+        AAssetManager *pLocalAssetManager =
+                (AAssetManager *) ap_get_asset_manager();
+        if (!pLocalAssetManager) {
+                LOGE("pLocalAssetManager is NULL, failed to read file.");
+                return 0;
+        }
+        AAsset *mAsset = NULL;
+        mAsset = AAssetManager_open(
+                pLocalAssetManager,
+                input_file,
+                AASSET_MODE_UNKNOWN
+        );
+        if (mAsset == NULL) {
+                LOGE("failed to open: %s", input_file);
+                return 0;
+        }
+        off_t offset, length;
+        int fd = AAsset_openFileDescriptor(mAsset, &offset, &length);
+        AAsset_close(mAsset);
+        char path[AP_DEFAULT_BUFFER_SIZE] = {0};
+        sprintf(path, "/proc/self/fd/%d", fd);
+        ret = avformat_open_input(&fmt_ctx, path, NULL, NULL);
+#else
+        ret = avformat_open_input(&fmt_ctx, input_file, NULL, NULL);
 #endif
-
-        int ret = avformat_open_input(&fmt_ctx, input_file, NULL, NULL);
         if (ap_decode_check_avcodec("avformat_open_input", ret) < 0) {
                 return AP_ERROR_DECODE_FAILED;
         }
@@ -247,7 +267,12 @@ static int ap_decode_audio(
         ap_decode_frame_packet(cdc_ctx, frame, NULL, fp_out, out_vec);
 
         *format = ap_audio_fmt_av_2_ap(cdc_ctx->sample_fmt, fmt);
+// FIXME: frequency in Android is wrong
+#if AP_PLATFORM_ANDROID
+        *frequency = 44100.f;
+#else
         *frequency = (float) cdc_ctx->sample_rate;
+#endif
         *channels = cdc_ctx->channels;
         LOGD("decoded audio: %s\n\tsamplerate: %d, channel %d, size: %.2lfM",
                 input_file, cdc_ctx->sample_rate, cdc_ctx->channels,
@@ -262,6 +287,9 @@ static int ap_decode_audio(
                 fclose(fp_out);
         }
         ap_decode_audio_exit(frame, packet, cdc_ctx, fmt_ctx);
+#if AP_PLATFORM_ANDROID
+        close(fd);
+#endif
         return 0;
 }
 
