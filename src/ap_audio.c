@@ -561,7 +561,7 @@ static inline struct AP_Audio* ap_audio_get_ptr(unsigned int id)
         return NULL;
 }
 
-int ap_audio_load_MP3(const char *name, unsigned int *id)
+int ap_audio_load_mp3(const char *name, unsigned int *id)
 {
         if (id == NULL) {
                 return AP_ERROR_INVALID_PARAMETER;
@@ -587,7 +587,7 @@ int ap_audio_load_MP3(const char *name, unsigned int *id)
         return ret;
 }
 
-int ap_audio_load_WAV(const char *name, unsigned int *id)
+int ap_audio_load_wav(const char *name, unsigned int *id)
 {
         if (id == NULL) {
                 return AP_ERROR_INVALID_PARAMETER;

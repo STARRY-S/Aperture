@@ -386,7 +386,7 @@ void test_audio()
 
         LOGI("start ap_audio_load_buffer");
         unsigned buffer_id = 0;
-        ap_audio_load_WAV("sound/test.wav", &buffer_id);
+        ap_audio_load_wav("sound/test.wav", &buffer_id);
 
         LOGI("start ap_audio_play");
         LOGI("Playing: sound/test.wav");
@@ -407,7 +407,7 @@ void test_decode()
         AP_CHECK(ret);
 
         unsigned int id = 0;
-        ret = ap_audio_load_MP3("sound/c418-haggstorm.mp3", &id);
+        ret = ap_audio_load_mp3("sound/c418-haggstorm.mp3", &id);
         AP_CHECK(ret);
         LOGI("audio id: %u", id);
         if (id > 0) {

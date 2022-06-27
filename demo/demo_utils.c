@@ -227,7 +227,7 @@ int demo_init()
         ap_render_set_view_distance(view_distance);
 
         unsigned int audio_id = 0;
-        ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
+        ap_audio_load_mp3("sound/c418-haggstorm.mp3", &audio_id);
         if (audio_id > 0) {
                 ap_audio_play(audio_id, NULL);
         }

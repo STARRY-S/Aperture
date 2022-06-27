@@ -65,9 +65,9 @@ int ap_audio_init();
  */
 int ap_audio_free();
 
-int ap_audio_load_MP3(const char *name, unsigned int *id);
+int ap_audio_load_mp3(const char *name, unsigned int *id);
 
-int ap_audio_load_WAV(const char *name, unsigned int *id);
+int ap_audio_load_wav(const char *name, unsigned int *id);
 
 int ap_audio_play(unsigned int id, ap_callback_func_t cb);
 
