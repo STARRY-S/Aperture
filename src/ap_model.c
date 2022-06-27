@@ -515,7 +515,7 @@ struct AP_Vector *ap_model_load_material_textures(
                 }
         }
 
-        struct aiColor4D ai_color = { 0.f, 0.f, 0.f, 0.0f };
+        struct aiColor4D ai_color = { 0.f, 0.f, 0.f, 0.f };
         if (ap_type == AP_TEXTURE_TYPE_DIFFUSE) {
                 aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &ai_color);
         } else if (ap_type == AP_TEXTURE_TYPE_SPECULAR) {
@@ -529,9 +529,9 @@ struct AP_Vector *ap_model_load_material_textures(
         unsigned int id = 0;
         vec4 color = { 0.0f };
         memcpy(color, &ai_color, sizeof(float) * 4);
-        struct AP_Texture *ptr = ap_texture_get_ptr_by_RGBA(color);
+        struct AP_Texture *ptr = ap_texture_get_ptr_by_rgba(color);
         if (ptr == NULL) {
-                ap_texture_generate_RGBA(
+                ap_texture_generate_rgba(
                         &id, color, 16, AP_TEXTURE_TYPE_DIFFUSE
                 );
                 ptr = ap_texture_get_ptr(id);

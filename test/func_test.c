@@ -490,5 +490,7 @@ void test_model_load()
         ap_model_generate("mc/mc-game.obj", &model_id);
         LOGI("generated model id %u", model_id);
         sleep(1);
-        ap_render_finish();
+        ap_model_free();
+        ap_texture_free();
+        ap_memory_release();
 }
