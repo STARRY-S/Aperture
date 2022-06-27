@@ -29,7 +29,9 @@ int main(int argc, char **argv)
 
     // test_ap_decode();
 
-    test_sqlite();
+    // test_sqlite();
+
+    test_model_load();
 
     return 0;
 }

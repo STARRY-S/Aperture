@@ -13,5 +13,6 @@ void test_model_async();
 void test_audio();
 void test_decode();
 void test_sqlite();
+void test_model_load();
 
 #endif

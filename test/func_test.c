@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <unistd.h>
+
 #include "func_test.h"
 #include "ap_cvector.h"
 #include "ap_vertex.h"
@@ -10,7 +13,7 @@
 #include "ap_audio.h"
 #include "ap_decode.h"
 #include "ap_sqlite.h"
-#include <stdlib.h>
+#include "ap_render.h"
 
 void print_vector(struct AP_Vector *vector);
 void print_vertex(struct AP_Vertex *pVertex);
@@ -391,7 +394,7 @@ void test_audio()
         LOGI("start ap_audio_play");
         LOGI("Playing: sound/test.wav");
         ap_audio_play(buffer_id, NULL);
-        // sleep(5);
+        sleep(5);
 
         LOGI("start free ap_audio");
         // ap_audio_free();
@@ -451,4 +454,41 @@ void test_sqlite()
         ap_sqlite_free();
         LOGI("sqlite free finished");
 
+}
+
+void test_model_load()
+{
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+        #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        #endif
+
+        glfwWindowHint( GLFW_VISIBLE, GL_TRUE );
+        GLFWwindow* window = NULL;
+        window = glfwCreateWindow(400, 400, "test", NULL, NULL);
+        if (window == NULL)
+        {
+                LOGE("Failed to create GLFW window.");
+                glfwTerminate();
+                return;
+        }
+
+        glfwMakeContextCurrent(window);
+        ap_set_context_ptr(window);
+
+        if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
+        {
+                LOGE("failed to init GLAD");
+                return;
+        }
+
+        unsigned int model_id = 0;
+        ap_model_generate("mc/mc-game.obj", &model_id);
+        LOGI("generated model id %u", model_id);
+        sleep(1);
+        ap_render_finish();
 }
