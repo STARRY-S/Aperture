@@ -37,7 +37,7 @@ int ap_texture_generate(
         return 0;
 }
 
-int ap_texture_generate_RGBA(
+int ap_texture_generate_rgba(
         unsigned int *texture_id,
         float color[4],
         int size,
@@ -107,10 +107,10 @@ struct AP_Texture *ap_texture_get_ptr_by_path(const char *path)
         return NULL;
 }
 
-struct AP_Texture *ap_texture_get_ptr_by_RGBA(float color[4])
+struct AP_Texture *ap_texture_get_ptr_by_rgba(float color[4])
 {
         if (color == NULL || texture_vector.data == NULL) {
-                LOGE("ap_texture_get_ptr_by_RGBA: INVALID PARAM");
+                LOGE("ap_texture_get_ptr_by_rgba: INVALID PARAM");
                 return NULL;
         }
 

@@ -69,7 +69,7 @@ int ap_texture_generate(
  * @param type
  * @return int
  */
-int ap_texture_generate_RGBA(
+int ap_texture_generate_rgba(
         unsigned int *texture_id,
         float color[4],
         int size,
@@ -87,7 +87,7 @@ struct AP_Texture *ap_texture_get_ptr_by_path(const char *path);
 /**
  * @see ap_texture_get_ptr_by_path
  */
-struct AP_Texture *ap_texture_get_ptr_by_RGBA(float color[4]);
+struct AP_Texture *ap_texture_get_ptr_by_rgba(float color[4]);
 
 /**
  * @brief Get the pointer of struct AP_Texture by OpenGL texture ID
