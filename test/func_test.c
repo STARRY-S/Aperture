@@ -176,7 +176,7 @@ void test_vector_float()
         LOGI("Finished init vector");
 
         LOGI("Push data 1.0f - 10.0f into vector");
-        for (float f = 1.0f; (11.0f - f ) > 0.001f ; f += 1.0f) {
+        for (float f = 1.0f; (11.0f - f) > 0.001f ; f += 1.0f) {
                 ap_vector_push_back(vector, (char*) &f);
         }
         LOGI("Push finished");
@@ -391,7 +391,7 @@ void test_audio()
         LOGI("start ap_audio_play");
         LOGI("Playing: sound/test.wav");
         ap_audio_play(buffer_id, NULL);
-        sleep(5);
+        // sleep(5);
 
         LOGI("start free ap_audio");
         // ap_audio_free();

@@ -50,6 +50,12 @@ int ap_model_use(unsigned int id);
  */
 int ap_model_draw();
 
+/**
+ * @brief Set parameters of current model
+ *
+ * @param float[3]
+ * @return int
+ */
 int ap_model_set_scale(float scale[3]);
 int ap_model_set_pos(float pos[3]);
 int ap_model_set_rotate(float axis[3], float angle);

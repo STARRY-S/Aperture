@@ -122,4 +122,9 @@ static inline double ap_c2d(const char *num)
         return negative ? -ret : ret;
 }
 
+static inline int ap_equalf(float a, float b)
+{
+        return ((a - b) < 0.0001 && (a - b) > -0.0001);
+}
+
 #endif  // AP_MATH_H

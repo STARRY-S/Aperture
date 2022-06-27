@@ -1,18 +1,18 @@
 #ifndef AP_SHADER_H
 #define AP_SHADER_H
 
+#if AP_PLATFORM_ANDROID
+#include <GLES3/gl3.h>
+#else
+#include "glad/glad.h"
+#endif
+
 /**
  * Defination of Aperture built in GLSL (uniform) shader variable names
  * Apertrue Shader Perspective:  AP_SP_<NAME>
  *                               AP_SP_<STRUCT>_<NAME>
  * Aperture Shader Orthographic: AP_SO_<NAME>
  */
-
-#if AP_PLATFORM_ANDROID
-#include <GLES3/gl3.h>
-#else
-#include "glad/glad.h"
-#endif
 
 // Perspective vertex shader uniform variables
 #define AP_SP_MODEL             "model"
@@ -71,7 +71,7 @@
 #define AP_SO_TEXTURE_NUM       "texture_num"
 
 /**
- * @brief Generate a openGL program with shader
+ * @brief Generate a OpenGL program with shader
  * @param vshader_path path to vertex shader
  * @param fshader_path path to fragment shader
  * @param shader_id [out] (shader) program ID

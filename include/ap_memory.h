@@ -7,10 +7,18 @@ void AP_FREE(void* ptr);
 
 void* AP_REALLOC(void *ptr, int size);
 
+/**
+ * @brief Get the number of unreleased pointers.
+ *
+ * @return int - the number of unreleased pointers.
+ */
 int ap_memory_unreleased_num();
 
-int ap_memory_print_unreleased();
-
+/**
+ * @brief Release all of the pointers
+ *
+ * @return int AP_Types
+ */
 int ap_memory_release();
 
 #endif

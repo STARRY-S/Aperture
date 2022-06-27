@@ -12,3 +12,9 @@ Dependencies
 
 - [GLAD](https://github.com/dav1dde/glad-web)
   Use GLAD [website](https://glad.dav1d.de/) to generate GL header files.
+
+- [FFMpeg](https://ffmpeg.org/about.html)
+
+- [OpenAL](https://www.openal.org/documentation/)
+
+- [FreeALUT](https://www.openal.org/)

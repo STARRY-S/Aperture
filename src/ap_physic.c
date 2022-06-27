@@ -19,6 +19,13 @@ static int ap_creature_process_barrier_ptr(
         struct AP_PCreature *creature,
         struct AP_PBarrier *barrier,
         bool *on_top);
+/**
+ * @brief Update creature by its ID
+ *
+ * @param id
+ * @return int
+ */
+static int ap_physic_update_creature_id(unsigned int id);
 
 struct AP_Vector creature_vector = { 0, 0, 0, 0 };
 struct AP_Vector barrier_vector  = { 0, 0, 0, 0 };
@@ -111,7 +118,7 @@ int ap_physic_get_creature_ptr(
         return 0;
 }
 
-int ap_physic_update_creature_id(unsigned int id)
+static int ap_physic_update_creature_id(unsigned int id)
 {
         struct AP_PCreature *ptr = NULL;
         ap_physic_get_creature_ptr(id, &ptr);
@@ -170,6 +177,7 @@ int ap_physic_update_creature_ptr(struct AP_PCreature *ptr)
 
         ap_creature_process_barrier();
 
+        // TODO: move this part to demo
         if (creature_using->box.pos[1] < -64.0f) {
                 creature_using->move.speed[1] = 0.0f;
                 creature_using->box.pos[0] = creature_using->box.pos[2] = 0.0f;

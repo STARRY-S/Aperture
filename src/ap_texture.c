@@ -1,6 +1,7 @@
 #include "ap_texture.h"
 #include "ap_utils.h"
 #include "ap_cvector.h"
+#include "ap_math.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -111,10 +112,10 @@ struct AP_Texture *ap_texture_get_ptr_by_RGBA(float color[4])
 
         struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
         for (int i = 0; i < texture_vector.length; ++i) {
-                if (EQUAL(color[0], ptr[i].RGBA[0])
-                   && EQUAL(color[1], ptr[i].RGBA[1])
-                   && EQUAL(color[2], ptr[i].RGBA[2])
-                   && EQUAL(color[3], ptr[i].RGBA[3]) )
+                if (ap_equalf(color[0], ptr[i].RGBA[0])
+                   && ap_equalf(color[1], ptr[i].RGBA[1])
+                   && ap_equalf(color[2], ptr[i].RGBA[2])
+                   && ap_equalf(color[3], ptr[i].RGBA[3]))
                 {
                         return ptr + i;
                 }
@@ -341,11 +342,11 @@ int ap_texture_set_path(struct AP_Texture *texture, const char *pathName)
         }
 
         if (texture->path != NULL) {
-                LOGD("Try to AP_FREE old texture path pointer: 0X%p", texture);
+                LOGD("free old texture path pointer: 0X%p", texture->path);
                 AP_FREE(texture->path);
                 texture->path = NULL;
         }
-        texture->path = AP_MALLOC(sizeof(char) * (strlen(pathName) + 1) );
+        texture->path = AP_MALLOC(sizeof(char) * (strlen(pathName) + 1));
         strcpy(texture->path, pathName);
         return 0;
 }

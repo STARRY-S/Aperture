@@ -22,6 +22,9 @@ typedef enum {
         AP_DIRECTION_LENGTH
 } AP_Physic_directions;
 
+/**
+ * @brief Creature modes
+ */
 typedef enum {
         AP_CREATURE_MODE_UNKNOW = 0,
         AP_CREATURE_MODE_SURVIVAL,
@@ -73,8 +76,8 @@ struct AP_PBarrier {
 
 /**
  * Creature, such as human, animals etc...
- * Each creature have one pair of eyes,
- * and use Box as collistion detection
+ * Each creature have eyes,
+ * and use AP_PBox for collistion detection calculation
  */
 struct AP_PCreature {
         unsigned int id;        // creature id
@@ -92,17 +95,15 @@ struct AP_PCreature {
 
 int ap_physic_init();
 
-int ap_physic_generate_creature(unsigned int *id, float size[3]);
-
-int ap_creature_set_camera_offset(float offset[3]);
-
 /**
  * @brief generate one creature struct object
  *
  * @param id [out] creature id
  * @return int AP_Types
  */
-int ap_physic_update_creature_id(unsigned int id);
+int ap_physic_generate_creature(unsigned int *id, float size[3]);
+
+int ap_creature_set_camera_offset(float offset[3]);
 
 /**
  * @brief Get the pointer points to struct AP_PCreature
@@ -113,6 +114,11 @@ int ap_physic_update_creature_id(unsigned int id);
  */
 int ap_physic_get_creature_ptr(unsigned int id, struct AP_PCreature **ptr);
 
+/**
+ * @brief Update all generated creature status
+ *
+ * @return int
+ */
 int ap_physic_update_creature();
 
 int ap_creature_use(unsigned int id);

@@ -119,15 +119,6 @@ int ap_memory_unreleased_num()
         return pointer_vector.length;
 }
 
-int ap_memory_print_unreleased()
-{
-        char **ptr_arr = (char**) pointer_vector.data;
-        for (int i = 0; i < pointer_vector.length; ++i) {
-                LOGI("ap_memory: unreleased ptr %p", ptr_arr[i]);
-        }
-        return 0;
-}
-
 int ap_memory_release()
 {
         LOGI("ap_memory: there are %d pointers unreleased",

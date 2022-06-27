@@ -77,7 +77,7 @@ int main(int argc, char **argv)
         }
 
         glfwSetWindowPos(window, (mode->width - SCREEN_WIDTH) / 2,
-                        (mode->height - SCREEN_HEIGHT) / 2 );
+                        (mode->height - SCREEN_HEIGHT) / 2);
         glfwMakeContextCurrent(window);
         ap_set_context_ptr(window);
         // init game engine

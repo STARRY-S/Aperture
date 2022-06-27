@@ -10,11 +10,6 @@
  */
 #define AP_TEXTURE_UNIT_MAX_NUM 4
 
-static inline int EQUAL(float a, float b)
-{
-        return ((a - b) < 0.001 && (a - b) > -0.001);
-}
-
 typedef enum {
         AP_TEXTURE_TYPE_UNKNOWN = 0,
         AP_TEXTURE_TYPE_DIFFUSE = 0x1001,       // texture_diffuse

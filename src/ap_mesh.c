@@ -9,11 +9,11 @@
 #include "ap_vertex.h"
 
 /**
- * private, setup mesh, generate GL buffers.
+ * private, generate GL buffers of the mesh.
  * @param mesh
  * @return AP_Types
  */
-int ap_mesh_setup(struct AP_Mesh *mesh);
+static int ap_mesh_setup(struct AP_Mesh *mesh);
 
 int ap_mesh_init(
         struct AP_Mesh *mesh,
@@ -140,7 +140,7 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
         return 0;
 }
 
-int ap_mesh_setup(struct AP_Mesh *mesh)
+static int ap_mesh_setup(struct AP_Mesh *mesh)
 {
         if (!mesh) {
                 return AP_ERROR_INVALID_POINTER;

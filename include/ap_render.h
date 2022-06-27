@@ -165,7 +165,7 @@ int ap_render_set_optimize_zconflict(bool b);
  * The tex num 0 is used for GL_RED format image,
  * and it is used for rendering shapes (font, aiming point...)
  *
- * The tex num 1 is used for GL_REBA format image,
+ * The tex num 1 is used for GL_RGBA format image,
  * it is used for rendering common images.
  * @return int
  */
