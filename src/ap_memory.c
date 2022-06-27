@@ -123,11 +123,11 @@ int ap_memory_release()
 {
         LOGI("ap_memory: there are %d pointers unreleased",
                 ap_memory_unreleased_num());
-        char **ptr_arr = (char**) pointer_vector.data;
-        for (int i = 0; i < pointer_vector.length; ++i) {
-                AP_FREE(ptr_arr[i]);
+        while (pointer_vector.length) {
+                char **ptr_arr = (char**) pointer_vector.data;
+                AP_FREE(ptr_arr[0]);
         }
         free(pointer_vector.data);
-        LOGI("ap_memory: all memory released");
+        LOGI("ap_memory: all memory released, %d", pointer_vector.length);
         return 0;
 }
