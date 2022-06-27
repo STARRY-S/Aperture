@@ -89,8 +89,12 @@ struct AP_Texture *ap_texture_get_ptr(unsigned int id)
 
 struct AP_Texture *ap_texture_get_ptr_by_path(const char *path)
 {
-        if (path == NULL || texture_vector.data == NULL) {
+        if (path == NULL) {
                 LOGE("ap_texture_get_ptr_by_path: INVALID PARAM");
+                return NULL;
+        }
+
+        if (texture_vector.data == NULL) {
                 return NULL;
         }
 
