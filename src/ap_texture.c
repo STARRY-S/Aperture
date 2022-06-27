@@ -328,7 +328,9 @@ int ap_texture_free()
         struct AP_Texture *ptr = (struct AP_Texture*) texture_vector.data;
         for (int i = 0; i < texture_vector.length; ++i) {
                 glDeleteTextures(1, &(ptr[i].id));
-                AP_FREE(ptr[i].path);
+                if (ptr[i].path) {
+                        AP_FREE(ptr[i].path);
+                }
         }
 
         ap_vector_free(&texture_vector);

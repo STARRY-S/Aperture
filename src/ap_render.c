@@ -739,8 +739,8 @@ int ap_render_finish()
         // ap_audio_free();
         ap_light_free();
 
-         FT_Done_Face(renderer.ft_face);
-         FT_Done_FreeType(renderer.ft_library);
+        FT_Done_Face(renderer.ft_face);
+        FT_Done_FreeType(renderer.ft_library);
 
         glDeleteBuffers(1, &renderer.ortho_VBO);
         glDeleteVertexArrays(1, &renderer.ortho_VAO);

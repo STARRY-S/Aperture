@@ -181,14 +181,40 @@ int ap_model_draw()
 int ap_model_free()
 {
         model_using = NULL;    // for safety purpose
-        struct AP_Model *model_array = (struct AP_Model*) model_vector.data;
+        struct AP_Model *models = (struct AP_Model*) model_vector.data;
         for (int i = 0; i < model_vector.length; ++i) {
-                AP_FREE(model_array[i].directory);
-                model_array[i].directory = NULL;
-                AP_FREE(model_array[i].mesh);
-                model_array[i].mesh = NULL;
-                AP_FREE(model_array[i].texture);
-                model_array[i].texture = NULL;
+                // Release directory pointer
+                AP_FREE(models[i].directory);
+                models[i].directory = NULL;
+
+                // Release all datas allocated in mesh
+                for (int j = 0; j < models->mesh_length; ++j) {
+                        struct AP_Mesh *mesh = models[i].mesh + j;
+                        if (mesh->VAO) {
+                                glDeleteVertexArrays(1, &mesh->VAO);
+                        }
+                        if (mesh->VBO) {
+                                glDeleteBuffers(1, &mesh->VBO);
+                        }
+                        if (mesh->EBO) {
+                                glDeleteBuffers(1, &mesh->EBO);
+                        }
+                        if (mesh->indices) {
+                                AP_FREE(mesh->indices);
+                                mesh->indices = NULL;
+                        }
+                        mesh->indices_length = 0;
+                        if (mesh->vertices) {
+                                AP_FREE(mesh->vertices);
+                                mesh->vertices = NULL;
+                        }
+                        mesh->vertices_length = 0;
+                }
+                AP_FREE(models[i].mesh);
+                models[i].mesh = NULL;
+
+                AP_FREE(models[i].texture);
+                models[i].texture = NULL;
         }
         ap_vector_free(&model_vector);
 

@@ -96,7 +96,6 @@ int ap_mesh_free(struct AP_Mesh *mesh)
                 mesh->textures = NULL;
         }
         mesh->texture_length = 0;
-        mesh->VAO = mesh->VBO = mesh->EBO = 0;
 
         return 0;
 }
