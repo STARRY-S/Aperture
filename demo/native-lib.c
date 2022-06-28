@@ -100,6 +100,7 @@ JNIEXPORT jint JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_changeTextureNum(JNIEnv *env, jclass clazz,
                                                            jint tex_num) {
         ap_render_set_material_num(tex_num);
+        return 0;
 }
 
 #endif
