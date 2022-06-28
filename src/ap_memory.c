@@ -113,6 +113,7 @@ void* AP_REALLOC(void *ptr, int size)
         }
         char* ptr_new = realloc(ptr, size);
         ap_memory_vector_push(ptr_new);
+        LOGT("AP_REALLOC: change %p to %p", ptr, ptr_new);
         return ptr_new;
 }
 
