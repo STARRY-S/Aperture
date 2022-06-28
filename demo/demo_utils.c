@@ -326,6 +326,7 @@ int demo_finished()
         ap_camera_get_pitch(&euler[1]);
         demo_save_database(pos, euler);
         glDeleteVertexArrays(1, &light_cube_VAO);
+        ap_vector_free(&barrier_id_vector);
 
         return 0;
 }
