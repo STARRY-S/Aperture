@@ -88,10 +88,11 @@ int ap_memory_vector_popup(char* dst_ptr)
         return 0;
 }
 
-void *AP_MALLOC(int size)
+void *AP_MALLOCT(int size, const char *func_name)
 {
         char* ptr = malloc(size);
         ap_memory_vector_push(ptr);
+        LOGT("AP_MALLOC: %p, %s", ptr, func_name ? func_name : "NULL");
         return ptr;
 }
 
@@ -101,6 +102,7 @@ void AP_FREE(void* ptr)
                 return;
         }
         ap_memory_vector_popup(ptr);
+        LOGT("AP_FREE: %p", ptr);
         free(ptr);
 }
 

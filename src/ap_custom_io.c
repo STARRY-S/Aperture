@@ -14,7 +14,7 @@ struct aiFile* ap_custom_file_open_proc(
         const char* mode)
 {
         if (custom_io == NULL || file_name == NULL || mode == NULL) {
-                // AP_ERROR_INVALID_POINTER;
+                LOGE("ap_custom_file_open_proc: invalid parameter");
                 return NULL;
         }
 
@@ -25,7 +25,7 @@ struct aiFile* ap_custom_file_open_proc(
                 AASSET_MODE_RANDOM
         );
         if (asset_path == NULL) {
-                // AP_ERROR_ASSET_OPEN_FAILED;
+                LOGE("ap_custom_file_open_proc: AAssetManager_open failed");
                 return NULL;
         }
 #else
@@ -38,7 +38,7 @@ struct aiFile* ap_custom_file_open_proc(
 
         struct aiFile *ai_file = AP_MALLOC(sizeof(struct aiFile));
         if (ai_file == NULL) {
-                // AP_ERROR_MALLOC_FAILED;
+                LOGE("ap_custom_file_open_proc: malloc failed");
                 return NULL;
         }
         memset(ai_file, 0, sizeof(struct aiFile));
@@ -67,6 +67,7 @@ void ap_custom_file_close_proc(
 #else
         fclose((FILE*) ai_file->UserData);
 #endif
+        AP_FREE(ai_file);
 }
 
 size_t ap_custom_file_read_proc(

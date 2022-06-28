@@ -7,6 +7,7 @@
 
 // show debug message
 #define AP_DEBUG
+// #define AP_TRACE
 #define AP_DEFAULT_BUFFER_SIZE 128
 
 #if defined(__ANDROID__)
@@ -41,9 +42,19 @@
 
 #define  LOG_TAG    "AP_MAIN"
 #define  LOGI(...) __android_log_print(ANDROID_LOG_INFO,  LOG_TAG, __VA_ARGS__)
-#define  LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define  LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define  LOGW(...) __android_log_print(ANDROID_LOG_WARN,  LOG_TAG, __VA_ARGS__)
+#define  LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#ifdef AP_DEBUG
+#define  LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#else
+#define LOGD(...) ;
+#endif // AP_DEBUG
+#ifdef AP_TRACE
+#define  LOGT(...) __android_log_print( \
+        ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__)
+#else
+#define LOGT(...) ;
+#endif // AP_TRACE
 
 typedef enum {
         AP_MOBILE_DEFAULT = 0,
@@ -129,6 +140,15 @@ int ap_get_mobile_type(const char *pMobileName);
 #else
 #define LOGD(...) ;
 #endif  // AP_DEBUG
+
+#ifdef AP_TRACE
+#define LOGT(...) \
+        fprintf(stdout, "%s[AP_TRACE] %s", AP_COLOR_CYAN, AP_COLOR_RESET); \
+        fprintf(stdout, __VA_ARGS__); \
+        fprintf(stdout, "\n");
+#else
+#define LOGT(...) ;
+#endif // AP_TRACE
 
 #endif  // NOT ANDROID
 

@@ -98,7 +98,7 @@ struct AP_Texture *ap_texture_get_ptr_by_rgba(float color[4]);
 struct AP_Texture *ap_texture_get_ptr(unsigned int id);
 
 /**
- * Load texture from file
+ * Load texture from file and return its OpenGL texture ID
  * @param path file name
  * @param directory path name
  * @param gamma reserve

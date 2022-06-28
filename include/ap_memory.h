@@ -1,7 +1,16 @@
 #ifndef AP_MEMORY_H
 #define AP_MEMORY_H
 
-void *AP_MALLOC(int size);
+/**
+ * @brief AP_MALLOC with trace log
+ *
+ * @param size memory size
+ * @param func_name use __func__ to show the name of the function
+ * @return void* pointer of the memory
+ */
+void *AP_MALLOCT(int size, const char *func_name);
+
+#define AP_MALLOC(i) AP_MALLOCT(i, __func__)
 
 void AP_FREE(void* ptr);
 

@@ -384,18 +384,23 @@ struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
                 ap_vector_push_back(&vec_vertices, (const char *) &vertex);
         }
         // now wak through each of the mesh's faces
-        // (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
+        // (a face is a mesh its triangle)
+        // and retrieve the corresponding vertex indices.
         for (unsigned int i = 0; i < mesh->mNumFaces; i++)
         {
                 struct aiFace face = mesh->mFaces[i];
-                // retrieve all indices of the face and store them in the indices vector
+                // retrieve all indices of the face
+                // and store them in the indices vector
                 for(unsigned int j = 0; j < face.mNumIndices; j++) {
-                        ap_vector_push_back(&vec_indices, (const char *) &face.mIndices[j]);
+                        ap_vector_push_back(
+                                &vec_indices, (const char *) &face.mIndices[j]
+                        );
                 }
         }
         // process materials
         struct aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        /** we assume a convention for sampler names in the shaders. Each diffuse texture should be
+        /** we assume a convention for sampler names in the shaders.
+         * Each diffuse texture should be
          * named as 'texture_diffuseN' where N is a sequential number ranging
          * from 1 to MAX_SAMPLER_NUMBER.
          *
@@ -564,7 +569,9 @@ int ap_model_texture_loaded_push_back(
         model->texture_length++;
         ap_texture_init(texture_new);
         texture_new->type = texture->type;
-        ap_texture_set_path(texture_new, texture->path);
+        // Do not use texture_set_path here, just copy the path pointer to
+        // model->texture array.
+        texture_new->path = texture->path;
         texture_new->id = texture->id;
         memcpy(texture_new->RGBA, texture->RGBA, sizeof(float) * 4);
 
