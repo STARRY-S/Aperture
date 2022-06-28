@@ -464,6 +464,7 @@ static inline int ap_audio_open_file_MP3_ptr(
         struct AP_Vector *tmp_vec = NULL;
         ap_decode_to_memory(filename, &tmp_vec, &format, &frequency, &channels);
         if (!tmp_vec || tmp_vec->length == 0 || channels == 0) {
+                AP_FREE(tmp_vec);
                 return AP_ERROR_DECODE_FAILED;
         }
 
@@ -571,13 +572,16 @@ int ap_audio_load_mp3(const char *name, unsigned int *id)
         *id = 0;
         int ret = ap_audio_open_file_MP3_ptr(name, &audio);
         if (audio == NULL || ret != 0) {
+                AP_CHECK(ret);
+                LOGE("ap_audio_load_mp3 failed");
                 return ret;
         }
         audio->id = audio_vector.length + 1;
+        LOGT("load audio name: %s", audio->name);
         ret = ap_vector_push_back(&audio_vector, (const char*) audio);
+        AP_CHECK(ret);
         if (ret != 0) {
                 ap_audio_release_ptr(audio);
-                AP_CHECK(ret);
                 AP_FREE(audio);
         } else {
                 AP_FREE(audio);
@@ -633,6 +637,17 @@ int ap_audio_stop(unsigned int id)
 
 int ap_audio_free()
 {
+        // Stop all playing audios firstlly, then release memories unreleased
+        // then close OpenAL
+        struct AP_Audio *ptr, *data = NULL;
+        data = (struct AP_Audio*) audio_vector.data;
+        for (int i = 0; i < audio_vector.length; ++i) {
+                ptr = data + i;
+                ap_audio_stop_ptr(ptr);
+                ap_audio_release_ptr(ptr);
+        }
+        ap_vector_free(&audio_vector);
+
         device = alcGetContextsDevice(context);
         alcMakeContextCurrent(NULL);
         alcDestroyContext(context);
@@ -641,14 +656,5 @@ int ap_audio_free()
 #if !AP_PLATFORM_ANDROID
         alutExit();
 #endif
-        struct AP_Audio *ptr, *data = NULL;
-        data = (struct AP_Audio*) audio_vector.data;
-        for (int i = 0; i < audio_vector.length; ++i) {
-                ptr = data + i;
-                ap_audio_release_ptr(ptr);
-        }
-
-        ap_vector_free(&audio_vector);
-
         return 0;
 }
