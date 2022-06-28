@@ -42,6 +42,14 @@ int ap_physic_init()
         return 0;
 }
 
+int ap_physic_free()
+{
+        ap_vector_free(&creature_vector);
+        ap_vector_free(&barrier_vector);
+        creature_using = NULL;
+        return 0;
+}
+
 int ap_physic_generate_creature(unsigned int *id, float size[3])
 {
         if (!id) {

@@ -94,6 +94,7 @@ struct AP_PCreature {
 };
 
 int ap_physic_init();
+int ap_physic_free();
 
 /**
  * @brief generate one creature struct object
