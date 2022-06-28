@@ -86,7 +86,13 @@ int ap_vector_init(struct AP_Vector *vector, int vector_type)
         vector->type = vector_type;
         int size = ap_vector_data_type_size(vector);
         vector->capacity = AP_VECTOR_DEFAULT_CAPACITY;
+#ifdef AP_TRACE
+        char buff[AP_DEFAULT_BUFFER_SIZE] = { 0 };
+        sprintf(buff, "%s, type: %d", __func__, vector_type);
+        vector->data = AP_MALLOCT(size * AP_VECTOR_DEFAULT_CAPACITY, buff);
+#else
         vector->data = AP_MALLOC(size * AP_VECTOR_DEFAULT_CAPACITY);
+#endif
         if (vector->data == NULL) {
                 LOGE("malloc failed for vector.");
                 return AP_ERROR_MALLOC_FAILED;
