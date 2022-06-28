@@ -110,7 +110,6 @@ int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old)
 
         mesh_new->texture_length = mesh_old->texture_length;
         if (mesh_old->texture_length > 0) {
-                // FIXME: memory leak!
                 mesh_new->textures = AP_MALLOC(
                         mesh_new->texture_length * sizeof(struct AP_Texture));
                 memcpy(mesh_new->textures, mesh_old->textures,

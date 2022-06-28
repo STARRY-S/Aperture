@@ -209,6 +209,11 @@ int ap_model_free()
                                 mesh->vertices = NULL;
                         }
                         mesh->vertices_length = 0;
+                        if (mesh->textures) {
+                                AP_FREE(mesh->textures);
+                                mesh->textures = NULL;
+                        }
+                        mesh->texture_length = 0;
                 }
                 AP_FREE(models[i].mesh);
                 models[i].mesh = NULL;
@@ -581,17 +586,16 @@ int ap_model_texture_loaded_push_back(
 int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
 {
         if (model == NULL || mesh == NULL) {
-                LOGE("Model mesh push back param error.");
+                LOGE("ap_model_mesh_push_back: invalid parameter.");
                 return AP_ERROR_INVALID_POINTER;
         }
 
         // add a new mesh struct object into model
         model->mesh = AP_REALLOC(
-                model->mesh,
-                sizeof(struct AP_Mesh) * (model->mesh_length + 1)
+                model->mesh, sizeof(struct AP_Mesh) * (model->mesh_length + 1)
         );
         if (model->mesh == NULL) {
-                LOGE("Realloc error.");
+                LOGE("realloc error");
                 return AP_ERROR_MALLOC_FAILED;
         }
         struct AP_Mesh *mesh_ptr = &model->mesh[model->mesh_length];
