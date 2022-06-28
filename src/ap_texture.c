@@ -109,8 +109,12 @@ struct AP_Texture *ap_texture_get_ptr_by_path(const char *path)
 
 struct AP_Texture *ap_texture_get_ptr_by_rgba(float color[4])
 {
-        if (color == NULL || texture_vector.data == NULL) {
+        if (color == NULL) {
                 LOGE("ap_texture_get_ptr_by_rgba: INVALID PARAM");
+                return NULL;
+        }
+
+        if (!texture_vector.data) {
                 return NULL;
         }
 
