@@ -270,8 +270,8 @@ int ap_model_load_ptr(struct AP_Model *model, const char *path)
 
         // custom file io for assimp
         struct aiFileIO fileIo;
-        fileIo.CloseProc = ap_custom_file_close_proc;
-        fileIo.OpenProc = ap_custom_file_open_proc;
+        fileIo.CloseProc = ap_custom_ai_file_close_proc;
+        fileIo.OpenProc = ap_custom_ai_file_open_proc;
         fileIo.UserData = NULL;
 
         const struct aiScene* scene = aiImportFileEx(

@@ -8,13 +8,13 @@
 #define LOG_TAG "AP_CUSTOM_IO"
 #endif
 
-struct aiFile* ap_custom_file_open_proc(
+struct aiFile* ap_custom_ai_file_open_proc(
         C_STRUCT aiFileIO* custom_io,
         const char* file_name,
         const char* mode)
 {
         if (custom_io == NULL || file_name == NULL || mode == NULL) {
-                LOGE("ap_custom_file_open_proc: invalid parameter");
+                LOGE("ap_custom_ai_file_open_proc: invalid parameter");
                 return NULL;
         }
 
@@ -25,7 +25,7 @@ struct aiFile* ap_custom_file_open_proc(
                 AASSET_MODE_RANDOM
         );
         if (asset_path == NULL) {
-                LOGE("ap_custom_file_open_proc: AAssetManager_open failed");
+                LOGE("ap_custom_ai_file_open_proc: AAssetManager_open failed");
                 return NULL;
         }
 #else
@@ -38,17 +38,17 @@ struct aiFile* ap_custom_file_open_proc(
 
         struct aiFile *ai_file = AP_MALLOC(sizeof(struct aiFile));
         if (ai_file == NULL) {
-                LOGE("ap_custom_file_open_proc: malloc failed");
+                LOGE("ap_custom_ai_file_open_proc: malloc failed");
                 return NULL;
         }
         memset(ai_file, 0, sizeof(struct aiFile));
 
-        ai_file->ReadProc     = ap_custom_file_read_proc;
-        ai_file->WriteProc    = ap_custom_file_write_proc;
-        ai_file->TellProc     = ap_custom_ftell_proc;
-        ai_file->FileSizeProc = ap_custom_fsize_proc;
-        ai_file->SeekProc     = ap_custom_fseek_proc;
-        ai_file->FlushProc    = ap_custom_fflush_proc;
+        ai_file->ReadProc     = ap_custom_ai_file_read_proc;
+        ai_file->WriteProc    = ap_custom_ai_file_write_proc;
+        ai_file->TellProc     = ap_custom_ai_ftell_proc;
+        ai_file->FileSizeProc = ap_custom_ai_fsize_proc;
+        ai_file->SeekProc     = ap_custom_ai_fseek_proc;
+        ai_file->FlushProc    = ap_custom_ai_fflush_proc;
 #if AP_PLATFORM_ANDROID
         ai_file->UserData = (char *) asset_path;
 #else
@@ -58,7 +58,7 @@ struct aiFile* ap_custom_file_open_proc(
         return ai_file;
 }
 
-void ap_custom_file_close_proc(
+void ap_custom_ai_file_close_proc(
         C_STRUCT aiFileIO* ai_file_io,
         C_STRUCT aiFile* ai_file)
 {
@@ -70,7 +70,7 @@ void ap_custom_file_close_proc(
         AP_FREE(ai_file);
 }
 
-size_t ap_custom_file_read_proc(
+size_t ap_custom_ai_file_read_proc(
         C_STRUCT aiFile* ai_file,
         char* buffer,
         size_t size,
@@ -85,7 +85,7 @@ size_t ap_custom_file_read_proc(
 #endif
 }
 
-size_t ap_custom_file_write_proc(
+size_t ap_custom_ai_file_write_proc(
         C_STRUCT aiFile* ai_file,
         const char* buffer,
         size_t size,
@@ -95,7 +95,7 @@ size_t ap_custom_file_write_proc(
         return 0;
 }
 
-size_t ap_custom_ftell_proc(C_STRUCT aiFile* ai_file)
+size_t ap_custom_ai_ftell_proc(C_STRUCT aiFile* ai_file)
 {
 #if AP_PLATFORM_ANDROID
 
@@ -108,7 +108,7 @@ size_t ap_custom_ftell_proc(C_STRUCT aiFile* ai_file)
 #endif
 }
 
-size_t ap_custom_fsize_proc(C_STRUCT aiFile* ai_file)
+size_t ap_custom_ai_fsize_proc(C_STRUCT aiFile* ai_file)
 {
 #if AP_PLATFORM_ANDROID
         return AAsset_getLength((AAsset*) ai_file->UserData);
@@ -129,14 +129,14 @@ size_t ap_custom_fsize_proc(C_STRUCT aiFile* ai_file)
 #endif
 }
 
-void ap_custom_fflush_proc(C_STRUCT aiFile* ai_file)
+void ap_custom_ai_fflush_proc(C_STRUCT aiFile* ai_file)
 {
         #if !AP_PLATFORM_ANDROID
         fflush((FILE*) ai_file->UserData);
         #endif
 }
 
-C_ENUM aiReturn ap_custom_fseek_proc(
+C_ENUM aiReturn ap_custom_ai_fseek_proc(
         C_STRUCT aiFile* ai_file,
         size_t offset,
         C_ENUM aiOrigin origin)
