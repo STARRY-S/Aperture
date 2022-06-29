@@ -144,6 +144,9 @@ static int ap_decode_audio(
                 return AP_ERROR_INVALID_PARAMETER;
         }
 
+        // do not output av logs
+        av_log_set_level(AV_LOG_QUIET);
+
         AVCodec 	*codec   = NULL;
         AVCodecContext  *cdc_ctx = NULL;
         AVFormatContext *fmt_ctx = NULL;
