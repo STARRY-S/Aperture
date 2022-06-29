@@ -43,39 +43,49 @@ void print_vector(struct AP_Vector *vector)
         case AP_VECTOR_MODEL:
                 break;
         case AP_VECTOR_CHAR:
+        {
                 for (int i = 0; i < vector->length; ++i) {
                 char *p = (char*) vector->data;
                 printf("%c ", p[i]);
                 }
                 printf("\n");
                 break;
+        }
         case AP_VECTOR_INT:
+        {
                 for (int i = 0; i < vector->length; ++i) {
                 int *p = (int*) vector->data;
                 printf("%d ", p[i]);
                 }
                 printf("\n");
                 break;
+        }
         case AP_VECTOR_UINT:
+        {
                 for (int i = 0; i < vector->length; ++i) {
                 unsigned int *p = (unsigned *) vector->data;
                 printf("%u ", p[i]);
                 }
                 printf("\n");
                 break;
+        }
         case AP_VECTOR_FLOAT:
+        {
                 for (int i = 0; i < vector->length; ++i) {
                 float *p = (float*) vector->data;
                 printf("%.2f ", p[i]);
                 }
                 printf("\n");
                 break;
+        }
         case AP_VECTOR_POINTER:
+        {
                 char **ptr_arr = (char**) vector->data;
                 for (int i = 0; i < vector->length; ++i) {
                         printf("%p \n", ptr_arr[i]);
                 }
                 break;
+        }
         default:
                 printf("\n");
                 break;
