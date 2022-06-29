@@ -1,0 +1,84 @@
+name: Compile test
+
+on: [push]
+
+jobs:
+  archlinux-build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Build deps on Arch Linux
+      run: |
+        pacman -Syu --noconfirm
+        pacman -S --noconfirm \
+          cmake make gcc glfw-x11 assimp ffmpeg \
+          openal freealut freetype2 sqlite curl
+    - name: Build project on Arch Linux
+      run: |
+        cd $GITHUB_WORKSPACE/
+        mkdir build && cd build
+        cmake .. && make
+  opensuse-tw-build:
+    runs-on: ubuntu-latest
+    container:
+      image: opensuse/tumbleweed
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+    - name: Install Checkout deps
+      run: |
+        zypper ref && zypper -n up
+        zypper -n in unzip git tar gzip
+        git config --global --add safe.directory /__w/Aperture/Aperture
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Build deps on openSUSE Tumbleweed
+      run: |
+        zypper -n in \
+          cmake make gcc tar \
+          libglfw3 libassimp5 ffmpeg \
+          libglfw-devel assimp-devel ffmpeg-4-*-devel \
+          openal-soft-devel freealut-devel freetype2-devel \
+          sqlite3 sqlite3-devel \
+          libcurl4 libcurl-devel
+    - name: Build project on openSUSE Tumbleweed
+      run: |
+        cd $GITHUB_WORKSPACE/
+        mkdir build && cd build
+        cmake .. && make
+  opensuse-leap-build:
+    runs-on: ubuntu-latest
+    container:
+      image: opensuse/leap
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+    - name: Install Checkout deps
+      run: |
+        zypper ref && zypper -n up
+        zypper -n in unzip git tar gzip
+        git config --global --add safe.directory /__w/Aperture/Aperture
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Build deps on openSUSE Leap
+      run: |
+        zypper -n in \
+          cmake make gcc tar \
+          libglfw3 libassimp5 ffmpeg \
+          libglfw-devel assimp-devel ffmpeg-4-*-devel \
+          openal-soft-devel freealut-devel freetype2-devel \
+          sqlite3 sqlite3-devel \
+          libcurl4 libcurl-devel
+    - name: Build project on openSUSE Leap
+      run: |
+        cd $GITHUB_WORKSPACE/
+        mkdir build && cd build
+        cmake .. && make
