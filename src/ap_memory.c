@@ -131,6 +131,7 @@ int ap_memory_release()
                 AP_FREE(ptr_arr[0]);
         }
         free(pointer_vector.data);
+        pointer_vector.data = NULL;
         LOGI("ap_memory: all memory released, %d", pointer_vector.length);
         return 0;
 }
