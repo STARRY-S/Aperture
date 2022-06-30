@@ -60,7 +60,8 @@ int ap_model_set_scale(float scale[3]);
 int ap_model_set_pos(float pos[3]);
 int ap_model_set_rotate(float axis[3], float angle);
 
-int ap_model_free();
+int ap_model_free(int id);
+int ap_model_free_all();
 
 struct AP_Model *ap_model_get_ptr(int id);
 
