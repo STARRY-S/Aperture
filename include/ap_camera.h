@@ -17,11 +17,11 @@
 struct AP_Camera {
         int id;
 
-        vec3 position;
-        vec3 front;
-        vec3 up;
-        vec3 right;
-        vec3 worldUp;
+        float position[3];
+        float front[3];
+        float up[3];
+        float right[3];
+        float worldUp[3];
 
         float yaw;
         float pitch;
@@ -32,14 +32,26 @@ struct AP_Camera {
 
 int ap_camera_generate(unsigned int *camera_id);
 int ap_camera_use(unsigned int camera_id);
-int ap_camera_init_default();
 int ap_camera_free();
 
+/**
+ * @brief Get view matrix of current using camera
+ *
+ * @param temp [out] pointer points to view matrix
+ * @return int
+ */
 int ap_camera_get_view_matrix(mat4 *temp);
 int ap_camera_get_position(float *vec);
 int ap_camera_get_zoom(int *zoom);
 int ap_camera_get_front(float *vec);
 
+/**
+ * @brief Move camera directly with its direction
+ *
+ * @param direction should be AP_DIRECTION_*
+ * @param speed_up default is 1.0f
+ * @return int AP_Types
+ */
 int ap_camera_process_movement(int direction, int speed_up);
 int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);
 int ap_camera_process_scroll(float y_offset);
@@ -53,8 +65,10 @@ int ap_camera_get_pitch(float *pitch);
 int ap_camera_set_sensitivity(float sensitivity);
 int ap_camera_set_speed(float speed);
 int ap_camera_set_zoom(float zoom);
-unsigned int ap_get_current_camera_id();
 
+struct AP_Camera* ap_camera_get_ptr(int id);
+
+unsigned int ap_get_current_camera_id();
 struct AP_Camera* ap_get_current_camera();
 
 #endif // AP_CAMERA_H

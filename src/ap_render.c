@@ -56,6 +56,7 @@ struct AP_Renderer {
         vec4 buffer_clear_color;        // glClearColor
         ap_callback_func_t main_func;
 
+        // TODO: send zconflic_optimize data to GPU
         bool zconflict_optimize;        // optimize zconflict
 };
 

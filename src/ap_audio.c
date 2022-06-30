@@ -446,7 +446,7 @@ static inline int ap_audio_open_file_WAV_ptr(
         return 0;
 }
 
-static inline int ap_audio_open_file_MP3_ptr(
+static inline int ap_audio_open_file_mp3_ptr(
         const char* filename,
         struct AP_Audio **out_audio_p)
 {
@@ -543,7 +543,7 @@ static inline int ap_audio_release_ptr(struct AP_Audio *audio)
         return 0;
 }
 
-static inline struct AP_Audio* ap_audio_get_ptr(unsigned int id)
+struct AP_Audio* ap_audio_get_ptr(unsigned int id)
 {
         if (id == 0) {
                 return 0;
@@ -570,7 +570,7 @@ int ap_audio_load_mp3(const char *name, unsigned int *id)
 
         struct AP_Audio *audio = NULL;
         *id = 0;
-        int ret = ap_audio_open_file_MP3_ptr(name, &audio);
+        int ret = ap_audio_open_file_mp3_ptr(name, &audio);
         if (audio == NULL || ret != 0) {
                 AP_CHECK(ret);
                 LOGE("ap_audio_load_mp3 failed");

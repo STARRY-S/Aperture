@@ -50,7 +50,7 @@ int ap_texture_generate_rgba(
         if (texture_vector.data == NULL) {
                 ap_vector_init(&texture_vector, AP_VECTOR_TEXTURE);
         }
-        unsigned int id = ap_texture_from_RGBA(color, size);
+        unsigned int id = ap_texture_from_rgba(color, size);
         if (id == 0) {
                 LOGW("failed to load texture from color (%.1f,%.1f,%.1f,%.1f)",
                         color[0], color[1], color[2], color[3]
@@ -235,7 +235,7 @@ unsigned int ap_texture_from_file(
         return texture_id;
 }
 
-unsigned int ap_texture_from_RGBA(vec4 color, int size)
+unsigned int ap_texture_from_rgba(vec4 color, int size)
 {
         unsigned char* data = (unsigned char*) AP_MALLOC(
                 4 * size * size * sizeof(unsigned char)

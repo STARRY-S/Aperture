@@ -15,10 +15,10 @@
 
 struct AP_Model {
         int id;
-        float pos[3];       // position of the model
-        float scale[3];     // scale of the model
-        float rotate_angle;   // rotate degree
-        float rotate_axis[3]; // rotate axis
+        float pos[3];
+        float scale[3];
+        float rotate_angle;
+        float rotate_axis[3];
 
         struct AP_Texture *texture;
         int texture_length;
@@ -61,5 +61,7 @@ int ap_model_set_pos(float pos[3]);
 int ap_model_set_rotate(float axis[3], float angle);
 
 int ap_model_free();
+
+struct AP_Model *ap_model_get_ptr(int id);
 
 #endif // AP_MODEL_H

@@ -211,7 +211,7 @@ static int ap_mesh_setup(struct AP_Mesh *mesh)
         return 0;
 }
 
-int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader)
+int ap_mesh_draw(struct AP_Mesh *mesh)
 {
         if (mesh == NULL) {
                 return AP_ERROR_INVALID_POINTER;

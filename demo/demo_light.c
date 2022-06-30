@@ -123,7 +123,7 @@ int demo_update_light()
         demo_setup_point_lights();
         demo_setup_spot_light();
         ap_light_set_material_shininess(16.0f);
-        ap_light_send_data();
+        ap_light_render();
 
         return 0;
 }

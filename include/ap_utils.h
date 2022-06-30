@@ -150,7 +150,7 @@ int ap_get_mobile_type(const char *pMobileName);
 #define LOGT(...) ;
 #endif // AP_TRACE
 
-#endif  // NOT ANDROID
+#endif  // ANDROID
 
 extern const char *AP_ERROR_NAME[];
 

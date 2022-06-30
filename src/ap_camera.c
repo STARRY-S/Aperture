@@ -49,11 +49,6 @@ int ap_camera_use(unsigned int camera_id)
         return 0;
 }
 
-int ap_camera_init_default()
-{
-        return ap_camera_init_ptr(camera_using);
-}
-
 int ap_camera_init_ptr(struct AP_Camera *camera)
 {
         if (camera == NULL) {
@@ -442,4 +437,19 @@ unsigned int ap_get_current_camera_id()
                 return 0;
         }
         return camera_using->id;
+}
+
+struct AP_Camera* ap_camera_get_ptr(int id)
+{
+        if (id == 0 || id > camera_vector.length) {
+                return NULL;
+        }
+
+        struct AP_Camera *tmp_cam = (struct AP_Camera*) camera_vector.data;
+        for (int i = 0; i < camera_vector.length; ++i) {
+                if (tmp_cam[i].id == id) {
+                        return camera_using;
+                }
+        }
+        return NULL;
 }

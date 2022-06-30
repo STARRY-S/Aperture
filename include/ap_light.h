@@ -8,8 +8,6 @@
 #ifndef AP_LIGHT_H
 #define AP_LIGHT_H
 
-#include "cglm/cglm.h"
-
 #ifndef AP_LIGHT_POINT_NUM
 #define AP_LIGHT_POINT_NUM 128
 #endif // AP_LIGHT_POINT_NUM
@@ -108,10 +106,14 @@ int ap_light_setup_directional(
  *
  * @return int
  */
-int ap_light_send_data();
+int ap_light_render();
 
 int ap_light_set_material_shininess(float shininess);
 
 int ap_light_free();
+
+struct AP_Light* ap_light_get_point_light_ptr(int id);
+struct AP_Light* ap_light_get_direct_light_ptr();
+struct AP_Light* ap_light_get_spot_light_ptr();
 
 #endif

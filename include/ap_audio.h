@@ -49,8 +49,29 @@ struct AP_Audio {
         ap_callback_func_t cb;
 };
 
+/**
+ * @brief Convert aperture audio type to OpenAL audio format
+ *
+ * @param ap_audio_fmt
+ * @param channel
+ * @return int OpenAL audio format, 0 on error
+ */
 int ap_audio_fmt_ap_2_al(int ap_audio_fmt, int channel);
+/**
+ * @brief Convert libavformat audio format to aperture audio format
+ *
+ * @param av_fmt
+ * @param s libavformat format name, can be null, only used for show warning
+ * message if format not found
+ * @return int aperture audio format, 0 on error
+ */
 int ap_audio_fmt_av_2_ap(int av_fmt, const char *s);
+/**
+ * @brief Convert OpenAL audio format to aperture audio format
+ *
+ * @param al_fmt
+ * @return int aperture audio format, 0 on error
+ */
 int ap_audio_fmt_al_2_ap(int al_fmt);
 
 /**
@@ -74,5 +95,13 @@ int ap_audio_play(unsigned int id, ap_callback_func_t cb);
 int ap_audio_pause(unsigned int id);
 
 int ap_audio_stop(unsigned int id);
+
+/**
+ * @brief Get audio struct object pointer
+ *
+ * @param id
+ * @return struct AP_Audio*
+ */
+struct AP_Audio* ap_audio_get_ptr(unsigned int id);
 
 #endif

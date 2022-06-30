@@ -47,4 +47,6 @@ C_ENUM aiReturn ap_custom_ai_fseek_proc(
         C_ENUM aiOrigin origin
 );
 
+// TODO: Implement f* I/O functions for Android and *nix system
+
 #endif // AP_CUSTOM_IO_H

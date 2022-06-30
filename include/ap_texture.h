@@ -43,7 +43,7 @@ struct AP_Texture {
 };
 
 /**
- * @brief Generate a texture from specific file and directory
+ * @brief Generate a texture from its file name and directory
  * and store its OpenGL texture ID in vector.
  *
  * @param texture_id [out] pointer points to the ID of texture generated
@@ -117,7 +117,7 @@ unsigned int ap_texture_from_file(
  * @param size  image size (in pixel)
  * @return OpenGL Texture ID, 0 on error
  */
-unsigned int ap_texture_from_RGBA(float color[4], int size);
+unsigned int ap_texture_from_rgba(float color[4], int size);
 
 /**
  * @brief Generate texture from RGBA data

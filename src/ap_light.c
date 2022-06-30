@@ -4,6 +4,7 @@
 #include "ap_shader.h"
 #include "ap_cvector.h"
 #include "ap_texture.h"
+#include "ap_math.h"
 
 #define FLOAT_SIZE sizeof(float)
 #define LIGHT_SIZE sizeof(struct AP_Light)
@@ -32,9 +33,9 @@ int ap_light_setup_spot(
 {
         memset(&spot_light, 0, LIGHT_SIZE);
         spot_light.type = AP_LIGHT_SPOT;
-        memcpy(spot_light.ambient, ambient, 3 * FLOAT_SIZE);
-        memcpy(spot_light.diffuse, diffuse, 3 * FLOAT_SIZE);
-        memcpy(spot_light.specular, specular, 3 * FLOAT_SIZE);
+        ap_v3_copy(spot_light.ambient, ambient);
+        ap_v3_copy(spot_light.diffuse, diffuse);
+        ap_v3_copy(spot_light.specular, specular);
         memcpy(spot_light.param, param, AP_LIGHT_PARAM_NUM * FLOAT_SIZE);
         return 0;
 }
@@ -47,10 +48,10 @@ int ap_light_setup_directional(
 {
         memset(&direct_light, 0, LIGHT_SIZE);
         direct_light.type = AP_LIGHT_DIRECTIONAL;
-        memcpy(direct_light.direction, direction, 3 * FLOAT_SIZE);
-        memcpy(direct_light.ambient, ambient, 3 * FLOAT_SIZE);
-        memcpy(direct_light.diffuse, diffuse, 3 * FLOAT_SIZE);
-        memcpy(direct_light.specular, specular, 3 * FLOAT_SIZE);
+        ap_v3_copy(direct_light.direction, direction);
+        ap_v3_copy(direct_light.ambient, ambient);
+        ap_v3_copy(direct_light.diffuse, diffuse);
+        ap_v3_copy(direct_light.specular, specular);
         return 0;
 }
 
@@ -79,13 +80,12 @@ int ap_light_generate_point(
         memset(&light, 0, sizeof(light));
 
         light.type = AP_LIGHT_POINT;
-        memcpy(light.position, position, sizeof(float) * 3);
-        memcpy(light.ambient, ambient, sizeof(float) * 3);
-        memcpy(light.diffuse, diffuse, sizeof(float) * 3);
-        memcpy(light.specular, specular, sizeof(float) * 3);
+        ap_v3_copy(light.position, position);
+        ap_v3_copy(light.ambient, ambient);
+        ap_v3_copy(light.diffuse, diffuse);
+        ap_v3_copy(light.specular, specular);
 
-        size_t param_size = FLOAT_SIZE * AP_LIGHT_PARAM_NUM;
-        memcpy(light.param, param, param_size);
+        memcpy(light.param, param, FLOAT_SIZE * AP_LIGHT_PARAM_NUM);
 
         unsigned id = point_light_vector.length + 1;
         light.id = id;
@@ -100,7 +100,7 @@ int ap_light_generate_point(
         return 0;
 }
 
-int ap_light_send_data()
+int ap_light_render()
 {
         if (!point_light_vector.data) {
                 LOGE("failed to render lights: not initialized");
@@ -225,4 +225,28 @@ int ap_light_free()
 {
         ap_vector_free(&point_light_vector);
         return 0;
+}
+
+struct AP_Light* ap_light_get_point_light_ptr(int id)
+{
+        if (id <= 0) {
+                return NULL;
+        }
+        struct AP_Light *data = (struct AP_Light*) point_light_vector.data;
+        for (int i = 0; i < point_light_vector.length; ++i) {
+                if (data[i].id == id) {
+                        return data + i;
+                }
+        }
+        return NULL;
+}
+
+struct AP_Light* ap_light_get_direct_light_ptr()
+{
+        return &direct_light;
+}
+
+struct AP_Light* ap_light_get_spot_light_ptr()
+{
+        return &spot_light;
 }

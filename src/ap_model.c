@@ -31,9 +31,7 @@ static int ap_model_init_ptr(
  * @param shader OpenGL shader program ID
  * @return int
  */
-static int ap_model_draw_ptr_shader(
-        struct AP_Model *model, unsigned int shader
-);
+static int ap_model_draw_ptr_shader(struct AP_Model *model);
 
 static struct AP_Vector model_vector = { 0, 0, 0, 0 };
 static struct AP_Model *model_using = NULL;
@@ -172,7 +170,7 @@ int ap_model_draw()
         ap_render_set_model_mat((float *) mat_model);
 
         ap_shader_use(render_persp_shader_id);
-        ap_model_draw_ptr_shader(model_using, render_persp_shader_id);
+        ap_model_draw_ptr_shader(model_using);
         ap_shader_use(old_shader);
 
         return 0;
@@ -606,15 +604,14 @@ int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh)
         return 0;
 }
 
-static int ap_model_draw_ptr_shader(
-        struct AP_Model *model, unsigned int shader)
+static int ap_model_draw_ptr_shader(struct AP_Model *model)
 {
         if (model == NULL) {
                 return AP_ERROR_INVALID_POINTER;
         }
 
         for (int i = 0; i < model->mesh_length; ++i) {
-                ap_mesh_draw(&model->mesh[i], shader);
+                ap_mesh_draw(&model->mesh[i]);
         }
 
         return 0;
@@ -646,4 +643,18 @@ int ap_model_set_rotate(float axis[3], float angle)
         model_using->rotate_angle = angle;
         memcpy(model_using->rotate_axis, axis, VEC3_SIZE);
         return 0;
+}
+
+struct AP_Model *ap_model_get_ptr(int id)
+{
+        if (id <= 0) {
+                return NULL;
+        }
+        struct AP_Model *data = (struct AP_Model*) model_vector.data;
+        for (int i = 0; i < model_vector.length; ++i) {
+                if (data[i].id == id) {
+                        return data + i;
+                }
+        }
+        return NULL;
 }

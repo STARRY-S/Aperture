@@ -54,7 +54,7 @@ int ap_vector_init(struct AP_Vector *vector, int vector_type);
 /**
  * @brief Release the memory allocated by vector
  * @param vector
- * @return - AP_Types
+ * @return AP_Types
  */
 int ap_vector_free(struct AP_Vector *vector);
 

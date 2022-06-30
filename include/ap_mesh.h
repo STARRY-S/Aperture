@@ -53,19 +53,18 @@ int ap_mesh_free(struct AP_Mesh *mesh);
  * @brief Copy data from old mesh to a new mesh object
  * this function won't create new VAO/VBO/EBO for new mesh object,
  *
- * @param mesh_new
- * @param mesh_old
+ * @param dst
+ * @param src
  * @return int
  */
-int ap_mesh_copy(struct AP_Mesh *mesh_new, const struct AP_Mesh *mesh_old);
+int ap_mesh_copy(struct AP_Mesh *dst, const struct AP_Mesh *src);
 
 /**
  * @brief Draw mesh and its texture(s)
  *
  * @param mesh pointer points to AP_Mesh
- * @param shader shader program ID
  * @return int AP_Types
  */
-int ap_mesh_draw(struct AP_Mesh *mesh, unsigned int shader);
+int ap_mesh_draw(struct AP_Mesh *mesh);
 
 #endif // AP_MESH_H

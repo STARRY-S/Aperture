@@ -4,14 +4,16 @@
 #include <math.h>
 #include <stdbool.h>
 
+#include "ap_utils.h"
+
 static inline float ap_absf(float f)
 {
-        return (f > 0) ? f : -f;
+        return (f >= 0) ? f : -f;
 }
 
 static inline int ap_absi(int i)
 {
-        return (i > 0) ? i : -i;
+        return (i >= 0) ? i : -i;
 }
 
 static inline float ap_powf(float base, int n)
@@ -53,6 +55,24 @@ static inline int ap_v4_set(float v[4], float x, float y, float z, float w)
         v[1] = y;
         v[2] = z;
         v[3] = w;
+        return 0;
+}
+
+static inline int ap_v2_copy(float dst[2], float src[2])
+{
+        memcpy(dst, src, VEC2_SIZE);
+        return 0;
+}
+
+static inline int ap_v3_copy(float dst[3], float src[3])
+{
+        memcpy(dst, src, VEC3_SIZE);
+        return 0;
+}
+
+static inline int ap_v4_copy(float dst[4], float src[4])
+{
+        memcpy(dst, src, VEC4_SIZE);
         return 0;
 }
 
