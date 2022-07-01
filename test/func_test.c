@@ -407,7 +407,7 @@ void test_audio()
         sleep(5);
 
         LOGI("start free ap_audio");
-        // ap_audio_free();
+        // ap_audio_free_all();
         LOGI("audio test finished");
 }
 
