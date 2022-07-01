@@ -15,4 +15,6 @@ void test_decode();
 void test_sqlite();
 void test_model_load();
 
+int init_opengl_context();
+
 #endif

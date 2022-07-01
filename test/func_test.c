@@ -466,8 +466,13 @@ void test_sqlite()
 
 }
 
-void test_model_load()
+int init_opengl_context()
 {
+        static int initialized = 0;
+        if (initialized) {
+                return 0;
+        }
+
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -477,14 +482,14 @@ void test_model_load()
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         #endif
 
-        glfwWindowHint( GLFW_VISIBLE, GL_TRUE );
+        glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
         GLFWwindow* window = NULL;
-        window = glfwCreateWindow(400, 400, "test", NULL, NULL);
+        window = glfwCreateWindow(100, 100, "test", NULL, NULL);
         if (window == NULL)
         {
                 LOGE("Failed to create GLFW window.");
                 glfwTerminate();
-                return;
+                return 1;
         }
 
         glfwMakeContextCurrent(window);
@@ -493,14 +498,27 @@ void test_model_load()
         if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
         {
                 LOGE("failed to init GLAD");
-                return;
+                return 1;
         }
 
+        initialized = 1;
+        return 0;
+}
+
+void test_model_load()
+{
         unsigned int model_id = 0;
         ap_model_generate("mc/mc-game.obj", &model_id);
         LOGI("generated model id %u", model_id);
         sleep(1);
-        ap_model_free();
+        ap_model_free_all();
+        ap_texture_free();
+        ap_memory_release();
+
+        ap_model_generate("mc/mc-game.obj", &model_id);
+        LOGI("re-generated model id %u", model_id);
+
+        ap_model_free_all();
         ap_texture_free();
         ap_memory_release();
 }
