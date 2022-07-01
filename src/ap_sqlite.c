@@ -6,7 +6,6 @@
 #include <sqlite3.h>
 static sqlite3 *database = NULL;
 
-#endif
 
 #ifndef AP_DEFAULT_DB_FILE
 #define AP_DEFAULT_DB_FILE "ap_data.db"
@@ -22,6 +21,8 @@ static int ap_sqlite_default_cb(
 
         return 0;
 }
+
+#endif // !AP_PLATFORM_ANDROID
 
 int ap_sqlite_init()
 {
