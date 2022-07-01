@@ -224,8 +224,8 @@ int ap_model_free(int id)
                 AP_FREE(models[i].texture);
                 models[i].texture = NULL;
                 ap_vector_remove_data(
-                        &model_vector, models + i,
-                        models + i + 1, sizeof(struct AP_Model)
+                        &model_vector, (char*) models + i,
+                        (char*) models + i + 1, sizeof(struct AP_Model)
                 );
                 if (model_using == models + i) {
                         model_using = NULL;
