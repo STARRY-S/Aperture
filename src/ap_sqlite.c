@@ -66,7 +66,7 @@ int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb)
         return 0;
 }
 
-int ap_sqlite_free()
+int ap_sqlite_free_all()
 {
 #if !AP_PLATFORM_ANDROID
         if (database) {

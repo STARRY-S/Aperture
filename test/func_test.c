@@ -461,7 +461,7 @@ void test_sqlite()
         LOGI("SQL execute finished");
 
         LOGI("start free sqlite:");
-        ap_sqlite_free();
+        ap_sqlite_free_all();
         LOGI("sqlite free finished");
 
 }

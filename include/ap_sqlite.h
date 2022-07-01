@@ -14,6 +14,6 @@ int ap_sqlite_init();
 
 int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb);
 
-int ap_sqlite_free();
+int ap_sqlite_free_all();
 
 #endif // AP_SQLITE_H
