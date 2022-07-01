@@ -25,7 +25,7 @@ static int ap_creature_process_barrier_ptr(
  * @param id
  * @return int
  */
-static int ap_physic_update_creature_id(unsigned int id);
+int ap_physic_update_creature_id(unsigned int id);
 
 struct AP_Vector creature_vector = { 0, 0, 0, 0 };
 struct AP_Vector barrier_vector  = { 0, 0, 0, 0 };
@@ -179,7 +179,7 @@ int ap_physic_get_creature_ptr(
         return 0;
 }
 
-static int ap_physic_update_creature_id(unsigned int id)
+int ap_physic_update_creature_id(unsigned int id)
 {
         struct AP_PCreature *ptr = NULL;
         ap_physic_get_creature_ptr(id, &ptr);
