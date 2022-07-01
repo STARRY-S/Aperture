@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 
     // test_model_load();
 
-
+    model_memory_test();
 
     return 0;
 }
