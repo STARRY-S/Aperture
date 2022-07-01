@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "ap_utils.h"
 #include "ap_memory.h"
@@ -113,7 +114,10 @@ void* AP_REALLOC(void *ptr, int size)
         }
         char* ptr_new = realloc(ptr, size);
         ap_memory_vector_push(ptr_new);
-        LOGT("AP_REALLOC: change %p to %p", ptr, ptr_new);
+#ifdef AP_TRACE
+        uint64_t ptr_old = (uint64_t) ptr;
+        LOGT("AP_REALLOC: change 0x%lx to %p", ptr_old, ptr_new);
+#endif
         return ptr_new;
 }
 
