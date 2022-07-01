@@ -6,6 +6,8 @@
 
 #define TEST_MODEL "mc/mc-game.obj"
 #define TEST_AUDIO_MP3 "sound/c418-haggstorm.mp3"
+#define TEST_VSHADER "ap_glsl/ap_orthographic.vs.glsl"
+#define TEST_FSHADER "ap_glsl/ap_orthographic.fs.glsl"
 
 int model_memory_test()
 {
@@ -157,6 +159,33 @@ int physic_memory_test()
         ap_physic_free_all();
         ap_camera_free_all();
         ptrs = ap_memory_unreleased_num();
+        LOGD("unreleased ptrs: %d", ptrs);
+        assert(ptrs == 0);
+
+        return 0;
+}
+
+int shader_memory_test()
+{
+        unsigned int id = 0;
+        ap_shader_generate(TEST_VSHADER, TEST_FSHADER, &id);
+        assert(id != 0);
+        LOGD("generated shader: %u", id);
+        ap_shader_free(id);
+        int unreleased_ptrs = ap_memory_unreleased_num();
+        LOGD("unreleased ptrs: %d", unreleased_ptrs);
+        for (int i = 0; i < 3; ++i) {
+                ap_shader_generate(TEST_VSHADER, TEST_FSHADER, &id);
+                assert(id != 0);
+                LOGD("generated shader: %u", id);
+                ap_shader_free(id);
+                int ptrs = ap_memory_unreleased_num();
+                LOGD("unreleased ptrs: %d", ptrs);
+                assert(ptrs == unreleased_ptrs);
+        }
+
+        ap_shader_free_all();
+        int ptrs = ap_memory_unreleased_num();
         LOGD("unreleased ptrs: %d", ptrs);
         assert(ptrs == 0);
 
