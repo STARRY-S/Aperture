@@ -7,5 +7,6 @@ int camera_memory_test();
 int light_memory_test();
 int physic_memory_test();
 int shader_memory_test();
+int texture_memory_test();
 
 #endif

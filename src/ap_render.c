@@ -716,7 +716,7 @@ int ap_render_finish()
         ap_camera_free_all();
         ap_shader_free_all();
         ap_model_free_all();
-        ap_texture_free();
+        ap_texture_free_all();
         ap_audio_free_all();
         ap_light_free_all();
         ap_physic_free_all();

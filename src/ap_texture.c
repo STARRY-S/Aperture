@@ -327,7 +327,31 @@ int ap_texture_init(struct AP_Texture *texture)
         return 0;
 }
 
-int ap_texture_free()
+int ap_texture_free(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_Texture *data = (struct AP_Texture*) texture_vector.data;
+        for (int i = 0; i < texture_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                AP_FREE(data[i].path);
+                ap_vector_remove_data(
+                        &texture_vector,
+                        (char*) (data + i),
+                        (char*) (data + i + 1),
+                        sizeof(struct AP_Texture)
+                );
+                break;
+        }
+
+        return 0;
+}
+
+int ap_texture_free_all()
 {
         if (texture_vector.data == NULL) {
                 return 0;

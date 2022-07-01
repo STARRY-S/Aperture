@@ -43,6 +43,7 @@ int main(int argc, char **argv)
     light_memory_test();
     physic_memory_test();
     shader_memory_test();
+    texture_memory_test();
 
     return 0;
 }

@@ -27,7 +27,7 @@ int model_memory_test()
         }
 
         ap_model_free_all();
-        ap_texture_free();
+        ap_texture_free_all();
         int ptrs = ap_memory_unreleased_num();
         LOGD("unreleased ptrs: %d", ptrs);
         assert(ptrs == 0);
@@ -185,6 +185,36 @@ int shader_memory_test()
         }
 
         ap_shader_free_all();
+        int ptrs = ap_memory_unreleased_num();
+        LOGD("unreleased ptrs: %d", ptrs);
+        assert(ptrs == 0);
+
+        return 0;
+}
+
+int texture_memory_test()
+{
+        unsigned int id = 0;
+        float rgba[4] = { 255.0f, 255.0f, 255.0f, 255.0f };
+        ap_texture_generate_rgba(&id, rgba, 128, AP_TEXTURE_TYPE_DIFFUSE);
+        assert(id != 0);
+        LOGD("generated rgba texture: %u", id);
+        ap_texture_free(id);
+        int unreleased_ptrs = ap_memory_unreleased_num();
+        LOGD("unreleased ptrs: %d", unreleased_ptrs);
+        for (int i = 0; i < 3; ++i) {
+                ap_texture_generate_rgba(
+                        &id, rgba, 128, AP_TEXTURE_TYPE_DIFFUSE
+                );
+                assert(id != 0);
+                LOGD("generated rgba texture: %u", id);
+                ap_texture_free(id);
+                int ptrs = ap_memory_unreleased_num();
+                LOGD("unreleased ptrs: %d", ptrs);
+                assert(ptrs == unreleased_ptrs);
+        }
+
+        ap_texture_free_all();
         int ptrs = ap_memory_unreleased_num();
         LOGD("unreleased ptrs: %d", ptrs);
         assert(ptrs == 0);

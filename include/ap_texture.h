@@ -145,10 +145,12 @@ int ap_texture_init(struct AP_Texture *texture);
  */
 int ap_texture_set_path(struct AP_Texture *texture, const char *name);
 
+int ap_texture_free(int id);
+
 /**
  * @brief finalize vector memory
  * @return int AP_Types
  */
-int ap_texture_free();
+int ap_texture_free_all();
 
 #endif // AP_TEXTURE_H

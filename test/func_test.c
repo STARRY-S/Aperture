@@ -512,13 +512,13 @@ void test_model_load()
         LOGI("generated model id %u", model_id);
         sleep(1);
         ap_model_free_all();
-        ap_texture_free();
+        ap_texture_free_all();
         ap_memory_release();
 
         ap_model_generate("mc/mc-game.obj", &model_id);
         LOGI("re-generated model id %u", model_id);
 
         ap_model_free_all();
-        ap_texture_free();
+        ap_texture_free_all();
         ap_memory_release();
 }
