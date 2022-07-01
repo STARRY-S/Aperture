@@ -658,6 +658,7 @@ int ap_audio_free(int id)
                         (char*) (ptr + 1),
                         sizeof(struct AP_Audio)
                 );
+                break;
         }
         return 0;
 }

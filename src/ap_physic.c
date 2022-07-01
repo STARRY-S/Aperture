@@ -42,7 +42,56 @@ int ap_physic_init()
         return 0;
 }
 
-int ap_physic_free()
+int ap_physic_free_barrier(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_PBarrier *data = (struct AP_PBarrier *) barrier_vector.data;
+        for (int i = 0; i < barrier_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                ap_vector_remove_data(
+                        &barrier_vector,
+                        (char*) (data + i),
+                        (char*) (data + i + 1),
+                        sizeof(struct AP_PBarrier)
+                );
+                break;
+        }
+
+        return 0;
+}
+
+int ap_physic_free_creature(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_PCreature *data = (struct AP_PCreature *)creature_vector.data;
+        for (int i = 0; i < creature_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                if (data + i == creature_using) {
+                        creature_using = NULL;
+                }
+                ap_vector_remove_data(
+                        &creature_vector,
+                        (char*) (data + i),
+                        (char*) (data + i + 1),
+                        sizeof(struct AP_PCreature)
+                );
+                break;
+        }
+
+        return 0;
+}
+
+int ap_physic_free_all()
 {
         ap_vector_free(&creature_vector);
         ap_vector_free(&barrier_vector);
@@ -54,6 +103,10 @@ int ap_physic_generate_creature(unsigned int *id, float size[3])
 {
         if (!id) {
                 return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (creature_vector.data == NULL) {
+                ap_vector_init(&creature_vector, AP_VECTOR_PCREATURE);
         }
 
         struct AP_PCreature creature;
@@ -336,6 +389,10 @@ int ap_physic_generate_barrier(unsigned int *id, int type)
                 || type <= AP_BARRIER_TYPE_UNKNOWN)
         {
                 return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (barrier_vector.data == NULL) {
+                ap_vector_init(&barrier_vector, AP_VECTOR_PBARRIER);
         }
 
         *id = 0;

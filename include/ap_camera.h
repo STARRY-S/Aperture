@@ -32,7 +32,8 @@ struct AP_Camera {
 
 int ap_camera_generate(unsigned int *camera_id);
 int ap_camera_use(unsigned int camera_id);
-int ap_camera_free();
+int ap_camera_free(int id);
+int ap_camera_free_all();
 
 /**
  * @brief Get view matrix of current using camera

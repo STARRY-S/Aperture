@@ -110,7 +110,9 @@ int ap_light_render();
 
 int ap_light_set_material_shininess(float shininess);
 
-int ap_light_free();
+int ap_light_free_point_light(int id);
+
+int ap_light_free_all();
 
 struct AP_Light* ap_light_get_point_light_ptr(int id);
 struct AP_Light* ap_light_get_direct_light_ptr();

@@ -39,6 +39,9 @@ int main(int argc, char **argv)
 
     model_memory_test();
     audio_memory_test();
+    camera_memory_test();
+    light_memory_test();
+    physic_memory_test();
 
     return 0;
 }

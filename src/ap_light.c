@@ -221,7 +221,30 @@ int ap_light_set_material_shininess(float shininess)
         return 0;
 }
 
-int ap_light_free()
+int ap_light_free_point_light(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_Light *data = (struct AP_Light *) point_light_vector.data;
+        for (int i = 0; i < point_light_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                ap_vector_remove_data(
+                        &point_light_vector,
+                        (char*) (data + i),
+                        (char*) (data + i + 1),
+                        sizeof(struct AP_Light)
+                );
+                break;
+        }
+
+        return 0;
+}
+
+int ap_light_free_all()
 {
         ap_vector_free(&point_light_vector);
         return 0;

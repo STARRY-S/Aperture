@@ -81,7 +81,33 @@ int ap_camera_init_ptr(struct AP_Camera *camera)
         return 0;
 }
 
-int ap_camera_free()
+int ap_camera_free(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        struct AP_Camera *data = (struct AP_Camera *) camera_vector.data;
+        for (int i = 0; i < camera_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                if (data + i == camera_using) {
+                        camera_using = NULL;
+                }
+                ap_vector_remove_data(
+                        &camera_vector,
+                        (char*) (data + i),
+                        (char*) (data + i + 1),
+                        sizeof(struct AP_Camera)
+                );
+                break;
+        }
+
+        return 0;
+}
+
+int ap_camera_free_all()
 {
         camera_using = NULL;    // for safety purpose
         ap_vector_free(&camera_vector);
