@@ -165,3 +165,14 @@ double ap_get_time()
         double time = (now.tv_sec - start.tv_sec) + (now.tv_usec) / 1e6;
         return time;
 }
+
+char* ap_char_copy(const char *src)
+{
+        if (src == NULL) {
+                return NULL;
+        }
+
+        char *dst = AP_MALLOC((strlen(src) + 1) * sizeof(char));
+        strcpy(dst, src);
+        return dst;
+}

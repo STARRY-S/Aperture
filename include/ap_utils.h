@@ -193,4 +193,6 @@ int ap_get_default_cube_vertices_length();
 
 double ap_get_time();
 
+char* ap_char_copy(const char *src);
+
 #endif // AP_UTILS_H
