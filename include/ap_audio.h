@@ -80,11 +80,13 @@ int ap_audio_fmt_al_2_ap(int al_fmt);
  */
 int ap_audio_init();
 
+int ap_audio_free(int id);
+
 /**
  * @brief Close OpenAL device, destroy context.
  * @return AP_Types
  */
-int ap_audio_free();
+int ap_audio_free_all();
 
 int ap_audio_load_mp3(const char *name, unsigned int *id);
 

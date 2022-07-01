@@ -635,7 +635,34 @@ int ap_audio_stop(unsigned int id)
         return ap_audio_stop_ptr(ptr);
 }
 
-int ap_audio_free()
+int ap_audio_free(int id)
+{
+        if (id <= 0) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        // Stop all playing audios firstlly, then release memories unreleased
+        // then close OpenAL
+        struct AP_Audio *ptr, *data = NULL;
+        data = (struct AP_Audio*) audio_vector.data;
+        for (int i = 0; i < audio_vector.length; ++i) {
+                ptr = data + i;
+                if (ptr->id != id) {
+                        continue;
+                }
+                ap_audio_stop_ptr(ptr);
+                ap_audio_release_ptr(ptr);
+                ap_vector_remove_data(
+                        &audio_vector,
+                        (char*) (ptr),
+                        (char*) (ptr + 1),
+                        sizeof(struct AP_Audio)
+                );
+        }
+        return 0;
+}
+
+int ap_audio_free_all()
 {
         // Stop all playing audios firstlly, then release memories unreleased
         // then close OpenAL
