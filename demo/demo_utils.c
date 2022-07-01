@@ -263,7 +263,6 @@ int demo_render()
         int view_distance = 0;
         ap_render_get_view_distance(&view_distance);
         ap_shader_set_float(
-                cube_shader,
                 "view_distance",
                 (float) view_distance
         );
@@ -271,16 +270,16 @@ int demo_render()
         glBindTexture(GL_TEXTURE_2D, light_texture);
         float *projection = NULL;
         ap_render_get_persp_matrix(&projection);
-        ap_shader_set_mat4(cube_shader, "projection", projection);
+        ap_shader_set_mat4("projection", projection);
         float *view = NULL;
         ap_render_get_view_matrix(&view);
-        ap_shader_set_mat4(cube_shader, "view", view);
+        ap_shader_set_mat4("view", view);
 
         mat4 mat_model;
         for (int i = 0; draw_light_cubes && i < DEMO_POINT_LIGHT_NUM; ++i) {
                 glm_mat4_identity(mat_model);
                 glm_translate(mat_model, light_positions[i]);
-                ap_shader_set_mat4(cube_shader, "model", mat_model[0]);
+                ap_shader_set_mat4("model", mat_model[0]);
                 glBindVertexArray(light_cube_VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
         }

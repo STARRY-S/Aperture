@@ -16,19 +16,20 @@
 typedef enum {
         AP_VECTOR_UNDEFINED = 0,    // uninitialized vector type
         AP_VECTOR_VERTEX = 0x0101,  // Vertex           = 257
+        AP_VECTOR_SHADER,           // Shader
         AP_VECTOR_TEXTURE,          // Texture
-        AP_VECTOR_MESH,             // AP_Mesh
-        AP_VECTOR_MODEL,            // Model            = 260
+        AP_VECTOR_MESH,             // AP_Mesh          = 260
+        AP_VECTOR_MODEL,            // Model
         AP_VECTOR_CAMERA,           // Camera
         AP_VECTOR_AUDIO,            // Audio
         AP_VECTOR_PCREATURE,        // Creature
-        AP_VECTOR_PBARRIER,         // Barrier
-        AP_VECTOR_CHAR,             // Char             = 265
+        AP_VECTOR_PBARRIER,         // Barrier          = 265
+        AP_VECTOR_CHAR,             // Char
         AP_VECTOR_CHARACTOR,        // Charactor
         AP_VECTOR_LIGHT,            // Light
         AP_VECTOR_INT,              // Integer
-        AP_VECTOR_UINT,             // Unsigned int
-        AP_VECTOR_FLOAT,            // Float            = 270
+        AP_VECTOR_UINT,             // Unsigned int     = 270
+        AP_VECTOR_FLOAT,            // Float
         AP_VECTOR_POINTER,          // char* pointer array
 } AP_VECTOR_Types;
 

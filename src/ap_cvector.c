@@ -1,14 +1,4 @@
-#include "ap_cvector.h"
-#include "ap_utils.h"
-#include "ap_render.h"
-#include "ap_mesh.h"
-#include "ap_model.h"
-#include "ap_texture.h"
-#include "ap_vertex.h"
-#include "ap_camera.h"
-#include "ap_audio.h"
-#include "ap_light.h"
-#include "ap_physic.h"
+#include "aperture.h"
 
 /**
  * Check whether vector is initialized or not
@@ -32,6 +22,9 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
                 break;
         case AP_VECTOR_FLOAT:
                 size = sizeof(float);
+                break;
+        case AP_VECTOR_SHADER:
+                size = sizeof(struct AP_Shader);
                 break;
         case AP_VECTOR_MESH:
                 size = sizeof(struct AP_Mesh);

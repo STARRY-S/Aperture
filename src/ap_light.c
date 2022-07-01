@@ -130,71 +130,57 @@ int ap_light_render()
                 }
                 // position
                 sprintf(buffer, AP_SP_PL_POSITION, i);
-                ap_shader_set_vec3(shader, buffer, p->position);
+                ap_shader_set_vec3(buffer, p->position);
                 // ambient
                 sprintf(buffer, AP_SP_PL_AMBIENT, i);
-                ap_shader_set_vec3(shader, buffer, p->ambient);
+                ap_shader_set_vec3(buffer, p->ambient);
                 // diffuse
                 sprintf(buffer, AP_SP_PL_DIFFUSE, i);
-                ap_shader_set_vec3(shader, buffer, p->diffuse);
+                ap_shader_set_vec3(buffer, p->diffuse);
                 // specular
                 sprintf(buffer, AP_SP_PL_SPECULAR, i);
-                ap_shader_set_vec3(shader, buffer, p->specular);
+                ap_shader_set_vec3(buffer, p->specular);
                 // constant
                 sprintf(buffer, AP_SP_PL_CONSTANT, i);
-                ap_shader_set_float(shader, buffer, p->param[0]);
+                ap_shader_set_float(buffer, p->param[0]);
                 // linear
                 sprintf(buffer, AP_SP_PL_LINEAR, i);
-                ap_shader_set_float(shader, buffer, p->param[1]);
+                ap_shader_set_float(buffer, p->param[1]);
                 // quadratic
                 sprintf(buffer, AP_SP_PL_QUADRATIC, i);
-                ap_shader_set_float(shader, buffer, p->param[2]);
+                ap_shader_set_float(buffer, p->param[2]);
         }
 
         // send directional light data
         if (direct_light.type == AP_LIGHT_DIRECTIONAL) {
                 // direction
-                ap_shader_set_vec3(shader, AP_SP_DL_DIRECTION,
-                        direct_light.direction);
+                ap_shader_set_vec3(AP_SP_DL_DIRECTION, direct_light.direction);
                 // ambient
-                ap_shader_set_vec3(shader, AP_SP_DL_AMBIENT,
-                        direct_light.ambient);
+                ap_shader_set_vec3(AP_SP_DL_AMBIENT, direct_light.ambient);
                 // diffuse
-                ap_shader_set_vec3(shader, AP_SP_DL_DIFFUSE,
-                        direct_light.diffuse);
+                ap_shader_set_vec3(AP_SP_DL_DIFFUSE, direct_light.diffuse);
                 // specular
-                ap_shader_set_vec3(shader, AP_SP_DL_SPECULAR,
-                        direct_light.specular);
+                ap_shader_set_vec3(AP_SP_DL_SPECULAR, direct_light.specular);
         }
 
         // send spot light data
         if (spot_light.type == AP_LIGHT_SPOT) {
                 // ambient
-                ap_shader_set_vec3(shader, AP_SP_SL_AMBIENT,
-                        spot_light.ambient);
+                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.ambient);
                 // diffuse
-                ap_shader_set_vec3(shader, AP_SP_SL_AMBIENT,
-                        spot_light.diffuse);
+                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.diffuse);
                 // specular
-                ap_shader_set_vec3(shader, AP_SP_SL_SPECULAR,
-                        spot_light.specular);
+                ap_shader_set_vec3(AP_SP_SL_SPECULAR, spot_light.specular);
                 // constant
-                ap_shader_set_float(shader, AP_SP_SL_CONSTANT,
-                        spot_light.param[0]);
+                ap_shader_set_float(AP_SP_SL_CONSTANT, spot_light.param[0]);
                 // linear
-                ap_shader_set_float(shader, AP_SP_SL_LINEAR,
-                        spot_light.param[1]);
+                ap_shader_set_float(AP_SP_SL_LINEAR, spot_light.param[1]);
                 // quadratic
-                ap_shader_set_float(shader, AP_SP_SL_QUADRATIC,
-                        spot_light.param[2]);
+                ap_shader_set_float(AP_SP_SL_QUADRATIC, spot_light.param[2]);
                 // cut_off
-                ap_shader_set_float(shader, AP_SP_SL_CUTOFF,
-                        spot_light.param[3]);
+                ap_shader_set_float(AP_SP_SL_CUTOFF, spot_light.param[3]);
                 // outer_cut_off
-                ap_shader_set_float(shader,
-                        AP_SP_SL_OUTER_CUTOFF,
-                        spot_light.param[4]
-                );
+                ap_shader_set_float(AP_SP_SL_OUTER_CUTOFF, spot_light.param[4]);
         }
         ap_shader_use(old_shader);
 
@@ -214,7 +200,7 @@ int ap_light_set_material_shininess(float shininess)
         char buffer[AP_DEFAULT_BUFFER_SIZE] = {0};
         for (int i = 0; i < AP_TEXTURE_UNIT_MAX_NUM; ++i) {
                 sprintf(buffer, AP_SP_MT_SHININESS, i);
-                ap_shader_set_float(shader, buffer, shininess);
+                ap_shader_set_float(buffer, shininess);
         }
         ap_shader_use(old_shader);
 

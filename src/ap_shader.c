@@ -9,22 +9,20 @@
 #include "ap_shader.h"
 #include "ap_utils.h"
 
-// vector stores openGL (shader) program ID
 static struct AP_Vector shader_vector = { 0, 0, 0, 0 };
-// openGL (shader) program ID
-static unsigned int shader_using = 0;
+static struct AP_Shader *shader_using = NULL;
 
 /**
  * Load vertex and fragment shader from file, compile and attach it to program
  * return (shader) program id
  */
 GLuint ap_shader_load_program(
-    const char *const vshader_path,
-    const char *const fshader_path
+        const char *const vshader_path,
+        const char *const fshader_path
 );
 
 /**
- * @brief return compiled openGL shader id
+ * @brief return compiled OpenGL shader id
  * @param type
  * @param shader_path
  * @return GLuint
@@ -38,8 +36,8 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path);
  * @return GLuint shader id
  */
 GLuint ap_compile_shader(
-    GLenum type,
-    const char *const shader_src
+        GLenum type,
+        const char *const shader_src
 );
 
 int ap_shader_generate(
@@ -53,7 +51,7 @@ int ap_shader_generate(
 
         // initialize vector when first use
         if (shader_vector.data == NULL) {
-                ap_vector_init(&shader_vector, AP_VECTOR_UINT);
+                ap_vector_init(&shader_vector, AP_VECTOR_SHADER);
         }
 
         GLuint gl_shader_id = 0;
@@ -61,44 +59,81 @@ int ap_shader_generate(
         if (gl_shader_id == 0) {
                 return AP_ERROR_SHADER_LOAD_FAILED;
         }
-        ap_vector_push_back(&shader_vector, (const char*) &gl_shader_id);
-        *shader_id = gl_shader_id;
+        struct AP_Shader shader;
+        memset(&shader, 0, sizeof(struct AP_Shader));
+        shader.id = shader_vector.length + 1;
+        shader.opengl_program_id = gl_shader_id;
+        shader.fragment_shader_path = ap_char_copy(fshader_path);
+        shader.vertex_shader_path   = ap_char_copy(vshader_path);
+        ap_vector_push_back(&shader_vector, (const char*) &shader);
+        *shader_id = shader.id;
 
         return 0;
 }
 
-int ap_shader_use(unsigned shader_program_id)
+int ap_shader_use(unsigned id)
 {
-        if (shader_program_id == 0) {
+        if (id == 0) {
+                shader_using = NULL;
                 glUseProgram(0);
                 return 0;
         }
 
-        unsigned int *program_id_array = (unsigned*) shader_vector.data;
-        bool found = false;
+        struct AP_Shader *data = (struct AP_Shader*) shader_vector.data;
         for (int i = 0; i < shader_vector.length; ++i) {
-                if (program_id_array[i] == shader_program_id) {
-                        found = true;
+                if (data[i].id != id) {
+                        continue;
                 }
+                glUseProgram(data[i].opengl_program_id);
+                shader_using = data + i;
+                return 0;
         }
 
-        if (found) {
-                shader_using = shader_program_id;
-                glUseProgram(shader_program_id);
-        } else {
+        LOGE("ap_shader_use failed: id %u not found", id);
+        return AP_ERROR_INVALID_PARAMETER;
+}
+
+int ap_shader_free(int id)
+{
+        if (id <= 0) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
+
+        struct AP_Shader *ptr = ap_shader_get_ptr(id);
+        if (!ptr) {
+                return AP_ERROR_INVALID_PARAMETER;
+        }
+
+        if (ptr == shader_using) {
+                shader_using = NULL;
+                glUseProgram(0);
+        }
+
+        glDeleteProgram(ptr->opengl_program_id);
+        AP_FREE(ptr->fragment_shader_path);
+        AP_FREE(ptr->vertex_shader_path);
+        ap_vector_remove_data(
+                &shader_vector,
+                (char*) (ptr),
+                (char*) (ptr + 1),
+                sizeof(struct AP_Shader)
+        );
 
         return 0;
 }
 
-int ap_shader_free()
+int ap_shader_free_all()
 {
-        shader_using = 0;    // for safety purpose
+        shader_using = NULL;
         glUseProgram(0);
-        unsigned int *program_ptr = (unsigned*) shader_vector.data;
+
+        struct AP_Shader *shader = (struct AP_Shader*) shader_vector.data;
         for (int i = 0; i < shader_vector.length; ++i) {
-                glDeleteProgram(program_ptr[i]);
+                glDeleteProgram(shader[i].opengl_program_id);
+                AP_FREE(shader[i].fragment_shader_path);
+                AP_FREE(shader[i].vertex_shader_path);
+                shader[i].fragment_shader_path = NULL;
+                shader[i].vertex_shader_path = NULL;
         }
         ap_vector_free(&shader_vector);
 
@@ -113,7 +148,6 @@ GLuint ap_compile_shader(
         GLint compiled = 0;
 
         if (!(shader = glCreateShader(type))) {
-//        if (shader == 0) {
                 LOGE("glCreateShader failed, type %d.", type);
                 return 0;
         }
@@ -145,6 +179,7 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         int length = 0;
         char *buffer = NULL;
 
+        // TODO: implement this part at ap_custom_io
 #if AP_PLATFORM_ANDROID
         AAssetManager *pLocalAssetManager =
                 (AAssetManager *) ap_get_asset_manager();
@@ -239,9 +274,14 @@ GLuint ap_shader_load_program(
         return program;
 }
 
-int ap_shader_set_float(GLuint program, const char *const name, float value)
+int ap_shader_set_float(const char *const name, float value)
 {
-        int location = glGetUniformLocation(program, name);
+        if (!shader_using) {
+                LOGW("ap_shader_set_float failed: shader_using == NULL");
+                return 0;
+        }
+        int location = glGetUniformLocation(
+                shader_using->opengl_program_id, name);
         if (location < 0) {
                 LOGD("shader failed to set float for %s %d", name, location);
                 return AP_ERROR_RENDER_FAILED;
@@ -250,9 +290,14 @@ int ap_shader_set_float(GLuint program, const char *const name, float value)
         return 0;
 }
 
-int ap_shader_set_int(GLuint program, const char *const name, GLuint value)
+int ap_shader_set_int(const char *const name, GLuint value)
 {
-        int location = glGetUniformLocation(program, name);
+        if (!shader_using) {
+                LOGW("ap_shader_set_int failed: shader_using == NULL");
+                return 0;
+        }
+        int location = glGetUniformLocation(
+                shader_using->opengl_program_id, name);
         if (location < 0) {
                 LOGD("shader failed to set int for %s", name);
                 return AP_ERROR_RENDER_FAILED;
@@ -261,9 +306,14 @@ int ap_shader_set_int(GLuint program, const char *const name, GLuint value)
         return 0;
 }
 
-int ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
+int ap_shader_set_vec3(const char *const name, float *vec)
 {
-        int location = glGetUniformLocation(program, name);
+        if (!shader_using) {
+                LOGW("ap_shader_set_vec3 failed: shader_using == NULL");
+                return 0;
+        }
+        int location = glGetUniformLocation(
+                shader_using->opengl_program_id, name);
         if (location < 0) {
                 LOGD("shader failed to set vec3 for %s", name);
                 return AP_ERROR_RENDER_FAILED;
@@ -272,9 +322,14 @@ int ap_shader_set_vec3(GLuint program, const char *const name, float *vec)
         return 0;
 }
 
-int ap_shader_set_vec4(GLuint program, const char *const name, float *vec)
+int ap_shader_set_vec4(const char *const name, float *vec)
 {
-        int location = glGetUniformLocation(program, name);
+        if (!shader_using) {
+                LOGW("ap_shader_set_vec4 failed: shader_using == NULL");
+                return 0;
+        }
+        int location = glGetUniformLocation(
+                shader_using->opengl_program_id, name);
         if (location < 0) {
                 LOGD("shader failed to set vec4 for %s", name);
                 return AP_ERROR_RENDER_FAILED;
@@ -283,9 +338,14 @@ int ap_shader_set_vec4(GLuint program, const char *const name, float *vec)
         return 0;
 }
 
-int ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
+int ap_shader_set_mat4(const char *const name, float* mat)
 {
-        int location = glGetUniformLocation(program, name);
+        if (!shader_using) {
+                LOGW("ap_shader_set_mat4 failed: shader_using == NULL");
+                return 0;
+        }
+        int location = glGetUniformLocation(
+                shader_using->opengl_program_id, name);
         if (location < 0) {
                 LOGD("shader failed to set mat4 for %s", name);
                 return AP_ERROR_RENDER_FAILED;
@@ -296,5 +356,24 @@ int ap_shader_set_mat4(GLuint program, const char *const name, float* mat)
 
 unsigned int ap_get_current_shader()
 {
-        return shader_using;
+        if (!shader_using) {
+                return 0;
+        }
+        return shader_using->id;
+}
+
+struct AP_Shader* ap_shader_get_ptr(int id)
+{
+        if (id <= 0) {
+                return NULL;
+        }
+
+        struct AP_Shader *data = (struct AP_Shader*) shader_vector.data;
+        for (int i = 0; i < shader_vector.length; ++i) {
+                if (data[i].id != id) {
+                        continue;
+                }
+                return data + i;
+        }
+        return NULL;
 }

@@ -120,9 +120,9 @@ int ap_render_general_initialize()
         char buffer[AP_DEFAULT_BUFFER_SIZE] = {0};
         for (int i = 0; i < AP_SP_MATERIALS_NR; ++i) {
                 sprintf(buffer, AP_SP_MT_DIFFUSE, i);
-                ap_shader_set_int(renderer.persp_shader, buffer, i);
+                ap_shader_set_int(buffer, i);
                 sprintf(buffer, AP_SP_MT_SPECULAR, i);
-                ap_shader_set_int(renderer.persp_shader, buffer, i);
+                ap_shader_set_int(buffer, i);
         }
         ap_shader_use(0);
 
@@ -253,7 +253,7 @@ int ap_render_init_font(const char *path, int size)
         for (int i = 0; i < 2; ++i) {
                 char buffer[32];
                 sprintf(buffer, AP_SO_TEXTURE, i + 1);
-                ap_shader_set_int(renderer.ortho_shader, buffer, i);
+                ap_shader_set_int(buffer, i);
         }
 
         ap_shader_use(old_shader);
@@ -330,11 +330,9 @@ int ap_render_text_line(
         glBindVertexArray(renderer.ortho_VAO);
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
-        ap_shader_set_vec4(renderer.ortho_shader, AP_SO_COLOR, color);
+        ap_shader_set_vec4(AP_SO_COLOR, color);
         // set texture num to 0 for font rendering
-        ap_shader_set_int(
-                renderer.ortho_shader, AP_SO_TEXTURE_NUM, 0
-        );
+        ap_shader_set_int(AP_SO_TEXTURE_NUM, 0);
 
         // enable blend
         glEnable(GL_BLEND);
@@ -455,10 +453,7 @@ int ap_render_aim_cross()
         glBindVertexArray(renderer.ortho_VAO);
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
-        ap_shader_set_vec4(
-                renderer.ortho_shader,
-                AP_SO_COLOR, renderer.cross_aim_color
-        );
+        ap_shader_set_vec4(AP_SO_COLOR, renderer.cross_aim_color);
 
         ivec2 size = {
                 renderer.cross_aim_width,
@@ -531,10 +526,7 @@ int ap_render_aim_dot()
 
         glBindVertexArray(renderer.ortho_VAO);
         ap_shader_use(renderer.ortho_shader);
-        ap_shader_set_vec4(
-                renderer.ortho_shader,
-                AP_SO_COLOR, renderer.dot_aim_color
-        );
+        ap_shader_set_vec4(AP_SO_COLOR, renderer.dot_aim_color);
 
         // enable blend
         ivec2 size = {
@@ -567,9 +559,7 @@ int ap_render_ortho_image_texture(
         glBindVertexArray(renderer.ortho_VAO);
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.ortho_shader);
-        ap_shader_set_int(
-                renderer.ortho_shader, AP_SO_TEXTURE_NUM, tex_num
-        );
+        ap_shader_set_int(AP_SO_TEXTURE_NUM, tex_num);
 
         // enable blend
         glEnable(GL_BLEND);
@@ -661,51 +651,42 @@ int ap_render_flush()
         glm_mat4_identity(renderer.view_matrix);
         ap_camera_get_view_matrix(&renderer.view_matrix);
         ap_shader_set_mat4(
-                renderer.persp_shader,
                 AP_SP_VIEW,
                 renderer.view_matrix[0]
         );
         vec3 view_pos = {0.0f};
         ap_camera_get_position(view_pos);
         ap_shader_set_vec3(
-                renderer.persp_shader,
                 AP_SP_VIEW_POS,
                 view_pos
         );
         ap_shader_set_vec3(
-                renderer.persp_shader,
                 AP_SP_SL_POSITION,
                 view_pos
         );
         vec3 cam_direction = { 0.0f, 0.0f, 0.0f };
         ap_camera_get_front(cam_direction);
         ap_shader_set_vec3(
-                renderer.persp_shader,
                 AP_SP_SL_DIRECTION,
                 cam_direction
         );
         ap_shader_set_int(
-                renderer.persp_shader,
                 AP_SP_SPOT_LIGHT_ENABLED,
                 renderer.spot_light_enabled
         );
         ap_shader_set_int(
-                renderer.persp_shader,
                 AP_SP_POINT_LIGHT_ENABLED,
                 renderer.point_light_enabled
         );
         ap_shader_set_int(
-                renderer.persp_shader,
                 AP_SP_ENV_LIGHT_ENABLED,
                 renderer.environment_light_enabled
         );
         ap_shader_set_int(
-                renderer.persp_shader,
                 AP_SP_MATERIAL_NUMBER,
                 renderer.material_num
         );
         ap_shader_set_float(
-                renderer.persp_shader,
                 AP_SP_VIEW_DISTANCE,
                 (float) renderer.view_distance
         );
@@ -721,7 +702,6 @@ int ap_render_flush()
                 renderer.persp_matrix
         );
         ap_shader_set_mat4(
-                renderer.persp_shader,
                 AP_SP_PROJECTION,
                 renderer.persp_matrix[0]
         );
@@ -734,7 +714,7 @@ int ap_render_finish()
 {
         ap_vector_free(&charactor_vector);
         ap_camera_free_all();
-        ap_shader_free();
+        ap_shader_free_all();
         ap_model_free_all();
         ap_texture_free();
         ap_audio_free_all();
@@ -769,7 +749,6 @@ int ap_render_resize_buffer(int width, int height)
                 -1.0f, 1.0f, renderer.ortho_matrix
         );
         ap_shader_set_mat4(
-                renderer.ortho_shader,
                 AP_SO_PROJECTION,
                 renderer.ortho_matrix[0]
         );
@@ -855,7 +834,7 @@ int ap_render_set_model_mat(float *mat)
 
         unsigned int old_shader = ap_get_current_shader();
         ap_shader_use(renderer.persp_shader);
-        ap_shader_set_mat4(renderer.persp_shader,
+        ap_shader_set_mat4(
                 // AP_RENDER_NAME_MODEL,
                 AP_SP_MODEL,
                 mat
