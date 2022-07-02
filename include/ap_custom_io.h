@@ -47,6 +47,31 @@ C_ENUM aiReturn ap_custom_ai_fseek_proc(
         C_ENUM aiOrigin origin
 );
 
-// TODO: Implement f* I/O functions for Android and *nix system
+/**
+ * @brief read file to memory
+ * should free the pointer after use
+ * @param file file name
+ * @param ptr    [out] pointer points to the pointer of the buffer
+ * @param length [out] file length
+ * @return int AP_Error_Types
+ */
+int ap_read_file_to_memory(const char *file, char **ptr, int *length);
+
+/**
+ * @brief open file and get its file descriptor
+ * should close this fd after use
+ * @param file file name
+ * @param pfd [out] pointer points to file descriptor
+ * @return int AP_Error_Types
+ */
+int ap_open_file_descriptor(const char *file, int *pfd);
+
+/**
+ * @brief close file descriptor opened by ap_open_file_descriptor
+ *
+ * @param fd
+ * @return int AP_Error_Types
+ */
+int ap_close_file_descriptor(int fd);
 
 #endif // AP_CUSTOM_IO_H
