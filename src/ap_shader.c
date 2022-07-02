@@ -199,15 +199,12 @@ GLuint ap_shader_load_program(
         const char *const vshader_path,
         const char *const fshader_path)
 {
-        GLint linked = 0;
-        GLuint vshader = 0;
-        GLuint fshader = 0;
-        GLuint program = 0;
-
-        vshader = ap_shader_load(GL_VERTEX_SHADER, vshader_path);
-        fshader = ap_shader_load(GL_FRAGMENT_SHADER, fshader_path);
-        if (!vshader || !fshader)
+        GLuint vshader = ap_shader_load(GL_VERTEX_SHADER, vshader_path);
+        GLuint fshader = ap_shader_load(GL_FRAGMENT_SHADER, fshader_path);
+        if (!vshader || !fshader) {
                 return 0;
+        }
+        GLuint program = 0;
         if (!(program = glCreateProgram())) {
                 LOGE("glCreateProgram failed.");
                 return 0;
@@ -219,9 +216,16 @@ GLuint ap_shader_load_program(
         glDeleteShader(vshader);
         glDeleteShader(fshader);
 
+        GLint linked = 0;
         glGetProgramiv(program, GL_LINK_STATUS, &linked);
         if (!linked) {
-                LOGE("Link Program Error.");
+                GLint log_length = 0;
+                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
+
+                GLchar *buffer = AP_MALLOC(sizeof(GLchar) * (log_length + 1));
+                glGetProgramInfoLog(program, log_length, &log_length, buffer);
+                LOGE("ap_shader_load_program: glLinkProgram\n%s", buffer);
+                glDeleteProgram(program);
                 return 0;
         }
         return program;
