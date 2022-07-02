@@ -21,6 +21,8 @@
 #if AP_PLATFORM_ANDROID
 
 #include <jni.h>
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
 
 JNIEXPORT void JNICALL
 Java_moe_starrys_game_1engine_GLES3JNILib_init(JNIEnv *env, jclass clazz) {

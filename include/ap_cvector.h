@@ -55,7 +55,7 @@ int ap_vector_init(struct AP_Vector *vector, int vector_type);
 /**
  * @brief Release the memory allocated by vector
  * @param vector
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_vector_free(struct AP_Vector *vector);
 
@@ -63,7 +63,7 @@ int ap_vector_free(struct AP_Vector *vector);
  * @brief Append one data to the back of the vector.
  * @param vector
  * @param data - char* , pointer points to the data,
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_vector_push_back(struct AP_Vector *vector, const char* data);
 
@@ -72,7 +72,7 @@ int ap_vector_push_back(struct AP_Vector *vector, const char* data);
  * @param vector
  * @param start pointer points to data
  * @param size size of data (byte)
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_vector_insert_back(
         struct AP_Vector *vector,

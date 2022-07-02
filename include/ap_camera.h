@@ -51,7 +51,7 @@ int ap_camera_get_front(float *vec);
  *
  * @param direction should be AP_DIRECTION_*
  * @param speed_up default is 1.0f
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_camera_process_movement(int direction, int speed_up);
 int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch);

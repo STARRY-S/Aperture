@@ -36,8 +36,6 @@
 #define CHAR_SIZE sizeof(char)
 
 #if AP_PLATFORM_ANDROID
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
 #include <android/log.h>
 
 #define  LOG_TAG    "AP_MAIN"
@@ -174,9 +172,10 @@ typedef enum {
         AP_ERROR_DECODE_FAILED,         // decode failed
         AP_ERROR_DECODE_NOT_INIT,       // decode not initialized
         AP_ERROR_DECODE_FMT_NSUPPORT,   // decode format doest not support
+        AP_ERROR_OPEN_FILE_FAILED,      // open file failed
         AP_ERROR_UNKNOWN,               // unknown error
-        AP_ERROR_LENGTH
-} AP_Types;
+        AP_ERROR_LENGTH,
+} AP_Error_Types;
 
 typedef int (*ap_callback_func_t)(void* param, int reserve);
 

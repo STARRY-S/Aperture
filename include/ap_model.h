@@ -31,7 +31,7 @@ struct AP_Model {
  * @brief Generate a model
  * @param path [in] path to the model file
  * @param model_id [out] model id
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_model_generate(const char *path, unsigned int *model_id);
 

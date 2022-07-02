@@ -63,7 +63,7 @@ int ap_mesh_copy(struct AP_Mesh *dst, const struct AP_Mesh *src);
  * @brief Draw mesh and its texture(s)
  *
  * @param mesh pointer points to AP_Mesh
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_mesh_draw(struct AP_Mesh *mesh);
 

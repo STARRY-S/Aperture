@@ -11,6 +11,10 @@
 #include "ap_camera.h"
 #include "ap_cvector.h"
 
+#if AP_PLATFORM_ANDROID
+#include <android/asset_manager.h>
+#endif
+
 const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "SUCCESS",
         "INVALID_POINTER",
@@ -30,7 +34,8 @@ const char *AP_ERROR_NAME[AP_ERROR_LENGTH] = {
         "DECODE_FAILED",
         "DECODE_NOT_INIT",
         "DECODE_FMT_NSUPPORT",
-        "UNKNOWN"
+        "OPEN_FILE_FAILED",
+        "UNKNOWN",
 };
 
 #if AP_PLATFORM_ANDROID

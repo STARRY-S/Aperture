@@ -18,7 +18,7 @@
  * @param model pointer points to a new model
  * @param path model path
  * @param gamma reserve, default false
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 static int ap_model_init_ptr(
         struct AP_Model *model, const char *path, bool gamma
@@ -37,11 +37,11 @@ static struct AP_Vector model_vector = { 0, 0, 0, 0 };
 static struct AP_Model *model_using = NULL;
 
 /**
- * Load model from android asset manager.
+ * Load model from file
  * @param model
  * @param path file path
  * @param format can be null or empty string
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_model_load_ptr(struct AP_Model *model, const char *path);
 
@@ -50,7 +50,7 @@ int ap_model_load_ptr(struct AP_Model *model, const char *path);
  * @param model
  * @param node
  * @param scene
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_model_process_node(
         struct AP_Model *model,
@@ -62,7 +62,7 @@ int ap_model_process_node(
  * Push a new texture struct object into model
  * @param model
  * @param texture
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_model_texture_loaded_push_back(
         struct AP_Model *model,
@@ -86,7 +86,7 @@ struct AP_Mesh *ap_model_process_mesh(
  * Push a new mesh struct object to model
  * @param model
  * @param mesh
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
 

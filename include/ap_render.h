@@ -31,7 +31,7 @@ int ap_render_resize_buffer(int width, int height);
  *
  * @param path path to the font file
  * @param size default font size
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_render_init_font(const char *path, int size);
 
@@ -45,7 +45,7 @@ int ap_render_init_font(const char *path, int size);
  * @param l   [out] offset from baseline to left of glypt
  * @param t   [out] offset from baseline to right of glypt
  * @param a   [out] offset to advance to next glyph
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_render_char_2_texture(
         char c, unsigned int *tid, int *w, int *h, int *l, int *t, int *a
@@ -59,7 +59,7 @@ int ap_render_char_2_texture(
  * @param y     position of the string (y)
  * @param scale scale
  * @param color RGBA
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_render_text_line(
         const char *text, float x, float y, float scale, float* color);
@@ -67,7 +67,7 @@ int ap_render_text_line(
 /**
  * @brief Flush FPS, ortho matrix, etc...
  *
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_render_flush();
 

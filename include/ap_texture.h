@@ -51,7 +51,7 @@ struct AP_Texture {
  * @param path [in] name of the image (PNG or JPG)
  * @param directory [in] directory to the image file (UNIX format)
  * @param gamma reserve, not use currently
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_texture_generate(
         unsigned int *texture_id,
@@ -132,7 +132,7 @@ unsigned int ap_texture_from_data_rgba(const unsigned char *data, int w, int h);
 /**
  * Initialize texture struct object, set the memory data to zero
  * @param texture
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_texture_init(struct AP_Texture *texture);
 
@@ -141,7 +141,7 @@ int ap_texture_init(struct AP_Texture *texture);
  *
  * @param texture pointer points to struct AP_Texture
  * @param name name of the image file (PNG, JPG)
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_texture_set_path(struct AP_Texture *texture, const char *name);
 
@@ -149,7 +149,7 @@ int ap_texture_free(int id);
 
 /**
  * @brief finalize vector memory
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_texture_free_all();
 

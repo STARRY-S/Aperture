@@ -76,7 +76,7 @@ int ap_audio_fmt_al_2_ap(int al_fmt);
 
 /**
  * @brief Initialize OpenAL, create OpenAL Context
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_audio_init();
 
@@ -84,7 +84,7 @@ int ap_audio_free(int id);
 
 /**
  * @brief Close OpenAL device, destroy context.
- * @return AP_Types
+ * @return AP_Error_Types
  */
 int ap_audio_free_all();
 

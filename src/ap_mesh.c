@@ -11,7 +11,7 @@
 /**
  * private, generate GL buffers of the mesh.
  * @param mesh
- * @return AP_Types
+ * @return AP_Error_Types
  */
 static int ap_mesh_setup(struct AP_Mesh *mesh);
 

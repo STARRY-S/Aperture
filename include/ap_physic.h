@@ -102,7 +102,7 @@ int ap_physic_free_barrier(int id);
  * @brief generate one creature struct object
  *
  * @param id [out] creature id
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_physic_generate_creature(unsigned int *id, float size[3]);
 
@@ -113,7 +113,7 @@ int ap_creature_set_camera_offset(float offset[3]);
  *
  * @param id  [in] id
  * @param ptr [out] pointer points to the pointer of struct AP_PCreature
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_physic_get_creature_ptr(unsigned int id, struct AP_PCreature **ptr);
 
@@ -137,7 +137,7 @@ int ap_creature_jump();
  *
  * @param id [out] pointer points to id
  * @param type AP_Barrier_types
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_physic_generate_barrier(unsigned int *id, int type);
 
@@ -173,7 +173,7 @@ bool ap_box_ball_collistion_test(
  * @param movable_box the movable box
  * @param on_top [out] the movable box is standing on the top of the barriar
  *                     or not, can be NULL
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_box_box_collision_move(
         struct AP_PBox *barrial_box,
@@ -201,7 +201,7 @@ int ap_ball_ball_collision_move(
  *
  * @param id barrier ID
  * @param pos vec3
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_barrier_set_pos(unsigned int id, float pos[3]);
 

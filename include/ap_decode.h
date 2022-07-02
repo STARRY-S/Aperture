@@ -8,7 +8,7 @@
  * only support MP3 format audio
  * @param filename name of the audio file to be decoded
  * @param out_name output file name
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_decode_to_file(const char* filename, const char *out_name);
 
@@ -20,7 +20,7 @@ int ap_decode_to_file(const char* filename, const char *out_name);
  * @param ap_format [out] AP_Audio_format
  * @param frequency [out] frequency
  * @param channels  [out] channels
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_decode_to_memory(
         const char* filename,

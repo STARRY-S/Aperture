@@ -91,7 +91,7 @@ struct AP_Shader {
  * @param vshader_path path to vertex shader
  * @param fshader_path path to fragment shader
  * @param shader_id [out] (shader) program ID
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 int ap_shader_generate(
         const char* vshader_path,

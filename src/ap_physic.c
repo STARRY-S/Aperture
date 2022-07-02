@@ -11,7 +11,7 @@
  * @brief Update specific creature by its pointer
  *
  * @param ptr pointer points to creature
- * @return int AP_Types
+ * @return int AP_Error_Types
  */
 static int ap_physic_update_creature_ptr(struct AP_PCreature *ptr);
 static int ap_creature_process_barrier();
