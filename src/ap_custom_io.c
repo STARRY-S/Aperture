@@ -8,6 +8,7 @@
 #include <android/asset_manager_jni.h>
 #elif AP_PLATFORM_WINDOWS
 #include <io.h>
+#include <fcntl.h>
 #else
 #include <errno.h>
 #include <unistd.h>
@@ -230,8 +231,30 @@ int ap_read_file_to_memory(const char *file, char **ptr, int *length)
         *ptr = buffer;
         *length = file_length;
         AAsset_close(m_asset);
-// TODO: Windows
-// #elif AP_PLATFORM_WINDOWS
+#elif AP_PLATFORM_WINDOWS
+        int fh = _open(file, _O_RDONLY | _O_BINARY);
+        if (fh < 0) {
+                LOGE("ap_read_file_to_memory open failed: %d", errno);
+                return AP_ERROR_OPEN_FILE_FAILED;
+        }
+        int file_length = lseek(fh, 0, SEEK_END);
+        if (file_length < 0) {
+                LOGE("ap_read_file_to_memory lseek failed: %d", errno);
+                _close(fh);
+                return AP_ERROR_OPEN_FILE_FAILED;
+        }
+        lseek(fh, 0, SEEK_SET);
+        buffer = AP_MALLOC(file_length);
+        memset(buffer, 0, file_length);
+        int ret = _read(fh, buffer, file_length);
+        if (ret < 0) {
+                LOGE("ap_read_file_to_memory read failed: %d", errno);
+                _close(fh);
+                return AP_ERROR_OPEN_FILE_FAILED;
+        }
+        _close(fh);
+        *ptr = buffer;
+        *length = file_length;
 #else
         int fd = open(file, O_RDONLY);
         if (fd < 0) {
@@ -290,8 +313,13 @@ int ap_open_file_descriptor(const char *file, int *pfd)
                 LOGW("ap_open_file_descriptor: file descriptor opened is 0");
         }
         *pfd = fd;
-// #elif AP_PLATFORM_WINDOWS
-// TODO: windows
+#elif AP_PLATFORM_WINDOWS
+        int fh = _open(file, O_RDONLY);
+        if (fh < 0) {
+                LOGE("ap_open_file_descriptor open failed: %d", errno);
+                return AP_ERROR_OPEN_FILE_FAILED;
+        }
+        *pfd = fh;
 #else
         int fd = open(file, O_RDONLY);
         if (fd < 0) {
