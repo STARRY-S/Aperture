@@ -10,6 +10,7 @@
 #include "ap_utils.h"
 #include "ap_cvector.h"
 #include "ap_audio.h"
+#include "ap_custom_io.h"
 
 /**
  * Check codec format is supported or not
@@ -159,26 +160,14 @@ static int ap_decode_audio(
         *channels = 0;
         int ret = 0;
 
-#if AP_PLATFORM_ANDROID
-        AAssetManager *pLocalAssetManager =
-                (AAssetManager *) ap_get_asset_manager();
-        if (!pLocalAssetManager) {
-                LOGE("pLocalAssetManager is NULL, failed to read file.");
-                return 0;
+#if !AP_PLATFORM_WINDOWS
+        int fd = 0;
+        ret = ap_open_file_descriptor(input_file, &fd);
+        if (ret != 0 || fd <= 0) {
+                LOGE("failed to get file descriptor: %s", input_file);
+                AP_CHECK(ret);
+                return AP_ERROR_INIT_FAILED;
         }
-        AAsset *mAsset = NULL;
-        mAsset = AAssetManager_open(
-                pLocalAssetManager,
-                input_file,
-                AASSET_MODE_UNKNOWN
-        );
-        if (mAsset == NULL) {
-                LOGE("failed to open: %s", input_file);
-                return 0;
-        }
-        off_t offset, length;
-        int fd = AAsset_openFileDescriptor(mAsset, &offset, &length);
-        AAsset_close(mAsset);
         char path[AP_DEFAULT_BUFFER_SIZE] = {0};
         sprintf(path, "/proc/self/fd/%d", fd);
         ret = avformat_open_input(&fmt_ctx, path, NULL, NULL);

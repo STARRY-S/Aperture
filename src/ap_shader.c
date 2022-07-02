@@ -7,6 +7,7 @@
 
 #include "ap_cvector.h"
 #include "ap_shader.h"
+#include "ap_custom_io.h"
 #include "ap_utils.h"
 
 static struct AP_Vector shader_vector = { 0, 0, 0, 0 };
@@ -161,12 +162,12 @@ GLuint ap_compile_shader(
                 glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_len);
                 char *info = (char*) AP_MALLOC(info_len);
                 if (info == NULL) {
-                        LOGE("Malloc error.");
+                        LOGE("ap_compile_shader: malloc error");
                         glDeleteShader(shader);
                         return 0;
                 }
                 glGetShaderInfoLog(shader, info_len, NULL, info);
-                LOGE("Compiled Error: %s", info);
+                LOGE("ap_compile_shader failed: \n%s", info);
                 AP_FREE(info);
                 return 0;
         }
@@ -179,66 +180,18 @@ GLuint ap_shader_load(GLenum type, const char *const shader_path)
         int length = 0;
         char *buffer = NULL;
 
-        // TODO: implement this part at ap_custom_io
-#if AP_PLATFORM_ANDROID
-        AAssetManager *pLocalAssetManager =
-                (AAssetManager *) ap_get_asset_manager();
-        if (!pLocalAssetManager) {
-                LOGE("pLocalAssetManager is NULL, failed to read file.");
+        int ret = ap_read_file_to_memory(shader_path, &buffer, &length);
+        if (!buffer || !length) {
+                AP_CHECK(ret);
                 return 0;
         }
-        AAsset *mAsset = NULL;
-        mAsset = AAssetManager_open(
-                pLocalAssetManager,
-                shader_path,
-                AASSET_MODE_UNKNOWN
-        );
-        if (mAsset == NULL) {
-                LOGE("Read Text Failed: %s", shader_path);
-                return 0;
-        }
-        length = AAsset_getLength(mAsset);
-        buffer = AP_MALLOC(sizeof(char) * length);
-        if (buffer == NULL) {
-                LOGE("MALLOG FAILED.");
-                return 0;
-        }
-        AAsset_read(mAsset, buffer, length);
-        AAsset_close(mAsset);
-
-#else   // NOT ANDROID
-
-        FILE *fp = NULL;
-
-        if (!(fp = fopen(shader_path, "r"))) {
-                LOGE("Open file %s failed", shader_path);
-                return 1;
-        }
-        // sets the file position to end of file
-        fseek(fp, 0l, SEEK_END);
-        length = ftell(fp);
-        rewind(fp);
-        if (!(buffer = (char*) AP_MALLOC(length))) {
-                LOGE("Malloc Error");
-                fclose(fp);
-                return 1;
-        }
-        buffer[0] = '\0';
-
-        char temp_line[AP_DEFAULT_BUFFER_SIZE];
-
-        while (fgets(temp_line, AP_DEFAULT_BUFFER_SIZE, fp))
-                strncat(buffer, temp_line, AP_DEFAULT_BUFFER_SIZE);
-        fclose(fp);
-
-#endif  // NOT ANDROID
-
         buffer[length] = '\0';
         result = ap_compile_shader(type, buffer);
         if (result == 0) {
-                LOGE("Shader file [%s] compiled failed.", shader_path);
+                LOGE("shader file [%s] compiled failed", shader_path);
         }
         AP_FREE(buffer);
+        buffer = NULL;
         return result;
 }
 

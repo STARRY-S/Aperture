@@ -145,32 +145,12 @@ int ap_render_init_font(const char *path, int size)
                 FT_Init_FreeType(&renderer.ft_library);
 #if AP_PLATFORM_ANDROID
                 char *buffer = NULL;
-                int length;
-                AAssetManager *pLocalAssetManager =
-                        (AAssetManager *) ap_get_asset_manager();
-                if (!pLocalAssetManager) {
-                    LOGE("pLocalAssetManager is NULL, failed to read file.");
-                    return 0;
+                int length = 0;
+                int ret = ap_read_file_to_memory(path, &buffer, &length);
+                if (!buffer || !length) {
+                        AP_CHECK(ret);
+                        return AP_ERROR_INIT_FAILED;
                 }
-                AAsset *mAsset = NULL;
-                mAsset = AAssetManager_open(
-                        pLocalAssetManager,
-                        path,
-                        AASSET_MODE_UNKNOWN
-                );
-                if (mAsset == NULL) {
-                    LOGE("read font failed: %s", path);
-                    return 0;
-                }
-                length = AAsset_getLength(mAsset);
-                buffer = AP_MALLOC(sizeof(char) * length);
-                if (buffer == NULL) {
-                    LOGE("MALLOG FAILED.");
-                    return 0;
-                }
-                AAsset_read(mAsset, buffer, length);
-                AAsset_close(mAsset);
-                ap_get_asset_manager();
                 error = FT_New_Memory_Face(
                         renderer.ft_library,
                         (void*) buffer,
@@ -179,6 +159,7 @@ int ap_render_init_font(const char *path, int size)
                         &renderer.ft_face
                 );
                 AP_FREE(buffer);
+                buffer = NULL;
 #else
                 error = FT_New_Face(
                         renderer.ft_library,

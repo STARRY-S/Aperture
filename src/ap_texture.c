@@ -2,6 +2,7 @@
 #include "ap_utils.h"
 #include "ap_cvector.h"
 #include "ap_math.h"
+#include "ap_custom_io.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -162,35 +163,14 @@ unsigned int ap_texture_from_file(
         }
         sprintf(path_buffer, "%s%s", directory, path);
 
-        unsigned char *data = NULL;
-
-#if AP_PLATFORM_ANDROID
-
-        int file_length = 0;
-        AAssetManager *manager = ap_get_asset_manager();
-        AAsset *path_asset = AAssetManager_open(
-                manager, path_buffer, AASSET_MODE_UNKNOWN);
-        if (path_asset == NULL) {
-                // AP_ERROR_ASSET_OPEN_FAILED;
-                LOGE("Failed to load texture from file: %s", path_buffer);
-                AP_FREE(path_buffer);
-                path_buffer = NULL;
-                return 0;
-        }
-        file_length = AAsset_getLength(path_asset);
-
-        unsigned char *file_data =
-                (unsigned char *) AAsset_getBuffer(path_asset);
-        data = stbi_load_from_memory(
-                file_data, file_length, &width, &height, &nr_components, 0
+        int length = 0;
+        unsigned char *buffer = NULL;
+        ap_read_file_to_memory(path_buffer, (char**) &buffer, &length);
+        unsigned char *data = stbi_load_from_memory(
+                buffer, length, &width, &height, &nr_components, 0
         );
-        AAsset_close(path_asset);
-
-#else
-
-        data = stbi_load(path_buffer, &width, &height, &nr_components, 0);
-
-#endif
+        AP_FREE(buffer);
+        buffer = NULL;
 
         if (!data) {
                 LOGE("Failed to load texture: %s", path_buffer);
