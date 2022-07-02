@@ -171,6 +171,7 @@ static int ap_decode_audio(
         char path[AP_DEFAULT_BUFFER_SIZE] = {0};
         sprintf(path, "/proc/self/fd/%d", fd);
         ret = avformat_open_input(&fmt_ctx, path, NULL, NULL);
+        ap_close_file_descriptor(fd);
 #else
         ret = avformat_open_input(&fmt_ctx, input_file, NULL, NULL);
 #endif
