@@ -85,7 +85,7 @@ int demo_setup_light()
                 "mc/tex/minecraft/block/",
                 false
         );
-        ap_shader_set_int("texture_diffuse0", 0);
+        // ap_shader_set_int("texture_diffuse0", 0);
 
         // light cube initialize
         const float* cube_vertices = ap_get_default_cube_vertices();
