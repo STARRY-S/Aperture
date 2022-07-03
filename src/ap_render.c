@@ -83,7 +83,8 @@ int ap_render_general_initialize()
         // init for android
 #else
         if (ap_get_context_ptr() == NULL) {
-                LOGE("FATAL: aperture general init failed");
+                LOGE("aperture renderer init failed: "
+                        "ap_get_context_ptr returns NULL");
                 return AP_ERROR_INIT_FAILED;
         }
         if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
@@ -170,17 +171,8 @@ int ap_render_init_font(const char *path, int size)
 #endif
         }
         if (error) {
-                LOGE("failed to initialize freetype %d", error);
-                return AP_ERROR_INIT_FAILED;
-        }
-
-        if (error == FT_Err_Unknown_File_Format) {
-                // the font file could be opened and read, but it appears
-                // that its font format is unsupported
-                LOGE("load font: unknown format");
-                return AP_ERROR_INIT_FAILED;
-        } else if (error) {
-                LOGE("load font: %d", error);
+                LOGE("failed to initialize freetype");
+                LOGE("%s", FT_Error_String(error));
                 return AP_ERROR_INIT_FAILED;
         }
 
@@ -190,7 +182,8 @@ int ap_render_init_font(const char *path, int size)
                  error = FT_Set_Pixel_Sizes(renderer.ft_face, 0, AP_FONT_SIZE);
         }
         if (error) {
-                LOGE("failed to initialize freetype: %d", error);
+                LOGE("FT_Set_Pixel_Sizes failed: %d", error);
+                LOGE("%s", FT_Error_String(error));
                 return AP_ERROR_INIT_FAILED;
         }
 
@@ -252,9 +245,10 @@ int ap_render_char_2_texture(
         int error = 0;
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         // load character glyph
-         error = FT_Load_Char(renderer.ft_face, c, FT_LOAD_RENDER);
+        error = FT_Load_Char(renderer.ft_face, c, FT_LOAD_RENDER);
         if (error) {
                 LOGE("freetype: failed to load glyph %d", error);
+                LOGE("%s", FT_Error_String(error));
                 return 0;
         }
         // generate texture
@@ -418,7 +412,7 @@ int ap_render_set_aim_cross(int length, int width, vec4 color)
         glBindTexture(GL_TEXTURE_2D, 0);
         renderer.cross_aim_texture_id = texture;
         renderer.cross_aim_width = length;
-        memcpy(renderer.cross_aim_color, color, VEC4_SIZE);
+        ap_v4_copy(renderer.cross_aim_color, color);
         AP_FREE(data);
 
         return 0;
