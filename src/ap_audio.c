@@ -1,3 +1,8 @@
+/**
+ * @file ap_audio.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Audio functions
+ */
 #include "ap_audio.h"
 #include "ap_utils.h"
 #include "ap_decode.h"

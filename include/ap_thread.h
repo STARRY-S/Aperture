@@ -1,3 +1,8 @@
+/**
+ * @file ap_thread.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
+ */
 #ifndef AP_THREAD_H
 #define AP_THREAD_H
 

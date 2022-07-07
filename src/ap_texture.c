@@ -1,3 +1,9 @@
+/**
+ * @file ap_texture.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Texture functions
+ */
+
 #include "ap_texture.h"
 #include "ap_utils.h"
 #include "ap_cvector.h"

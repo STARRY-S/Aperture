@@ -1,3 +1,8 @@
+/**
+ * @file ap_shader.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Shader program definition
+ */
 #ifndef AP_SHADER_H
 #define AP_SHADER_H
 

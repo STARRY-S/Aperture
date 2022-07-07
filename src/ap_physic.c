@@ -1,3 +1,9 @@
+/**
+ * @file ap_physic.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
+ */
+
 #include "ap_physic.h"
 #include "ap_utils.h"
 #include "ap_cvector.h"
@@ -628,7 +634,7 @@ int ap_barrier_set_pos(unsigned int id, float pos[3])
         if (!barrier) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
-        memcpy(barrier->box.pos, pos, VEC3_SIZE);
+        ap_v3_copy(barrier->box.pos, pos);
         return 0;
 }
 
@@ -639,6 +645,6 @@ int ap_barrier_set_size(unsigned int id, float size[3])
         if (!barrier) {
                 return AP_ERROR_INVALID_PARAMETER;
         }
-        memcpy(barrier->box.size, size, VEC3_SIZE);
+        ap_v3_copy(barrier->box.size, size);
         return 0;
 }

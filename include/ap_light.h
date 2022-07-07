@@ -1,8 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Lighting stimulation
+ * @file ap_light.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Multi-light definitions
  *
- * @copyright Apache 2.0 - Copyright (c) 2022
  */
 
 #ifndef AP_LIGHT_H

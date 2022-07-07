@@ -1,3 +1,9 @@
+/**
+ * @file ap_therad.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief WIP
+ */
+
 #include "ap_thread.h"
 #include "ap_utils.h"
 

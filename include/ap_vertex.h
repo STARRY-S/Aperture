@@ -1,3 +1,8 @@
+/**
+ * @file ap_vertex.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Vertex definition
+ */
 #ifndef AP_VERTEX_H
 #define AP_VERTEX_H
 

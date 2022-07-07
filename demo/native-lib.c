@@ -1,11 +1,8 @@
 /**
  * @file native-lib.c
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief interface for Android JNI
- * @version 1.0
- * @date 2022-03-06
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief interfaces for Android JNI
  *
- * @copyright Copyright (c) 2022 - Apache 2.0
  */
 
 #include <string.h>
@@ -106,4 +103,3 @@ Java_moe_starrys_game_1engine_GLES3JNILib_changeTextureNum(JNIEnv *env, jclass c
 }
 
 #endif
-

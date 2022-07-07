@@ -1,3 +1,8 @@
+/**
+ * @file ap_decoder.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Decoder functions
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,7 +35,7 @@ static inline bool ap_decode_support_codec(int codec_id)
 /**
  * @brief Check error message from libavcodec
  *
- * @param name function name
+ * @param name function name, can be NULL
  * @param ret error code
  */
 static inline int ap_decode_check_avcodec(const char *name, int ret)

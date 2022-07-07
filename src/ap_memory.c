@@ -1,3 +1,9 @@
+/**
+ * @file ap_memory.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Memory functions
+ */
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>

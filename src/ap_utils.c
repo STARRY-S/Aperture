@@ -1,3 +1,9 @@
+/**
+ * @file ap_utils.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Utils
+ */
+
 #include <assimp/cfileio.h>
 
 #include <stdio.h>

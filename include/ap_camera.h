@@ -1,9 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Camera struct object defination and function definations
- * of Game Engine (Aperture)
+ * @file ap_camera.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Camera related functions and struct objects
  *
- * @copyright Apache 2.0 - Copyright (c) 2022
  */
 #ifndef AP_CAMERA_H
 #define AP_CAMERA_H

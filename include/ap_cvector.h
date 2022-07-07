@@ -1,8 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Vector implementation in C
+ * @file ap_cvector.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief CVector definitions
  *
- * @copyright Apache 2.0 - Copyright (c) 2022
  */
 #ifndef AP_CVECTOR_H
 #define AP_CVECTOR_H

@@ -1,3 +1,10 @@
+/**
+ * @file demo_light.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
+ *
+ */
+
 #include "demo_light.h"
 #include "demo_utils.h"
 #include "ap_utils.h"

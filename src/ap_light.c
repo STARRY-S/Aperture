@@ -1,3 +1,9 @@
+/**
+ * @file ap_light.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Multi-light implemention
+ */
+
 #include "ap_utils.h"
 #include "ap_light.h"
 #include "ap_render.h"

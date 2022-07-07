@@ -1,3 +1,9 @@
+/**
+ * @file ap_model.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief model related function
+ *
+ */
 #ifndef AP_MODEL_H
 #define AP_MODEL_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file ap_sqlite.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief SQLite functions
+ */
+
 #include "ap_utils.h"
 #include "ap_sqlite.h"
 

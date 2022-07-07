@@ -1,9 +1,10 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Audio implemention for Aperture based on OpenAL, ALUT
+ * @file ap_audio.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Audio function definitions
  *
- * @copyright Copyright (c) 2022 Apache - 2.0
  */
+
 #ifndef AP_AUDIO_H
 #define AP_AUDIO_H
 

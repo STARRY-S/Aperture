@@ -1,3 +1,9 @@
+/**
+ * @file ap_math.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief math functions
+ *
+ */
 #ifndef AP_MATH_H
 
 #include <string.h>

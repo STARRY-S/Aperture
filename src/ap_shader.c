@@ -1,4 +1,8 @@
-
+/**
+ * @file ap_shader.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Shader program functions
+ */
 
 #include <stdio.h>
 #include <string.h>

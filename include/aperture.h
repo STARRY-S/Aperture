@@ -1,3 +1,8 @@
+/**
+ * @file aperture.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief includes all aperture headers
+ */
 #ifndef APERTURE_H
 #define APERTURE_H
 

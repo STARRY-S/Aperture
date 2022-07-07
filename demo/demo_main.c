@@ -1,3 +1,10 @@
+/**
+ * @file demo_main.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
+ *
+ */
+
 #include <stdio.h>
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>

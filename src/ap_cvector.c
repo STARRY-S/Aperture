@@ -1,3 +1,9 @@
+/**
+ * @file ap_cvector.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief cvector implemention
+ */
+
 #include "aperture.h"
 
 /**

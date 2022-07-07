@@ -1,3 +1,8 @@
+/**
+ * @file ap_texture.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Texture functions definition
+ */
 #ifndef AP_TEXTURE_H
 #define AP_TEXTURE_H
 

@@ -1,3 +1,9 @@
+/**
+ * @file ap_model.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief model functions
+ */
+
 #include "ap_utils.h"
 #include "ap_model.h"
 #include "ap_cvector.h"

@@ -1,3 +1,9 @@
+/**
+ * @file ap_memory.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief memory related functions
+ *
+ */
 #ifndef AP_MEMORY_H
 #define AP_MEMORY_H
 

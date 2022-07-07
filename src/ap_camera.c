@@ -1,3 +1,8 @@
+/**
+ * @file ap_camera.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Canera functions
+ */
 #include "ap_camera.h"
 #include "ap_cvector.h"
 #include "ap_render.h"

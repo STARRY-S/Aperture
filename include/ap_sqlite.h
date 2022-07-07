@@ -1,3 +1,8 @@
+/**
+ * @file ap_sqlite.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief SQLite functions definition
+ */
 #ifndef AP_SQLITE_H
 #define AP_SQLITE_H
 

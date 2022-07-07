@@ -1,8 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Main render functions of Game Engine (Aperture)
+ * @file ap_render.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Renderer and Character definitions
  *
- * @copyright Apache 2.0 - Copyright (c) 2022
  */
 #ifndef AP_RENDERER_H
 #define AP_RENDERER_H

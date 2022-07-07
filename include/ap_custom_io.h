@@ -1,8 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Custom file IO functions
+ * @file ap_custom_io.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Custom I/O functions
  *
- * @copyright Apache 2.0 - Copyright (c) 2022
  */
 #ifndef AP_CUSTOM_IO_H
 #define  AP_CUSTOM_IO_H

@@ -1,3 +1,9 @@
+/**
+ * @file ap_custom_io.c
+ * @author STARRY-S (hxstarrys@gmail.com)
+ * @brief Custom I/O function
+ */
+
 #include "ap_utils.h"
 #include "ap_custom_io.h"
 

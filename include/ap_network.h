@@ -1,8 +1,8 @@
 /**
- * @author STARRY-S (hxstarrys@gmail.com)
- * @brief Network implemention
+ * @file ap_network.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
  *
- * @copyright Apache 2.0 Copyright (c) 2022
  */
 
 #ifndef AP_NETWORK_H

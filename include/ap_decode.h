@@ -1,3 +1,9 @@
+/**
+ * @file ap_decode.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Decoder definitions
+ *
+ */
 #ifndef AP_DECODE_H
 #define AP_DECODE_H
 

@@ -1,3 +1,8 @@
+/**
+ * @file ap_render.h
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief Renderer and Character functions
+ */
 #include <assimp/cfileio.h>
 
 #include <ft2build.h>
