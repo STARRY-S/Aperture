@@ -4,6 +4,7 @@ build/
 ffmpeg/
 minecraft/
 src/experimental
+docs/doxygen
 *.wav
 *.mp3
 *.mtl
