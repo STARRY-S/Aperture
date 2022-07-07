@@ -10,10 +10,17 @@
 
 #include <stdbool.h>
 
+/**
+ * @brief PI definition: 3.14
+ *
+ */
 #ifndef AP_PI
 #define AP_PI 3.14f
 #endif
 
+/**
+ * @brief Gravity definition: 15.0f
+ */
 #ifndef AP_G
 #define AP_G 15.0f
 #endif

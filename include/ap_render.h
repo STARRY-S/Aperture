@@ -14,20 +14,50 @@
 #endif
 
 struct AP_Character {
-        unsigned int texture_id;   // id handle of the glyph texture
-        int size[2];               // size of glyph
-        int bearing[2];            // offset from baseline to left/top glyph
-        unsigned int advance;      // offset to advance to next glyph
-        char c;           // unsigned char code
+        /** id handle of the glyph texture */
+        unsigned int texture_id;
+        /** size of glyph, (w, h) */
+        int size[2];
+        /** offset from baseline to left/top glyph */
+        int bearing[2];
+        /** offset to advance to next glyph */
+        unsigned int advance;
+        /** unsigned char code */
+        char c;
 };
 
+/**
+ * @brief Initialize renderer, and initialize all resources required by engine
+ * (such as audio, camera, cvector, light, model, physics, etc...)
+ *
+ * @see ap_render_finish
+ * @return int
+ */
 int ap_render_general_initialize();
+
+/** @deprecated */
 int ap_render_main();
+
+/**
+ * @brief Release all engine resources,
+ * (such as audio, camera, cvector, light, model, physics, etc...),
+ * @see ap_render_general_initialize
+ *
+ * @return int
+ */
 int ap_render_finish();
+
+/**
+ * @brief Resize window buffer
+ *
+ * @param width
+ * @param height
+ * @return int
+ */
 int ap_render_resize_buffer(int width, int height);
 
 /**
- * @brief Init font renderer
+ * @brief Setup freetype2, load 1-255 ASCII characters from font file to memory
  *
  * @param path path to the font file
  * @param size default font size
@@ -62,10 +92,13 @@ int ap_render_char_2_texture(
  * @return int AP_Error_Types
  */
 int ap_render_text_line(
-        const char *text, float x, float y, float scale, float* color);
+        const char *text, float x, float y, float scale, float* color
+);
 
 /**
- * @brief Flush FPS, ortho matrix, etc...
+ * @brief should be called in render main loop,
+ * used for calculate FPS, engine startup time, view matrix,
+ * collition detection and other calculations
  *
  * @return int AP_Error_Types
  */
@@ -77,18 +110,93 @@ int ap_render_flush();
  * @return int
  */
 int ap_render_aim_cross();
+
+/**
+ * @brief Render dot (square) points
+ *
+ * @return int
+ */
 int ap_render_aim_dot();
 
+/**
+ * @brief Get struct AP_Character* pointer by character
+ *
+ * @param c [in] 8 bit non-unicode character
+ * @param ptr [out] pointer
+ * @return int
+ */
 int ap_render_get_font_ptr(char c, struct AP_Character **ptr);
+
+/**
+ * @brief Get render FPS
+ *
+ * @param p [out] fps
+ * @return int
+ */
 int ap_render_get_fps(float *p);
 
+/**
+ * @brief get perspective projection matrix
+ *
+ * @param mat
+ * @return int
+ */
 int ap_render_get_persp_matrix(float **mat);
+
+/**
+ * @brief get orthographic projection matrix
+ *
+ * @param mat
+ * @return int
+ */
 int ap_render_get_ortho_matrix(float **mat);
+
+/**
+ * @brief Get camera view matrix
+ *
+ * @param mat
+ * @return int
+ */
 int ap_render_get_view_matrix(float **mat);
+
+/**
+ * @brief Get built-in orthographic Aperture shader ID
+ *
+ * @param p
+ * @return int
+ */
 int ap_render_get_ortho_shader(unsigned int *p);
+
+/**
+ * @brief Get built-in perspective Aperture shader ID
+ *
+ * @param p
+ * @return int
+ */
 int ap_render_get_persp_shader(unsigned int *p);
+
+/**
+ * @brief Get render delta time (last frame time - current frame time)
+ *
+ * @param dt
+ * @return int
+ */
 int ap_render_get_dt(float *dt);
+
+/**
+ * @brief Get current frame time
+ *
+ * @param cft
+ * @return int
+ */
 int ap_render_get_cft(float *cft);
+
+/**
+ * @brief Get view distance
+ *
+ * @param p
+ * @return int
+ */
 int ap_render_get_view_distance(int *p);
 
 /**
@@ -106,7 +214,11 @@ int ap_render_set_model_mat(float *mat);
  * @return int
  */
 int ap_render_set_spot_light_enabled(bool b);
+
+/** @see ap_render_set_spot_light_enabled */
 int ap_render_set_point_light_enabled(bool b);
+
+/** @see ap_render_set_spot_light_enabled */
 int ap_render_set_env_light_enabled(bool b);
 
 /**
@@ -125,6 +237,7 @@ int ap_render_set_material_num(int n);
  */
 int ap_render_set_view_distance(int n);
 
+/** @deprecated */
 int ap_render_set_main_func(ap_callback_func_t func);
 
 /**
@@ -175,6 +288,12 @@ int ap_render_ortho_image_texture(
 
 int ap_get_buffer_width();
 int ap_get_buffer_height();
+
+/**
+ * @brief Get GLFW window context pointer
+ *
+ * @return void*
+ */
 void* ap_get_context_ptr();
 
 int ap_set_buffer(int w, int h);

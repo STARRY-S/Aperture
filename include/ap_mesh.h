@@ -10,6 +10,9 @@
 #include "ap_texture.h"
 #include <stdbool.h>
 
+/**
+ * @brief Mesh struct object definition
+ */
 struct AP_Mesh {
         struct AP_Vertex* vertices;
         int vertices_length;

@@ -17,12 +17,22 @@
 
 typedef enum {
         AP_TEXTURE_TYPE_UNKNOWN = 0,
-        AP_TEXTURE_TYPE_DIFFUSE = 0x1001,       // texture_diffuse
-        AP_TEXTURE_TYPE_SPECULAR,               // texture_specular
-        AP_TEXTURE_TYPE_NORMAL,                 // texture_normal
-        AP_TEXTURE_TYPE_HEIGHT                  // texture_height
+        /** texture_diffuse */
+        AP_TEXTURE_TYPE_DIFFUSE = 0x1001,
+        /** texture_specular */
+        AP_TEXTURE_TYPE_SPECULAR,
+        /** texture_normal */
+        AP_TEXTURE_TYPE_NORMAL,
+        /** texture_height */
+        AP_TEXTURE_TYPE_HEIGHT
 } AP_Texture_types;
 
+/**
+ * @brief Convert texture type to string
+ *
+ * @param t
+ * @return const char*
+ */
 static inline const char* ap_texture_type_2_str(int t)
 {
         switch (t)
@@ -40,10 +50,24 @@ static inline const char* ap_texture_type_2_str(int t)
         return NULL;
 }
 
+/**
+ * @brief Texture struct object definition
+ *
+ */
 struct AP_Texture {
+        /** OpenGL texture ID */
         unsigned int id;
+        /**
+         * texture type
+         * @see AP_Texture_types
+         */
         int type;
+        /** path to the texture file (if the texture is an image) */
         char *path;
+        /**
+         * RGBA color value of the texture
+         * (if the texture is generated from a single color)
+         */
         float RGBA[4];
 };
 
@@ -150,6 +174,12 @@ int ap_texture_init(struct AP_Texture *texture);
  */
 int ap_texture_set_path(struct AP_Texture *texture, const char *name);
 
+/**
+ * @brief free one texture ID
+ *
+ * @param id
+ * @return int
+ */
 int ap_texture_free(int id);
 
 /**

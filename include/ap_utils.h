@@ -183,6 +183,7 @@ typedef enum {
         AP_ERROR_LENGTH,
 } AP_Error_Types;
 
+/** default aperture function pointer */
 typedef int (*ap_callback_func_t)(void* param, int reserve);
 
 inline static void AP_CHECK(int check_i)

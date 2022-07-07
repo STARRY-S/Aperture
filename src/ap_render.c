@@ -211,7 +211,7 @@ int ap_render_init_font(const char *path, int size)
         glBindVertexArray(0);
 
         renderer.font_initialized = true;
-        ap_vector_init(&charactor_vector, AP_VECTOR_CHARACTOR);
+        ap_vector_init(&charactor_vector, AP_VECTOR_CHARACTER);
         for (char c = 0; c < 127; ++c) {
                 unsigned int tid = 0;
                 int width = 0, height = 0, left = 0, top = 0, advance = 0;

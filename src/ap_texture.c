@@ -153,6 +153,10 @@ unsigned int ap_texture_from_file(
         const char *directory,
         bool gamma)
 {
+        if (!path || !directory) {
+                LOGE("ap_texture_from_file: path %p, dir %p", path, directory);
+                return 0;
+        }
         // stbi_set_flip_vertically_on_load(true);
         unsigned int texture_id;
         glGenTextures(1, &texture_id);

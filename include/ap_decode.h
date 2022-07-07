@@ -10,7 +10,7 @@
 #include "ap_cvector.h"
 
 /**
- * @brief decode audio to PCM format into a file
+ * @brief decode audio to PCM format into a file,
  * only support MP3 format audio
  * @param filename name of the audio file to be decoded
  * @param out_name output file name
@@ -19,7 +19,7 @@
 int ap_decode_to_file(const char* filename, const char *out_name);
 
 /**
- * @brief decode audio to struct AP_Vector
+ * @brief decode audio to struct AP_Vector,
  * only support MP3 format audio
  * @param filename name of the audio file to be decoded
  * @param out_vec_p [out] pointer points to the pointer of vector

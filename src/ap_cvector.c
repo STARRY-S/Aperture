@@ -59,7 +59,7 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
         case AP_VECTOR_VERTEX:
                 size = sizeof(struct AP_Vertex);
                 break;
-        case AP_VECTOR_CHARACTOR:
+        case AP_VECTOR_CHARACTER:
                 size = sizeof(struct AP_Character);
                 break;
         case AP_VECTOR_LIGHT:

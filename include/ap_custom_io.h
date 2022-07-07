@@ -9,17 +9,40 @@
 
 #include <assimp/cfileio.h>
 
+/**
+ * @brief custom fopen function for assimp
+ *
+ * @param custom_io
+ * @param file_name
+ * @param mode
+ * @return struct aiFile*
+ */
 struct aiFile* ap_custom_ai_file_open_proc(
         C_STRUCT aiFileIO* custom_io,
         const char* file_name,
         const char* mode
 );
 
+/**
+ * @brief custom fclose program for assimp
+ *
+ * @param ai_file_io
+ * @param ai_file
+ */
 void ap_custom_ai_file_close_proc(
         C_STRUCT aiFileIO* ai_file_io,
         C_STRUCT aiFile* ai_file
 );
 
+/**
+ * @brief custom fread function for assimp
+ *
+ * @param ai_file
+ * @param buffer
+ * @param size
+ * @param count
+ * @return size_t
+ */
 size_t ap_custom_ai_file_read_proc(
         C_STRUCT aiFile* ai_file,
         char* buffer,
@@ -27,6 +50,15 @@ size_t ap_custom_ai_file_read_proc(
         size_t count
 );
 
+/**
+ * @brief custom fwrite function for assimp
+ *
+ * @param ai_file
+ * @param buffer
+ * @param size
+ * @param count
+ * @return size_t
+ */
 size_t ap_custom_ai_file_write_proc(
         C_STRUCT aiFile* ai_file,
         const char* buffer,
@@ -34,13 +66,37 @@ size_t ap_custom_ai_file_write_proc(
         size_t count
 );
 
+/**
+ * @brief custom ftell function for assimp
+ *
+ * @param ai_file
+ * @return size_t
+ */
 size_t ap_custom_ai_ftell_proc(C_STRUCT aiFile* ai_file);
 
+/**
+ * @brief custom fsize function for assimp
+ *
+ * @param ai_file
+ * @return size_t
+ */
 size_t ap_custom_ai_fsize_proc(C_STRUCT aiFile* ai_file);
 
-
+/**
+ * @brief custom fflush function for assimp
+ *
+ * @param ai_file
+ */
 void ap_custom_ai_fflush_proc(C_STRUCT aiFile* ai_file);
 
+/**
+ * @brief custom fseel function for assimp
+ *
+ * @param ai_file
+ * @param offset
+ * @param origin
+ * @return C_ENUM
+ */
 C_ENUM aiReturn ap_custom_ai_fseek_proc(
         C_STRUCT aiFile* ai_file,
         size_t offset,

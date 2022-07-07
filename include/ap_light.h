@@ -16,41 +16,64 @@
 #define AP_LIGHT_PARAM_NUM 8
 #endif  // AP_LIGHT_PARAM_NUM
 
+/**
+ * @brief Light types definition
+ */
 typedef enum {
         AP_LIGHT_UNKNOWN = 0,
+        /** point light */
         AP_LIGHT_POINT = 0x2001,
+        /** directional light */
         AP_LIGHT_DIRECTIONAL,
+        /** spot light */
         AP_LIGHT_SPOT
 } AP_Light_types;
 
+/**
+ * @brief Light struct object
+ */
 struct AP_Light {
+        /** @see AP_Light_types */
         int type;
+        /** light id */
         unsigned int id;
 
+        /** light position (for point light) */
         float position[3];
+        /** light direction (for directional light) */
         float direction[3];
 
+        /** ambient color */
         float ambient[3];
+        /** diffuse color */
         float diffuse[3];
+        /** specular color */
         float specular[3];
 
         /**
-         * reserve parameters for light:
+         * @brief parameters for light:
+         *
          * for AP_LIGHT_POINT:
-         * [0] constant
-         * [1] linear
+         * [0] constant,
+         * [1] linear,
          * [2] quadratic
          *
          * for AP_LIGHT_SPOT:
-         * [0] contant
-         * [1] linear
-         * [2] quadratic
-         * [3] cut_off
+         * [0] contant,
+         * [1] linear,
+         * [2] quadratic,
+         * [3] cut_off,
          * [4] outer_cut_off
          */
         float param[AP_LIGHT_PARAM_NUM];
 };
 
+/**
+ * @brief Convert light type to string
+ *
+ * @param type
+ * @return const char*
+ */
 static inline const char* ap_light_type_2_str(int type)
 {
         switch (type)
@@ -86,6 +109,15 @@ int ap_light_generate_point(
         float param[AP_LIGHT_PARAM_NUM]
 );
 
+/**
+ * @brief Setup spot light struct object
+ *
+ * @param ambient
+ * @param diffuse
+ * @param specular
+ * @param param
+ * @return int
+ */
 int ap_light_setup_spot(
         float ambient[3],
         float diffuse[3],
@@ -93,6 +125,15 @@ int ap_light_setup_spot(
         float param[AP_LIGHT_PARAM_NUM]
 );
 
+/**
+ * @brief Setup directional light struct object
+ *
+ * @param direction
+ * @param ambient
+ * @param diffuse
+ * @param specular
+ * @return int
+ */
 int ap_light_setup_directional(
         float direction[3],
         float ambient[3],
@@ -101,17 +142,33 @@ int ap_light_setup_directional(
 );
 
 /**
- * @brief Send all of the data to the GPU after we generated
- * all of the light struct objects
+ * @brief Render all lights
  *
  * @return int
  */
 int ap_light_render();
 
+/**
+ * @brief Set shininess of material
+ *
+ * @param shininess
+ * @return int
+ */
 int ap_light_set_material_shininess(float shininess);
 
+/**
+ * @brief release point light data by its ID
+ *
+ * @param id
+ * @return int
+ */
 int ap_light_free_point_light(int id);
 
+/**
+ * @brief release all data for light rendering
+ *
+ * @return int
+ */
 int ap_light_free_all();
 
 struct AP_Light* ap_light_get_point_light_ptr(int id);

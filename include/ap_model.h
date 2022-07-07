@@ -19,17 +19,30 @@
 #define AP_MODEL_BALL_PATH "res/ball/ball.obj"
 #endif
 
+/**
+ * Model struct object definition
+ */
 struct AP_Model {
+        /** model ID */
         int id;
+        /** model position */
         float pos[3];
+        /** scale vector */
         float scale[3];
+        /** rotate angle */
         float rotate_angle;
+        /** rotate axis vector */
         float rotate_axis[3];
 
+        /** textures of the model */
         struct AP_Texture *texture;
+        /** texture length of the model */
         int texture_length;
+        /** meshes of the model */
         struct AP_Mesh *mesh;
+        /** mesh length of the model */
         int mesh_length;
+        /** model directory, used for load texture from the same directory */
         char *directory;
 };
 
@@ -57,7 +70,7 @@ int ap_model_use(unsigned int id);
 int ap_model_draw();
 
 /**
- * @brief Set parameters of current model
+ * @brief Set scale parameters of current model
  *
  * @param float[3]
  * @return int
@@ -66,9 +79,27 @@ int ap_model_set_scale(float scale[3]);
 int ap_model_set_pos(float pos[3]);
 int ap_model_set_rotate(float axis[3], float angle);
 
+/**
+ * @brief Release model object by its id
+ *
+ * @param id
+ * @return int
+ */
 int ap_model_free(int id);
+
+/**
+ * @brief Release all generated model data
+ *
+ * @return int
+ */
 int ap_model_free_all();
 
+/**
+ * @brief Get model pointer by its ID
+ *
+ * @param id
+ * @return struct AP_Model*
+ */
 struct AP_Model *ap_model_get_ptr(int id);
 
 #endif // AP_MODEL_H
