@@ -304,16 +304,21 @@ static int ap_model_init_ptr(
                 = model->rotate_axis[1]
                 = model->rotate_axis[2] = 0.0f;
 
-        int dir_char_location = 0;
-        for (int i = 0; i < strlen(path); ++i) {
+        int dir_char_pos = 0;
+        for (int i = strlen(path); i > 0; --i) {
                 if (path[i] == '/') {
-                dir_char_location = i;
+                        dir_char_pos = i;
+                        break;
                 }
         }
-        if (dir_char_location >= 0) {
-                char *dir_path = AP_MALLOC(sizeof(char) * (dir_char_location + 2));
-                memcpy(dir_path, path, (dir_char_location + 1) * sizeof(char));
-                dir_path[dir_char_location + 1] = '\0';
+        if (dir_char_pos > 0) {
+                char *dir_path = AP_MALLOC(sizeof(char) * (dir_char_pos + 2));
+                memcpy(dir_path, path, (dir_char_pos + 1) * sizeof(char));
+                dir_path[dir_char_pos + 1] = '\0';
+                model->directory = dir_path;
+        } else if (dir_char_pos == 0) {
+                char *dir_path = AP_MALLOC(1 * sizeof(char));
+                dir_path[0] = '\0';
                 model->directory = dir_path;
         }
 
