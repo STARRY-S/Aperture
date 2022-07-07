@@ -1,7 +1,9 @@
 name: Compile test
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - main
 jobs:
   archlinux-build:
     runs-on: ubuntu-latest
