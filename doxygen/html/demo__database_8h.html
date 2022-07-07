@@ -85,15 +85,15 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:af37ded86b4150841fdf5081bd3975538"><td class="memItemLeft" align="right" valign="top"><a id="af37ded86b4150841fdf5081bd3975538" name="af37ded86b4150841fdf5081bd3975538"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_pos</b> [3]</td></tr>
+<tr class="memitem:af37ded86b4150841fdf5081bd3975538"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="demo__database_8h.html#af37ded86b4150841fdf5081bd3975538">db_restore_creature_pos</a> [3]</td></tr>
 <tr class="separator:af37ded86b4150841fdf5081bd3975538"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab21cf6b46d61716ce4bbccd540ddd517"><td class="memItemLeft" align="right" valign="top"><a id="ab21cf6b46d61716ce4bbccd540ddd517" name="ab21cf6b46d61716ce4bbccd540ddd517"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_euler</b> [2]</td></tr>
+<tr class="memitem:ab21cf6b46d61716ce4bbccd540ddd517"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="demo__database_8h.html#ab21cf6b46d61716ce4bbccd540ddd517">db_restore_creature_euler</a> [2]</td></tr>
 <tr class="separator:ab21cf6b46d61716ce4bbccd540ddd517"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="demo__database_8h_source.html">demo_database.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a11ba9dfeb1cdb1dff43f27ba77a92eb2" name="a11ba9dfeb1cdb1dff43f27ba77a92eb2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11ba9dfeb1cdb1dff43f27ba77a92eb2">&#9670;&nbsp;</a></span>demo_save_database()</h2>
@@ -120,6 +120,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__database_8c_source.html#l00090">90</a> of file <a class="el" href="demo__database_8c_source.html">demo_database.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   91</span>{</div>
 <div class="line"><span class="lineno">   92</span>        <span class="keywordtype">char</span> *buffer = AP_MALLOC(1024 * 10);</div>
 <div class="line"><span class="lineno">   93</span>        sprintf(buffer, <span class="stringliteral">&quot;update ap_creatures set POS_X=&#39;%.3f&#39;, POS_Y=&#39;%.3f&#39;, &quot;</span></div>
@@ -132,7 +134,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_
 <div class="line"><span class="lineno">  100</span>        AP_FREE(buffer);</div>
 <div class="line"><span class="lineno">  101</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  102</span>}</div>
-<div class="ttc" id="aap__sqlite_8h_html_a230bc34d54f30f9336688a2b45bff812"><div class="ttname"><a href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a></div><div class="ttdeci">int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb)</div><div class="ttdoc">Execute SQL.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:51</div></div>
+<div class="ttc" id="aap__sqlite_8h_html_a230bc34d54f30f9336688a2b45bff812"><div class="ttname"><a href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a></div><div class="ttdeci">int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb)</div><div class="ttdoc">Execute SQL.</div><div class="ttdef"><b>Definition:</b> <a href="ap__sqlite_8c_source.html#l00051">ap_sqlite.c:51</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -150,6 +152,8 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__database_8c_source.html#l00060">60</a> of file <a class="el" href="demo__database_8c_source.html">demo_database.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   61</span>{</div>
 <div class="line"><span class="lineno">   62</span>        <span class="comment">// create table if not exists</span></div>
 <div class="line"><span class="lineno">   63</span>        <span class="keywordtype">char</span> *sql = <span class="stringliteral">&quot;CREATE TABLE IF NOT EXISTS ap_creatures ( &quot;</span></div>
@@ -179,6 +183,55 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>db_restore_creature_
 <div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   88</span>}</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ab21cf6b46d61716ce4bbccd540ddd517" name="ab21cf6b46d61716ce4bbccd540ddd517"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab21cf6b46d61716ce4bbccd540ddd517">&#9670;&nbsp;</a></span>db_restore_creature_euler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float db_restore_creature_euler[2]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__database_8c_source.html#l00019">19</a> of file <a class="el" href="demo__database_8c_source.html">demo_database.c</a>.</p>
+
+</div>
+</div>
+<a id="af37ded86b4150841fdf5081bd3975538" name="af37ded86b4150841fdf5081bd3975538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af37ded86b4150841fdf5081bd3975538">&#9670;&nbsp;</a></span>db_restore_creature_pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float db_restore_creature_pos[3]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__database_8c_source.html#l00018">18</a> of file <a class="el" href="demo__database_8c_source.html">demo_database.c</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->

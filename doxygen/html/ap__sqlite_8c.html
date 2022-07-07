@@ -79,11 +79,12 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="ap__utils_8h_source.html">ap_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ap__sqlite_8h_source.html">ap_sqlite.h</a>&quot;</code><br />
 <code>#include &lt;sqlite3.h&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="ap__sqlite_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a0450a284eda5c4fa71160d76e2ce9ed1"><td class="memItemLeft" align="right" valign="top"><a id="a0450a284eda5c4fa71160d76e2ce9ed1" name="a0450a284eda5c4fa71160d76e2ce9ed1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AP_DEFAULT_DB_FILE</b>&#160;&#160;&#160;&quot;ap_data.db&quot;</td></tr>
+<tr class="memitem:a0450a284eda5c4fa71160d76e2ce9ed1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__sqlite_8c.html#a0450a284eda5c4fa71160d76e2ce9ed1">AP_DEFAULT_DB_FILE</a>&#160;&#160;&#160;&quot;ap_data.db&quot;</td></tr>
 <tr class="separator:a0450a284eda5c4fa71160d76e2ce9ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -101,7 +102,26 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >SQLite functions. </p>
 <dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+
+<p class="definition">Definition in file <a class="el" href="ap__sqlite_8c_source.html">ap_sqlite.c</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a0450a284eda5c4fa71160d76e2ce9ed1" name="a0450a284eda5c4fa71160d76e2ce9ed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0450a284eda5c4fa71160d76e2ce9ed1">&#9670;&nbsp;</a></span>AP_DEFAULT_DB_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AP_DEFAULT_DB_FILE&#160;&#160;&#160;&quot;ap_data.db&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__sqlite_8c_source.html#l00017">17</a> of file <a class="el" href="ap__sqlite_8c_source.html">ap_sqlite.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a230bc34d54f30f9336688a2b45bff812" name="a230bc34d54f30f9336688a2b45bff812"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a230bc34d54f30f9336688a2b45bff812">&#9670;&nbsp;</a></span>ap_sqlite_execute()</h2>
 
@@ -137,6 +157,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__sqlite_8c_source.html#l00051">51</a> of file <a class="el" href="ap__sqlite_8c_source.html">ap_sqlite.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
 <div class="line"><span class="lineno">   53</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   54</span>        <span class="keywordflow">if</span> (database == NULL) {</div>
@@ -179,6 +201,8 @@ Functions</h2></td></tr>
 
 <p>Release SQLite resources. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__sqlite_8c_source.html#l00075">75</a> of file <a class="el" href="ap__sqlite_8c_source.html">ap_sqlite.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   76</span>{</div>
 <div class="line"><span class="lineno">   77</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (database) {</div>
@@ -208,6 +232,8 @@ Functions</h2></td></tr>
 
 <p>Initialize SQLite3. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__sqlite_8c_source.html#l00033">33</a> of file <a class="el" href="ap__sqlite_8c_source.html">ap_sqlite.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   34</span>{</div>
 <div class="line"><span class="lineno">   35</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (database != NULL) {</div>

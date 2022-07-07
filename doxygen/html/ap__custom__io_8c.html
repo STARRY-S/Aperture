@@ -81,7 +81,9 @@ $(function() {
 <code>#include &lt;errno.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;fcntl.h&gt;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="ap__custom__io_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a77d6cb0878a9cb6cee2402d553474a07"><td class="memItemLeft" align="right" valign="top">struct aiFile *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__custom__io_8c.html#a77d6cb0878a9cb6cee2402d553474a07">ap_custom_ai_file_open_proc</a> (C_STRUCT aiFileIO *custom_io, const char *file_name, const char *mode)</td></tr>
@@ -121,6 +123,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Custom I/O function. </p>
 <dl class="section author"><dt>Author</dt><dd>STARRY-S (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="aeb1bebda0d6f28f4303339f3fe9e8393" name="aeb1bebda0d6f28f4303339f3fe9e8393"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb1bebda0d6f28f4303339f3fe9e8393">&#9670;&nbsp;</a></span>ap_close_file_descriptor()</h2>
@@ -146,6 +150,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00340">340</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  341</span>{</div>
 <div class="line"><span class="lineno">  342</span>        close(fd);</div>
 <div class="line"><span class="lineno">  343</span>        <span class="keywordflow">return</span> 0;</div>
@@ -176,6 +182,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00150">150</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  151</span>{</div>
 <div class="line"><span class="lineno">  152</span><span class="preprocessor">        #if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">  153</span>        fflush((FILE*) ai_file-&gt;UserData);</div>
@@ -218,6 +226,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00079">79</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   82</span>{</div>
 <div class="line"><span class="lineno">   83</span><span class="preprocessor">#if AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   84</span>        AAsset_close((AAsset *) ai_file-&gt;UserData);</div>
@@ -271,6 +281,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>struct aiFile* </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00029">29</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   33</span>{</div>
 <div class="line"><span class="lineno">   34</span>        <span class="keywordflow">if</span> (custom_io == NULL || file_name == NULL || mode == NULL) {</div>
 <div class="line"><span class="lineno">   35</span>                LOGE(<span class="stringliteral">&quot;ap_custom_ai_file_open_proc: invalid parameter&quot;</span>);</div>
@@ -316,12 +328,12 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   75</span> </div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> ai_file;</div>
 <div class="line"><span class="lineno">   77</span>}</div>
-<div class="ttc" id="aap__custom__io_8c_html_a4ce35868f62c231fb0c993d70fb23bc8"><div class="ttname"><a href="ap__custom__io_8c.html#a4ce35868f62c231fb0c993d70fb23bc8">ap_custom_ai_ftell_proc</a></div><div class="ttdeci">size_t ap_custom_ai_ftell_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom ftell function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:116</div></div>
-<div class="ttc" id="aap__custom__io_8c_html_a9296b08df75559bfb4e1f0fd66a4fc37"><div class="ttname"><a href="ap__custom__io_8c.html#a9296b08df75559bfb4e1f0fd66a4fc37">ap_custom_ai_file_write_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_write_proc(C_STRUCT aiFile *ai_file, const char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fwrite function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:106</div></div>
-<div class="ttc" id="aap__custom__io_8c_html_a9a35147704b0e88ecee4d55b1d925ad6"><div class="ttname"><a href="ap__custom__io_8c.html#a9a35147704b0e88ecee4d55b1d925ad6">ap_custom_ai_fseek_proc</a></div><div class="ttdeci">C_ENUM aiReturn ap_custom_ai_fseek_proc(C_STRUCT aiFile *ai_file, size_t offset, C_ENUM aiOrigin origin)</div><div class="ttdoc">custom fseel function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:157</div></div>
-<div class="ttc" id="aap__custom__io_8c_html_aa020338f14182ae545ba812ff060097d"><div class="ttname"><a href="ap__custom__io_8c.html#aa020338f14182ae545ba812ff060097d">ap_custom_ai_file_read_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_read_proc(C_STRUCT aiFile *ai_file, char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fread function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:91</div></div>
-<div class="ttc" id="aap__custom__io_8c_html_aefb62d3fb4a33ed18b96df348dd3f92f"><div class="ttname"><a href="ap__custom__io_8c.html#aefb62d3fb4a33ed18b96df348dd3f92f">ap_custom_ai_fflush_proc</a></div><div class="ttdeci">void ap_custom_ai_fflush_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fflush function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:150</div></div>
-<div class="ttc" id="aap__custom__io_8c_html_af38fe8967bcd486bb8312ecea4e4d16b"><div class="ttname"><a href="ap__custom__io_8c.html#af38fe8967bcd486bb8312ecea4e4d16b">ap_custom_ai_fsize_proc</a></div><div class="ttdeci">size_t ap_custom_ai_fsize_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fsize function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:129</div></div>
+<div class="ttc" id="aap__custom__io_8c_html_a4ce35868f62c231fb0c993d70fb23bc8"><div class="ttname"><a href="ap__custom__io_8c.html#a4ce35868f62c231fb0c993d70fb23bc8">ap_custom_ai_ftell_proc</a></div><div class="ttdeci">size_t ap_custom_ai_ftell_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom ftell function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00116">ap_custom_io.c:116</a></div></div>
+<div class="ttc" id="aap__custom__io_8c_html_a9296b08df75559bfb4e1f0fd66a4fc37"><div class="ttname"><a href="ap__custom__io_8c.html#a9296b08df75559bfb4e1f0fd66a4fc37">ap_custom_ai_file_write_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_write_proc(C_STRUCT aiFile *ai_file, const char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fwrite function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00106">ap_custom_io.c:106</a></div></div>
+<div class="ttc" id="aap__custom__io_8c_html_a9a35147704b0e88ecee4d55b1d925ad6"><div class="ttname"><a href="ap__custom__io_8c.html#a9a35147704b0e88ecee4d55b1d925ad6">ap_custom_ai_fseek_proc</a></div><div class="ttdeci">C_ENUM aiReturn ap_custom_ai_fseek_proc(C_STRUCT aiFile *ai_file, size_t offset, C_ENUM aiOrigin origin)</div><div class="ttdoc">custom fseel function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00157">ap_custom_io.c:157</a></div></div>
+<div class="ttc" id="aap__custom__io_8c_html_aa020338f14182ae545ba812ff060097d"><div class="ttname"><a href="ap__custom__io_8c.html#aa020338f14182ae545ba812ff060097d">ap_custom_ai_file_read_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_read_proc(C_STRUCT aiFile *ai_file, char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fread function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00091">ap_custom_io.c:91</a></div></div>
+<div class="ttc" id="aap__custom__io_8c_html_aefb62d3fb4a33ed18b96df348dd3f92f"><div class="ttname"><a href="ap__custom__io_8c.html#aefb62d3fb4a33ed18b96df348dd3f92f">ap_custom_ai_fflush_proc</a></div><div class="ttdeci">void ap_custom_ai_fflush_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fflush function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00150">ap_custom_io.c:150</a></div></div>
+<div class="ttc" id="aap__custom__io_8c_html_af38fe8967bcd486bb8312ecea4e4d16b"><div class="ttname"><a href="ap__custom__io_8c.html#af38fe8967bcd486bb8312ecea4e4d16b">ap_custom_ai_fsize_proc</a></div><div class="ttdeci">size_t ap_custom_ai_fsize_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fsize function for assimp</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00129">ap_custom_io.c:129</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -374,6 +386,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>size_t </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00091">91</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   96</span>{</div>
 <div class="line"><span class="lineno">   97</span><span class="preprocessor">#if AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   98</span>        <span class="keywordflow">return</span> AAsset_read(</div>
@@ -435,6 +449,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>size_t </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00106">106</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  111</span>{</div>
 <div class="line"><span class="lineno">  112</span>        <span class="comment">// do nothing~</span></div>
 <div class="line"><span class="lineno">  113</span>        <span class="keywordflow">return</span> 0;</div>
@@ -484,6 +500,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>C_ENUM </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00157">157</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  161</span>{</div>
 <div class="line"><span class="lineno">  162</span>        <span class="keywordtype">int</span> ret = -1;</div>
 <div class="line"><span class="lineno">  163</span> </div>
@@ -551,6 +569,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>size_t </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00129">129</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  130</span>{</div>
 <div class="line"><span class="lineno">  131</span><span class="preprocessor">#if AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> AAsset_getLength((AAsset*) ai_file-&gt;UserData);</div>
@@ -597,6 +617,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>size_t </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00116">116</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  117</span>{</div>
 <div class="line"><span class="lineno">  118</span><span class="preprocessor">#if AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">  119</span> </div>
@@ -646,6 +668,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00297">297</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  298</span>{</div>
 <div class="line"><span class="lineno">  299</span>        <span class="keywordflow">if</span> (!file || !pfd) {</div>
 <div class="line"><span class="lineno">  300</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -732,6 +756,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__custom__io_8c_source.html#l00202">202</a> of file <a class="el" href="ap__custom__io_8c_source.html">ap_custom_io.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  203</span>{</div>
 <div class="line"><span class="lineno">  204</span>        <span class="keywordflow">if</span> (!file || !ptr || !length) {</div>
 <div class="line"><span class="lineno">  205</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>

@@ -91,6 +91,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Decoder definitions. </p>
 <dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="ap__decode_8h_source.html">ap_decode.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a56dbe289aa9a73d4e350caf49648217f" name="a56dbe289aa9a73d4e350caf49648217f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56dbe289aa9a73d4e350caf49648217f">&#9670;&nbsp;</a></span>ap_decode_to_file()</h2>
@@ -127,6 +129,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__decode_8c_source.html#l00295">295</a> of file <a class="el" href="ap__decode_8c_source.html">ap_decode.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  296</span>{</div>
 <div class="line"><span class="lineno">  297</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">  298</span>        <span class="keywordtype">int</span> format = 0, channels = 0;</div>
@@ -198,6 +202,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__decode_8c_source.html#l00309">309</a> of file <a class="el" href="ap__decode_8c_source.html">ap_decode.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  315</span>{</div>
 <div class="line"><span class="lineno">  316</span>        <span class="keywordflow">if</span> (!out_vec_p || !ap_format || !frequency || !channels) {</div>
 <div class="line"><span class="lineno">  317</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -221,9 +227,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  335</span> </div>
 <div class="line"><span class="lineno">  336</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><span class="lineno">  337</span>}</div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:38</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
-<div class="ttc" id="astructAP__Vector_html"><div class="ttname"><a href="structAP__Vector.html">AP_Vector</a></div><div class="ttdoc">C Vector struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:56</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00038">ap_cvector.h:38</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00079">ap_cvector.c:79</a></div></div>
+<div class="ttc" id="astructAP__Vector_html"><div class="ttname"><a href="structAP__Vector.html">AP_Vector</a></div><div class="ttdoc">C Vector struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00056">ap_cvector.h:56</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

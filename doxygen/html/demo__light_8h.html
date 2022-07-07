@@ -78,8 +78,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:aec052ff7991789f0328be518ae7dcb05"><td class="memItemLeft" align="right" valign="top"><a id="aec052ff7991789f0328be518ae7dcb05" name="aec052ff7991789f0328be518ae7dcb05"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEMO_POINT_LIGHT_NUM</b>&#160;&#160;&#160;12</td></tr>
+<tr class="memitem:aec052ff7991789f0328be518ae7dcb05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="demo__light_8h.html#aec052ff7991789f0328be518ae7dcb05">DEMO_POINT_LIGHT_NUM</a>&#160;&#160;&#160;12</td></tr>
 <tr class="separator:aec052ff7991789f0328be518ae7dcb05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -91,7 +90,26 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+
+<p class="definition">Definition in file <a class="el" href="demo__light_8h_source.html">demo_light.h</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aec052ff7991789f0328be518ae7dcb05" name="aec052ff7991789f0328be518ae7dcb05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec052ff7991789f0328be518ae7dcb05">&#9670;&nbsp;</a></span>DEMO_POINT_LIGHT_NUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEMO_POINT_LIGHT_NUM&#160;&#160;&#160;12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__light_8h_source.html#l00012">12</a> of file <a class="el" href="demo__light_8h_source.html">demo_light.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a4a3a50a30bffa1c94dbd3fd957fb5f03" name="a4a3a50a30bffa1c94dbd3fd957fb5f03"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a3a50a30bffa1c94dbd3fd957fb5f03">&#9670;&nbsp;</a></span>demo_setup_light()</h2>
 
@@ -106,6 +124,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__light_8c_source.html#l00081">81</a> of file <a class="el" href="demo__light_8c_source.html">demo_light.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   82</span>{</div>
 <div class="line"><span class="lineno">   83</span>        <a class="code hl_function" href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a>(</div>
 <div class="line"><span class="lineno">   84</span>                <span class="stringliteral">&quot;glsl/cube_light.vs.glsl&quot;</span>,</div>
@@ -150,9 +170,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  123</span> </div>
 <div class="line"><span class="lineno">  124</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  125</span>}</div>
-<div class="ttc" id="aap__shader_8h_html_ad2e7293672585e9db3e70743d226cdb4"><div class="ttname"><a href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a></div><div class="ttdeci">int ap_shader_generate(const char *vshader_path, const char *fshader_path, unsigned int *shader_id)</div><div class="ttdoc">Generate a OpenGL program with shader.</div><div class="ttdef"><b>Definition:</b> ap_shader.c:48</div></div>
-<div class="ttc" id="aap__texture_8h_html_a74fc1a9e2ef10d6939611fa9a0139ba2"><div class="ttname"><a href="ap__texture_8h.html#a74fc1a9e2ef10d6939611fa9a0139ba2">ap_texture_generate</a></div><div class="ttdeci">int ap_texture_generate(unsigned int *texture_id, int type, const char *path, const char *directory, bool gamma)</div><div class="ttdoc">Generate a texture from its file name and directory and store its OpenGL texture ID in vector.</div><div class="ttdef"><b>Definition:</b> ap_texture.c:18</div></div>
-<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_DIFFUSE</div><div class="ttdef"><b>Definition:</b> ap_texture.h:21</div></div>
+<div class="ttc" id="aap__shader_8h_html_ad2e7293672585e9db3e70743d226cdb4"><div class="ttname"><a href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a></div><div class="ttdeci">int ap_shader_generate(const char *vshader_path, const char *fshader_path, unsigned int *shader_id)</div><div class="ttdoc">Generate a OpenGL program with shader.</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8c_source.html#l00048">ap_shader.c:48</a></div></div>
+<div class="ttc" id="aap__texture_8h_html_a74fc1a9e2ef10d6939611fa9a0139ba2"><div class="ttname"><a href="ap__texture_8h.html#a74fc1a9e2ef10d6939611fa9a0139ba2">ap_texture_generate</a></div><div class="ttdeci">int ap_texture_generate(unsigned int *texture_id, int type, const char *path, const char *directory, bool gamma)</div><div class="ttdoc">Generate a texture from its file name and directory and store its OpenGL texture ID in vector.</div><div class="ttdef"><b>Definition:</b> <a href="ap__texture_8c_source.html#l00018">ap_texture.c:18</a></div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_DIFFUSE</div><div class="ttdef"><b>Definition:</b> <a href="ap__texture_8h_source.html#l00021">ap_texture.h:21</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -170,6 +190,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="demo__light_8c_source.html#l00127">127</a> of file <a class="el" href="demo__light_8c_source.html">demo_light.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  128</span>{</div>
 <div class="line"><span class="lineno">  129</span>        demo_setup_directional_light();</div>
 <div class="line"><span class="lineno">  130</span>        demo_setup_point_lights();</div>
@@ -179,8 +201,8 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  134</span> </div>
 <div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  136</span>}</div>
-<div class="ttc" id="aap__light_8h_html_a94ac897a09ee5d98702fde3cb2b0246b"><div class="ttname"><a href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">ap_light_set_material_shininess</a></div><div class="ttdeci">int ap_light_set_material_shininess(float shininess)</div><div class="ttdoc">Set shininess of material.</div><div class="ttdef"><b>Definition:</b> ap_light.c:196</div></div>
-<div class="ttc" id="aap__light_8h_html_ae0ec1a642d61584625dd9075a2d30ffe"><div class="ttname"><a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a></div><div class="ttdeci">int ap_light_render()</div><div class="ttdoc">Render all lights.</div><div class="ttdef"><b>Definition:</b> ap_light.c:109</div></div>
+<div class="ttc" id="aap__light_8h_html_a94ac897a09ee5d98702fde3cb2b0246b"><div class="ttname"><a href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">ap_light_set_material_shininess</a></div><div class="ttdeci">int ap_light_set_material_shininess(float shininess)</div><div class="ttdoc">Set shininess of material.</div><div class="ttdef"><b>Definition:</b> <a href="ap__light_8c_source.html#l00196">ap_light.c:196</a></div></div>
+<div class="ttc" id="aap__light_8h_html_ae0ec1a642d61584625dd9075a2d30ffe"><div class="ttname"><a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a></div><div class="ttdeci">int ap_light_render()</div><div class="ttdoc">Render all lights.</div><div class="ttdef"><b>Definition:</b> <a href="ap__light_8c_source.html#l00109">ap_light.c:109</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

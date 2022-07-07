@@ -76,7 +76,9 @@ $(function() {
 <p>cvector implemention  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="aperture_8h_source.html">aperture.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="ap__cvector_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af79f7697fd3db122386bd582a98f9346"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__cvector_8c.html#af79f7697fd3db122386bd582a98f9346">ap_is_valid_vector</a> (struct <a class="el" href="structAP__Vector.html">AP_Vector</a> *vector)</td></tr>
@@ -101,6 +103,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >cvector implemention </p>
 <dl class="section author"><dt>Author</dt><dd>STARRY-S (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="af79f7697fd3db122386bd582a98f9346" name="af79f7697fd3db122386bd582a98f9346"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af79f7697fd3db122386bd582a98f9346">&#9670;&nbsp;</a></span>ap_is_valid_vector()</h2>
@@ -124,6 +128,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00118">118</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  119</span>{</div>
 <div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (vector == NULL) {</div>
 <div class="line"><span class="lineno">  121</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -135,9 +141,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  127</span> </div>
 <div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><span class="lineno">  129</span>}</div>
-<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00067">ap_cvector.h:67</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ap__cvector_8c_source.html#l00131">ap_vector_push_back()</a>.</p>
 
 </div>
 </div>
@@ -156,6 +162,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00016">16</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   17</span>{</div>
 <div class="line"><span class="lineno">   18</span>        <span class="keywordflow">if</span> (vector == NULL) {</div>
 <div class="line"><span class="lineno">   19</span>                <span class="keywordflow">return</span> 0;</div>
@@ -217,36 +225,36 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   75</span>        }</div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> size;</div>
 <div class="line"><span class="lineno">   77</span>}</div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1">AP_VECTOR_UINT</a></div><div class="ttdeci">@ AP_VECTOR_UINT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:46</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a></div><div class="ttdeci">@ AP_VECTOR_UNDEFINED</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:18</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a></div><div class="ttdeci">@ AP_VECTOR_CHARACTER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:40</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651">AP_VECTOR_MESH</a></div><div class="ttdeci">@ AP_VECTOR_MESH</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:26</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a></div><div class="ttdeci">@ AP_VECTOR_SHADER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:22</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a></div><div class="ttdeci">@ AP_VECTOR_MODEL</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:28</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a></div><div class="ttdeci">@ AP_VECTOR_PCREATURE</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:34</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524">AP_VECTOR_LIGHT</a></div><div class="ttdeci">@ AP_VECTOR_LIGHT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:42</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff">AP_VECTOR_INT</a></div><div class="ttdeci">@ AP_VECTOR_INT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:44</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc">AP_VECTOR_AUDIO</a></div><div class="ttdeci">@ AP_VECTOR_AUDIO</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:32</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd">AP_VECTOR_TEXTURE</a></div><div class="ttdeci">@ AP_VECTOR_TEXTURE</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:24</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4">AP_VECTOR_VERTEX</a></div><div class="ttdeci">@ AP_VECTOR_VERTEX</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:20</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:38</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a">AP_VECTOR_POINTER</a></div><div class="ttdeci">@ AP_VECTOR_POINTER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:50</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a></div><div class="ttdeci">@ AP_VECTOR_PBARRIER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:36</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838">AP_VECTOR_FLOAT</a></div><div class="ttdeci">@ AP_VECTOR_FLOAT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:48</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448">AP_VECTOR_CAMERA</a></div><div class="ttdeci">@ AP_VECTOR_CAMERA</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:30</div></div>
-<div class="ttc" id="astructAP__Audio_html"><div class="ttname"><a href="structAP__Audio.html">AP_Audio</a></div><div class="ttdef"><b>Definition:</b> ap_audio.h:36</div></div>
-<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdoc">Camera struct object.</div><div class="ttdef"><b>Definition:</b> ap_camera.h:19</div></div>
-<div class="ttc" id="astructAP__Character_html"><div class="ttname"><a href="structAP__Character.html">AP_Character</a></div><div class="ttdef"><b>Definition:</b> ap_render.h:16</div></div>
-<div class="ttc" id="astructAP__Character_html_a2307a92ee346d8a69e44077dfc3156ed"><div class="ttname"><a href="structAP__Character.html#a2307a92ee346d8a69e44077dfc3156ed">AP_Character::size</a></div><div class="ttdeci">int size[2]</div><div class="ttdef"><b>Definition:</b> ap_render.h:20</div></div>
-<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdoc">Light struct object.</div><div class="ttdef"><b>Definition:</b> ap_light.h:35</div></div>
-<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdoc">Mesh struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_mesh.h:16</div></div>
-<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> ap_model.h:25</div></div>
-<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:84</div></div>
-<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:96</div></div>
-<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:83</div></div>
-<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdoc">Texture struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_texture.h:57</div></div>
-<div class="ttc" id="astructAP__Vector_html_ae1f5e4ada4f608416b53b23bca1abaa1"><div class="ttname"><a href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">AP_Vector::type</a></div><div class="ttdeci">int type</div><div class="ttdoc">vector type</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:65</div></div>
-<div class="ttc" id="astructAP__Vertex_html"><div class="ttname"><a href="structAP__Vertex.html">AP_Vertex</a></div><div class="ttdef"><b>Definition:</b> ap_vertex.h:13</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1">AP_VECTOR_UINT</a></div><div class="ttdeci">@ AP_VECTOR_UINT</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00046">ap_cvector.h:46</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a></div><div class="ttdeci">@ AP_VECTOR_UNDEFINED</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00018">ap_cvector.h:18</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a></div><div class="ttdeci">@ AP_VECTOR_CHARACTER</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00040">ap_cvector.h:40</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651">AP_VECTOR_MESH</a></div><div class="ttdeci">@ AP_VECTOR_MESH</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00026">ap_cvector.h:26</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a></div><div class="ttdeci">@ AP_VECTOR_SHADER</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00022">ap_cvector.h:22</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a></div><div class="ttdeci">@ AP_VECTOR_MODEL</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00028">ap_cvector.h:28</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a></div><div class="ttdeci">@ AP_VECTOR_PCREATURE</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00034">ap_cvector.h:34</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524">AP_VECTOR_LIGHT</a></div><div class="ttdeci">@ AP_VECTOR_LIGHT</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00042">ap_cvector.h:42</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff">AP_VECTOR_INT</a></div><div class="ttdeci">@ AP_VECTOR_INT</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00044">ap_cvector.h:44</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc">AP_VECTOR_AUDIO</a></div><div class="ttdeci">@ AP_VECTOR_AUDIO</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00032">ap_cvector.h:32</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd">AP_VECTOR_TEXTURE</a></div><div class="ttdeci">@ AP_VECTOR_TEXTURE</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00024">ap_cvector.h:24</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4">AP_VECTOR_VERTEX</a></div><div class="ttdeci">@ AP_VECTOR_VERTEX</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00020">ap_cvector.h:20</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00038">ap_cvector.h:38</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a">AP_VECTOR_POINTER</a></div><div class="ttdeci">@ AP_VECTOR_POINTER</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00050">ap_cvector.h:50</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a></div><div class="ttdeci">@ AP_VECTOR_PBARRIER</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00036">ap_cvector.h:36</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838">AP_VECTOR_FLOAT</a></div><div class="ttdeci">@ AP_VECTOR_FLOAT</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00048">ap_cvector.h:48</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448">AP_VECTOR_CAMERA</a></div><div class="ttdeci">@ AP_VECTOR_CAMERA</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00030">ap_cvector.h:30</a></div></div>
+<div class="ttc" id="astructAP__Audio_html"><div class="ttname"><a href="structAP__Audio.html">AP_Audio</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__audio_8h_source.html#l00036">ap_audio.h:36</a></div></div>
+<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdoc">Camera struct object.</div><div class="ttdef"><b>Definition:</b> <a href="ap__camera_8h_source.html#l00019">ap_camera.h:19</a></div></div>
+<div class="ttc" id="astructAP__Character_html"><div class="ttname"><a href="structAP__Character.html">AP_Character</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__render_8h_source.html#l00016">ap_render.h:16</a></div></div>
+<div class="ttc" id="astructAP__Character_html_a2307a92ee346d8a69e44077dfc3156ed"><div class="ttname"><a href="structAP__Character.html#a2307a92ee346d8a69e44077dfc3156ed">AP_Character::size</a></div><div class="ttdeci">int size[2]</div><div class="ttdef"><b>Definition:</b> <a href="ap__render_8h_source.html#l00020">ap_render.h:20</a></div></div>
+<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdoc">Light struct object.</div><div class="ttdef"><b>Definition:</b> <a href="ap__light_8h_source.html#l00035">ap_light.h:35</a></div></div>
+<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdoc">Mesh struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__mesh_8h_source.html#l00016">ap_mesh.h:16</a></div></div>
+<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__model_8h_source.html#l00025">ap_model.h:25</a></div></div>
+<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00084">ap_physic.h:84</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00096">ap_physic.h:96</a></div></div>
+<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00083">ap_shader.h:83</a></div></div>
+<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdoc">Texture struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__texture_8h_source.html#l00057">ap_texture.h:57</a></div></div>
+<div class="ttc" id="astructAP__Vector_html_ae1f5e4ada4f608416b53b23bca1abaa1"><div class="ttname"><a href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">AP_Vector::type</a></div><div class="ttdeci">int type</div><div class="ttdoc">vector type</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00065">ap_cvector.h:65</a></div></div>
+<div class="ttc" id="astructAP__Vertex_html"><div class="ttname"><a href="structAP__Vertex.html">AP_Vertex</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__vertex_8h_source.html#l00013">ap_vertex.h:13</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -274,6 +282,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00105">105</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  106</span>{</div>
 <div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> (vector == NULL) {</div>
 <div class="line"><span class="lineno">  108</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_POINTER;</div>
@@ -285,10 +295,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  114</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">type</a> = <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a>;</div>
 <div class="line"><span class="lineno">  115</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  116</span>}</div>
-<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
-<div class="ttc" id="astructAP__Vector_html_ae1fa01a14d5d238105d1ae4173a80675"><div class="ttname"><a href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">AP_Vector::capacity</a></div><div class="ttdeci">int capacity</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:60</div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00058">ap_cvector.h:58</a></div></div>
+<div class="ttc" id="astructAP__Vector_html_ae1fa01a14d5d238105d1ae4173a80675"><div class="ttname"><a href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">AP_Vector::capacity</a></div><div class="ttdeci">int capacity</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00060">ap_cvector.h:60</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">ap_light_free_all()</a>, and <a class="el" href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">ap_render_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ap__light_8c_source.html#l00239">ap_light_free_all()</a>, and <a class="el" href="ap__render_8c_source.html#l00693">ap_render_finish()</a>.</p>
 
 </div>
 </div>
@@ -327,6 +337,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int GE_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00079">79</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   80</span>{</div>
 <div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (vector == NULL) {</div>
 <div class="line"><span class="lineno">   82</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_POINTER;</div>
@@ -351,7 +363,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  101</span> </div>
 <div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><span class="lineno">  103</span>}</div>
-<div class="ttc" id="aap__memory_8h_html_a09f9b8a19a76edcc6f0cd34561969e20"><div class="ttname"><a href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a></div><div class="ttdeci">void * AP_MALLOCT(int size, const char *func_name)</div><div class="ttdoc">AP_MALLOC with trace log.</div><div class="ttdef"><b>Definition:</b> ap_memory.c:98</div></div>
+<div class="ttc" id="aap__memory_8h_html_a09f9b8a19a76edcc6f0cd34561969e20"><div class="ttname"><a href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a></div><div class="ttdeci">void * AP_MALLOCT(int size, const char *func_name)</div><div class="ttdoc">AP_MALLOC with trace log.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00098">ap_memory.c:98</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -397,6 +409,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00161">161</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  162</span>{</div>
 <div class="line"><span class="lineno">  163</span>        <span class="keywordflow">if</span> (vector == NULL || start == NULL || size &lt;= 0) {</div>
 <div class="line"><span class="lineno">  164</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -462,6 +476,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00131">131</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  132</span>{</div>
 <div class="line"><span class="lineno">  133</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="ap__cvector_8c.html#af79f7697fd3db122386bd582a98f9346">ap_is_valid_vector</a>(vector) || data == NULL) {</div>
 <div class="line"><span class="lineno">  134</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -490,7 +506,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  157</span> </div>
 <div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  159</span>}</div>
-<div class="ttc" id="aap__cvector_8c_html_af79f7697fd3db122386bd582a98f9346"><div class="ttname"><a href="ap__cvector_8c.html#af79f7697fd3db122386bd582a98f9346">ap_is_valid_vector</a></div><div class="ttdeci">bool ap_is_valid_vector(struct AP_Vector *vector)</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:118</div></div>
+<div class="ttc" id="aap__cvector_8c_html_af79f7697fd3db122386bd582a98f9346"><div class="ttname"><a href="ap__cvector_8c.html#af79f7697fd3db122386bd582a98f9346">ap_is_valid_vector</a></div><div class="ttdeci">bool ap_is_valid_vector(struct AP_Vector *vector)</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00118">ap_cvector.c:118</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -539,6 +555,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__cvector_8c_source.html#l00190">190</a> of file <a class="el" href="ap__cvector_8c_source.html">ap_cvector.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  195</span>{</div>
 <div class="line"><span class="lineno">  196</span>        <span class="keywordflow">if</span> (vector == NULL || start == NULL || end == NULL || size &lt;= 0) {</div>
 <div class="line"><span class="lineno">  197</span>                LOGE(<span class="stringliteral">&quot;vector remove data failed with null pointer&quot;</span>);</div>

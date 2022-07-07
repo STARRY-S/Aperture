@@ -81,8 +81,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a38954c99385e7f68cc693ca0b3acd44b"><td class="memItemLeft" align="right" valign="top"><a id="a38954c99385e7f68cc693ca0b3acd44b" name="a38954c99385e7f68cc693ca0b3acd44b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>AP_MALLOC</b>(i)&#160;&#160;&#160;<a class="el" href="ap__memory_8c.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a>(i, __func__)</td></tr>
+<tr class="memitem:a38954c99385e7f68cc693ca0b3acd44b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__memory_8h.html#a38954c99385e7f68cc693ca0b3acd44b">AP_MALLOC</a>(i)&#160;&#160;&#160;<a class="el" href="ap__memory_8c.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a>(i, __func__)</td></tr>
 <tr class="separator:a38954c99385e7f68cc693ca0b3acd44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -104,7 +103,30 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >memory related functions </p>
 <dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+
+<p class="definition">Definition in file <a class="el" href="ap__memory_8h_source.html">ap_memory.h</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a38954c99385e7f68cc693ca0b3acd44b" name="a38954c99385e7f68cc693ca0b3acd44b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38954c99385e7f68cc693ca0b3acd44b">&#9670;&nbsp;</a></span>AP_MALLOC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AP_MALLOC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">i</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="ap__memory_8c.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a>(i, __func__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8h_source.html#l00019">19</a> of file <a class="el" href="ap__memory_8h_source.html">ap_memory.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a86c7cfd7f52e561ad496602b0af27d8c" name="a86c7cfd7f52e561ad496602b0af27d8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86c7cfd7f52e561ad496602b0af27d8c">&#9670;&nbsp;</a></span>AP_FREE()</h2>
 
@@ -120,6 +142,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00106">106</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  107</span>{</div>
 <div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (ptr == NULL) {</div>
 <div class="line"><span class="lineno">  109</span>                <span class="keywordflow">return</span>;</div>
@@ -166,6 +190,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void* pointer of the memory </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00098">98</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   99</span>{</div>
 <div class="line"><span class="lineno">  100</span>        <span class="keywordtype">char</span>* ptr = malloc(size);</div>
 <div class="line"><span class="lineno">  101</span>        ap_memory_vector_push(ptr);</div>
@@ -192,6 +218,8 @@ Functions</h2></td></tr>
 
 <p>Release all of the pointers. </p>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00135">135</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  136</span>{</div>
 <div class="line"><span class="lineno">  137</span>        LOGI(<span class="stringliteral">&quot;ap_memory: there are %d pointers unreleased&quot;</span>,</div>
 <div class="line"><span class="lineno">  138</span>                <a class="code hl_function" href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a>());</div>
@@ -204,7 +232,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  145</span>        LOGI(<span class="stringliteral">&quot;ap_memory: all memory released, %d&quot;</span>, pointer_vector.length);</div>
 <div class="line"><span class="lineno">  146</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  147</span>}</div>
-<div class="ttc" id="aap__memory_8c_html_a21e9bccdcc4a02c6b3b48bc03d8978aa"><div class="ttname"><a href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a></div><div class="ttdeci">int ap_memory_unreleased_num()</div><div class="ttdoc">Get the number of unreleased pointers.</div><div class="ttdef"><b>Definition:</b> ap_memory.c:130</div></div>
+<div class="ttc" id="aap__memory_8c_html_a21e9bccdcc4a02c6b3b48bc03d8978aa"><div class="ttname"><a href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a></div><div class="ttdeci">int ap_memory_unreleased_num()</div><div class="ttdoc">Get the number of unreleased pointers.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00130">ap_memory.c:130</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -225,6 +253,8 @@ Functions</h2></td></tr>
 
 <p>Get the number of unreleased pointers. </p>
 <dl class="section return"><dt>Returns</dt><dd>int the number of unreleased pointers. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00130">130</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  131</span>{</div>
 <div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> pointer_vector.length;</div>
 <div class="line"><span class="lineno">  133</span>}</div>
@@ -256,6 +286,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00116">116</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  117</span>{</div>
 <div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (ptr != NULL) {</div>
 <div class="line"><span class="lineno">  119</span>                ap_memory_vector_popup(ptr);</div>

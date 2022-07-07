@@ -83,7 +83,9 @@ $(function() {
 <code>#include &quot;<a class="el" href="ap__shader_8h_source.html">ap_shader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ap__custom__io_8h_source.html">ap_custom_io.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ap__utils_8h_source.html">ap_utils.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+</div>
+<p><a href="ap__shader_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a3823965695597807887ce9eb6143fb3d"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__shader_8c.html#a3823965695597807887ce9eb6143fb3d">ap_shader_load_program</a> (const char *const vshader_path, const char *const fshader_path)</td></tr>
@@ -121,6 +123,8 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Shader program functions. </p>
 <dl class="section author"><dt>Author</dt><dd>Starry Wang (<a href="#" onclick="location.href='mai'+'lto:'+'hxs'+'ta'+'rry'+'s@'+'gma'+'il'+'.co'+'m'; return false;">hxsta<span class="obfuscator">.nosp@m.</span>rrys<span class="obfuscator">.nosp@m.</span>@gmai<span class="obfuscator">.nosp@m.</span>l.co<span class="obfuscator">.nosp@m.</span>m</a>) </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a2d5f63e17aca31ae0cc3785b0e49bb52" name="a2d5f63e17aca31ae0cc3785b0e49bb52"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d5f63e17aca31ae0cc3785b0e49bb52">&#9670;&nbsp;</a></span>ap_compile_shader()</h2>
@@ -157,6 +161,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GLuint shader id </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00148">148</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  151</span>{</div>
 <div class="line"><span class="lineno">  152</span>        GLuint shader = 0;</div>
 <div class="line"><span class="lineno">  153</span>        GLint compiled = 0;</div>
@@ -203,13 +209,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00318">318</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  319</span>{</div>
 <div class="line"><span class="lineno">  320</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  321</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  322</span>        }</div>
 <div class="line"><span class="lineno">  323</span>        <span class="keywordflow">return</span> shader_using-&gt;<a class="code hl_variable" href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">id</a>;</div>
 <div class="line"><span class="lineno">  324</span>}</div>
-<div class="ttc" id="astructAP__Shader_html_a2204fa5f625d6f3ba4de1d5394680b9c"><div class="ttname"><a href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">AP_Shader::id</a></div><div class="ttdeci">unsigned int id</div><div class="ttdef"><b>Definition:</b> ap_shader.h:88</div></div>
+<div class="ttc" id="astructAP__Shader_html_a2204fa5f625d6f3ba4de1d5394680b9c"><div class="ttname"><a href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">AP_Shader::id</a></div><div class="ttdeci">unsigned int id</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00088">ap_shader.h:88</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -228,6 +236,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00101">101</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  102</span>{</div>
 <div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
 <div class="line"><span class="lineno">  104</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -255,11 +265,11 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  126</span> </div>
 <div class="line"><span class="lineno">  127</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  128</span>}</div>
-<div class="ttc" id="aap__cvector_8h_html_ae311719f25b43e6b307070f3559e5b0a"><div class="ttname"><a href="ap__cvector_8h.html#ae311719f25b43e6b307070f3559e5b0a">ap_vector_remove_data</a></div><div class="ttdeci">int ap_vector_remove_data(struct AP_Vector *vector, char *start, char *end, int size)</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:190</div></div>
-<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:83</div></div>
-<div class="ttc" id="astructAP__Shader_html_a597565aa58f1ecfbdea76b8f4397084f"><div class="ttname"><a href="structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f">AP_Shader::opengl_program_id</a></div><div class="ttdeci">unsigned int opengl_program_id</div><div class="ttdef"><b>Definition:</b> ap_shader.h:93</div></div>
-<div class="ttc" id="astructAP__Shader_html_ac77cebc691df99d89878c1b32d63fd0a"><div class="ttname"><a href="structAP__Shader.html#ac77cebc691df99d89878c1b32d63fd0a">AP_Shader::fragment_shader_path</a></div><div class="ttdeci">char * fragment_shader_path</div><div class="ttdef"><b>Definition:</b> ap_shader.h:97</div></div>
-<div class="ttc" id="astructAP__Shader_html_af41fbdb82019351d5757c700a57b68e0"><div class="ttname"><a href="structAP__Shader.html#af41fbdb82019351d5757c700a57b68e0">AP_Shader::vertex_shader_path</a></div><div class="ttdeci">char * vertex_shader_path</div><div class="ttdef"><b>Definition:</b> ap_shader.h:95</div></div>
+<div class="ttc" id="aap__cvector_8h_html_ae311719f25b43e6b307070f3559e5b0a"><div class="ttname"><a href="ap__cvector_8h.html#ae311719f25b43e6b307070f3559e5b0a">ap_vector_remove_data</a></div><div class="ttdeci">int ap_vector_remove_data(struct AP_Vector *vector, char *start, char *end, int size)</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00190">ap_cvector.c:190</a></div></div>
+<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00083">ap_shader.h:83</a></div></div>
+<div class="ttc" id="astructAP__Shader_html_a597565aa58f1ecfbdea76b8f4397084f"><div class="ttname"><a href="structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f">AP_Shader::opengl_program_id</a></div><div class="ttdeci">unsigned int opengl_program_id</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00093">ap_shader.h:93</a></div></div>
+<div class="ttc" id="astructAP__Shader_html_ac77cebc691df99d89878c1b32d63fd0a"><div class="ttname"><a href="structAP__Shader.html#ac77cebc691df99d89878c1b32d63fd0a">AP_Shader::fragment_shader_path</a></div><div class="ttdeci">char * fragment_shader_path</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00097">ap_shader.h:97</a></div></div>
+<div class="ttc" id="astructAP__Shader_html_af41fbdb82019351d5757c700a57b68e0"><div class="ttname"><a href="structAP__Shader.html#af41fbdb82019351d5757c700a57b68e0">AP_Shader::vertex_shader_path</a></div><div class="ttdeci">char * vertex_shader_path</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8h_source.html#l00095">ap_shader.h:95</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -277,6 +287,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00130">130</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  131</span>{</div>
 <div class="line"><span class="lineno">  132</span>        shader_using = NULL;</div>
 <div class="line"><span class="lineno">  133</span>        glUseProgram(0);</div>
@@ -293,9 +305,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  144</span> </div>
 <div class="line"><span class="lineno">  145</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  146</span>}</div>
-<div class="ttc" id="aap__cvector_8h_html_a7434f4b0de2d604e135a6a37e2283a7c"><div class="ttname"><a href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a></div><div class="ttdeci">int ap_vector_free(struct AP_Vector *vector)</div><div class="ttdoc">Release the memory allocated by vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:105</div></div>
-<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
-<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a7434f4b0de2d604e135a6a37e2283a7c"><div class="ttname"><a href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a></div><div class="ttdeci">int ap_vector_free(struct AP_Vector *vector)</div><div class="ttdoc">Release the memory allocated by vector.</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00105">ap_cvector.c:105</a></div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00058">ap_cvector.h:58</a></div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00067">ap_cvector.h:67</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -341,6 +353,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00048">48</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
 <div class="line"><span class="lineno">   53</span>        <span class="keywordflow">if</span> (!vshader_path || !fshader_path) {</div>
 <div class="line"><span class="lineno">   54</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -367,10 +381,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   75</span> </div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   77</span>}</div>
-<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a></div><div class="ttdeci">@ AP_VECTOR_SHADER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:22</div></div>
-<div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
-<div class="ttc" id="aap__cvector_8h_html_aa6a2943c2334f3769df1f312ba0a4524"><div class="ttname"><a href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a></div><div class="ttdeci">int ap_vector_push_back(struct AP_Vector *vector, const char *data)</div><div class="ttdoc">Append one data to the back of the vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:131</div></div>
-<div class="ttc" id="aap__shader_8c_html_a3823965695597807887ce9eb6143fb3d"><div class="ttname"><a href="ap__shader_8c.html#a3823965695597807887ce9eb6143fb3d">ap_shader_load_program</a></div><div class="ttdeci">GLuint ap_shader_load_program(const char *const vshader_path, const char *const fshader_path)</div><div class="ttdef"><b>Definition:</b> ap_shader.c:202</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a></div><div class="ttdeci">@ AP_VECTOR_SHADER</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00022">ap_cvector.h:22</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00079">ap_cvector.c:79</a></div></div>
+<div class="ttc" id="aap__cvector_8h_html_aa6a2943c2334f3769df1f312ba0a4524"><div class="ttname"><a href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a></div><div class="ttdeci">int ap_vector_push_back(struct AP_Vector *vector, const char *data)</div><div class="ttdoc">Append one data to the back of the vector.</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00131">ap_cvector.c:131</a></div></div>
+<div class="ttc" id="aap__shader_8c_html_a3823965695597807887ce9eb6143fb3d"><div class="ttname"><a href="ap__shader_8c.html#a3823965695597807887ce9eb6143fb3d">ap_shader_load_program</a></div><div class="ttdeci">GLuint ap_shader_load_program(const char *const vshader_path, const char *const fshader_path)</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8c_source.html#l00202">ap_shader.c:202</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -389,6 +403,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00326">326</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  327</span>{</div>
 <div class="line"><span class="lineno">  328</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
 <div class="line"><span class="lineno">  329</span>                <span class="keywordflow">return</span> NULL;</div>
@@ -441,6 +457,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>GLuint </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00181">181</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  182</span>{</div>
 <div class="line"><span class="lineno">  183</span>        GLuint result = 0;</div>
 <div class="line"><span class="lineno">  184</span>        <span class="keywordtype">int</span> length = 0;</div>
@@ -460,10 +478,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  198</span>        buffer = NULL;</div>
 <div class="line"><span class="lineno">  199</span>        <span class="keywordflow">return</span> result;</div>
 <div class="line"><span class="lineno">  200</span>}</div>
-<div class="ttc" id="aap__custom__io_8h_html_af05483ce5cc793ffff5dbc0743dd593e"><div class="ttname"><a href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a></div><div class="ttdeci">int ap_read_file_to_memory(const char *file, char **ptr, int *length)</div><div class="ttdoc">read file to memory should free the pointer after use</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:202</div></div>
-<div class="ttc" id="aap__shader_8c_html_a2d5f63e17aca31ae0cc3785b0e49bb52"><div class="ttname"><a href="ap__shader_8c.html#a2d5f63e17aca31ae0cc3785b0e49bb52">ap_compile_shader</a></div><div class="ttdeci">GLuint ap_compile_shader(GLenum type, const char *const shader_src)</div><div class="ttdoc">Compile the shader from memory data.</div><div class="ttdef"><b>Definition:</b> ap_shader.c:148</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_af05483ce5cc793ffff5dbc0743dd593e"><div class="ttname"><a href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a></div><div class="ttdeci">int ap_read_file_to_memory(const char *file, char **ptr, int *length)</div><div class="ttdoc">read file to memory should free the pointer after use</div><div class="ttdef"><b>Definition:</b> <a href="ap__custom__io_8c_source.html#l00202">ap_custom_io.c:202</a></div></div>
+<div class="ttc" id="aap__shader_8c_html_a2d5f63e17aca31ae0cc3785b0e49bb52"><div class="ttname"><a href="ap__shader_8c.html#a2d5f63e17aca31ae0cc3785b0e49bb52">ap_compile_shader</a></div><div class="ttdeci">GLuint ap_compile_shader(GLenum type, const char *const shader_src)</div><div class="ttdoc">Compile the shader from memory data.</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8c_source.html#l00148">ap_shader.c:148</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="ap__shader_8c.html#a3823965695597807887ce9eb6143fb3d">ap_shader_load_program()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ap__shader_8c_source.html#l00202">ap_shader_load_program()</a>.</p>
 
 </div>
 </div>
@@ -493,6 +511,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Load vertex and fragment shader from file, compile and attach it to program return (shader) program id </p>
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00202">202</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  205</span>{</div>
 <div class="line"><span class="lineno">  206</span>        GLuint vshader = <a class="code hl_function" href="ap__shader_8c.html#a85db1c0dfaad3a7f48715b450fd32b22">ap_shader_load</a>(GL_VERTEX_SHADER, vshader_path);</div>
 <div class="line"><span class="lineno">  207</span>        GLuint fshader = <a class="code hl_function" href="ap__shader_8c.html#a85db1c0dfaad3a7f48715b450fd32b22">ap_shader_load</a>(GL_FRAGMENT_SHADER, fshader_path);</div>
@@ -525,7 +545,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  234</span>        }</div>
 <div class="line"><span class="lineno">  235</span>        <span class="keywordflow">return</span> program;</div>
 <div class="line"><span class="lineno">  236</span>}</div>
-<div class="ttc" id="aap__shader_8c_html_a85db1c0dfaad3a7f48715b450fd32b22"><div class="ttname"><a href="ap__shader_8c.html#a85db1c0dfaad3a7f48715b450fd32b22">ap_shader_load</a></div><div class="ttdeci">GLuint ap_shader_load(GLenum type, const char *const shader_path)</div><div class="ttdoc">return compiled OpenGL shader id</div><div class="ttdef"><b>Definition:</b> ap_shader.c:181</div></div>
+<div class="ttc" id="aap__shader_8c_html_a85db1c0dfaad3a7f48715b450fd32b22"><div class="ttname"><a href="ap__shader_8c.html#a85db1c0dfaad3a7f48715b450fd32b22">ap_shader_load</a></div><div class="ttdeci">GLuint ap_shader_load(GLenum type, const char *const shader_path)</div><div class="ttdoc">return compiled OpenGL shader id</div><div class="ttdef"><b>Definition:</b> <a href="ap__shader_8c_source.html#l00181">ap_shader.c:181</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -554,6 +574,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00238">238</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  239</span>{</div>
 <div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  241</span>                LOGW(<span class="stringliteral">&quot;ap_shader_set_float failed: shader_using == NULL&quot;</span>);</div>
@@ -596,6 +618,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00254">254</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  255</span>{</div>
 <div class="line"><span class="lineno">  256</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  257</span>                LOGW(<span class="stringliteral">&quot;ap_shader_set_int failed: shader_using == NULL&quot;</span>);</div>
@@ -638,6 +662,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00302">302</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  303</span>{</div>
 <div class="line"><span class="lineno">  304</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  305</span>                LOGW(<span class="stringliteral">&quot;ap_shader_set_mat4 failed: shader_using == NULL&quot;</span>);</div>
@@ -680,6 +706,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00270">270</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  271</span>{</div>
 <div class="line"><span class="lineno">  272</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  273</span>                LOGW(<span class="stringliteral">&quot;ap_shader_set_vec3 failed: shader_using == NULL&quot;</span>);</div>
@@ -722,6 +750,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00286">286</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  287</span>{</div>
 <div class="line"><span class="lineno">  288</span>        <span class="keywordflow">if</span> (!shader_using) {</div>
 <div class="line"><span class="lineno">  289</span>                LOGW(<span class="stringliteral">&quot;ap_shader_set_vec4 failed: shader_using == NULL&quot;</span>);</div>
@@ -754,6 +784,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ap__shader_8c_source.html#l00079">79</a> of file <a class="el" href="ap__shader_8c_source.html">ap_shader.c</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   80</span>{</div>
 <div class="line"><span class="lineno">   81</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == 0) {</div>
 <div class="line"><span class="lineno">   82</span>                shader_using = NULL;</div>
