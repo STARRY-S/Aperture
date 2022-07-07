@@ -314,6 +314,10 @@ static void* ap_audio_play_thread_func(void* data)
                 alGetSourcei(audio->source_id, AL_SOURCE_STATE, &source_state);
         }
         AP_FREE(audio);
+        if (audio->cb) {
+                // TODO: callback function data
+                audio->cb(NULL, 0);
+        }
         return NULL;
 }
 
