@@ -82,10 +82,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a56dbe289aa9a73d4e350caf49648217f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__decode_8h.html#a56dbe289aa9a73d4e350caf49648217f">ap_decode_to_file</a> (const char *filename, const char *out_name)</td></tr>
-<tr class="memdesc:a56dbe289aa9a73d4e350caf49648217f"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode audio to PCM format into a file only support MP3 format audio  <a href="ap__decode_8h.html#a56dbe289aa9a73d4e350caf49648217f">More...</a><br /></td></tr>
+<tr class="memdesc:a56dbe289aa9a73d4e350caf49648217f"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode audio to PCM format into a file, only support MP3 format audio  <a href="ap__decode_8h.html#a56dbe289aa9a73d4e350caf49648217f">More...</a><br /></td></tr>
 <tr class="separator:a56dbe289aa9a73d4e350caf49648217f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42ec5f7012742eefbd6d7ed6553bb380"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__decode_8h.html#a42ec5f7012742eefbd6d7ed6553bb380">ap_decode_to_memory</a> (const char *filename, struct <a class="el" href="structAP__Vector.html">AP_Vector</a> **out_vec_p, int *ap_format, float *frequency, int *channels)</td></tr>
-<tr class="memdesc:a42ec5f7012742eefbd6d7ed6553bb380"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode audio to struct <a class="el" href="structAP__Vector.html">AP_Vector</a> only support MP3 format audio  <a href="ap__decode_8h.html#a42ec5f7012742eefbd6d7ed6553bb380">More...</a><br /></td></tr>
+<tr class="memdesc:a42ec5f7012742eefbd6d7ed6553bb380"><td class="mdescLeft">&#160;</td><td class="mdescRight">decode audio to struct <a class="el" href="structAP__Vector.html" title="C Vector struct object definition.">AP_Vector</a>, only support MP3 format audio  <a href="ap__decode_8h.html#a42ec5f7012742eefbd6d7ed6553bb380">More...</a><br /></td></tr>
 <tr class="separator:a42ec5f7012742eefbd6d7ed6553bb380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -118,7 +118,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>decode audio to PCM format into a file only support MP3 format audio </p>
+<p>decode audio to PCM format into a file, only support MP3 format audio </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>name of the audio file to be decoded </td></tr>
@@ -186,7 +186,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>decode audio to struct <a class="el" href="structAP__Vector.html">AP_Vector</a> only support MP3 format audio </p>
+<p>decode audio to struct <a class="el" href="structAP__Vector.html" title="C Vector struct object definition.">AP_Vector</a>, only support MP3 format audio </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>name of the audio file to be decoded </td></tr>
@@ -212,7 +212,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  326</span>                memset(out_vec, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__Vector.html">AP_Vector</a>));</div>
 <div class="line"><span class="lineno">  327</span>        }</div>
 <div class="line"><span class="lineno">  328</span> </div>
-<div class="line"><span class="lineno">  329</span>        <span class="keywordtype">int</span> ret = <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(out_vec, AP_VECTOR_CHAR);</div>
+<div class="line"><span class="lineno">  329</span>        <span class="keywordtype">int</span> ret = <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(out_vec, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a>);</div>
 <div class="line"><span class="lineno">  330</span>        AP_CHECK(ret);</div>
 <div class="line"><span class="lineno">  331</span>        ret = ap_decode_audio(</div>
 <div class="line"><span class="lineno">  332</span>                filename, NULL, out_vec, ap_format, frequency, channels</div>
@@ -221,8 +221,9 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  335</span> </div>
 <div class="line"><span class="lineno">  336</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><span class="lineno">  337</span>}</div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:38</div></div>
 <div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
-<div class="ttc" id="astructAP__Vector_html"><div class="ttname"><a href="structAP__Vector.html">AP_Vector</a></div><div class="ttdef"><b>Definition:</b> ap_cvector.h:36</div></div>
+<div class="ttc" id="astructAP__Vector_html"><div class="ttname"><a href="structAP__Vector.html">AP_Vector</a></div><div class="ttdoc">C Vector struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:56</div></div>
 </div><!-- fragment -->
 </div>
 </div>

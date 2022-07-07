@@ -76,54 +76,61 @@ $(function() {
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;assimp/cfileio.h&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span>aiFile* ap_custom_ai_file_open_proc(</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        C_STRUCT aiFileIO* custom_io,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* file_name,</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* mode</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">void</span> ap_custom_ai_file_close_proc(</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        C_STRUCT aiFileIO* ai_file_io,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        C_STRUCT aiFile* ai_file</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">size_t</span> ap_custom_ai_file_read_proc(</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        C_STRUCT aiFile* ai_file,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">char</span>* buffer,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">size_t</span> size,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">size_t</span> count</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">size_t</span> ap_custom_ai_file_write_proc(</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        C_STRUCT aiFile* ai_file,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* buffer,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">size_t</span> size,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">size_t</span> count</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">struct </span>aiFile* <a class="code hl_function" href="ap__custom__io_8h.html#a77d6cb0878a9cb6cee2402d553474a07">ap_custom_ai_file_open_proc</a>(</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        C_STRUCT aiFileIO* custom_io,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* file_name,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* mode</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> <a class="code hl_function" href="ap__custom__io_8h.html#a23af4507859f64aa88799d8b96eb058c">ap_custom_ai_file_close_proc</a>(</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        C_STRUCT aiFileIO* ai_file_io,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        C_STRUCT aiFile* ai_file</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">size_t</span> ap_custom_ai_ftell_proc(C_STRUCT aiFile* ai_file);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">size_t</span> ap_custom_ai_fsize_proc(C_STRUCT aiFile* ai_file);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> ap_custom_ai_fflush_proc(C_STRUCT aiFile* ai_file);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>C_ENUM aiReturn ap_custom_ai_fseek_proc(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        C_STRUCT aiFile* ai_file,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">size_t</span> offset,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        C_ENUM aiOrigin origin</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">char</span> **ptr, <span class="keywordtype">int</span> *length);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#ae7685dad0c7a3b1141d950b70ddf78fc">ap_open_file_descriptor</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> *pfd);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="ap__custom__io_8h.html#aa020338f14182ae545ba812ff060097d">ap_custom_ai_file_read_proc</a>(</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        C_STRUCT aiFile* ai_file,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">char</span>* buffer,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">size_t</span> size,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">size_t</span> count</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="ap__custom__io_8h.html#a9296b08df75559bfb4e1f0fd66a4fc37">ap_custom_ai_file_write_proc</a>(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        C_STRUCT aiFile* ai_file,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* buffer,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">size_t</span> size,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordtype">size_t</span> count</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>);</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#aeb1bebda0d6f28f4303339f3fe9e8393">ap_close_file_descriptor</a>(<span class="keywordtype">int</span> fd);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="ap__custom__io_8h.html#a4ce35868f62c231fb0c993d70fb23bc8">ap_custom_ai_ftell_proc</a>(C_STRUCT aiFile* ai_file);</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif </span><span class="comment">// AP_CUSTOM_IO_H</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="ap__custom__io_8h.html#af38fe8967bcd486bb8312ecea4e4d16b">ap_custom_ai_fsize_proc</a>(C_STRUCT aiFile* ai_file);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">void</span> <a class="code hl_function" href="ap__custom__io_8h.html#aefb62d3fb4a33ed18b96df348dd3f92f">ap_custom_ai_fflush_proc</a>(C_STRUCT aiFile* ai_file);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>C_ENUM aiReturn <a class="code hl_function" href="ap__custom__io_8h.html#a9a35147704b0e88ecee4d55b1d925ad6">ap_custom_ai_fseek_proc</a>(</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        C_STRUCT aiFile* ai_file,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordtype">size_t</span> offset,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        C_ENUM aiOrigin origin</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">char</span> **ptr, <span class="keywordtype">int</span> *length);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#ae7685dad0c7a3b1141d950b70ddf78fc">ap_open_file_descriptor</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keywordtype">int</span> *pfd);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__custom__io_8h.html#aeb1bebda0d6f28f4303339f3fe9e8393">ap_close_file_descriptor</a>(<span class="keywordtype">int</span> fd);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#endif </span><span class="comment">// AP_CUSTOM_IO_H</span></div>
+<div class="ttc" id="aap__custom__io_8h_html_a23af4507859f64aa88799d8b96eb058c"><div class="ttname"><a href="ap__custom__io_8h.html#a23af4507859f64aa88799d8b96eb058c">ap_custom_ai_file_close_proc</a></div><div class="ttdeci">void ap_custom_ai_file_close_proc(C_STRUCT aiFileIO *ai_file_io, C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fclose program for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:79</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_a4ce35868f62c231fb0c993d70fb23bc8"><div class="ttname"><a href="ap__custom__io_8h.html#a4ce35868f62c231fb0c993d70fb23bc8">ap_custom_ai_ftell_proc</a></div><div class="ttdeci">size_t ap_custom_ai_ftell_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom ftell function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:116</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_a77d6cb0878a9cb6cee2402d553474a07"><div class="ttname"><a href="ap__custom__io_8h.html#a77d6cb0878a9cb6cee2402d553474a07">ap_custom_ai_file_open_proc</a></div><div class="ttdeci">struct aiFile * ap_custom_ai_file_open_proc(C_STRUCT aiFileIO *custom_io, const char *file_name, const char *mode)</div><div class="ttdoc">custom fopen function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:29</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_a9296b08df75559bfb4e1f0fd66a4fc37"><div class="ttname"><a href="ap__custom__io_8h.html#a9296b08df75559bfb4e1f0fd66a4fc37">ap_custom_ai_file_write_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_write_proc(C_STRUCT aiFile *ai_file, const char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fwrite function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:106</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_a9a35147704b0e88ecee4d55b1d925ad6"><div class="ttname"><a href="ap__custom__io_8h.html#a9a35147704b0e88ecee4d55b1d925ad6">ap_custom_ai_fseek_proc</a></div><div class="ttdeci">C_ENUM aiReturn ap_custom_ai_fseek_proc(C_STRUCT aiFile *ai_file, size_t offset, C_ENUM aiOrigin origin)</div><div class="ttdoc">custom fseel function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:157</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_aa020338f14182ae545ba812ff060097d"><div class="ttname"><a href="ap__custom__io_8h.html#aa020338f14182ae545ba812ff060097d">ap_custom_ai_file_read_proc</a></div><div class="ttdeci">size_t ap_custom_ai_file_read_proc(C_STRUCT aiFile *ai_file, char *buffer, size_t size, size_t count)</div><div class="ttdoc">custom fread function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:91</div></div>
 <div class="ttc" id="aap__custom__io_8h_html_ae7685dad0c7a3b1141d950b70ddf78fc"><div class="ttname"><a href="ap__custom__io_8h.html#ae7685dad0c7a3b1141d950b70ddf78fc">ap_open_file_descriptor</a></div><div class="ttdeci">int ap_open_file_descriptor(const char *file, int *pfd)</div><div class="ttdoc">open file and get its file descriptor should close this fd after use</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:297</div></div>
 <div class="ttc" id="aap__custom__io_8h_html_aeb1bebda0d6f28f4303339f3fe9e8393"><div class="ttname"><a href="ap__custom__io_8h.html#aeb1bebda0d6f28f4303339f3fe9e8393">ap_close_file_descriptor</a></div><div class="ttdeci">int ap_close_file_descriptor(int fd)</div><div class="ttdoc">close file descriptor opened by ap_open_file_descriptor</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:340</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_aefb62d3fb4a33ed18b96df348dd3f92f"><div class="ttname"><a href="ap__custom__io_8h.html#aefb62d3fb4a33ed18b96df348dd3f92f">ap_custom_ai_fflush_proc</a></div><div class="ttdeci">void ap_custom_ai_fflush_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fflush function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:150</div></div>
 <div class="ttc" id="aap__custom__io_8h_html_af05483ce5cc793ffff5dbc0743dd593e"><div class="ttname"><a href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a></div><div class="ttdeci">int ap_read_file_to_memory(const char *file, char **ptr, int *length)</div><div class="ttdoc">read file to memory should free the pointer after use</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:202</div></div>
+<div class="ttc" id="aap__custom__io_8h_html_af38fe8967bcd486bb8312ecea4e4d16b"><div class="ttname"><a href="ap__custom__io_8h.html#af38fe8967bcd486bb8312ecea4e4d16b">ap_custom_ai_fsize_proc</a></div><div class="ttdeci">size_t ap_custom_ai_fsize_proc(C_STRUCT aiFile *ai_file)</div><div class="ttdoc">custom fsize function for assimp</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:129</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

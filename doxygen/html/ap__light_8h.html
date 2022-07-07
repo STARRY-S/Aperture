@@ -84,6 +84,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Light.html">AP_Light</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Light struct object.  <a href="structAP__Light.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -97,11 +98,12 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a01485963805bd845873605f3f2b044bc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>AP_Light_types</b> { <b>AP_LIGHT_UNKNOWN</b> = 0
-, <b>AP_LIGHT_POINT</b> = 0x2001
-, <b>AP_LIGHT_DIRECTIONAL</b>
-, <b>AP_LIGHT_SPOT</b>
+<tr class="memitem:a01485963805bd845873605f3f2b044bc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bc">AP_Light_types</a> { <b>AP_LIGHT_UNKNOWN</b> = 0
+, <a class="el" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f">AP_LIGHT_POINT</a> = 0x2001
+, <a class="el" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a">AP_LIGHT_DIRECTIONAL</a>
+, <a class="el" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49">AP_LIGHT_SPOT</a>
  }</td></tr>
+<tr class="memdesc:a01485963805bd845873605f3f2b044bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Light types definition.  <a href="ap__light_8h.html#a01485963805bd845873605f3f2b044bc">More...</a><br /></td></tr>
 <tr class="separator:a01485963805bd845873605f3f2b044bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -109,19 +111,23 @@ Functions</h2></td></tr>
 <tr class="memitem:a03081da06a213ca38e996f1ecded0f89"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#a03081da06a213ca38e996f1ecded0f89">ap_light_generate_point</a> (unsigned int *light_id, float position[3], float ambient[3], float diffuse[3], float specular[3], float param[8])</td></tr>
 <tr class="memdesc:a03081da06a213ca38e996f1ecded0f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup and generate a point light struct object and store its data into vector.  <a href="ap__light_8h.html#a03081da06a213ca38e996f1ecded0f89">More...</a><br /></td></tr>
 <tr class="separator:a03081da06a213ca38e996f1ecded0f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4b6313b74b69d96bbceb8778faf33bf"><td class="memItemLeft" align="right" valign="top"><a id="ae4b6313b74b69d96bbceb8778faf33bf" name="ae4b6313b74b69d96bbceb8778faf33bf"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b> (float ambient[3], float diffuse[3], float specular[3], float param[8])</td></tr>
+<tr class="memitem:ae4b6313b74b69d96bbceb8778faf33bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#ae4b6313b74b69d96bbceb8778faf33bf">ap_light_setup_spot</a> (float ambient[3], float diffuse[3], float specular[3], float param[8])</td></tr>
+<tr class="memdesc:ae4b6313b74b69d96bbceb8778faf33bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup spot light struct object.  <a href="ap__light_8h.html#ae4b6313b74b69d96bbceb8778faf33bf">More...</a><br /></td></tr>
 <tr class="separator:ae4b6313b74b69d96bbceb8778faf33bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae12ad2124ebb10ac61640faedf360dff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#ae12ad2124ebb10ac61640faedf360dff">ap_light_setup_directional</a> (float direction[3], float ambient[3], float diffuse[3], float specular[3])</td></tr>
+<tr class="memdesc:ae12ad2124ebb10ac61640faedf360dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup directional light struct object.  <a href="ap__light_8h.html#ae12ad2124ebb10ac61640faedf360dff">More...</a><br /></td></tr>
 <tr class="separator:ae12ad2124ebb10ac61640faedf360dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0ec1a642d61584625dd9075a2d30ffe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a> ()</td></tr>
-<tr class="memdesc:ae0ec1a642d61584625dd9075a2d30ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send all of the data to the GPU after we generated all of the light struct objects.  <a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">More...</a><br /></td></tr>
+<tr class="memdesc:ae0ec1a642d61584625dd9075a2d30ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render all lights.  <a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">More...</a><br /></td></tr>
 <tr class="separator:ae0ec1a642d61584625dd9075a2d30ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94ac897a09ee5d98702fde3cb2b0246b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">ap_light_set_material_shininess</a> (float shininess)</td></tr>
+<tr class="memdesc:a94ac897a09ee5d98702fde3cb2b0246b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set shininess of material.  <a href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">More...</a><br /></td></tr>
 <tr class="separator:a94ac897a09ee5d98702fde3cb2b0246b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cc732525aee821396c9026ee3f98ee8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#a7cc732525aee821396c9026ee3f98ee8">ap_light_free_point_light</a> (int id)</td></tr>
+<tr class="memdesc:a7cc732525aee821396c9026ee3f98ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">release point light data by its ID  <a href="ap__light_8h.html#a7cc732525aee821396c9026ee3f98ee8">More...</a><br /></td></tr>
 <tr class="separator:a7cc732525aee821396c9026ee3f98ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6d1f23ea38cf0ccf461d7338523103b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">ap_light_free_all</a> ()</td></tr>
+<tr class="memdesc:ae6d1f23ea38cf0ccf461d7338523103b"><td class="mdescLeft">&#160;</td><td class="mdescRight">release all data for light rendering  <a href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">More...</a><br /></td></tr>
 <tr class="separator:ae6d1f23ea38cf0ccf461d7338523103b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cb35035e8d72b5311ca2a1aca967756"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structAP__Light.html">AP_Light</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__light_8h.html#a7cb35035e8d72b5311ca2a1aca967756">ap_light_get_point_light_ptr</a> (int id)</td></tr>
 <tr class="separator:a7cb35035e8d72b5311ca2a1aca967756"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,16 +147,30 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum AP_Light_types</td>
+          <td class="memname">enum <a class="el" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bc">AP_Light_types</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">   19</span>             {</div>
-<div class="line"><span class="lineno">   20</span>        AP_LIGHT_UNKNOWN = 0,</div>
-<div class="line"><span class="lineno">   21</span>        AP_LIGHT_POINT = 0x2001,</div>
-<div class="line"><span class="lineno">   22</span>        AP_LIGHT_DIRECTIONAL,</div>
-<div class="line"><span class="lineno">   23</span>        AP_LIGHT_SPOT</div>
-<div class="line"><span class="lineno">   24</span>} AP_Light_types;</div>
+
+<p>Light types definition. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f" name="a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f"></a>AP_LIGHT_POINT&#160;</td><td class="fielddoc"><p >point light </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a" name="a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a"></a>AP_LIGHT_DIRECTIONAL&#160;</td><td class="fielddoc"><p >directional light </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49" name="a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49"></a>AP_LIGHT_SPOT&#160;</td><td class="fielddoc"><p >spot light </p>
+</td></tr>
+</table>
+<div class="fragment"><div class="line"><span class="lineno">   22</span>             {</div>
+<div class="line"><span class="lineno">   23</span>        AP_LIGHT_UNKNOWN = 0,</div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f">AP_LIGHT_POINT</a> = 0x2001,</div>
+<div class="line"><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a">AP_LIGHT_DIRECTIONAL</a>,</div>
+<div class="line"><span class="lineno">   29</span>        <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49">AP_LIGHT_SPOT</a></div>
+<div class="line"><span class="lineno">   30</span>} <a class="code hl_enumeration" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bc">AP_Light_types</a>;</div>
+<div class="ttc" id="aap__light_8h_html_a01485963805bd845873605f3f2b044bc"><div class="ttname"><a href="ap__light_8h.html#a01485963805bd845873605f3f2b044bc">AP_Light_types</a></div><div class="ttdeci">AP_Light_types</div><div class="ttdoc">Light types definition.</div><div class="ttdef"><b>Definition:</b> ap_light.h:22</div></div>
+<div class="ttc" id="aap__light_8h_html_a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a"><div class="ttname"><a href="ap__light_8h.html#a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a">AP_LIGHT_DIRECTIONAL</a></div><div class="ttdeci">@ AP_LIGHT_DIRECTIONAL</div><div class="ttdef"><b>Definition:</b> ap_light.h:27</div></div>
+<div class="ttc" id="aap__light_8h_html_a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f"><div class="ttname"><a href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f">AP_LIGHT_POINT</a></div><div class="ttdeci">@ AP_LIGHT_POINT</div><div class="ttdef"><b>Definition:</b> ap_light.h:25</div></div>
+<div class="ttc" id="aap__light_8h_html_a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49"><div class="ttname"><a href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49">AP_LIGHT_SPOT</a></div><div class="ttdeci">@ AP_LIGHT_SPOT</div><div class="ttdef"><b>Definition:</b> ap_light.h:29</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -169,6 +189,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>release all data for light rendering </p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  240</span>{</div>
 <div class="line"><span class="lineno">  241</span>        <a class="code hl_function" href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a>(&amp;point_light_vector);</div>
 <div class="line"><span class="lineno">  242</span>        <span class="keywordflow">return</span> 0;</div>
@@ -192,13 +215,22 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>release point light data by its ID </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  217</span>{</div>
 <div class="line"><span class="lineno">  218</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
 <div class="line"><span class="lineno">  219</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  220</span>        }</div>
 <div class="line"><span class="lineno">  221</span> </div>
-<div class="line"><span class="lineno">  222</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *) point_light_vector.data;</div>
-<div class="line"><span class="lineno">  223</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  222</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *) point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  223</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  224</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> != <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">  225</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">  226</span>                }</div>
@@ -214,7 +246,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="line"><span class="lineno">  236</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  237</span>}</div>
 <div class="ttc" id="aap__cvector_8h_html_ae311719f25b43e6b307070f3559e5b0a"><div class="ttname"><a href="ap__cvector_8h.html#ae311719f25b43e6b307070f3559e5b0a">ap_vector_remove_data</a></div><div class="ttdeci">int ap_vector_remove_data(struct AP_Vector *vector, char *start, char *end, int size)</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:190</div></div>
-<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdef"><b>Definition:</b> ap_light.h:26</div></div>
+<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdoc">Light struct object.</div><div class="ttdef"><b>Definition:</b> ap_light.h:35</div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -276,7 +310,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
     <tr><td class="paramname">ambient</td><td></td></tr>
     <tr><td class="paramname">diffuse</td><td></td></tr>
     <tr><td class="paramname">specular</td><td></td></tr>
-    <tr><td class="paramname">param</td><td>see the definition of struct <a class="el" href="structAP__Light.html">AP_Light</a> </td></tr>
+    <tr><td class="paramname">param</td><td>see the definition of struct <a class="el" href="structAP__Light.html" title="Light struct object.">AP_Light</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -323,8 +357,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="line"><span class="lineno">  247</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
 <div class="line"><span class="lineno">  248</span>                <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><span class="lineno">  249</span>        }</div>
-<div class="line"><span class="lineno">  250</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>*) point_light_vector.data;</div>
-<div class="line"><span class="lineno">  251</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  250</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>*) point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  251</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  252</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> == <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">  253</span>                        <span class="keywordflow">return</span> data + i;</div>
 <div class="line"><span class="lineno">  254</span>                }</div>
@@ -369,10 +403,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
       </table>
 </div><div class="memdoc">
 
-<p>Send all of the data to the GPU after we generated all of the light struct objects. </p>
+<p>Render all lights. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  110</span>{</div>
-<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (!point_light_vector.data) {</div>
+<div class="line"><span class="lineno">  111</span>        <span class="keywordflow">if</span> (!point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>) {</div>
 <div class="line"><span class="lineno">  112</span>                LOGE(<span class="stringliteral">&quot;failed to render lights: not initialized&quot;</span>);</div>
 <div class="line"><span class="lineno">  113</span>                <span class="keywordflow">return</span> AP_ERROR_INIT_FAILED;</div>
 <div class="line"><span class="lineno">  114</span>        }</div>
@@ -380,36 +414,36 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="line"><span class="lineno">  116</span> </div>
 <div class="line"><span class="lineno">  117</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> old_shader = ap_get_current_shader();</div>
 <div class="line"><span class="lineno">  118</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> shader = 0;</div>
-<div class="line"><span class="lineno">  119</span>        ap_render_get_persp_shader(&amp;shader);</div>
+<div class="line"><span class="lineno">  119</span>        <a class="code hl_function" href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a>(&amp;shader);</div>
 <div class="line"><span class="lineno">  120</span>        <span class="keywordflow">if</span> (shader == 0) {</div>
 <div class="line"><span class="lineno">  121</span>                LOGE(<span class="stringliteral">&quot;failed to render lights: renderer not initialized&quot;</span>);</div>
 <div class="line"><span class="lineno">  122</span>                <span class="keywordflow">return</span> AP_ERROR_INIT_FAILED;</div>
 <div class="line"><span class="lineno">  123</span>        }</div>
 <div class="line"><span class="lineno">  124</span> </div>
 <div class="line"><span class="lineno">  125</span>        ap_shader_use(shader);</div>
-<div class="line"><span class="lineno">  126</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *light = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>*) point_light_vector.data;</div>
+<div class="line"><span class="lineno">  126</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *light = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>*) point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
 <div class="line"><span class="lineno">  127</span>        <span class="keywordtype">int</span> point_nr = 0;</div>
 <div class="line"><span class="lineno">  128</span>        <span class="comment">// send point lights data</span></div>
-<div class="line"><span class="lineno">  129</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.length</div>
+<div class="line"><span class="lineno">  129</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; point_light_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a></div>
 <div class="line"><span class="lineno">  130</span>                &amp;&amp; point_nr &lt; AP_LIGHT_POINT_NUM; ++i)</div>
 <div class="line"><span class="lineno">  131</span>        {</div>
 <div class="line"><span class="lineno">  132</span>                <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a> *p = light + i;</div>
 <div class="line"><span class="lineno">  133</span> </div>
-<div class="line"><span class="lineno">  134</span>                <span class="keywordflow">if</span> (p-&gt;type != AP_LIGHT_POINT) {</div>
+<div class="line"><span class="lineno">  134</span>                <span class="keywordflow">if</span> (p-&gt;<a class="code hl_variable" href="structAP__Light.html#a68a19783134d3b01c0187c1e400980c8">type</a> != <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcaa03f026fd63494d492454532d3be622f">AP_LIGHT_POINT</a>) {</div>
 <div class="line"><span class="lineno">  135</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">  136</span>                }</div>
 <div class="line"><span class="lineno">  137</span>                <span class="comment">// position</span></div>
 <div class="line"><span class="lineno">  138</span>                sprintf(buffer, AP_SP_PL_POSITION, i);</div>
-<div class="line"><span class="lineno">  139</span>                ap_shader_set_vec3(buffer, p-&gt;position);</div>
+<div class="line"><span class="lineno">  139</span>                ap_shader_set_vec3(buffer, p-&gt;<a class="code hl_variable" href="structAP__Light.html#a1a0c09098ff81d9247d0b1f1e92e6e45">position</a>);</div>
 <div class="line"><span class="lineno">  140</span>                <span class="comment">// ambient</span></div>
 <div class="line"><span class="lineno">  141</span>                sprintf(buffer, AP_SP_PL_AMBIENT, i);</div>
-<div class="line"><span class="lineno">  142</span>                ap_shader_set_vec3(buffer, p-&gt;ambient);</div>
+<div class="line"><span class="lineno">  142</span>                ap_shader_set_vec3(buffer, p-&gt;<a class="code hl_variable" href="structAP__Light.html#a58fa43dc94345497cf257f8d49704bc5">ambient</a>);</div>
 <div class="line"><span class="lineno">  143</span>                <span class="comment">// diffuse</span></div>
 <div class="line"><span class="lineno">  144</span>                sprintf(buffer, AP_SP_PL_DIFFUSE, i);</div>
-<div class="line"><span class="lineno">  145</span>                ap_shader_set_vec3(buffer, p-&gt;diffuse);</div>
+<div class="line"><span class="lineno">  145</span>                ap_shader_set_vec3(buffer, p-&gt;<a class="code hl_variable" href="structAP__Light.html#a801f0429634e649f350e7f5d435f8bcf">diffuse</a>);</div>
 <div class="line"><span class="lineno">  146</span>                <span class="comment">// specular</span></div>
 <div class="line"><span class="lineno">  147</span>                sprintf(buffer, AP_SP_PL_SPECULAR, i);</div>
-<div class="line"><span class="lineno">  148</span>                ap_shader_set_vec3(buffer, p-&gt;specular);</div>
+<div class="line"><span class="lineno">  148</span>                ap_shader_set_vec3(buffer, p-&gt;<a class="code hl_variable" href="structAP__Light.html#a855429197f84ffe01988099abeab27bc">specular</a>);</div>
 <div class="line"><span class="lineno">  149</span>                <span class="comment">// constant</span></div>
 <div class="line"><span class="lineno">  150</span>                sprintf(buffer, AP_SP_PL_CONSTANT, i);</div>
 <div class="line"><span class="lineno">  151</span>                ap_shader_set_float(buffer, p-&gt;<a class="code hl_variable" href="structAP__Light.html#adc6f681e684aeb8870cdafaf23a0b88a">param</a>[0]);</div>
@@ -422,25 +456,25 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="line"><span class="lineno">  158</span>        }</div>
 <div class="line"><span class="lineno">  159</span> </div>
 <div class="line"><span class="lineno">  160</span>        <span class="comment">// send directional light data</span></div>
-<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">if</span> (direct_light.type == AP_LIGHT_DIRECTIONAL) {</div>
+<div class="line"><span class="lineno">  161</span>        <span class="keywordflow">if</span> (direct_light.<a class="code hl_variable" href="structAP__Light.html#a68a19783134d3b01c0187c1e400980c8">type</a> == <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a">AP_LIGHT_DIRECTIONAL</a>) {</div>
 <div class="line"><span class="lineno">  162</span>                <span class="comment">// direction</span></div>
-<div class="line"><span class="lineno">  163</span>                ap_shader_set_vec3(AP_SP_DL_DIRECTION, direct_light.direction);</div>
+<div class="line"><span class="lineno">  163</span>                ap_shader_set_vec3(AP_SP_DL_DIRECTION, direct_light.<a class="code hl_variable" href="structAP__Light.html#a9da7fa74ee400ee2c897da30c6f744a5">direction</a>);</div>
 <div class="line"><span class="lineno">  164</span>                <span class="comment">// ambient</span></div>
-<div class="line"><span class="lineno">  165</span>                ap_shader_set_vec3(AP_SP_DL_AMBIENT, direct_light.ambient);</div>
+<div class="line"><span class="lineno">  165</span>                ap_shader_set_vec3(AP_SP_DL_AMBIENT, direct_light.<a class="code hl_variable" href="structAP__Light.html#a58fa43dc94345497cf257f8d49704bc5">ambient</a>);</div>
 <div class="line"><span class="lineno">  166</span>                <span class="comment">// diffuse</span></div>
-<div class="line"><span class="lineno">  167</span>                ap_shader_set_vec3(AP_SP_DL_DIFFUSE, direct_light.diffuse);</div>
+<div class="line"><span class="lineno">  167</span>                ap_shader_set_vec3(AP_SP_DL_DIFFUSE, direct_light.<a class="code hl_variable" href="structAP__Light.html#a801f0429634e649f350e7f5d435f8bcf">diffuse</a>);</div>
 <div class="line"><span class="lineno">  168</span>                <span class="comment">// specular</span></div>
-<div class="line"><span class="lineno">  169</span>                ap_shader_set_vec3(AP_SP_DL_SPECULAR, direct_light.specular);</div>
+<div class="line"><span class="lineno">  169</span>                ap_shader_set_vec3(AP_SP_DL_SPECULAR, direct_light.<a class="code hl_variable" href="structAP__Light.html#a855429197f84ffe01988099abeab27bc">specular</a>);</div>
 <div class="line"><span class="lineno">  170</span>        }</div>
 <div class="line"><span class="lineno">  171</span> </div>
 <div class="line"><span class="lineno">  172</span>        <span class="comment">// send spot light data</span></div>
-<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">if</span> (spot_light.type == AP_LIGHT_SPOT) {</div>
+<div class="line"><span class="lineno">  173</span>        <span class="keywordflow">if</span> (spot_light.<a class="code hl_variable" href="structAP__Light.html#a68a19783134d3b01c0187c1e400980c8">type</a> == <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bcac69231669eb118d411be09a2e94a0f49">AP_LIGHT_SPOT</a>) {</div>
 <div class="line"><span class="lineno">  174</span>                <span class="comment">// ambient</span></div>
-<div class="line"><span class="lineno">  175</span>                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.ambient);</div>
+<div class="line"><span class="lineno">  175</span>                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.<a class="code hl_variable" href="structAP__Light.html#a58fa43dc94345497cf257f8d49704bc5">ambient</a>);</div>
 <div class="line"><span class="lineno">  176</span>                <span class="comment">// diffuse</span></div>
-<div class="line"><span class="lineno">  177</span>                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.diffuse);</div>
+<div class="line"><span class="lineno">  177</span>                ap_shader_set_vec3(AP_SP_SL_AMBIENT, spot_light.<a class="code hl_variable" href="structAP__Light.html#a801f0429634e649f350e7f5d435f8bcf">diffuse</a>);</div>
 <div class="line"><span class="lineno">  178</span>                <span class="comment">// specular</span></div>
-<div class="line"><span class="lineno">  179</span>                ap_shader_set_vec3(AP_SP_SL_SPECULAR, spot_light.specular);</div>
+<div class="line"><span class="lineno">  179</span>                ap_shader_set_vec3(AP_SP_SL_SPECULAR, spot_light.<a class="code hl_variable" href="structAP__Light.html#a855429197f84ffe01988099abeab27bc">specular</a>);</div>
 <div class="line"><span class="lineno">  180</span>                <span class="comment">// constant</span></div>
 <div class="line"><span class="lineno">  181</span>                ap_shader_set_float(AP_SP_SL_CONSTANT, spot_light.<a class="code hl_variable" href="structAP__Light.html#adc6f681e684aeb8870cdafaf23a0b88a">param</a>[0]);</div>
 <div class="line"><span class="lineno">  182</span>                <span class="comment">// linear</span></div>
@@ -456,7 +490,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
 <div class="line"><span class="lineno">  192</span> </div>
 <div class="line"><span class="lineno">  193</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  194</span>}</div>
-<div class="ttc" id="astructAP__Light_html_adc6f681e684aeb8870cdafaf23a0b88a"><div class="ttname"><a href="structAP__Light.html#adc6f681e684aeb8870cdafaf23a0b88a">AP_Light::param</a></div><div class="ttdeci">float param[8]</div><div class="ttdef"><b>Definition:</b> ap_light.h:51</div></div>
+<div class="ttc" id="aap__render_8h_html_ad2352993f8d15f8a1b960c82d7303188"><div class="ttname"><a href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a></div><div class="ttdeci">int ap_render_get_persp_shader(unsigned int *p)</div><div class="ttdoc">Get built-in perspective Aperture shader ID.</div><div class="ttdef"><b>Definition:</b> ap_render.c:768</div></div>
+<div class="ttc" id="astructAP__Light_html_a1a0c09098ff81d9247d0b1f1e92e6e45"><div class="ttname"><a href="structAP__Light.html#a1a0c09098ff81d9247d0b1f1e92e6e45">AP_Light::position</a></div><div class="ttdeci">float position[3]</div><div class="ttdef"><b>Definition:</b> ap_light.h:42</div></div>
+<div class="ttc" id="astructAP__Light_html_a58fa43dc94345497cf257f8d49704bc5"><div class="ttname"><a href="structAP__Light.html#a58fa43dc94345497cf257f8d49704bc5">AP_Light::ambient</a></div><div class="ttdeci">float ambient[3]</div><div class="ttdef"><b>Definition:</b> ap_light.h:47</div></div>
+<div class="ttc" id="astructAP__Light_html_a68a19783134d3b01c0187c1e400980c8"><div class="ttname"><a href="structAP__Light.html#a68a19783134d3b01c0187c1e400980c8">AP_Light::type</a></div><div class="ttdeci">int type</div><div class="ttdef"><b>Definition:</b> ap_light.h:37</div></div>
+<div class="ttc" id="astructAP__Light_html_a801f0429634e649f350e7f5d435f8bcf"><div class="ttname"><a href="structAP__Light.html#a801f0429634e649f350e7f5d435f8bcf">AP_Light::diffuse</a></div><div class="ttdeci">float diffuse[3]</div><div class="ttdef"><b>Definition:</b> ap_light.h:49</div></div>
+<div class="ttc" id="astructAP__Light_html_a855429197f84ffe01988099abeab27bc"><div class="ttname"><a href="structAP__Light.html#a855429197f84ffe01988099abeab27bc">AP_Light::specular</a></div><div class="ttdeci">float specular[3]</div><div class="ttdef"><b>Definition:</b> ap_light.h:51</div></div>
+<div class="ttc" id="astructAP__Light_html_a9da7fa74ee400ee2c897da30c6f744a5"><div class="ttname"><a href="structAP__Light.html#a9da7fa74ee400ee2c897da30c6f744a5">AP_Light::direction</a></div><div class="ttdeci">float direction[3]</div><div class="ttdef"><b>Definition:</b> ap_light.h:44</div></div>
+<div class="ttc" id="astructAP__Light_html_adc6f681e684aeb8870cdafaf23a0b88a"><div class="ttname"><a href="structAP__Light.html#adc6f681e684aeb8870cdafaf23a0b88a">AP_Light::param</a></div><div class="ttdeci">float param[8]</div><div class="ttdoc">parameters for light:</div><div class="ttdef"><b>Definition:</b> ap_light.h:68</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -475,10 +516,19 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Set shininess of material. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shininess</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  197</span>{</div>
 <div class="line"><span class="lineno">  198</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> old_shader = ap_get_current_shader();</div>
 <div class="line"><span class="lineno">  199</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> shader = 0;</div>
-<div class="line"><span class="lineno">  200</span>        ap_render_get_persp_shader(&amp;shader);</div>
+<div class="line"><span class="lineno">  200</span>        <a class="code hl_function" href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a>(&amp;shader);</div>
 <div class="line"><span class="lineno">  201</span>        <span class="keywordflow">if</span> (shader == 0) {</div>
 <div class="line"><span class="lineno">  202</span>                LOGE(<span class="stringliteral">&quot;failed to render lights: renderer not initialized&quot;</span>);</div>
 <div class="line"><span class="lineno">  203</span>        }</div>
@@ -534,16 +584,80 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_light_setup_spot</b
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Setup directional light struct object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td></td></tr>
+    <tr><td class="paramname">ambient</td><td></td></tr>
+    <tr><td class="paramname">diffuse</td><td></td></tr>
+    <tr><td class="paramname">specular</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   54</span>{</div>
 <div class="line"><span class="lineno">   55</span>        memset(&amp;direct_light, 0, LIGHT_SIZE);</div>
-<div class="line"><span class="lineno">   56</span>        direct_light.type = AP_LIGHT_DIRECTIONAL;</div>
-<div class="line"><span class="lineno">   57</span>        ap_v3_copy(direct_light.direction, direction);</div>
-<div class="line"><span class="lineno">   58</span>        ap_v3_copy(direct_light.ambient, ambient);</div>
-<div class="line"><span class="lineno">   59</span>        ap_v3_copy(direct_light.diffuse, diffuse);</div>
-<div class="line"><span class="lineno">   60</span>        ap_v3_copy(direct_light.specular, specular);</div>
+<div class="line"><span class="lineno">   56</span>        direct_light.<a class="code hl_variable" href="structAP__Light.html#a68a19783134d3b01c0187c1e400980c8">type</a> = <a class="code hl_enumvalue" href="ap__light_8h.html#a01485963805bd845873605f3f2b044bca3a38cbbaf6f73fa0c24cc7667c55041a">AP_LIGHT_DIRECTIONAL</a>;</div>
+<div class="line"><span class="lineno">   57</span>        ap_v3_copy(direct_light.<a class="code hl_variable" href="structAP__Light.html#a9da7fa74ee400ee2c897da30c6f744a5">direction</a>, direction);</div>
+<div class="line"><span class="lineno">   58</span>        ap_v3_copy(direct_light.<a class="code hl_variable" href="structAP__Light.html#a58fa43dc94345497cf257f8d49704bc5">ambient</a>, ambient);</div>
+<div class="line"><span class="lineno">   59</span>        ap_v3_copy(direct_light.<a class="code hl_variable" href="structAP__Light.html#a801f0429634e649f350e7f5d435f8bcf">diffuse</a>, diffuse);</div>
+<div class="line"><span class="lineno">   60</span>        ap_v3_copy(direct_light.<a class="code hl_variable" href="structAP__Light.html#a855429197f84ffe01988099abeab27bc">specular</a>, specular);</div>
 <div class="line"><span class="lineno">   61</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   62</span>}</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="ae4b6313b74b69d96bbceb8778faf33bf" name="ae4b6313b74b69d96bbceb8778faf33bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b6313b74b69d96bbceb8778faf33bf">&#9670;&nbsp;</a></span>ap_light_setup_spot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ap_light_setup_spot </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>ambient</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>diffuse</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>specular</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>param</em>[8]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setup spot light struct object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ambient</td><td></td></tr>
+    <tr><td class="paramname">diffuse</td><td></td></tr>
+    <tr><td class="paramname">specular</td><td></td></tr>
+    <tr><td class="paramname">param</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
 </div>
 </div>
 </div><!-- contents -->

@@ -82,6 +82,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Mesh.html">AP_Mesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mesh struct object definition.  <a href="structAP__Mesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -174,8 +175,8 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  144</span> </div>
 <div class="line"><span class="lineno">  145</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  146</span>}</div>
-<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdef"><b>Definition:</b> ap_mesh.h:13</div></div>
-<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdef"><b>Definition:</b> ap_texture.h:43</div></div>
+<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdoc">Mesh struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_mesh.h:16</div></div>
+<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdoc">Texture struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_texture.h:57</div></div>
 <div class="ttc" id="astructAP__Vertex_html"><div class="ttname"><a href="structAP__Vertex.html">AP_Vertex</a></div><div class="ttdef"><b>Definition:</b> ap_vertex.h:13</div></div>
 </div><!-- fragment -->
 </div>
@@ -199,7 +200,7 @@ Functions</h2></td></tr>
 <p>Draw mesh and its texture(s) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mesh</td><td>pointer points to <a class="el" href="structAP__Mesh.html">AP_Mesh</a> </td></tr>
+    <tr><td class="paramname">mesh</td><td>pointer points to <a class="el" href="structAP__Mesh.html" title="Mesh struct object definition.">AP_Mesh</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -223,19 +224,19 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  237</span>                glActiveTexture(GL_TEXTURE0 + i);</div>
 <div class="line"><span class="lineno">  238</span>                <span class="comment">// retrieve texture number</span></div>
 <div class="line"><span class="lineno">  239</span>                <span class="keywordtype">int</span> texture_num = 0;</div>
-<div class="line"><span class="lineno">  240</span>                <span class="keywordtype">int</span> ap_type = mesh-&gt;textures[i].type;</div>
-<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">if</span> (ap_type == AP_TEXTURE_TYPE_DIFFUSE) {</div>
+<div class="line"><span class="lineno">  240</span>                <span class="keywordtype">int</span> ap_type = mesh-&gt;textures[i].<a class="code hl_variable" href="structAP__Texture.html#a4e72c6d168814a17e9da203ccbff7b57">type</a>;</div>
+<div class="line"><span class="lineno">  241</span>                <span class="keywordflow">if</span> (ap_type == <a class="code hl_enumvalue" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a>) {</div>
 <div class="line"><span class="lineno">  242</span>                        texture_num = diffuse_nr++;</div>
-<div class="line"><span class="lineno">  243</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == AP_TEXTURE_TYPE_SPECULAR) {</div>
+<div class="line"><span class="lineno">  243</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == <a class="code hl_enumvalue" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8ad2f483d90beaabb332396c818be11f9d">AP_TEXTURE_TYPE_SPECULAR</a>) {</div>
 <div class="line"><span class="lineno">  244</span>                        texture_num = specular_nr++;</div>
-<div class="line"><span class="lineno">  245</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == AP_TEXTURE_TYPE_NORMAL) {</div>
+<div class="line"><span class="lineno">  245</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == <a class="code hl_enumvalue" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8af17e9d982dfcc51af94ebd3481c1d51a">AP_TEXTURE_TYPE_NORMAL</a>) {</div>
 <div class="line"><span class="lineno">  246</span>                        texture_num = normal_nr++;</div>
-<div class="line"><span class="lineno">  247</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == AP_TEXTURE_TYPE_HEIGHT) {</div>
+<div class="line"><span class="lineno">  247</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ap_type == <a class="code hl_enumvalue" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a766ab3963cac893b0708bb80f284cffc">AP_TEXTURE_TYPE_HEIGHT</a>) {</div>
 <div class="line"><span class="lineno">  248</span>                        texture_num = height_nr++;</div>
 <div class="line"><span class="lineno">  249</span>                }</div>
 <div class="line"><span class="lineno">  250</span>                <span class="keyword">const</span> <span class="keywordtype">char</span>* name = ap_texture_type_2_str(ap_type);</div>
 <div class="line"><span class="lineno">  251</span>                sprintf(buffer, name, texture_num);</div>
-<div class="line"><span class="lineno">  252</span>                glBindTexture(GL_TEXTURE_2D, mesh-&gt;textures[i].id);</div>
+<div class="line"><span class="lineno">  252</span>                glBindTexture(GL_TEXTURE_2D, mesh-&gt;textures[i].<a class="code hl_variable" href="structAP__Texture.html#a58221f85c7a0f326b3968be63e54e958">id</a>);</div>
 <div class="line"><span class="lineno">  253</span>        }</div>
 <div class="line"><span class="lineno">  254</span> </div>
 <div class="line"><span class="lineno">  255</span>        <span class="comment">// draw mesh</span></div>
@@ -247,6 +248,12 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  261</span>        <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><span class="lineno">  262</span>}</div>
 <div class="ttc" id="aap__texture_8h_html_a7b67157e39486b009721bb963e995644"><div class="ttname"><a href="ap__texture_8h.html#a7b67157e39486b009721bb963e995644">AP_TEXTURE_UNIT_MAX_NUM</a></div><div class="ttdeci">#define AP_TEXTURE_UNIT_MAX_NUM</div><div class="ttdef"><b>Definition:</b> ap_texture.h:16</div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8a766ab3963cac893b0708bb80f284cffc"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a766ab3963cac893b0708bb80f284cffc">AP_TEXTURE_TYPE_HEIGHT</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_HEIGHT</div><div class="ttdef"><b>Definition:</b> ap_texture.h:27</div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_DIFFUSE</div><div class="ttdef"><b>Definition:</b> ap_texture.h:21</div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8ad2f483d90beaabb332396c818be11f9d"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8ad2f483d90beaabb332396c818be11f9d">AP_TEXTURE_TYPE_SPECULAR</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_SPECULAR</div><div class="ttdef"><b>Definition:</b> ap_texture.h:23</div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8af17e9d982dfcc51af94ebd3481c1d51a"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8af17e9d982dfcc51af94ebd3481c1d51a">AP_TEXTURE_TYPE_NORMAL</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_NORMAL</div><div class="ttdef"><b>Definition:</b> ap_texture.h:25</div></div>
+<div class="ttc" id="astructAP__Texture_html_a4e72c6d168814a17e9da203ccbff7b57"><div class="ttname"><a href="structAP__Texture.html#a4e72c6d168814a17e9da203ccbff7b57">AP_Texture::type</a></div><div class="ttdeci">int type</div><div class="ttdef"><b>Definition:</b> ap_texture.h:64</div></div>
+<div class="ttc" id="astructAP__Texture_html_a58221f85c7a0f326b3968be63e54e958"><div class="ttname"><a href="structAP__Texture.html#a58221f85c7a0f326b3968be63e54e958">AP_Texture::id</a></div><div class="ttdeci">unsigned int id</div><div class="ttdef"><b>Definition:</b> ap_texture.h:59</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -365,7 +372,7 @@ Functions</h2></td></tr>
     <tr><td class="paramname">vertices_length</td><td>length of vertices </td></tr>
     <tr><td class="paramname">indices</td><td>pointer points to indices </td></tr>
     <tr><td class="paramname">indices_length</td><td>length of indices </td></tr>
-    <tr><td class="paramname">texture</td><td>pointer points to <a class="el" href="structAP__Texture.html">AP_Texture</a> </td></tr>
+    <tr><td class="paramname">texture</td><td>pointer points to <a class="el" href="structAP__Texture.html" title="Texture struct object definition.">AP_Texture</a> </td></tr>
     <tr><td class="paramname">texture_length</td><td>length of textures </td></tr>
   </table>
   </dd>

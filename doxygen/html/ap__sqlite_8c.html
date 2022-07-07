@@ -89,10 +89,13 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7550c01790c39c99dd6eac68072d5142"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__sqlite_8c.html#a7550c01790c39c99dd6eac68072d5142">ap_sqlite_init</a> ()</td></tr>
+<tr class="memdesc:a7550c01790c39c99dd6eac68072d5142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize SQLite3.  <a href="ap__sqlite_8c.html#a7550c01790c39c99dd6eac68072d5142">More...</a><br /></td></tr>
 <tr class="separator:a7550c01790c39c99dd6eac68072d5142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a230bc34d54f30f9336688a2b45bff812"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__sqlite_8c.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a> (const char *sql, <a class="el" href="ap__sqlite_8h.html#a1c7a7a392b1597751ea1cb693997b575">ap_sqlite_callback_func_t</a> cb)</td></tr>
+<tr class="memdesc:a230bc34d54f30f9336688a2b45bff812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute SQL.  <a href="ap__sqlite_8c.html#a230bc34d54f30f9336688a2b45bff812">More...</a><br /></td></tr>
 <tr class="separator:a230bc34d54f30f9336688a2b45bff812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53e4c5eca280ea72a31957bf354219d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__sqlite_8c.html#a53e4c5eca280ea72a31957bf354219d0">ap_sqlite_free_all</a> ()</td></tr>
+<tr class="memdesc:a53e4c5eca280ea72a31957bf354219d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release SQLite resources.  <a href="ap__sqlite_8c.html#a53e4c5eca280ea72a31957bf354219d0">More...</a><br /></td></tr>
 <tr class="separator:a53e4c5eca280ea72a31957bf354219d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -124,6 +127,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Execute SQL. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sql</td><td></td></tr>
+    <tr><td class="paramname">cb</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   52</span>{</div>
 <div class="line"><span class="lineno">   53</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   54</span>        <span class="keywordflow">if</span> (database == NULL) {</div>
@@ -163,6 +176,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Release SQLite resources. </p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   76</span>{</div>
 <div class="line"><span class="lineno">   77</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (database) {</div>
@@ -189,6 +205,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialize SQLite3. </p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   34</span>{</div>
 <div class="line"><span class="lineno">   35</span><span class="preprocessor">#if !AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   36</span>        <span class="keywordflow">if</span> (database != NULL) {</div>

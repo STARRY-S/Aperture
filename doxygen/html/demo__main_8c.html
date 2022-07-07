@@ -163,8 +163,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>left_button_pressed</
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">  229</span>{</div>
-<div class="line"><span class="lineno">  230</span>        ap_render_resize_buffer(width, height);</div>
+<div class="line"><span class="lineno">  230</span>        <a class="code hl_function" href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">ap_render_resize_buffer</a>(width, height);</div>
 <div class="line"><span class="lineno">  231</span>}</div>
+<div class="ttc" id="aap__render_8h_html_a94e2d36d448cd7f6d9950becd47429f6"><div class="ttname"><a href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">ap_render_resize_buffer</a></div><div class="ttdeci">int ap_render_resize_buffer(int width, int height)</div><div class="ttdoc">Resize window buffer.</div><div class="ttdef"><b>Definition:</b> ap_render.c:715</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -322,13 +323,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>left_button_pressed</
 <div class="line"><span class="lineno">   88</span>        glfwMakeContextCurrent(window);</div>
 <div class="line"><span class="lineno">   89</span>        ap_set_context_ptr(window);</div>
 <div class="line"><span class="lineno">   90</span>        <span class="comment">// init game engine</span></div>
-<div class="line"><span class="lineno">   91</span>        ap_render_general_initialize();</div>
+<div class="line"><span class="lineno">   91</span>        <a class="code hl_function" href="ap__render_8h.html#a2767bcf1fa0eb2a3c8f6d4ee8c59a138">ap_render_general_initialize</a>();</div>
 <div class="line"><span class="lineno">   92</span> </div>
 <div class="line"><span class="lineno">   93</span>        demo_init();</div>
 <div class="line"><span class="lineno">   94</span>        <span class="keywordflow">if</span> (full_screen_mode) {</div>
-<div class="line"><span class="lineno">   95</span>                ap_render_resize_buffer(mode-&gt;width, mode-&gt;height);</div>
+<div class="line"><span class="lineno">   95</span>                <a class="code hl_function" href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">ap_render_resize_buffer</a>(mode-&gt;width, mode-&gt;height);</div>
 <div class="line"><span class="lineno">   96</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   97</span>                ap_render_resize_buffer(SCREEN_WIDTH, SCREEN_HEIGHT);</div>
+<div class="line"><span class="lineno">   97</span>                <a class="code hl_function" href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">ap_render_resize_buffer</a>(SCREEN_WIDTH, SCREEN_HEIGHT);</div>
 <div class="line"><span class="lineno">   98</span>        }</div>
 <div class="line"><span class="lineno">   99</span> </div>
 <div class="line"><span class="lineno">  100</span>        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);</div>
@@ -354,10 +355,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>left_button_pressed</
 <div class="line"><span class="lineno">  120</span>        }</div>
 <div class="line"><span class="lineno">  121</span> </div>
 <div class="line"><span class="lineno">  122</span>        demo_finished();</div>
-<div class="line"><span class="lineno">  123</span>        ap_render_finish();</div>
+<div class="line"><span class="lineno">  123</span>        <a class="code hl_function" href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">ap_render_finish</a>();</div>
 <div class="line"><span class="lineno">  124</span>        glfwTerminate();</div>
 <div class="line"><span class="lineno">  125</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  126</span>}</div>
+<div class="ttc" id="aap__render_8h_html_a2767bcf1fa0eb2a3c8f6d4ee8c59a138"><div class="ttname"><a href="ap__render_8h.html#a2767bcf1fa0eb2a3c8f6d4ee8c59a138">ap_render_general_initialize</a></div><div class="ttdeci">int ap_render_general_initialize()</div><div class="ttdoc">Initialize renderer, and initialize all resources required by engine (such as audio,...</div><div class="ttdef"><b>Definition:</b> ap_render.c:76</div></div>
+<div class="ttc" id="aap__render_8h_html_af55fa2a6fa80a69dc94d5f523a4da57d"><div class="ttname"><a href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">ap_render_finish</a></div><div class="ttdeci">int ap_render_finish()</div><div class="ttdoc">Release all engine resources, (such as audio, camera, cvector, light, model, physics,...</div><div class="ttdef"><b>Definition:</b> ap_render.c:693</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -463,8 +466,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>left_button_pressed</
 <div class="line"><span class="lineno">  206</span>        last_x = x_pos;</div>
 <div class="line"><span class="lineno">  207</span>        last_y = y_pos;</div>
 <div class="line"><span class="lineno">  208</span> </div>
-<div class="line"><span class="lineno">  209</span>        ap_camera_process_mouse_move(x_offset, y_offset, <span class="keyword">true</span>);</div>
+<div class="line"><span class="lineno">  209</span>        <a class="code hl_function" href="ap__camera_8h.html#ae176223e1ead58994c516756d9aceb56">ap_camera_process_mouse_move</a>(x_offset, y_offset, <span class="keyword">true</span>);</div>
 <div class="line"><span class="lineno">  210</span>}</div>
+<div class="ttc" id="aap__camera_8h_html_ae176223e1ead58994c516756d9aceb56"><div class="ttname"><a href="ap__camera_8h.html#ae176223e1ead58994c516756d9aceb56">ap_camera_process_mouse_move</a></div><div class="ttdeci">int ap_camera_process_mouse_move(float x_offset, float y_offset, bool pitch)</div><div class="ttdoc">Rotate camera view port (used for process mouse movement/screen touch events)</div><div class="ttdef"><b>Definition:</b> ap_camera.c:291</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -544,8 +548,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>left_button_pressed</
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">  224</span>{</div>
-<div class="line"><span class="lineno">  225</span>        ap_camera_process_scroll(y_offset);</div>
+<div class="line"><span class="lineno">  225</span>        <a class="code hl_function" href="ap__camera_8h.html#a1c44844197861dd8cc5838efaa23e708">ap_camera_process_scroll</a>(y_offset);</div>
 <div class="line"><span class="lineno">  226</span>}</div>
+<div class="ttc" id="aap__camera_8h_html_a1c44844197861dd8cc5838efaa23e708"><div class="ttname"><a href="ap__camera_8h.html#a1c44844197861dd8cc5838efaa23e708">ap_camera_process_scroll</a></div><div class="ttdeci">int ap_camera_process_scroll(float y_offset)</div><div class="ttdoc">Process mouse scroll event (scale zoom)</div><div class="ttdef"><b>Definition:</b> ap_camera.c:315</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -109,17 +109,20 @@ Functions</h2></td></tr>
 <tr class="memdesc:a15578438588f5e77422aae6c39e99b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw current model.  <a href="ap__model_8h.html#a15578438588f5e77422aae6c39e99b3d">More...</a><br /></td></tr>
 <tr class="separator:a15578438588f5e77422aae6c39e99b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a358e350fa60955a6d672e12d2567e02a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a358e350fa60955a6d672e12d2567e02a">ap_model_set_scale</a> (float scale[3])</td></tr>
-<tr class="memdesc:a358e350fa60955a6d672e12d2567e02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set parameters of current model.  <a href="ap__model_8h.html#a358e350fa60955a6d672e12d2567e02a">More...</a><br /></td></tr>
+<tr class="memdesc:a358e350fa60955a6d672e12d2567e02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set scale parameters of current model.  <a href="ap__model_8h.html#a358e350fa60955a6d672e12d2567e02a">More...</a><br /></td></tr>
 <tr class="separator:a358e350fa60955a6d672e12d2567e02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1be1e14944ae9e82ffa944fdc0155fdf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a1be1e14944ae9e82ffa944fdc0155fdf">ap_model_set_pos</a> (float pos[3])</td></tr>
 <tr class="separator:a1be1e14944ae9e82ffa944fdc0155fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24d7ba7cfbe901f26bfc46e407f86142"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a24d7ba7cfbe901f26bfc46e407f86142">ap_model_set_rotate</a> (float axis[3], float angle)</td></tr>
 <tr class="separator:a24d7ba7cfbe901f26bfc46e407f86142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7259f31ce79d86ba4095e90546b53644"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a7259f31ce79d86ba4095e90546b53644">ap_model_free</a> (int id)</td></tr>
+<tr class="memdesc:a7259f31ce79d86ba4095e90546b53644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release model object by its id.  <a href="ap__model_8h.html#a7259f31ce79d86ba4095e90546b53644">More...</a><br /></td></tr>
 <tr class="separator:a7259f31ce79d86ba4095e90546b53644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f8558356aa127ff547b04233cd924ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a3f8558356aa127ff547b04233cd924ec">ap_model_free_all</a> ()</td></tr>
+<tr class="memdesc:a3f8558356aa127ff547b04233cd924ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release all generated model data.  <a href="ap__model_8h.html#a3f8558356aa127ff547b04233cd924ec">More...</a><br /></td></tr>
 <tr class="separator:a3f8558356aa127ff547b04233cd924ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a579271e455963fb819a5a156b95d1877"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structAP__Model.html">AP_Model</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__model_8h.html#a579271e455963fb819a5a156b95d1877">ap_model_get_ptr</a> (int id)</td></tr>
+<tr class="memdesc:a579271e455963fb819a5a156b95d1877"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get model pointer by its ID.  <a href="ap__model_8h.html#a579271e455963fb819a5a156b95d1877">More...</a><br /></td></tr>
 <tr class="separator:a579271e455963fb819a5a156b95d1877"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -147,7 +150,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><span class="lineno">  156</span>{</div>
 <div class="line"><span class="lineno">  157</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> old_shader = ap_get_current_shader();</div>
 <div class="line"><span class="lineno">  158</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> render_persp_shader_id = 0;</div>
-<div class="line"><span class="lineno">  159</span>        ap_render_get_persp_shader(&amp;render_persp_shader_id);</div>
+<div class="line"><span class="lineno">  159</span>        <a class="code hl_function" href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a>(&amp;render_persp_shader_id);</div>
 <div class="line"><span class="lineno">  160</span> </div>
 <div class="line"><span class="lineno">  161</span>        <span class="keywordflow">if</span> (model_using == NULL) {</div>
 <div class="line"><span class="lineno">  162</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
@@ -160,10 +163,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  169</span> </div>
 <div class="line"><span class="lineno">  170</span>        mat4 mat_model;</div>
 <div class="line"><span class="lineno">  171</span>        glm_mat4_identity(mat_model);</div>
-<div class="line"><span class="lineno">  172</span>        glm_scale(mat_model, model_using-&gt;scale);</div>
-<div class="line"><span class="lineno">  173</span>        glm_translate(mat_model, model_using-&gt;pos);</div>
-<div class="line"><span class="lineno">  174</span>        glm_rotate(mat_model, model_using-&gt;rotate_angle,</div>
-<div class="line"><span class="lineno">  175</span>                model_using-&gt;rotate_axis);</div>
+<div class="line"><span class="lineno">  172</span>        glm_scale(mat_model, model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a0e4e4d0c80faa43acdf4e2793be8424c">scale</a>);</div>
+<div class="line"><span class="lineno">  173</span>        glm_translate(mat_model, model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#afd94996d67fe630dceaaec547d345b75">pos</a>);</div>
+<div class="line"><span class="lineno">  174</span>        glm_rotate(mat_model, model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a6657ea7f8489dd629327de0cd5320a12">rotate_angle</a>,</div>
+<div class="line"><span class="lineno">  175</span>                model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a0cdfcdbbbafc1ee5f78dad78b7c14233">rotate_axis</a>);</div>
 <div class="line"><span class="lineno">  176</span>        <a class="code hl_function" href="ap__render_8h.html#a5ff4378745b6332680408d90f239edae">ap_render_set_model_mat</a>((<span class="keywordtype">float</span> *) mat_model);</div>
 <div class="line"><span class="lineno">  177</span> </div>
 <div class="line"><span class="lineno">  178</span>        ap_shader_use(render_persp_shader_id);</div>
@@ -173,6 +176,11 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  182</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  183</span>}</div>
 <div class="ttc" id="aap__render_8h_html_a5ff4378745b6332680408d90f239edae"><div class="ttname"><a href="ap__render_8h.html#a5ff4378745b6332680408d90f239edae">ap_render_set_model_mat</a></div><div class="ttdeci">int ap_render_set_model_mat(float *mat)</div><div class="ttdoc">Set model matrix before render model.</div><div class="ttdef"><b>Definition:</b> ap_render.c:806</div></div>
+<div class="ttc" id="aap__render_8h_html_ad2352993f8d15f8a1b960c82d7303188"><div class="ttname"><a href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a></div><div class="ttdeci">int ap_render_get_persp_shader(unsigned int *p)</div><div class="ttdoc">Get built-in perspective Aperture shader ID.</div><div class="ttdef"><b>Definition:</b> ap_render.c:768</div></div>
+<div class="ttc" id="astructAP__Model_html_a0cdfcdbbbafc1ee5f78dad78b7c14233"><div class="ttname"><a href="structAP__Model.html#a0cdfcdbbbafc1ee5f78dad78b7c14233">AP_Model::rotate_axis</a></div><div class="ttdeci">float rotate_axis[3]</div><div class="ttdef"><b>Definition:</b> ap_model.h:35</div></div>
+<div class="ttc" id="astructAP__Model_html_a0e4e4d0c80faa43acdf4e2793be8424c"><div class="ttname"><a href="structAP__Model.html#a0e4e4d0c80faa43acdf4e2793be8424c">AP_Model::scale</a></div><div class="ttdeci">float scale[3]</div><div class="ttdef"><b>Definition:</b> ap_model.h:31</div></div>
+<div class="ttc" id="astructAP__Model_html_a6657ea7f8489dd629327de0cd5320a12"><div class="ttname"><a href="structAP__Model.html#a6657ea7f8489dd629327de0cd5320a12">AP_Model::rotate_angle</a></div><div class="ttdeci">float rotate_angle</div><div class="ttdef"><b>Definition:</b> ap_model.h:33</div></div>
+<div class="ttc" id="astructAP__Model_html_afd94996d67fe630dceaaec547d345b75"><div class="ttname"><a href="structAP__Model.html#afd94996d67fe630dceaaec547d345b75">AP_Model::pos</a></div><div class="ttdeci">float pos[3]</div><div class="ttdef"><b>Definition:</b> ap_model.h:29</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -191,22 +199,31 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Release model object by its id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  186</span>{</div>
 <div class="line"><span class="lineno">  187</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
 <div class="line"><span class="lineno">  188</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  189</span>        }</div>
-<div class="line"><span class="lineno">  190</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *models = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.data;</div>
-<div class="line"><span class="lineno">  191</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  190</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *models = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  191</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  192</span>                <span class="keywordflow">if</span> (models[i].<span class="keywordtype">id</span> != <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">  193</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">  194</span>                }</div>
 <div class="line"><span class="lineno">  195</span> </div>
-<div class="line"><span class="lineno">  196</span>                AP_FREE(models[i].directory);</div>
-<div class="line"><span class="lineno">  197</span>                models[i].directory = NULL;</div>
+<div class="line"><span class="lineno">  196</span>                AP_FREE(models[i].<a class="code hl_variable" href="structAP__Model.html#aea91ea47ad91d40a36bc60a20defa2b0">directory</a>);</div>
+<div class="line"><span class="lineno">  197</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#aea91ea47ad91d40a36bc60a20defa2b0">directory</a> = NULL;</div>
 <div class="line"><span class="lineno">  198</span> </div>
 <div class="line"><span class="lineno">  199</span>                <span class="comment">// Release all datas allocated in mesh</span></div>
-<div class="line"><span class="lineno">  200</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; models-&gt;mesh_length; ++j) {</div>
-<div class="line"><span class="lineno">  201</span>                        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Mesh.html">AP_Mesh</a> *mesh = models[i].mesh + j;</div>
+<div class="line"><span class="lineno">  200</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; models-&gt;<a class="code hl_variable" href="structAP__Model.html#a9a5c48b174ba2b34b54bca8fafa4b0e4">mesh_length</a>; ++j) {</div>
+<div class="line"><span class="lineno">  201</span>                        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Mesh.html">AP_Mesh</a> *mesh = models[i].<a class="code hl_variable" href="structAP__Model.html#a2adceeb6f0516622c03aeff7d4fc5d4a">mesh</a> + j;</div>
 <div class="line"><span class="lineno">  202</span>                        <span class="keywordflow">if</span> (mesh-&gt;VAO) {</div>
 <div class="line"><span class="lineno">  203</span>                                glDeleteVertexArrays(1, &amp;mesh-&gt;VAO);</div>
 <div class="line"><span class="lineno">  204</span>                        }</div>
@@ -233,10 +250,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  225</span>                        mesh-&gt;texture_length = 0;</div>
 <div class="line"><span class="lineno">  226</span>                }</div>
 <div class="line"><span class="lineno">  227</span>                AP_FREE(models[i].mesh);</div>
-<div class="line"><span class="lineno">  228</span>                models[i].mesh = NULL;</div>
+<div class="line"><span class="lineno">  228</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#a2adceeb6f0516622c03aeff7d4fc5d4a">mesh</a> = NULL;</div>
 <div class="line"><span class="lineno">  229</span> </div>
 <div class="line"><span class="lineno">  230</span>                AP_FREE(models[i].texture);</div>
-<div class="line"><span class="lineno">  231</span>                models[i].texture = NULL;</div>
+<div class="line"><span class="lineno">  231</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#aab66c4e15853a73b383a0127f22c9a31">texture</a> = NULL;</div>
 <div class="line"><span class="lineno">  232</span>                <a class="code hl_function" href="ap__cvector_8h.html#ae311719f25b43e6b307070f3559e5b0a">ap_vector_remove_data</a>(</div>
 <div class="line"><span class="lineno">  233</span>                        &amp;model_vector, (<span class="keywordtype">char</span>*) (models + i),</div>
 <div class="line"><span class="lineno">  234</span>                        (<span class="keywordtype">char</span>*) (models + i + 1), <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__Model.html">AP_Model</a>)</div>
@@ -249,8 +266,14 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  241</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  242</span>}</div>
 <div class="ttc" id="aap__cvector_8h_html_ae311719f25b43e6b307070f3559e5b0a"><div class="ttname"><a href="ap__cvector_8h.html#ae311719f25b43e6b307070f3559e5b0a">ap_vector_remove_data</a></div><div class="ttdeci">int ap_vector_remove_data(struct AP_Vector *vector, char *start, char *end, int size)</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:190</div></div>
-<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdef"><b>Definition:</b> ap_mesh.h:13</div></div>
-<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> ap_model.h:22</div></div>
+<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdoc">Mesh struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_mesh.h:16</div></div>
+<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> ap_model.h:25</div></div>
+<div class="ttc" id="astructAP__Model_html_a2adceeb6f0516622c03aeff7d4fc5d4a"><div class="ttname"><a href="structAP__Model.html#a2adceeb6f0516622c03aeff7d4fc5d4a">AP_Model::mesh</a></div><div class="ttdeci">struct AP_Mesh * mesh</div><div class="ttdef"><b>Definition:</b> ap_model.h:42</div></div>
+<div class="ttc" id="astructAP__Model_html_a9a5c48b174ba2b34b54bca8fafa4b0e4"><div class="ttname"><a href="structAP__Model.html#a9a5c48b174ba2b34b54bca8fafa4b0e4">AP_Model::mesh_length</a></div><div class="ttdeci">int mesh_length</div><div class="ttdef"><b>Definition:</b> ap_model.h:44</div></div>
+<div class="ttc" id="astructAP__Model_html_aab66c4e15853a73b383a0127f22c9a31"><div class="ttname"><a href="structAP__Model.html#aab66c4e15853a73b383a0127f22c9a31">AP_Model::texture</a></div><div class="ttdeci">struct AP_Texture * texture</div><div class="ttdef"><b>Definition:</b> ap_model.h:38</div></div>
+<div class="ttc" id="astructAP__Model_html_aea91ea47ad91d40a36bc60a20defa2b0"><div class="ttname"><a href="structAP__Model.html#aea91ea47ad91d40a36bc60a20defa2b0">AP_Model::directory</a></div><div class="ttdeci">char * directory</div><div class="ttdef"><b>Definition:</b> ap_model.h:46</div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -268,17 +291,20 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Release all generated model data. </p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  245</span>{</div>
 <div class="line"><span class="lineno">  246</span>        model_using = NULL;    <span class="comment">// for safety purpose</span></div>
-<div class="line"><span class="lineno">  247</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *models = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.data;</div>
-<div class="line"><span class="lineno">  248</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  247</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *models = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  248</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  249</span>                <span class="comment">// Release directory pointer</span></div>
-<div class="line"><span class="lineno">  250</span>                AP_FREE(models[i].directory);</div>
-<div class="line"><span class="lineno">  251</span>                models[i].directory = NULL;</div>
+<div class="line"><span class="lineno">  250</span>                AP_FREE(models[i].<a class="code hl_variable" href="structAP__Model.html#aea91ea47ad91d40a36bc60a20defa2b0">directory</a>);</div>
+<div class="line"><span class="lineno">  251</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#aea91ea47ad91d40a36bc60a20defa2b0">directory</a> = NULL;</div>
 <div class="line"><span class="lineno">  252</span> </div>
 <div class="line"><span class="lineno">  253</span>                <span class="comment">// Release all datas allocated in mesh</span></div>
-<div class="line"><span class="lineno">  254</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; models-&gt;mesh_length; ++j) {</div>
-<div class="line"><span class="lineno">  255</span>                        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Mesh.html">AP_Mesh</a> *mesh = models[i].mesh + j;</div>
+<div class="line"><span class="lineno">  254</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; models-&gt;<a class="code hl_variable" href="structAP__Model.html#a9a5c48b174ba2b34b54bca8fafa4b0e4">mesh_length</a>; ++j) {</div>
+<div class="line"><span class="lineno">  255</span>                        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Mesh.html">AP_Mesh</a> *mesh = models[i].<a class="code hl_variable" href="structAP__Model.html#a2adceeb6f0516622c03aeff7d4fc5d4a">mesh</a> + j;</div>
 <div class="line"><span class="lineno">  256</span>                        <span class="keywordflow">if</span> (mesh-&gt;VAO) {</div>
 <div class="line"><span class="lineno">  257</span>                                glDeleteVertexArrays(1, &amp;mesh-&gt;VAO);</div>
 <div class="line"><span class="lineno">  258</span>                        }</div>
@@ -305,10 +331,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  279</span>                        mesh-&gt;texture_length = 0;</div>
 <div class="line"><span class="lineno">  280</span>                }</div>
 <div class="line"><span class="lineno">  281</span>                AP_FREE(models[i].mesh);</div>
-<div class="line"><span class="lineno">  282</span>                models[i].mesh = NULL;</div>
+<div class="line"><span class="lineno">  282</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#a2adceeb6f0516622c03aeff7d4fc5d4a">mesh</a> = NULL;</div>
 <div class="line"><span class="lineno">  283</span> </div>
 <div class="line"><span class="lineno">  284</span>                AP_FREE(models[i].texture);</div>
-<div class="line"><span class="lineno">  285</span>                models[i].texture = NULL;</div>
+<div class="line"><span class="lineno">  285</span>                models[i].<a class="code hl_variable" href="structAP__Model.html#aab66c4e15853a73b383a0127f22c9a31">texture</a> = NULL;</div>
 <div class="line"><span class="lineno">  286</span>        }</div>
 <div class="line"><span class="lineno">  287</span>        <a class="code hl_function" href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a>(&amp;model_vector);</div>
 <div class="line"><span class="lineno">  288</span> </div>
@@ -359,20 +385,21 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  120</span>        }</div>
 <div class="line"><span class="lineno">  121</span> </div>
 <div class="line"><span class="lineno">  122</span>        <span class="comment">// initialize vector when first use</span></div>
-<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (model_vector.data == NULL) {</div>
-<div class="line"><span class="lineno">  124</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;model_vector, AP_VECTOR_MODEL);</div>
+<div class="line"><span class="lineno">  123</span>        <span class="keywordflow">if</span> (model_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
+<div class="line"><span class="lineno">  124</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;model_vector, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a>);</div>
 <div class="line"><span class="lineno">  125</span>        }</div>
 <div class="line"><span class="lineno">  126</span> </div>
 <div class="line"><span class="lineno">  127</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> model;</div>
 <div class="line"><span class="lineno">  128</span>        AP_CHECK( ap_model_init_ptr(&amp;model, path, <span class="keyword">false</span>) );</div>
 <div class="line"><span class="lineno">  129</span> </div>
-<div class="line"><span class="lineno">  130</span>        model.id = model_vector.length + 1;</div>
+<div class="line"><span class="lineno">  130</span>        model.id = model_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
 <div class="line"><span class="lineno">  131</span>        <a class="code hl_function" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a>(&amp;model_vector, (<span class="keyword">const</span> <span class="keywordtype">char</span>*) &amp;model);</div>
 <div class="line"><span class="lineno">  132</span>        *model_id = model.id;</div>
 <div class="line"><span class="lineno">  133</span>        LOGD(<span class="stringliteral">&quot;generated model %s id %d&quot;</span>, path, *model_id);</div>
 <div class="line"><span class="lineno">  134</span> </div>
 <div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  136</span>}</div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a></div><div class="ttdeci">@ AP_VECTOR_MODEL</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:28</div></div>
 <div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
 <div class="ttc" id="aap__cvector_8h_html_aa6a2943c2334f3769df1f312ba0a4524"><div class="ttname"><a href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a></div><div class="ttdeci">int ap_vector_push_back(struct AP_Vector *vector, const char *data)</div><div class="ttdoc">Append one data to the back of the vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:131</div></div>
 </div><!-- fragment -->
@@ -393,18 +420,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  714</span>{</div>
-<div class="line"><span class="lineno">  715</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
-<div class="line"><span class="lineno">  716</span>                <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  717</span>        }</div>
-<div class="line"><span class="lineno">  718</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.data;</div>
-<div class="line"><span class="lineno">  719</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.length; ++i) {</div>
-<div class="line"><span class="lineno">  720</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> == <span class="keywordtype">id</span>) {</div>
-<div class="line"><span class="lineno">  721</span>                        <span class="keywordflow">return</span> data + i;</div>
-<div class="line"><span class="lineno">  722</span>                }</div>
-<div class="line"><span class="lineno">  723</span>        }</div>
-<div class="line"><span class="lineno">  724</span>        <span class="keywordflow">return</span> NULL;</div>
-<div class="line"><span class="lineno">  725</span>}</div>
+
+<p>Get model pointer by its ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>struct AP_Model* </dd></dl>
+<div class="fragment"><div class="line"><span class="lineno">  719</span>{</div>
+<div class="line"><span class="lineno">  720</span>        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt;= 0) {</div>
+<div class="line"><span class="lineno">  721</span>                <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  722</span>        }</div>
+<div class="line"><span class="lineno">  723</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  724</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; model_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
+<div class="line"><span class="lineno">  725</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> == <span class="keywordtype">id</span>) {</div>
+<div class="line"><span class="lineno">  726</span>                        <span class="keywordflow">return</span> data + i;</div>
+<div class="line"><span class="lineno">  727</span>                }</div>
+<div class="line"><span class="lineno">  728</span>        }</div>
+<div class="line"><span class="lineno">  729</span>        <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><span class="lineno">  730</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -423,13 +459,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  686</span>{</div>
-<div class="line"><span class="lineno">  687</span>        <span class="keywordflow">if</span> (!model_using) {</div>
-<div class="line"><span class="lineno">  688</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
-<div class="line"><span class="lineno">  689</span>        }</div>
-<div class="line"><span class="lineno">  690</span>        memcpy(model_using-&gt;pos, pos, VEC3_SIZE);</div>
-<div class="line"><span class="lineno">  691</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  692</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  691</span>{</div>
+<div class="line"><span class="lineno">  692</span>        <span class="keywordflow">if</span> (!model_using) {</div>
+<div class="line"><span class="lineno">  693</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
+<div class="line"><span class="lineno">  694</span>        }</div>
+<div class="line"><span class="lineno">  695</span>        memcpy(model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#afd94996d67fe630dceaaec547d345b75">pos</a>, pos, VEC3_SIZE);</div>
+<div class="line"><span class="lineno">  696</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  697</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -458,14 +494,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><span class="lineno">  704</span>{</div>
-<div class="line"><span class="lineno">  705</span>        <span class="keywordflow">if</span> (!model_using) {</div>
-<div class="line"><span class="lineno">  706</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
-<div class="line"><span class="lineno">  707</span>        }</div>
-<div class="line"><span class="lineno">  708</span>        model_using-&gt;rotate_angle = angle;</div>
-<div class="line"><span class="lineno">  709</span>        memcpy(model_using-&gt;rotate_axis, axis, VEC3_SIZE);</div>
-<div class="line"><span class="lineno">  710</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  711</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  709</span>{</div>
+<div class="line"><span class="lineno">  710</span>        <span class="keywordflow">if</span> (!model_using) {</div>
+<div class="line"><span class="lineno">  711</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
+<div class="line"><span class="lineno">  712</span>        }</div>
+<div class="line"><span class="lineno">  713</span>        model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a6657ea7f8489dd629327de0cd5320a12">rotate_angle</a> = angle;</div>
+<div class="line"><span class="lineno">  714</span>        memcpy(model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a0cdfcdbbbafc1ee5f78dad78b7c14233">rotate_axis</a>, axis, VEC3_SIZE);</div>
+<div class="line"><span class="lineno">  715</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  716</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -485,7 +521,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set parameters of current model. </p>
+<p>Set scale parameters of current model. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">float[3]</td><td></td></tr>
@@ -493,13 +529,13 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
-<div class="fragment"><div class="line"><span class="lineno">  695</span>{</div>
-<div class="line"><span class="lineno">  696</span>        <span class="keywordflow">if</span> (!model_using) {</div>
-<div class="line"><span class="lineno">  697</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
-<div class="line"><span class="lineno">  698</span>        }</div>
-<div class="line"><span class="lineno">  699</span>        memcpy(model_using-&gt;scale, scale, VEC3_SIZE);</div>
-<div class="line"><span class="lineno">  700</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  701</span>}</div>
+<div class="fragment"><div class="line"><span class="lineno">  700</span>{</div>
+<div class="line"><span class="lineno">  701</span>        <span class="keywordflow">if</span> (!model_using) {</div>
+<div class="line"><span class="lineno">  702</span>                <span class="keywordflow">return</span> AP_ERROR_MODEL_NOT_SET;</div>
+<div class="line"><span class="lineno">  703</span>        }</div>
+<div class="line"><span class="lineno">  704</span>        memcpy(model_using-&gt;<a class="code hl_variable" href="structAP__Model.html#a0e4e4d0c80faa43acdf4e2793be8424c">scale</a>, scale, VEC3_SIZE);</div>
+<div class="line"><span class="lineno">  705</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  706</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -528,7 +564,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  139</span>{</div>
-<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">if</span> (model_id &gt; model_vector.length) {</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">if</span> (model_id &gt; model_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>) {</div>
 <div class="line"><span class="lineno">  141</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  142</span>        }</div>
 <div class="line"><span class="lineno">  143</span> </div>
@@ -537,7 +573,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  146</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  147</span>        }</div>
 <div class="line"><span class="lineno">  148</span> </div>
-<div class="line"><span class="lineno">  149</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *tmp_model = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.data;</div>
+<div class="line"><span class="lineno">  149</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a> *tmp_model = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>*) model_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
 <div class="line"><span class="lineno">  150</span>        model_using = tmp_model + (model_id - 1);</div>
 <div class="line"><span class="lineno">  151</span> </div>
 <div class="line"><span class="lineno">  152</span>        <span class="keywordflow">return</span> 0;</div>

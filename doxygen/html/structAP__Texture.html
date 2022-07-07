@@ -68,22 +68,88 @@ $(function() {
   <div class="headertitle"><div class="title">AP_Texture Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Texture struct object definition.  
+ <a href="structAP__Texture.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ap__texture_8h_source.html">ap_texture.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a58221f85c7a0f326b3968be63e54e958"><td class="memItemLeft" align="right" valign="top"><a id="a58221f85c7a0f326b3968be63e54e958" name="a58221f85c7a0f326b3968be63e54e958"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
+<tr class="memitem:a58221f85c7a0f326b3968be63e54e958"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Texture.html#a58221f85c7a0f326b3968be63e54e958">id</a></td></tr>
 <tr class="separator:a58221f85c7a0f326b3968be63e54e958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e72c6d168814a17e9da203ccbff7b57"><td class="memItemLeft" align="right" valign="top"><a id="a4e72c6d168814a17e9da203ccbff7b57" name="a4e72c6d168814a17e9da203ccbff7b57"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>type</b></td></tr>
+<tr class="memitem:a4e72c6d168814a17e9da203ccbff7b57"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Texture.html#a4e72c6d168814a17e9da203ccbff7b57">type</a></td></tr>
 <tr class="separator:a4e72c6d168814a17e9da203ccbff7b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29f7e13330cef7622a9b1ed90d9693fa"><td class="memItemLeft" align="right" valign="top"><a id="a29f7e13330cef7622a9b1ed90d9693fa" name="a29f7e13330cef7622a9b1ed90d9693fa"></a>
-char *&#160;</td><td class="memItemRight" valign="bottom"><b>path</b></td></tr>
+<tr class="memitem:a29f7e13330cef7622a9b1ed90d9693fa"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Texture.html#a29f7e13330cef7622a9b1ed90d9693fa">path</a></td></tr>
 <tr class="separator:a29f7e13330cef7622a9b1ed90d9693fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0b14b9c95056db2696a7339a2581faf"><td class="memItemLeft" align="right" valign="top"><a id="ac0b14b9c95056db2696a7339a2581faf" name="ac0b14b9c95056db2696a7339a2581faf"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>RGBA</b> [4]</td></tr>
+<tr class="memitem:ac0b14b9c95056db2696a7339a2581faf"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAP__Texture.html#ac0b14b9c95056db2696a7339a2581faf">RGBA</a> [4]</td></tr>
 <tr class="separator:ac0b14b9c95056db2696a7339a2581faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Texture struct object definition. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a58221f85c7a0f326b3968be63e54e958" name="a58221f85c7a0f326b3968be63e54e958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58221f85c7a0f326b3968be63e54e958">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int AP_Texture::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >OpenGL texture ID </p>
+
+</div>
+</div>
+<a id="a29f7e13330cef7622a9b1ed90d9693fa" name="a29f7e13330cef7622a9b1ed90d9693fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29f7e13330cef7622a9b1ed90d9693fa">&#9670;&nbsp;</a></span>path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* AP_Texture::path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >path to the texture file (if the texture is an image) </p>
+
+<p class="reference">Referenced by <a class="el" href="ap__texture_8h.html#afcbb3f5795b70b028df6b2214860b8ab">ap_texture_from_file()</a>, and <a class="el" href="ap__texture_8h.html#a582ad5f0582b8d49af40da254982dd9d">ap_texture_get_ptr_by_path()</a>.</p>
+
+</div>
+</div>
+<a id="ac0b14b9c95056db2696a7339a2581faf" name="ac0b14b9c95056db2696a7339a2581faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0b14b9c95056db2696a7339a2581faf">&#9670;&nbsp;</a></span>RGBA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float AP_Texture::RGBA[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >RGBA color value of the texture (if the texture is generated from a single color) </p>
+
+</div>
+</div>
+<a id="a4e72c6d168814a17e9da203ccbff7b57" name="a4e72c6d168814a17e9da203ccbff7b57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e72c6d168814a17e9da203ccbff7b57">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AP_Texture::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >texture type </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8">AP_Texture_types</a> </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="ap__texture_8h_source.html">ap_texture.h</a></li>
 </ul>

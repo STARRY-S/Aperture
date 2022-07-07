@@ -129,12 +129,13 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  121</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  122</span>        }</div>
 <div class="line"><span class="lineno">  123</span> </div>
-<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">if</span> (vector-&gt;data == NULL) {</div>
+<div class="line"><span class="lineno">  124</span>        <span class="keywordflow">if</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
 <div class="line"><span class="lineno">  125</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  126</span>        }</div>
 <div class="line"><span class="lineno">  127</span> </div>
 <div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><span class="lineno">  129</span>}</div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back()</a>.</p>
 
@@ -160,72 +161,91 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   19</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   20</span>        }</div>
 <div class="line"><span class="lineno">   21</span>        <span class="keywordtype">int</span> size = 0;</div>
-<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">switch</span> (vector-&gt;type) {</div>
-<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">case</span> AP_VECTOR_INT:</div>
+<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">switch</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">type</a>) {</div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff">AP_VECTOR_INT</a>:</div>
 <div class="line"><span class="lineno">   24</span>                size = <span class="keyword">sizeof</span>(int);</div>
 <div class="line"><span class="lineno">   25</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">case</span> AP_VECTOR_UINT:</div>
+<div class="line"><span class="lineno">   26</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1">AP_VECTOR_UINT</a>:</div>
 <div class="line"><span class="lineno">   27</span>                size = <span class="keyword">sizeof</span>(<span class="keywordtype">unsigned</span> int);</div>
 <div class="line"><span class="lineno">   28</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">case</span> AP_VECTOR_FLOAT:</div>
+<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838">AP_VECTOR_FLOAT</a>:</div>
 <div class="line"><span class="lineno">   30</span>                size = <span class="keyword">sizeof</span>(float);</div>
 <div class="line"><span class="lineno">   31</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">case</span> AP_VECTOR_SHADER:</div>
+<div class="line"><span class="lineno">   32</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a>:</div>
 <div class="line"><span class="lineno">   33</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Shader.html">AP_Shader</a>);</div>
 <div class="line"><span class="lineno">   34</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">case</span> AP_VECTOR_MESH:</div>
+<div class="line"><span class="lineno">   35</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651">AP_VECTOR_MESH</a>:</div>
 <div class="line"><span class="lineno">   36</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Mesh.html">AP_Mesh</a>);</div>
 <div class="line"><span class="lineno">   37</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">case</span> AP_VECTOR_MODEL:</div>
+<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a>:</div>
 <div class="line"><span class="lineno">   39</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Model.html">AP_Model</a>);</div>
 <div class="line"><span class="lineno">   40</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">case</span> AP_VECTOR_CAMERA:</div>
+<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448">AP_VECTOR_CAMERA</a>:</div>
 <div class="line"><span class="lineno">   42</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Camera.html">AP_Camera</a>);</div>
 <div class="line"><span class="lineno">   43</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">case</span> AP_VECTOR_AUDIO:</div>
+<div class="line"><span class="lineno">   44</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc">AP_VECTOR_AUDIO</a>:</div>
 <div class="line"><span class="lineno">   45</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Audio.html">AP_Audio</a>);</div>
 <div class="line"><span class="lineno">   46</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">case</span> AP_VECTOR_PCREATURE:</div>
+<div class="line"><span class="lineno">   47</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a>:</div>
 <div class="line"><span class="lineno">   48</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>);</div>
 <div class="line"><span class="lineno">   49</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">case</span> AP_VECTOR_PBARRIER:</div>
+<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a>:</div>
 <div class="line"><span class="lineno">   51</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a>);</div>
 <div class="line"><span class="lineno">   52</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">case</span> AP_VECTOR_CHAR:</div>
+<div class="line"><span class="lineno">   53</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a>:</div>
 <div class="line"><span class="lineno">   54</span>                size = <span class="keyword">sizeof</span>(char);</div>
 <div class="line"><span class="lineno">   55</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">case</span> AP_VECTOR_TEXTURE:</div>
+<div class="line"><span class="lineno">   56</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd">AP_VECTOR_TEXTURE</a>:</div>
 <div class="line"><span class="lineno">   57</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Texture.html">AP_Texture</a>);</div>
 <div class="line"><span class="lineno">   58</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> AP_VECTOR_VERTEX:</div>
+<div class="line"><span class="lineno">   59</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4">AP_VECTOR_VERTEX</a>:</div>
 <div class="line"><span class="lineno">   60</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Vertex.html">AP_Vertex</a>);</div>
 <div class="line"><span class="lineno">   61</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">case</span> AP_VECTOR_CHARACTOR:</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a>:</div>
 <div class="line"><span class="lineno">   63</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a>);</div>
 <div class="line"><span class="lineno">   64</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">case</span> AP_VECTOR_LIGHT:</div>
-<div class="line"><span class="lineno">   66</span>                size = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>);</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524">AP_VECTOR_LIGHT</a>:</div>
+<div class="line"><span class="lineno">   66</span>                <a class="code hl_variable" href="structAP__Character.html#a2307a92ee346d8a69e44077dfc3156ed">size</a> = <span class="keyword">sizeof</span>(<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Light.html">AP_Light</a>);</div>
 <div class="line"><span class="lineno">   67</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">case</span> AP_VECTOR_POINTER:</div>
+<div class="line"><span class="lineno">   68</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a">AP_VECTOR_POINTER</a>:</div>
 <div class="line"><span class="lineno">   69</span>                size = <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>*);</div>
 <div class="line"><span class="lineno">   70</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">case</span> AP_VECTOR_UNDEFINED:</div>
+<div class="line"><span class="lineno">   71</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a>:</div>
 <div class="line"><span class="lineno">   72</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><span class="lineno">   73</span>                LOGW(<span class="stringliteral">&quot;unknow vector type: %d&quot;</span>, vector-&gt;type);</div>
+<div class="line"><span class="lineno">   73</span>                LOGW(<span class="stringliteral">&quot;unknow vector type: %d&quot;</span>, vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">type</a>);</div>
 <div class="line"><span class="lineno">   74</span>                <span class="keywordflow">return</span> size;</div>
 <div class="line"><span class="lineno">   75</span>        }</div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">return</span> size;</div>
 <div class="line"><span class="lineno">   77</span>}</div>
-<div class="ttc" id="astructAP__Audio_html"><div class="ttname"><a href="structAP__Audio.html">AP_Audio</a></div><div class="ttdef"><b>Definition:</b> ap_audio.h:30</div></div>
-<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdef"><b>Definition:</b> ap_camera.h:16</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa22913ab05546261c33529fcad33cddd1">AP_VECTOR_UINT</a></div><div class="ttdeci">@ AP_VECTOR_UINT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:46</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a></div><div class="ttdeci">@ AP_VECTOR_UNDEFINED</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:18</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a></div><div class="ttdeci">@ AP_VECTOR_CHARACTER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:40</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa54704f2ee63105e1cb13edaee78cb651">AP_VECTOR_MESH</a></div><div class="ttdeci">@ AP_VECTOR_MESH</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:26</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa5a725c08d66e6d77608de72379605833">AP_VECTOR_SHADER</a></div><div class="ttdeci">@ AP_VECTOR_SHADER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:22</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa60e3db2b5dce1c1bc05f9b2f02a37340">AP_VECTOR_MODEL</a></div><div class="ttdeci">@ AP_VECTOR_MODEL</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:28</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a></div><div class="ttdeci">@ AP_VECTOR_PCREATURE</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:34</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524">AP_VECTOR_LIGHT</a></div><div class="ttdeci">@ AP_VECTOR_LIGHT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:42</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8a20ba1f32afea9d8f01226d82ce9dff">AP_VECTOR_INT</a></div><div class="ttdeci">@ AP_VECTOR_INT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:44</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa8efa9ee1e6c6c4aa4281b42d870adccc">AP_VECTOR_AUDIO</a></div><div class="ttdeci">@ AP_VECTOR_AUDIO</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:32</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa926868c87e3f7f658e3cc62ae2e8f2cd">AP_VECTOR_TEXTURE</a></div><div class="ttdeci">@ AP_VECTOR_TEXTURE</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:24</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaae477e0cfb5f3350c405512d333cfbe4">AP_VECTOR_VERTEX</a></div><div class="ttdeci">@ AP_VECTOR_VERTEX</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:20</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da">AP_VECTOR_CHAR</a></div><div class="ttdeci">@ AP_VECTOR_CHAR</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:38</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae25bdaf73f76e1626541edac696c146a">AP_VECTOR_POINTER</a></div><div class="ttdeci">@ AP_VECTOR_POINTER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:50</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a></div><div class="ttdeci">@ AP_VECTOR_PBARRIER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:36</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae915f08baf1a1beeb031e92d9782e838">AP_VECTOR_FLOAT</a></div><div class="ttdeci">@ AP_VECTOR_FLOAT</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:48</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aaf4d8a46529e6c5b4a4114f6d17167448">AP_VECTOR_CAMERA</a></div><div class="ttdeci">@ AP_VECTOR_CAMERA</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:30</div></div>
+<div class="ttc" id="astructAP__Audio_html"><div class="ttname"><a href="structAP__Audio.html">AP_Audio</a></div><div class="ttdef"><b>Definition:</b> ap_audio.h:36</div></div>
+<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdoc">Camera struct object.</div><div class="ttdef"><b>Definition:</b> ap_camera.h:19</div></div>
 <div class="ttc" id="astructAP__Character_html"><div class="ttname"><a href="structAP__Character.html">AP_Character</a></div><div class="ttdef"><b>Definition:</b> ap_render.h:16</div></div>
-<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdef"><b>Definition:</b> ap_light.h:26</div></div>
-<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdef"><b>Definition:</b> ap_mesh.h:13</div></div>
-<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> ap_model.h:22</div></div>
-<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:77</div></div>
-<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:89</div></div>
-<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition of Aperture.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:81</div></div>
-<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdef"><b>Definition:</b> ap_texture.h:43</div></div>
+<div class="ttc" id="astructAP__Character_html_a2307a92ee346d8a69e44077dfc3156ed"><div class="ttname"><a href="structAP__Character.html#a2307a92ee346d8a69e44077dfc3156ed">AP_Character::size</a></div><div class="ttdeci">int size[2]</div><div class="ttdef"><b>Definition:</b> ap_render.h:20</div></div>
+<div class="ttc" id="astructAP__Light_html"><div class="ttname"><a href="structAP__Light.html">AP_Light</a></div><div class="ttdoc">Light struct object.</div><div class="ttdef"><b>Definition:</b> ap_light.h:35</div></div>
+<div class="ttc" id="astructAP__Mesh_html"><div class="ttname"><a href="structAP__Mesh.html">AP_Mesh</a></div><div class="ttdoc">Mesh struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_mesh.h:16</div></div>
+<div class="ttc" id="astructAP__Model_html"><div class="ttname"><a href="structAP__Model.html">AP_Model</a></div><div class="ttdef"><b>Definition:</b> ap_model.h:25</div></div>
+<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:84</div></div>
+<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:96</div></div>
+<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:83</div></div>
+<div class="ttc" id="astructAP__Texture_html"><div class="ttname"><a href="structAP__Texture.html">AP_Texture</a></div><div class="ttdoc">Texture struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_texture.h:57</div></div>
+<div class="ttc" id="astructAP__Vector_html_ae1f5e4ada4f608416b53b23bca1abaa1"><div class="ttname"><a href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">AP_Vector::type</a></div><div class="ttdeci">int type</div><div class="ttdoc">vector type</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:65</div></div>
 <div class="ttc" id="astructAP__Vertex_html"><div class="ttname"><a href="structAP__Vertex.html">AP_Vertex</a></div><div class="ttdef"><b>Definition:</b> ap_vertex.h:13</div></div>
 </div><!-- fragment -->
 </div>
@@ -258,14 +278,18 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> (vector == NULL) {</div>
 <div class="line"><span class="lineno">  108</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_POINTER;</div>
 <div class="line"><span class="lineno">  109</span>        }</div>
-<div class="line"><span class="lineno">  110</span>        AP_FREE(vector-&gt;data);</div>
-<div class="line"><span class="lineno">  111</span>        vector-&gt;data = NULL;</div>
-<div class="line"><span class="lineno">  112</span>        vector-&gt;capacity = 0;</div>
-<div class="line"><span class="lineno">  113</span>        vector-&gt;length = 0;</div>
-<div class="line"><span class="lineno">  114</span>        vector-&gt;type = AP_VECTOR_UNDEFINED;</div>
+<div class="line"><span class="lineno">  110</span>        AP_FREE(vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>);</div>
+<div class="line"><span class="lineno">  111</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> = NULL;</div>
+<div class="line"><span class="lineno">  112</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> = 0;</div>
+<div class="line"><span class="lineno">  113</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> = 0;</div>
+<div class="line"><span class="lineno">  114</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">type</a> = <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa2f3986e80f32eacec0a15963441104ef">AP_VECTOR_UNDEFINED</a>;</div>
 <div class="line"><span class="lineno">  115</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  116</span>}</div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
+<div class="ttc" id="astructAP__Vector_html_ae1fa01a14d5d238105d1ae4173a80675"><div class="ttname"><a href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">AP_Vector::capacity</a></div><div class="ttdeci">int capacity</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:60</div></div>
 </div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">ap_light_free_all()</a>, and <a class="el" href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">ap_render_finish()</a>.</p>
+
 </div>
 </div>
 <a id="a9fdcab896b6ae921a06156bec5dee13e" name="a9fdcab896b6ae921a06156bec5dee13e"></a>
@@ -308,22 +332,22 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   82</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_POINTER;</div>
 <div class="line"><span class="lineno">   83</span>        }</div>
 <div class="line"><span class="lineno">   84</span> </div>
-<div class="line"><span class="lineno">   85</span>        vector-&gt;type = vector_type;</div>
+<div class="line"><span class="lineno">   85</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">type</a> = vector_type;</div>
 <div class="line"><span class="lineno">   86</span>        <span class="keywordtype">int</span> size = ap_vector_data_type_size(vector);</div>
-<div class="line"><span class="lineno">   87</span>        vector-&gt;capacity = AP_VECTOR_DEFAULT_CAPACITY;</div>
+<div class="line"><span class="lineno">   87</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> = AP_VECTOR_DEFAULT_CAPACITY;</div>
 <div class="line"><span class="lineno">   88</span><span class="preprocessor">#ifdef AP_TRACE</span></div>
 <div class="line"><span class="lineno">   89</span>        <span class="keywordtype">char</span> buff[AP_DEFAULT_BUFFER_SIZE] = { 0 };</div>
 <div class="line"><span class="lineno">   90</span>        sprintf(buff, <span class="stringliteral">&quot;%s, type: %d&quot;</span>, __func__, vector_type);</div>
-<div class="line"><span class="lineno">   91</span>        vector-&gt;data = <a class="code hl_function" href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a>(size * AP_VECTOR_DEFAULT_CAPACITY, buff);</div>
+<div class="line"><span class="lineno">   91</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> = <a class="code hl_function" href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a>(size * AP_VECTOR_DEFAULT_CAPACITY, buff);</div>
 <div class="line"><span class="lineno">   92</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   93</span>        vector-&gt;data = AP_MALLOC(size * AP_VECTOR_DEFAULT_CAPACITY);</div>
+<div class="line"><span class="lineno">   93</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> = AP_MALLOC(size * AP_VECTOR_DEFAULT_CAPACITY);</div>
 <div class="line"><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">if</span> (vector-&gt;data == NULL) {</div>
+<div class="line"><span class="lineno">   95</span>        <span class="keywordflow">if</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
 <div class="line"><span class="lineno">   96</span>                LOGE(<span class="stringliteral">&quot;malloc failed for vector.&quot;</span>);</div>
 <div class="line"><span class="lineno">   97</span>                <span class="keywordflow">return</span> AP_ERROR_MALLOC_FAILED;</div>
 <div class="line"><span class="lineno">   98</span>        }</div>
-<div class="line"><span class="lineno">   99</span>        memset(vector-&gt;data, 0, size * AP_VECTOR_DEFAULT_CAPACITY);</div>
-<div class="line"><span class="lineno">  100</span>        vector-&gt;length = 0;</div>
+<div class="line"><span class="lineno">   99</span>        memset(vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>, 0, size * AP_VECTOR_DEFAULT_CAPACITY);</div>
+<div class="line"><span class="lineno">  100</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> = 0;</div>
 <div class="line"><span class="lineno">  101</span> </div>
 <div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><span class="lineno">  103</span>}</div>
@@ -382,21 +406,21 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  168</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  169</span>        }</div>
 <div class="line"><span class="lineno">  170</span> </div>
-<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">while</span> (vector-&gt;length + (size / type_size) &gt; vector-&gt;capacity) {</div>
-<div class="line"><span class="lineno">  172</span>                vector-&gt;data = AP_REALLOC(</div>
-<div class="line"><span class="lineno">  173</span>                        vector-&gt;data,</div>
-<div class="line"><span class="lineno">  174</span>                        size * vector-&gt;capacity * 2</div>
+<div class="line"><span class="lineno">  171</span>        <span class="keywordflow">while</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + (size / type_size) &gt; vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a>) {</div>
+<div class="line"><span class="lineno">  172</span>                vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> = AP_REALLOC(</div>
+<div class="line"><span class="lineno">  173</span>                        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>,</div>
+<div class="line"><span class="lineno">  174</span>                        size * vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> * 2</div>
 <div class="line"><span class="lineno">  175</span>                );</div>
-<div class="line"><span class="lineno">  176</span>                <span class="keywordflow">if</span> (vector-&gt;data == NULL) {</div>
+<div class="line"><span class="lineno">  176</span>                <span class="keywordflow">if</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
 <div class="line"><span class="lineno">  177</span>                        LOGE(<span class="stringliteral">&quot;failed to realloc vector memory.&quot;</span>);</div>
 <div class="line"><span class="lineno">  178</span>                        <span class="keywordflow">return</span> AP_ERROR_MALLOC_FAILED;</div>
 <div class="line"><span class="lineno">  179</span>                }</div>
-<div class="line"><span class="lineno">  180</span>                vector-&gt;capacity *= 2;</div>
+<div class="line"><span class="lineno">  180</span>                vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> *= 2;</div>
 <div class="line"><span class="lineno">  181</span>        }</div>
-<div class="line"><span class="lineno">  182</span>        <span class="keywordtype">int</span> offset = type_size * (vector-&gt;length) / (<span class="keywordtype">int</span>) <span class="keyword">sizeof</span>(char);</div>
-<div class="line"><span class="lineno">  183</span>        <span class="keywordtype">char</span> *new_data = vector-&gt;data + offset;</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordtype">int</span> offset = type_size * (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>) / (<span class="keywordtype">int</span>) <span class="keyword">sizeof</span>(char);</div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordtype">char</span> *new_data = vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> + offset;</div>
 <div class="line"><span class="lineno">  184</span>        memcpy(new_data, start, size);</div>
-<div class="line"><span class="lineno">  185</span>        vector-&gt;length += (int) size / ap_vector_data_type_size(vector);</div>
+<div class="line"><span class="lineno">  185</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> += (int) size / ap_vector_data_type_size(vector);</div>
 <div class="line"><span class="lineno">  186</span> </div>
 <div class="line"><span class="lineno">  187</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  188</span>}</div>
@@ -448,21 +472,21 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  139</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  140</span>        }</div>
 <div class="line"><span class="lineno">  141</span> </div>
-<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> (vector-&gt;length == vector-&gt;capacity) {</div>
-<div class="line"><span class="lineno">  143</span>                vector-&gt;data = AP_REALLOC(</div>
-<div class="line"><span class="lineno">  144</span>                        vector-&gt;data,</div>
-<div class="line"><span class="lineno">  145</span>                        size * vector-&gt;capacity * 2</div>
+<div class="line"><span class="lineno">  142</span>        <span class="keywordflow">if</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> == vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a>) {</div>
+<div class="line"><span class="lineno">  143</span>                vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> = AP_REALLOC(</div>
+<div class="line"><span class="lineno">  144</span>                        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>,</div>
+<div class="line"><span class="lineno">  145</span>                        size * vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> * 2</div>
 <div class="line"><span class="lineno">  146</span>                );</div>
-<div class="line"><span class="lineno">  147</span>                <span class="keywordflow">if</span> (vector-&gt;data == NULL) {</div>
+<div class="line"><span class="lineno">  147</span>                <span class="keywordflow">if</span> (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
 <div class="line"><span class="lineno">  148</span>                        LOGE(<span class="stringliteral">&quot;failed to realloc vector memory.&quot;</span>);</div>
 <div class="line"><span class="lineno">  149</span>                        <span class="keywordflow">return</span> AP_ERROR_MALLOC_FAILED;</div>
 <div class="line"><span class="lineno">  150</span>                }</div>
-<div class="line"><span class="lineno">  151</span>                vector-&gt;capacity *= 2;</div>
+<div class="line"><span class="lineno">  151</span>                vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">capacity</a> *= 2;</div>
 <div class="line"><span class="lineno">  152</span>        }</div>
-<div class="line"><span class="lineno">  153</span>        <span class="keywordtype">int</span> offset = size * (vector-&gt;length) / (<span class="keywordtype">int</span>) <span class="keyword">sizeof</span>(char);</div>
-<div class="line"><span class="lineno">  154</span>        <span class="keywordtype">char</span> *new_data = vector-&gt;data + offset;</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordtype">int</span> offset = size * (vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>) / (<span class="keywordtype">int</span>) <span class="keyword">sizeof</span>(char);</div>
+<div class="line"><span class="lineno">  154</span>        <span class="keywordtype">char</span> *new_data = vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> + offset;</div>
 <div class="line"><span class="lineno">  155</span>        memcpy(new_data, data, size);</div>
-<div class="line"><span class="lineno">  156</span>        vector-&gt;length++;</div>
+<div class="line"><span class="lineno">  156</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>++;</div>
 <div class="line"><span class="lineno">  157</span> </div>
 <div class="line"><span class="lineno">  158</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  159</span>}</div>
@@ -532,14 +556,14 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  209</span>        }</div>
 <div class="line"><span class="lineno">  210</span> </div>
 <div class="line"><span class="lineno">  211</span>        <span class="comment">// dest, src, n</span></div>
-<div class="line"><span class="lineno">  212</span>        <span class="keywordtype">int</span> tmp = vector-&gt;length - (size / ap_vector_data_type_size(vector));</div>
+<div class="line"><span class="lineno">  212</span>        <span class="keywordtype">int</span> tmp = vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> - (size / ap_vector_data_type_size(vector));</div>
 <div class="line"><span class="lineno">  213</span>        <span class="keywordflow">if</span> (tmp &lt; 0) {</div>
 <div class="line"><span class="lineno">  214</span>                LOGE(<span class="stringliteral">&quot;vector remove data failed with invalid size&quot;</span>);</div>
 <div class="line"><span class="lineno">  215</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  216</span>        }</div>
 <div class="line"><span class="lineno">  217</span>        LOGD(<span class="stringliteral">&quot;start: %p, end: %p, size: %d&quot;</span>, start, end, size);</div>
 <div class="line"><span class="lineno">  218</span>        memmove(start, end, size);</div>
-<div class="line"><span class="lineno">  219</span>        vector-&gt;length = tmp;</div>
+<div class="line"><span class="lineno">  219</span>        vector-&gt;<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> = tmp;</div>
 <div class="line"><span class="lineno">  220</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  221</span>}</div>
 </div><!-- fragment -->

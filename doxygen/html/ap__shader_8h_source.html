@@ -80,104 +80,102 @@ $(function() {
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;glad/glad.h&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// Perspective vertex shader uniform variables</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="ap__shader_8h.html#a5fc5a19f52b4a98b2e8e75e7c82927db">   23</a></span><span class="preprocessor">#define AP_SP_MODEL             &quot;model&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define AP_SP_VIEW              &quot;view&quot;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define AP_SP_PROJECTION        &quot;projection&quot;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define AP_SP_VIEW_DISTANCE     &quot;view_distance&quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// Perspective fragment shader uniform variables</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define AP_SP_MATERIALS_NR      4</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define AP_SP_MATERIAL          &quot;material&quot;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define AP_SP_MT_DIFFUSE        &quot;material_%d.diffuse&quot;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define AP_SP_MT_DIFFUSE        &quot;material_%d.diffuse&quot;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define AP_SP_MT_SPECULAR       &quot;material_%d.specular&quot;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define AP_SP_MT_NORMAL         &quot;material_%d.normal&quot;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define AP_SP_MT_HEIGHT         &quot;material_%d.height&quot;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define AP_SP_MT_SHININESS      &quot;material_%d.shininess&quot;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// AP_LIGHT_POINT_NUM = 128</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define AP_SP_POINT_LIGHT       &quot;point_light&quot;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define AP_SP_PL_POSITION       &quot;point_light[%d].position&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define AP_SP_PL_CONSTANT       &quot;point_light[%d].constant&quot;</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define AP_SP_PL_LINEAR         &quot;point_light[%d].linear&quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define AP_SP_PL_QUADRATIC      &quot;point_light[%d].quadratic&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define AP_SP_PL_AMBIENT        &quot;point_light[%d].ambient&quot;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define AP_SP_PL_DIFFUSE        &quot;point_light[%d].diffuse&quot;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define AP_SP_PL_SPECULAR       &quot;point_light[%d].specular&quot;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define AP_SP_DIRECT_LIGHT      &quot;direct_light&quot;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#define AP_SP_DL_DIRECTION      &quot;direct_light.direction&quot;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define AP_SP_DL_AMBIENT        &quot;direct_light.ambient&quot;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define AP_SP_DL_DIFFUSE        &quot;direct_light.diffuse&quot;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define AP_SP_DL_SPECULAR       &quot;direct_light.specular&quot;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define AP_SP_SPOT_LIGHT        &quot;spot_light&quot;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#define AP_SP_SL_POSITION       &quot;spot_light.position&quot;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define AP_SP_SL_DIRECTION      &quot;spot_light.direction&quot;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define AP_SP_SL_CUTOFF         &quot;spot_light.cut_off&quot;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define AP_SP_SL_OUTER_CUTOFF   &quot;spot_light.outer_cut_off&quot;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define AP_SP_SL_CONSTANT       &quot;spot_light.constant&quot;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define AP_SP_SL_LINEAR         &quot;spot_light.linear&quot;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define AP_SP_SL_QUADRATIC      &quot;spot_light.quadratic&quot;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define AP_SP_SL_AMBIENT        &quot;spot_light.ambient&quot;</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define AP_SP_SL_DIFFUSE        &quot;spot_light.diffuse&quot;</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define AP_SP_SL_SPECULAR       &quot;spot_light.specular&quot;</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define AP_SP_SPOT_LIGHT_ENABLED &quot;spot_light_enabled&quot;</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#define AP_SP_POINT_LIGHT_ENABLED &quot;point_light_enabled&quot;</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define AP_SP_ENV_LIGHT_ENABLED  &quot;env_light_enabled&quot;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define AP_SP_MATERIAL_NUMBER    &quot;material_number&quot;</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define AP_SP_VIEW_POS           &quot;view_pos&quot;</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// Orthographic vertex shader uniform variables</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#define AP_SO_PROJECTION        &quot;projection&quot;</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">// Orthographic fragment shader uniform variables</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#define AP_SO_TEXTURE           &quot;texture%d&quot;</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#define AP_SO_COLOR             &quot;color&quot;</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define AP_SO_TEXTURE_NUM       &quot;texture_num&quot;</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structAP__Shader.html">   81</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structAP__Shader.html">AP_Shader</a> {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// id is the shader ID of Aperture engine</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="comment">// should be used for ap_shader_* function</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> id;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="comment">// opengl_program_id is the ID generated by OpenGL</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="comment">// can be used by glUseProgram()</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> opengl_program_id;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordtype">char</span> *vertex_shader_path;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordtype">char</span> *fragment_shader_path;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a>(</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* vshader_path,</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* fshader_path,</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *shader_id</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keywordtype">int</span> ap_shader_use(<span class="keywordtype">unsigned</span> shader_program_id);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="keywordtype">int</span> ap_shader_free(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">int</span> ap_shader_free_all();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// Perspective vertex shader uniform variables</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="ap__shader_8h.html#a5fc5a19f52b4a98b2e8e75e7c82927db">   25</a></span><span class="preprocessor">#define AP_SP_MODEL             &quot;model&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define AP_SP_VIEW              &quot;view&quot;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define AP_SP_PROJECTION        &quot;projection&quot;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define AP_SP_VIEW_DISTANCE     &quot;view_distance&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">// Perspective fragment shader uniform variables</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define AP_SP_MATERIALS_NR      4</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define AP_SP_MATERIAL          &quot;material&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#define AP_SP_MT_DIFFUSE        &quot;material_%d.diffuse&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#define AP_SP_MT_DIFFUSE        &quot;material_%d.diffuse&quot;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#define AP_SP_MT_SPECULAR       &quot;material_%d.specular&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#define AP_SP_MT_NORMAL         &quot;material_%d.normal&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define AP_SP_MT_HEIGHT         &quot;material_%d.height&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define AP_SP_MT_SHININESS      &quot;material_%d.shininess&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// AP_LIGHT_POINT_NUM = 128</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define AP_SP_POINT_LIGHT       &quot;point_light&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#define AP_SP_PL_POSITION       &quot;point_light[%d].position&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#define AP_SP_PL_CONSTANT       &quot;point_light[%d].constant&quot;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#define AP_SP_PL_LINEAR         &quot;point_light[%d].linear&quot;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define AP_SP_PL_QUADRATIC      &quot;point_light[%d].quadratic&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#define AP_SP_PL_AMBIENT        &quot;point_light[%d].ambient&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define AP_SP_PL_DIFFUSE        &quot;point_light[%d].diffuse&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define AP_SP_PL_SPECULAR       &quot;point_light[%d].specular&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#define AP_SP_DIRECT_LIGHT      &quot;direct_light&quot;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#define AP_SP_DL_DIRECTION      &quot;direct_light.direction&quot;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#define AP_SP_DL_AMBIENT        &quot;direct_light.ambient&quot;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define AP_SP_DL_DIFFUSE        &quot;direct_light.diffuse&quot;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#define AP_SP_DL_SPECULAR       &quot;direct_light.specular&quot;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#define AP_SP_SPOT_LIGHT        &quot;spot_light&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#define AP_SP_SL_POSITION       &quot;spot_light.position&quot;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define AP_SP_SL_DIRECTION      &quot;spot_light.direction&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define AP_SP_SL_CUTOFF         &quot;spot_light.cut_off&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#define AP_SP_SL_OUTER_CUTOFF   &quot;spot_light.outer_cut_off&quot;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define AP_SP_SL_CONSTANT       &quot;spot_light.constant&quot;</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define AP_SP_SL_LINEAR         &quot;spot_light.linear&quot;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define AP_SP_SL_QUADRATIC      &quot;spot_light.quadratic&quot;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define AP_SP_SL_AMBIENT        &quot;spot_light.ambient&quot;</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define AP_SP_SL_DIFFUSE        &quot;spot_light.diffuse&quot;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define AP_SP_SL_SPECULAR       &quot;spot_light.specular&quot;</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define AP_SP_SPOT_LIGHT_ENABLED &quot;spot_light_enabled&quot;</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define AP_SP_POINT_LIGHT_ENABLED &quot;point_light_enabled&quot;</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define AP_SP_ENV_LIGHT_ENABLED  &quot;env_light_enabled&quot;</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#define AP_SP_MATERIAL_NUMBER    &quot;material_number&quot;</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#define AP_SP_VIEW_POS           &quot;view_pos&quot;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">// Orthographic vertex shader uniform variables</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#define AP_SO_PROJECTION        &quot;projection&quot;</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// Orthographic fragment shader uniform variables</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#define AP_SO_TEXTURE           &quot;texture%d&quot;</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#define AP_SO_COLOR             &quot;color&quot;</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#define AP_SO_TEXTURE_NUM       &quot;texture_num&quot;</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structAP__Shader.html">   83</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structAP__Shader.html">AP_Shader</a> {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">   88</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">id</a>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f">   93</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f">opengl_program_id</a>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structAP__Shader.html#af41fbdb82019351d5757c700a57b68e0">   95</a></span>        <span class="keywordtype">char</span> *<a class="code hl_variable" href="structAP__Shader.html#af41fbdb82019351d5757c700a57b68e0">vertex_shader_path</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structAP__Shader.html#ac77cebc691df99d89878c1b32d63fd0a">   97</a></span>        <span class="keywordtype">char</span> *<a class="code hl_variable" href="structAP__Shader.html#ac77cebc691df99d89878c1b32d63fd0a">fragment_shader_path</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a>(</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* vshader_path,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* fshader_path,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> *shader_id</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>);</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> ap_shader_set_float(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> num);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keywordtype">int</span> ap_shader_use(<span class="keywordtype">unsigned</span> shader_program_id);</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">int</span> ap_shader_set_int  (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, GLuint num);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">int</span> ap_shader_free(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">int</span> ap_shader_set_vec3 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *vec);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">int</span> ap_shader_free_all();</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">int</span> ap_shader_set_vec4 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *vec);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keywordtype">int</span> ap_shader_set_float(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> num);</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keywordtype">int</span> ap_shader_set_mat4 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *mat);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keywordtype">int</span> ap_shader_set_int  (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, GLuint num);</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ap_get_current_shader();</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keywordtype">int</span> ap_shader_set_vec3 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *vec);</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keyword">struct </span><a class="code hl_struct" href="structAP__Shader.html">AP_Shader</a>* ap_shader_get_ptr(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keywordtype">int</span> ap_shader_set_vec4 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *vec);</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif </span><span class="comment">// AP_SHADER_H</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordtype">int</span> ap_shader_set_mat4 (<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> name, <span class="keywordtype">float</span> *mat);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ap_get_current_shader();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keyword">struct </span><a class="code hl_struct" href="structAP__Shader.html">AP_Shader</a>* ap_shader_get_ptr(<span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#endif </span><span class="comment">// AP_SHADER_H</span></div>
 <div class="ttc" id="aap__shader_8h_html_ad2e7293672585e9db3e70743d226cdb4"><div class="ttname"><a href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a></div><div class="ttdeci">int ap_shader_generate(const char *vshader_path, const char *fshader_path, unsigned int *shader_id)</div><div class="ttdoc">Generate a OpenGL program with shader.</div><div class="ttdef"><b>Definition:</b> ap_shader.c:48</div></div>
-<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition of Aperture.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:81</div></div>
+<div class="ttc" id="astructAP__Shader_html"><div class="ttname"><a href="structAP__Shader.html">AP_Shader</a></div><div class="ttdoc">Shader struct object definition.</div><div class="ttdef"><b>Definition:</b> ap_shader.h:83</div></div>
+<div class="ttc" id="astructAP__Shader_html_a2204fa5f625d6f3ba4de1d5394680b9c"><div class="ttname"><a href="structAP__Shader.html#a2204fa5f625d6f3ba4de1d5394680b9c">AP_Shader::id</a></div><div class="ttdeci">unsigned int id</div><div class="ttdef"><b>Definition:</b> ap_shader.h:88</div></div>
+<div class="ttc" id="astructAP__Shader_html_a597565aa58f1ecfbdea76b8f4397084f"><div class="ttname"><a href="structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f">AP_Shader::opengl_program_id</a></div><div class="ttdeci">unsigned int opengl_program_id</div><div class="ttdef"><b>Definition:</b> ap_shader.h:93</div></div>
+<div class="ttc" id="astructAP__Shader_html_ac77cebc691df99d89878c1b32d63fd0a"><div class="ttname"><a href="structAP__Shader.html#ac77cebc691df99d89878c1b32d63fd0a">AP_Shader::fragment_shader_path</a></div><div class="ttdeci">char * fragment_shader_path</div><div class="ttdef"><b>Definition:</b> ap_shader.h:97</div></div>
+<div class="ttc" id="astructAP__Shader_html_af41fbdb82019351d5757c700a57b68e0"><div class="ttname"><a href="structAP__Shader.html#af41fbdb82019351d5757c700a57b68e0">AP_Shader::vertex_shader_path</a></div><div class="ttdeci">char * vertex_shader_path</div><div class="ttdef"><b>Definition:</b> ap_shader.h:95</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

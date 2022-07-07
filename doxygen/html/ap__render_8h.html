@@ -95,16 +95,18 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2767bcf1fa0eb2a3c8f6d4ee8c59a138"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a2767bcf1fa0eb2a3c8f6d4ee8c59a138">ap_render_general_initialize</a> ()</td></tr>
+<tr class="memdesc:a2767bcf1fa0eb2a3c8f6d4ee8c59a138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize renderer, and initialize all resources required by engine (such as audio, camera, cvector, light, model, physics, etc...)  <a href="ap__render_8h.html#a2767bcf1fa0eb2a3c8f6d4ee8c59a138">More...</a><br /></td></tr>
 <tr class="separator:a2767bcf1fa0eb2a3c8f6d4ee8c59a138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3db662c0be153da355a5e096f240fd93"><td class="memItemLeft" align="right" valign="top"><a id="a3db662c0be153da355a5e096f240fd93" name="a3db662c0be153da355a5e096f240fd93"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()</td></tr>
+<tr class="memitem:a3db662c0be153da355a5e096f240fd93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a3db662c0be153da355a5e096f240fd93">ap_render_main</a> ()</td></tr>
 <tr class="separator:a3db662c0be153da355a5e096f240fd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af55fa2a6fa80a69dc94d5f523a4da57d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">ap_render_finish</a> ()</td></tr>
+<tr class="memdesc:af55fa2a6fa80a69dc94d5f523a4da57d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release all engine resources, (such as audio, camera, cvector, light, model, physics, etc...),.  <a href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d">More...</a><br /></td></tr>
 <tr class="separator:af55fa2a6fa80a69dc94d5f523a4da57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94e2d36d448cd7f6d9950becd47429f6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">ap_render_resize_buffer</a> (int width, int height)</td></tr>
+<tr class="memdesc:a94e2d36d448cd7f6d9950becd47429f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resize window buffer.  <a href="ap__render_8h.html#a94e2d36d448cd7f6d9950becd47429f6">More...</a><br /></td></tr>
 <tr class="separator:a94e2d36d448cd7f6d9950becd47429f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8659520768fcc8d06d47a56c6e4839ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a8659520768fcc8d06d47a56c6e4839ec">ap_render_init_font</a> (const char *path, int size)</td></tr>
-<tr class="memdesc:a8659520768fcc8d06d47a56c6e4839ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init font renderer.  <a href="ap__render_8h.html#a8659520768fcc8d06d47a56c6e4839ec">More...</a><br /></td></tr>
+<tr class="memdesc:a8659520768fcc8d06d47a56c6e4839ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup freetype2, load 1-255 ASCII characters from font file to memory.  <a href="ap__render_8h.html#a8659520768fcc8d06d47a56c6e4839ec">More...</a><br /></td></tr>
 <tr class="separator:a8659520768fcc8d06d47a56c6e4839ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32ba4ef957e4045cb9f4a60347ff8aa1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a32ba4ef957e4045cb9f4a60347ff8aa1">ap_render_char_2_texture</a> (char c, unsigned int *tid, int *w, int *h, int *l, int *t, int *a)</td></tr>
 <tr class="memdesc:a32ba4ef957e4045cb9f4a60347ff8aa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charactor to texture.  <a href="ap__render_8h.html#a32ba4ef957e4045cb9f4a60347ff8aa1">More...</a><br /></td></tr>
@@ -113,32 +115,43 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <tr class="memdesc:aec3e2f721c8aed6dc5b32bf11994899a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render one line text.  <a href="ap__render_8h.html#aec3e2f721c8aed6dc5b32bf11994899a">More...</a><br /></td></tr>
 <tr class="separator:aec3e2f721c8aed6dc5b32bf11994899a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f60a09550e4496f47f5e79dba95ad8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a0f60a09550e4496f47f5e79dba95ad8e">ap_render_flush</a> ()</td></tr>
-<tr class="memdesc:a0f60a09550e4496f47f5e79dba95ad8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flush FPS, ortho matrix, etc...  <a href="ap__render_8h.html#a0f60a09550e4496f47f5e79dba95ad8e">More...</a><br /></td></tr>
+<tr class="memdesc:a0f60a09550e4496f47f5e79dba95ad8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">should be called in render main loop, used for calculate FPS, engine startup time, view matrix, collition detection and other calculations  <a href="ap__render_8h.html#a0f60a09550e4496f47f5e79dba95ad8e">More...</a><br /></td></tr>
 <tr class="separator:a0f60a09550e4496f47f5e79dba95ad8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6849790020404a4bb8db09b488d72dc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#ac6849790020404a4bb8db09b488d72dc">ap_render_aim_cross</a> ()</td></tr>
 <tr class="memdesc:ac6849790020404a4bb8db09b488d72dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render aiming points.  <a href="ap__render_8h.html#ac6849790020404a4bb8db09b488d72dc">More...</a><br /></td></tr>
 <tr class="separator:ac6849790020404a4bb8db09b488d72dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a808f6a999bc301a9a313a73143e4b6bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a808f6a999bc301a9a313a73143e4b6bf">ap_render_aim_dot</a> ()</td></tr>
+<tr class="memdesc:a808f6a999bc301a9a313a73143e4b6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render dot (square) points.  <a href="ap__render_8h.html#a808f6a999bc301a9a313a73143e4b6bf">More...</a><br /></td></tr>
 <tr class="separator:a808f6a999bc301a9a313a73143e4b6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ba9f26c2409ac47dccfdfdf1ebb1b7a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a4ba9f26c2409ac47dccfdfdf1ebb1b7a">ap_render_get_font_ptr</a> (char c, struct <a class="el" href="structAP__Character.html">AP_Character</a> **ptr)</td></tr>
+<tr class="memdesc:a4ba9f26c2409ac47dccfdfdf1ebb1b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get struct AP_Character* pointer by character.  <a href="ap__render_8h.html#a4ba9f26c2409ac47dccfdfdf1ebb1b7a">More...</a><br /></td></tr>
 <tr class="separator:a4ba9f26c2409ac47dccfdfdf1ebb1b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55b9bf002bec42dcc936d5daec46b979"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a55b9bf002bec42dcc936d5daec46b979">ap_render_get_fps</a> (float *p)</td></tr>
+<tr class="memdesc:a55b9bf002bec42dcc936d5daec46b979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get render FPS.  <a href="ap__render_8h.html#a55b9bf002bec42dcc936d5daec46b979">More...</a><br /></td></tr>
 <tr class="separator:a55b9bf002bec42dcc936d5daec46b979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a6b74682149675b55b01c29320178c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a18a6b74682149675b55b01c29320178c">ap_render_get_persp_matrix</a> (float **mat)</td></tr>
+<tr class="memdesc:a18a6b74682149675b55b01c29320178c"><td class="mdescLeft">&#160;</td><td class="mdescRight">get perspective projection matrix  <a href="ap__render_8h.html#a18a6b74682149675b55b01c29320178c">More...</a><br /></td></tr>
 <tr class="separator:a18a6b74682149675b55b01c29320178c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ec7d60a5e89187aa858ca99726c5e17"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a5ec7d60a5e89187aa858ca99726c5e17">ap_render_get_ortho_matrix</a> (float **mat)</td></tr>
+<tr class="memdesc:a5ec7d60a5e89187aa858ca99726c5e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">get orthographic projection matrix  <a href="ap__render_8h.html#a5ec7d60a5e89187aa858ca99726c5e17">More...</a><br /></td></tr>
 <tr class="separator:a5ec7d60a5e89187aa858ca99726c5e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa2757202bf26c67ac28759d598543fb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#aaa2757202bf26c67ac28759d598543fb">ap_render_get_view_matrix</a> (float **mat)</td></tr>
+<tr class="memdesc:aaa2757202bf26c67ac28759d598543fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get camera view matrix.  <a href="ap__render_8h.html#aaa2757202bf26c67ac28759d598543fb">More...</a><br /></td></tr>
 <tr class="separator:aaa2757202bf26c67ac28759d598543fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2bf4016f12960782d76f076e74bb50"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a5c2bf4016f12960782d76f076e74bb50">ap_render_get_ortho_shader</a> (unsigned int *p)</td></tr>
+<tr class="memdesc:a5c2bf4016f12960782d76f076e74bb50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get built-in orthographic Aperture shader ID.  <a href="ap__render_8h.html#a5c2bf4016f12960782d76f076e74bb50">More...</a><br /></td></tr>
 <tr class="separator:a5c2bf4016f12960782d76f076e74bb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2352993f8d15f8a1b960c82d7303188"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">ap_render_get_persp_shader</a> (unsigned int *p)</td></tr>
+<tr class="memdesc:ad2352993f8d15f8a1b960c82d7303188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get built-in perspective Aperture shader ID.  <a href="ap__render_8h.html#ad2352993f8d15f8a1b960c82d7303188">More...</a><br /></td></tr>
 <tr class="separator:ad2352993f8d15f8a1b960c82d7303188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d39695557d0a18d019cd423e120efa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a> (float *dt)</td></tr>
+<tr class="memdesc:a5d39695557d0a18d019cd423e120efa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get render delta time (last frame time - current frame time)  <a href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">More...</a><br /></td></tr>
 <tr class="separator:a5d39695557d0a18d019cd423e120efa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6970027c31bb23c48550552a7f86b78"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#ad6970027c31bb23c48550552a7f86b78">ap_render_get_cft</a> (float *cft)</td></tr>
+<tr class="memdesc:ad6970027c31bb23c48550552a7f86b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current frame time.  <a href="ap__render_8h.html#ad6970027c31bb23c48550552a7f86b78">More...</a><br /></td></tr>
 <tr class="separator:ad6970027c31bb23c48550552a7f86b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c43ab986a83d247e6c076b376757f52"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a8c43ab986a83d247e6c076b376757f52">ap_render_get_view_distance</a> (int *p)</td></tr>
+<tr class="memdesc:a8c43ab986a83d247e6c076b376757f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get view distance.  <a href="ap__render_8h.html#a8c43ab986a83d247e6c076b376757f52">More...</a><br /></td></tr>
 <tr class="separator:a8c43ab986a83d247e6c076b376757f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ff4378745b6332680408d90f239edae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a5ff4378745b6332680408d90f239edae">ap_render_set_model_mat</a> (float *mat)</td></tr>
 <tr class="memdesc:a5ff4378745b6332680408d90f239edae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set model matrix before render model.  <a href="ap__render_8h.html#a5ff4378745b6332680408d90f239edae">More...</a><br /></td></tr>
@@ -156,7 +169,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <tr class="memitem:ad9d3a98f8d4c68c764818539e64c6a4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#ad9d3a98f8d4c68c764818539e64c6a4a">ap_render_set_view_distance</a> (int n)</td></tr>
 <tr class="memdesc:ad9d3a98f8d4c68c764818539e64c6a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set view distance.  <a href="ap__render_8h.html#ad9d3a98f8d4c68c764818539e64c6a4a">More...</a><br /></td></tr>
 <tr class="separator:ad9d3a98f8d4c68c764818539e64c6a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a683618287cee160f119281051ede6ad1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a683618287cee160f119281051ede6ad1">ap_render_set_main_func</a> (ap_callback_func_t func)</td></tr>
+<tr class="memitem:a683618287cee160f119281051ede6ad1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a683618287cee160f119281051ede6ad1">ap_render_set_main_func</a> (<a class="el" href="ap__utils_8h.html#acc7b0c425799269f3c7e5a243c842312">ap_callback_func_t</a> func)</td></tr>
 <tr class="separator:a683618287cee160f119281051ede6ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25d748cfb6e014f318eefb363a172a9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a25d748cfb6e014f318eefb363a172a9b">ap_render_set_aim_cross</a> (int length, int width, vec4 color)</td></tr>
 <tr class="memdesc:a25d748cfb6e014f318eefb363a172a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set cross aiming point parameters.  <a href="ap__render_8h.html#a25d748cfb6e014f318eefb363a172a9b">More...</a><br /></td></tr>
@@ -175,6 +188,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <tr class="memitem:a43f41e7f90d406a8010cf2f5fb2817c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a43f41e7f90d406a8010cf2f5fb2817c5">ap_get_buffer_height</a> ()</td></tr>
 <tr class="separator:a43f41e7f90d406a8010cf2f5fb2817c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71964d935f1f6c752379fe32e8a0379f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a71964d935f1f6c752379fe32e8a0379f">ap_get_context_ptr</a> ()</td></tr>
+<tr class="memdesc:a71964d935f1f6c752379fe32e8a0379f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get GLFW window context pointer.  <a href="ap__render_8h.html#a71964d935f1f6c752379fe32e8a0379f">More...</a><br /></td></tr>
 <tr class="separator:a71964d935f1f6c752379fe32e8a0379f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9791b0a3240d0a62858d485da7d46a0a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ap__render_8h.html#a9791b0a3240d0a62858d485da7d46a0a">ap_set_buffer</a> (int w, int h)</td></tr>
 <tr class="separator:a9791b0a3240d0a62858d485da7d46a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,6 +254,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get GLFW window context pointer. </p>
+<dl class="section return"><dt>Returns</dt><dd>void* </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  923</span>{</div>
 <div class="line"><span class="lineno">  924</span>        <span class="keywordflow">return</span> window_context;</div>
 <div class="line"><span class="lineno">  925</span>}</div>
@@ -307,6 +324,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Render dot (square) points. </p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  501</span>{</div>
 <div class="line"><span class="lineno">  502</span>        <span class="keywordflow">if</span> (renderer.ortho_VAO == 0 || renderer.ortho_VBO == 0) {</div>
 <div class="line"><span class="lineno">  503</span>                LOGE(<span class="stringliteral">&quot;failed to render aim: buffer uninitialized&quot;</span>);</div>
@@ -474,14 +494,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Release all engine resources, (such as audio, camera, cvector, light, model, physics, etc...),. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ap__render_8h.html#a2767bcf1fa0eb2a3c8f6d4ee8c59a138" title="Initialize renderer, and initialize all resources required by engine (such as audio,...">ap_render_general_initialize</a></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  694</span>{</div>
 <div class="line"><span class="lineno">  695</span>        <a class="code hl_function" href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a>(&amp;charactor_vector);</div>
-<div class="line"><span class="lineno">  696</span>        ap_camera_free_all();</div>
+<div class="line"><span class="lineno">  696</span>        <a class="code hl_function" href="ap__camera_8h.html#a0b57b6057d5fa8e313b882133041f738">ap_camera_free_all</a>();</div>
 <div class="line"><span class="lineno">  697</span>        ap_shader_free_all();</div>
-<div class="line"><span class="lineno">  698</span>        ap_model_free_all();</div>
+<div class="line"><span class="lineno">  698</span>        <a class="code hl_function" href="ap__model_8h.html#a3f8558356aa127ff547b04233cd924ec">ap_model_free_all</a>();</div>
 <div class="line"><span class="lineno">  699</span>        <a class="code hl_function" href="ap__texture_8h.html#aa1e10cea86f2392833b1375b2345cf52">ap_texture_free_all</a>();</div>
 <div class="line"><span class="lineno">  700</span>        <a class="code hl_function" href="ap__audio_8h.html#a494e62c1c8217131b14db09e51e9c523">ap_audio_free_all</a>();</div>
-<div class="line"><span class="lineno">  701</span>        ap_light_free_all();</div>
+<div class="line"><span class="lineno">  701</span>        <a class="code hl_function" href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">ap_light_free_all</a>();</div>
 <div class="line"><span class="lineno">  702</span>        ap_physic_free_all();</div>
 <div class="line"><span class="lineno">  703</span> </div>
 <div class="line"><span class="lineno">  704</span>        FT_Done_Face(renderer.ft_face);</div>
@@ -494,10 +518,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  711</span> </div>
 <div class="line"><span class="lineno">  712</span>        <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line"><span class="lineno">  713</span>}</div>
-<div class="ttc" id="aap__audio_8h_html_a494e62c1c8217131b14db09e51e9c523"><div class="ttname"><a href="ap__audio_8h.html#a494e62c1c8217131b14db09e51e9c523">ap_audio_free_all</a></div><div class="ttdeci">int ap_audio_free_all()</div><div class="ttdoc">Close OpenAL device, destroy context.</div><div class="ttdef"><b>Definition:</b> ap_audio.c:671</div></div>
+<div class="ttc" id="aap__audio_8h_html_a494e62c1c8217131b14db09e51e9c523"><div class="ttname"><a href="ap__audio_8h.html#a494e62c1c8217131b14db09e51e9c523">ap_audio_free_all</a></div><div class="ttdeci">int ap_audio_free_all()</div><div class="ttdoc">Close OpenAL device, destroy context.</div><div class="ttdef"><b>Definition:</b> ap_audio.c:676</div></div>
+<div class="ttc" id="aap__camera_8h_html_a0b57b6057d5fa8e313b882133041f738"><div class="ttname"><a href="ap__camera_8h.html#a0b57b6057d5fa8e313b882133041f738">ap_camera_free_all</a></div><div class="ttdeci">int ap_camera_free_all()</div><div class="ttdoc">Release all generated cameras.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:115</div></div>
 <div class="ttc" id="aap__cvector_8h_html_a7434f4b0de2d604e135a6a37e2283a7c"><div class="ttname"><a href="ap__cvector_8h.html#a7434f4b0de2d604e135a6a37e2283a7c">ap_vector_free</a></div><div class="ttdeci">int ap_vector_free(struct AP_Vector *vector)</div><div class="ttdoc">Release the memory allocated by vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:105</div></div>
+<div class="ttc" id="aap__light_8h_html_ae6d1f23ea38cf0ccf461d7338523103b"><div class="ttname"><a href="ap__light_8h.html#ae6d1f23ea38cf0ccf461d7338523103b">ap_light_free_all</a></div><div class="ttdeci">int ap_light_free_all()</div><div class="ttdoc">release all data for light rendering</div><div class="ttdef"><b>Definition:</b> ap_light.c:239</div></div>
 <div class="ttc" id="aap__memory_8h_html_aaeb64c6dafc71bd905ea354bd81ebbc6"><div class="ttname"><a href="ap__memory_8h.html#aaeb64c6dafc71bd905ea354bd81ebbc6">ap_memory_release</a></div><div class="ttdeci">int ap_memory_release()</div><div class="ttdoc">Release all of the pointers.</div><div class="ttdef"><b>Definition:</b> ap_memory.c:135</div></div>
-<div class="ttc" id="aap__texture_8h_html_aa1e10cea86f2392833b1375b2345cf52"><div class="ttname"><a href="ap__texture_8h.html#aa1e10cea86f2392833b1375b2345cf52">ap_texture_free_all</a></div><div class="ttdeci">int ap_texture_free_all()</div><div class="ttdoc">finalize vector memory</div><div class="ttdef"><b>Definition:</b> ap_texture.c:340</div></div>
+<div class="ttc" id="aap__model_8h_html_a3f8558356aa127ff547b04233cd924ec"><div class="ttname"><a href="ap__model_8h.html#a3f8558356aa127ff547b04233cd924ec">ap_model_free_all</a></div><div class="ttdeci">int ap_model_free_all()</div><div class="ttdoc">Release all generated model data.</div><div class="ttdef"><b>Definition:</b> ap_model.c:244</div></div>
+<div class="ttc" id="aap__texture_8h_html_aa1e10cea86f2392833b1375b2345cf52"><div class="ttname"><a href="ap__texture_8h.html#aa1e10cea86f2392833b1375b2345cf52">ap_texture_free_all</a></div><div class="ttdeci">int ap_texture_free_all()</div><div class="ttdoc">finalize vector memory</div><div class="ttdef"><b>Definition:</b> ap_texture.c:344</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -516,7 +543,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
       </table>
 </div><div class="memdoc">
 
-<p>Flush FPS, ortho matrix, etc... </p>
+<p>should be called in render main loop, used for calculate FPS, engine startup time, view matrix, collition detection and other calculations </p>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Error_Types </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  609</span>{</div>
 <div class="line"><span class="lineno">  610</span>        ++renderer.frame_count;</div>
@@ -547,7 +574,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  635</span>                renderer.view_matrix[0]</div>
 <div class="line"><span class="lineno">  636</span>        );</div>
 <div class="line"><span class="lineno">  637</span>        vec3 view_pos = {0.0f};</div>
-<div class="line"><span class="lineno">  638</span>        ap_camera_get_position(view_pos);</div>
+<div class="line"><span class="lineno">  638</span>        <a class="code hl_function" href="ap__camera_8h.html#ae760b3269ecdafe43ab0daabaa6724da">ap_camera_get_position</a>(view_pos);</div>
 <div class="line"><span class="lineno">  639</span>        ap_shader_set_vec3(</div>
 <div class="line"><span class="lineno">  640</span>                AP_SP_VIEW_POS,</div>
 <div class="line"><span class="lineno">  641</span>                view_pos</div>
@@ -557,7 +584,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  645</span>                view_pos</div>
 <div class="line"><span class="lineno">  646</span>        );</div>
 <div class="line"><span class="lineno">  647</span>        vec3 cam_direction = { 0.0f, 0.0f, 0.0f };</div>
-<div class="line"><span class="lineno">  648</span>        ap_camera_get_front(cam_direction);</div>
+<div class="line"><span class="lineno">  648</span>        <a class="code hl_function" href="ap__camera_8h.html#a4df1140029c4df1b36489719183524a9">ap_camera_get_front</a>(cam_direction);</div>
 <div class="line"><span class="lineno">  649</span>        ap_shader_set_vec3(</div>
 <div class="line"><span class="lineno">  650</span>                AP_SP_SL_DIRECTION,</div>
 <div class="line"><span class="lineno">  651</span>                cam_direction</div>
@@ -584,7 +611,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  672</span>        );</div>
 <div class="line"><span class="lineno">  673</span> </div>
 <div class="line"><span class="lineno">  674</span>        <span class="keywordtype">int</span> zoom = 0;</div>
-<div class="line"><span class="lineno">  675</span>        ap_camera_get_zoom(&amp;zoom);</div>
+<div class="line"><span class="lineno">  675</span>        <a class="code hl_function" href="ap__camera_8h.html#a83f951d970cc5bac55f9d3cabe20f813">ap_camera_get_zoom</a>(&amp;zoom);</div>
 <div class="line"><span class="lineno">  676</span>        ap_shader_use(renderer.persp_shader);</div>
 <div class="line"><span class="lineno">  677</span>        glm_mat4_identity(renderer.persp_matrix);</div>
 <div class="line"><span class="lineno">  678</span>        glm_perspective(</div>
@@ -602,6 +629,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  690</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  691</span>}</div>
 <div class="ttc" id="aap__camera_8h_html_a3243f06a5d8c8ac0f95c973ff7adf562"><div class="ttname"><a href="ap__camera_8h.html#a3243f06a5d8c8ac0f95c973ff7adf562">ap_camera_get_view_matrix</a></div><div class="ttdeci">int ap_camera_get_view_matrix(mat4 *temp)</div><div class="ttdoc">Get view matrix of current using camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:141</div></div>
+<div class="ttc" id="aap__camera_8h_html_a4df1140029c4df1b36489719183524a9"><div class="ttname"><a href="ap__camera_8h.html#a4df1140029c4df1b36489719183524a9">ap_camera_get_front</a></div><div class="ttdeci">int ap_camera_get_front(float *vec)</div><div class="ttdoc">Get the front vector of the camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:193</div></div>
+<div class="ttc" id="aap__camera_8h_html_a83f951d970cc5bac55f9d3cabe20f813"><div class="ttname"><a href="ap__camera_8h.html#a83f951d970cc5bac55f9d3cabe20f813">ap_camera_get_zoom</a></div><div class="ttdeci">int ap_camera_get_zoom(int *zoom)</div><div class="ttdoc">Get the zoom value of the camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:178</div></div>
+<div class="ttc" id="aap__camera_8h_html_ae760b3269ecdafe43ab0daabaa6724da"><div class="ttname"><a href="ap__camera_8h.html#ae760b3269ecdafe43ab0daabaa6724da">ap_camera_get_position</a></div><div class="ttdeci">int ap_camera_get_position(float *vec)</div><div class="ttdoc">Get position of the camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:162</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -619,6 +649,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialize renderer, and initialize all resources required by engine (such as audio, camera, cvector, light, model, physics, etc...) </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ap__render_8h.html#af55fa2a6fa80a69dc94d5f523a4da57d" title="Release all engine resources, (such as audio, camera, cvector, light, model, physics,...">ap_render_finish</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">   77</span>{</div>
 <div class="line"><span class="lineno">   78</span>        <span class="keywordflow">if</span> (ap_render_initialized) {</div>
 <div class="line"><span class="lineno">   79</span>                <span class="keywordflow">return</span> 0;</div>
@@ -627,12 +661,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">   82</span>        <span class="comment">// setup startup time</span></div>
 <div class="line"><span class="lineno">   83</span>        ap_get_time();</div>
 <div class="line"><span class="lineno">   84</span>        ap_physic_init();</div>
-<div class="line"><span class="lineno">   85</span>        ap_sqlite_init();</div>
+<div class="line"><span class="lineno">   85</span>        <a class="code hl_function" href="ap__sqlite_8h.html#a7550c01790c39c99dd6eac68072d5142">ap_sqlite_init</a>();</div>
 <div class="line"><span class="lineno">   86</span> </div>
 <div class="line"><span class="lineno">   87</span><span class="preprocessor">#if AP_PLATFORM_ANDROID</span></div>
 <div class="line"><span class="lineno">   88</span>        <span class="comment">// init for android</span></div>
 <div class="line"><span class="lineno">   89</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> (ap_get_context_ptr() == NULL) {</div>
+<div class="line"><span class="lineno">   90</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="ap__render_8h.html#a71964d935f1f6c752379fe32e8a0379f">ap_get_context_ptr</a>() == NULL) {</div>
 <div class="line"><span class="lineno">   91</span>                LOGE(<span class="stringliteral">&quot;aperture renderer init failed: &quot;</span></div>
 <div class="line"><span class="lineno">   92</span>                        <span class="stringliteral">&quot;ap_get_context_ptr returns NULL&quot;</span>);</div>
 <div class="line"><span class="lineno">   93</span>                <span class="keywordflow">return</span> AP_ERROR_INIT_FAILED;</div>
@@ -680,7 +714,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  135</span>        ap_render_initialized = <span class="keyword">true</span>;</div>
 <div class="line"><span class="lineno">  136</span>        <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line"><span class="lineno">  137</span>}</div>
+<div class="ttc" id="aap__render_8h_html_a71964d935f1f6c752379fe32e8a0379f"><div class="ttname"><a href="ap__render_8h.html#a71964d935f1f6c752379fe32e8a0379f">ap_get_context_ptr</a></div><div class="ttdeci">void * ap_get_context_ptr()</div><div class="ttdoc">Get GLFW window context pointer.</div><div class="ttdef"><b>Definition:</b> ap_render.c:922</div></div>
 <div class="ttc" id="aap__shader_8h_html_ad2e7293672585e9db3e70743d226cdb4"><div class="ttname"><a href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a></div><div class="ttdeci">int ap_shader_generate(const char *vshader_path, const char *fshader_path, unsigned int *shader_id)</div><div class="ttdoc">Generate a OpenGL program with shader.</div><div class="ttdef"><b>Definition:</b> ap_shader.c:48</div></div>
+<div class="ttc" id="aap__sqlite_8h_html_a7550c01790c39c99dd6eac68072d5142"><div class="ttname"><a href="ap__sqlite_8h.html#a7550c01790c39c99dd6eac68072d5142">ap_sqlite_init</a></div><div class="ttdeci">int ap_sqlite_init()</div><div class="ttdoc">Initialize SQLite3.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:33</div></div>
 <div class="ttc" id="astructAP__Renderer_html"><div class="ttname"><a href="structAP__Renderer.html">AP_Renderer</a></div><div class="ttdef"><b>Definition:</b> ap_render.c:25</div></div>
 </div><!-- fragment -->
 </div>
@@ -700,6 +736,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get current frame time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cft</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  798</span>{</div>
 <div class="line"><span class="lineno">  799</span>        <span class="keywordflow">if</span> (!cft) {</div>
 <div class="line"><span class="lineno">  800</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -725,6 +770,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get render delta time (last frame time - current frame time) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  789</span>{</div>
 <div class="line"><span class="lineno">  790</span>        <span class="keywordflow">if</span> (!dt) {</div>
 <div class="line"><span class="lineno">  791</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -760,6 +814,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get struct AP_Character* pointer by character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>[in] 8 bit non-unicode character </td></tr>
+    <tr><td class="paramname">ptr</td><td>[out] pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  583</span>{</div>
 <div class="line"><span class="lineno">  584</span>        <span class="keywordflow">if</span> (!ptr) {</div>
 <div class="line"><span class="lineno">  585</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -767,9 +831,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  587</span> </div>
 <div class="line"><span class="lineno">  588</span>        *ptr = NULL;</div>
 <div class="line"><span class="lineno">  589</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a> *index = NULL;</div>
-<div class="line"><span class="lineno">  590</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; charactor_vector.length; ++j) {</div>
-<div class="line"><span class="lineno">  591</span>                index = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a>*) charactor_vector.data;</div>
-<div class="line"><span class="lineno">  592</span>                if (index[j].c == c) {</div>
+<div class="line"><span class="lineno">  590</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; charactor_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++j) {</div>
+<div class="line"><span class="lineno">  591</span>                index = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a>*) charactor_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  592</span>                if (index[j].<a class="code hl_variable" href="structAP__Character.html#ad9919739ecc07c423a8eefc7d7b21075">c</a> == <a class="code hl_variable" href="structAP__Character.html#ad9919739ecc07c423a8eefc7d7b21075">c</a>) {</div>
 <div class="line"><span class="lineno">  593</span>                        *ptr = index + j;</div>
 <div class="line"><span class="lineno">  594</span>                        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  595</span>                }</div>
@@ -777,6 +841,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  597</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  598</span>}</div>
 <div class="ttc" id="astructAP__Character_html"><div class="ttname"><a href="structAP__Character.html">AP_Character</a></div><div class="ttdef"><b>Definition:</b> ap_render.h:16</div></div>
+<div class="ttc" id="astructAP__Character_html_ad9919739ecc07c423a8eefc7d7b21075"><div class="ttname"><a href="structAP__Character.html#ad9919739ecc07c423a8eefc7d7b21075">AP_Character::c</a></div><div class="ttdeci">char c</div><div class="ttdef"><b>Definition:</b> ap_render.h:26</div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -795,6 +862,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get render FPS. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>[out] fps </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  601</span>{</div>
 <div class="line"><span class="lineno">  602</span>        <span class="keywordflow">if</span> (p) {</div>
 <div class="line"><span class="lineno">  603</span>                *p = renderer.fps;</div>
@@ -819,6 +895,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>get orthographic projection matrix </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  750</span>{</div>
 <div class="line"><span class="lineno">  751</span>        <span class="keywordflow">if</span> (!mat) {</div>
 <div class="line"><span class="lineno">  752</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -844,6 +929,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get built-in orthographic Aperture shader ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  779</span>{</div>
 <div class="line"><span class="lineno">  780</span>        <span class="keywordflow">if</span> (*p) {</div>
 <div class="line"><span class="lineno">  781</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -870,6 +964,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>get perspective projection matrix </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  741</span>{</div>
 <div class="line"><span class="lineno">  742</span>        <span class="keywordflow">if</span> (!mat) {</div>
 <div class="line"><span class="lineno">  743</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -895,6 +998,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get built-in perspective Aperture shader ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  769</span>{</div>
 <div class="line"><span class="lineno">  770</span>        <span class="keywordflow">if</span> (*p) {</div>
 <div class="line"><span class="lineno">  771</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -921,6 +1033,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get view distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  880</span>{</div>
 <div class="line"><span class="lineno">  881</span>        <span class="keywordflow">if</span> (!p) {</div>
 <div class="line"><span class="lineno">  882</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -946,6 +1067,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get camera view matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  759</span>{</div>
 <div class="line"><span class="lineno">  760</span>        <span class="keywordflow">if</span> (!mat) {</div>
 <div class="line"><span class="lineno">  761</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -983,7 +1113,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
       </table>
 </div><div class="memdoc">
 
-<p>Init font renderer. </p>
+<p>Setup freetype2, load 1-255 ASCII characters from font file to memory. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>path to the font file </td></tr>
@@ -1066,7 +1196,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  211</span>        glBindVertexArray(0);</div>
 <div class="line"><span class="lineno">  212</span> </div>
 <div class="line"><span class="lineno">  213</span>        renderer.font_initialized = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  214</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;charactor_vector, AP_VECTOR_CHARACTOR);</div>
+<div class="line"><span class="lineno">  214</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;charactor_vector, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a>);</div>
 <div class="line"><span class="lineno">  215</span>        <span class="keywordflow">for</span> (<span class="keywordtype">char</span> c = 0; c &lt; 127; ++c) {</div>
 <div class="line"><span class="lineno">  216</span>                <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tid = 0;</div>
 <div class="line"><span class="lineno">  217</span>                <span class="keywordtype">int</span> width = 0, height = 0, left = 0, top = 0, advance = 0;</div>
@@ -1074,13 +1204,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  219</span>                        c, &amp;tid, &amp;width, &amp;height, &amp;left, &amp;top, &amp;advance</div>
 <div class="line"><span class="lineno">  220</span>                );</div>
 <div class="line"><span class="lineno">  221</span>                <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a> charactor;</div>
-<div class="line"><span class="lineno">  222</span>                charactor.texture_id = tid;</div>
-<div class="line"><span class="lineno">  223</span>                charactor.c = c;</div>
+<div class="line"><span class="lineno">  222</span>                charactor.<a class="code hl_variable" href="structAP__Character.html#afe5aaac46ddf1f7cba6ed6c44e400c1e">texture_id</a> = tid;</div>
+<div class="line"><span class="lineno">  223</span>                charactor.c = <a class="code hl_variable" href="structAP__Character.html#ad9919739ecc07c423a8eefc7d7b21075">c</a>;</div>
 <div class="line"><span class="lineno">  224</span>                charactor.size[0] = width;</div>
 <div class="line"><span class="lineno">  225</span>                charactor.size[1] = height;</div>
 <div class="line"><span class="lineno">  226</span>                charactor.bearing[0] = left;</div>
 <div class="line"><span class="lineno">  227</span>                charactor.bearing[1] = top;</div>
-<div class="line"><span class="lineno">  228</span>                charactor.advance = advance;</div>
+<div class="line"><span class="lineno">  228</span>                charactor.advance = <a class="code hl_variable" href="structAP__Character.html#ae62c8afd281d2a5f5250e0f6c6c7d007">advance</a>;</div>
 <div class="line"><span class="lineno">  229</span>                <a class="code hl_function" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a>(&amp;charactor_vector, (<span class="keywordtype">void</span>*) &amp;charactor);</div>
 <div class="line"><span class="lineno">  230</span>        }</div>
 <div class="line"><span class="lineno">  231</span> </div>
@@ -1095,10 +1225,31 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  240</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  241</span>}</div>
 <div class="ttc" id="aap__custom__io_8h_html_af05483ce5cc793ffff5dbc0743dd593e"><div class="ttname"><a href="ap__custom__io_8h.html#af05483ce5cc793ffff5dbc0743dd593e">ap_read_file_to_memory</a></div><div class="ttdeci">int ap_read_file_to_memory(const char *file, char **ptr, int *length)</div><div class="ttdoc">read file to memory should free the pointer after use</div><div class="ttdef"><b>Definition:</b> ap_custom_io.c:202</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4">AP_VECTOR_CHARACTER</a></div><div class="ttdeci">@ AP_VECTOR_CHARACTER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:40</div></div>
 <div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
 <div class="ttc" id="aap__cvector_8h_html_aa6a2943c2334f3769df1f312ba0a4524"><div class="ttname"><a href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a></div><div class="ttdeci">int ap_vector_push_back(struct AP_Vector *vector, const char *data)</div><div class="ttdoc">Append one data to the back of the vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:131</div></div>
 <div class="ttc" id="aap__render_8h_html_a32ba4ef957e4045cb9f4a60347ff8aa1"><div class="ttname"><a href="ap__render_8h.html#a32ba4ef957e4045cb9f4a60347ff8aa1">ap_render_char_2_texture</a></div><div class="ttdeci">int ap_render_char_2_texture(char c, unsigned int *tid, int *w, int *h, int *l, int *t, int *a)</div><div class="ttdoc">Charactor to texture.</div><div class="ttdef"><b>Definition:</b> ap_render.c:243</div></div>
+<div class="ttc" id="astructAP__Character_html_ae62c8afd281d2a5f5250e0f6c6c7d007"><div class="ttname"><a href="structAP__Character.html#ae62c8afd281d2a5f5250e0f6c6c7d007">AP_Character::advance</a></div><div class="ttdeci">unsigned int advance</div><div class="ttdef"><b>Definition:</b> ap_render.h:24</div></div>
+<div class="ttc" id="astructAP__Character_html_afe5aaac46ddf1f7cba6ed6c44e400c1e"><div class="ttname"><a href="structAP__Character.html#afe5aaac46ddf1f7cba6ed6c44e400c1e">AP_Character::texture_id</a></div><div class="ttdeci">unsigned int texture_id</div><div class="ttdef"><b>Definition:</b> ap_render.h:18</div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a3db662c0be153da355a5e096f240fd93" name="a3db662c0be153da355a5e096f240fd93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3db662c0be153da355a5e096f240fd93">&#9670;&nbsp;</a></span>ap_render_main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ap_render_main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd></dd></dl>
+
 </div>
 </div>
 <a id="aa090fc6375ec71efdef4c8938b1b87e6" name="aa090fc6375ec71efdef4c8938b1b87e6"></a>
@@ -1230,6 +1381,16 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Resize window buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td></td></tr>
+    <tr><td class="paramname">height</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  716</span>{</div>
 <div class="line"><span class="lineno">  717</span>        LOGD(<span class="stringliteral">&quot;Resize buffer to width: %d, height: %d&quot;</span>, width, height);</div>
 <div class="line"><span class="lineno">  718</span>        ap_set_buffer(width, height);</div>
@@ -1447,6 +1608,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ap__render_8h.html#ad49998f6af2dda8819b858d1ee195881" title="Set light enabled or not.">ap_render_set_spot_light_enabled</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  840</span>{</div>
 <div class="line"><span class="lineno">  841</span>        renderer.environment_light_enabled = b;</div>
 <div class="line"><span class="lineno">  842</span>        <span class="keywordflow">return</span> 0;</div>
@@ -1463,12 +1625,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         <tr>
           <td class="memname">int ap_render_set_main_func </td>
           <td>(</td>
-          <td class="paramtype">ap_callback_func_t&#160;</td>
+          <td class="paramtype"><a class="el" href="ap__utils_8h.html#acc7b0c425799269f3c7e5a243c842312">ap_callback_func_t</a>&#160;</td>
           <td class="paramname"><em>func</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd></dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  866</span>{</div>
 <div class="line"><span class="lineno">  867</span>        <span class="keywordflow">if</span> (!func) {</div>
 <div class="line"><span class="lineno">  868</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
@@ -1558,7 +1721,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  823</span> </div>
 <div class="line"><span class="lineno">  824</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  825</span>}</div>
-<div class="ttc" id="aap__shader_8h_html_a5fc5a19f52b4a98b2e8e75e7c82927db"><div class="ttname"><a href="ap__shader_8h.html#a5fc5a19f52b4a98b2e8e75e7c82927db">AP_SP_MODEL</a></div><div class="ttdeci">#define AP_SP_MODEL</div><div class="ttdef"><b>Definition:</b> ap_shader.h:23</div></div>
+<div class="ttc" id="aap__shader_8h_html_a5fc5a19f52b4a98b2e8e75e7c82927db"><div class="ttname"><a href="ap__shader_8h.html#a5fc5a19f52b4a98b2e8e75e7c82927db">AP_SP_MODEL</a></div><div class="ttdeci">#define AP_SP_MODEL</div><div class="ttdef"><b>Definition:</b> ap_shader.h:25</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1579,7 +1742,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 </div><div class="memdoc">
 
 <p>Use Logarithmic Depth Buffer. </p>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>z buffer optimized is enabled by default </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>z buffer optimized is enabled by default </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b</td><td>enabled </td></tr>
@@ -1609,6 +1772,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ap__render_8h.html#ad49998f6af2dda8819b858d1ee195881" title="Set light enabled or not.">ap_render_set_spot_light_enabled</a> </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  834</span>{</div>
 <div class="line"><span class="lineno">  835</span>        renderer.point_light_enabled = b;</div>
 <div class="line"><span class="lineno">  836</span>        <span class="keywordflow">return</span> 0;</div>
@@ -1764,9 +1928,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  323</span>        <span class="keywordtype">int</span> length = strlen(text);</div>
 <div class="line"><span class="lineno">  324</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length; ++i) {</div>
 <div class="line"><span class="lineno">  325</span>                <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a> *index = NULL, *p = NULL;</div>
-<div class="line"><span class="lineno">  326</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; charactor_vector.length; ++j) {</div>
-<div class="line"><span class="lineno">  327</span>                        index = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a>*) charactor_vector.data;</div>
-<div class="line"><span class="lineno">  328</span>                        if (index[j].c == text[i]) {</div>
+<div class="line"><span class="lineno">  326</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; charactor_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++j) {</div>
+<div class="line"><span class="lineno">  327</span>                        index = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__Character.html">AP_Character</a>*) charactor_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  328</span>                        if (index[j].<a class="code hl_variable" href="structAP__Character.html#ad9919739ecc07c423a8eefc7d7b21075">c</a> == text[i]) {</div>
 <div class="line"><span class="lineno">  329</span>                                p = index + j;</div>
 <div class="line"><span class="lineno">  330</span>                                <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  331</span>                        }</div>
@@ -1774,7 +1938,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  333</span>                <span class="keywordflow">if</span> (!p) {</div>
 <div class="line"><span class="lineno">  334</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">  335</span>                }</div>
-<div class="line"><span class="lineno">  336</span>                <span class="keywordtype">float</span> xpos = x + p-&gt;bearing[0] * scale;</div>
+<div class="line"><span class="lineno">  336</span>                <span class="keywordtype">float</span> xpos = x + p-&gt;<a class="code hl_variable" href="structAP__Character.html#ab9d026fd1801733599fda0176b3f99ea">bearing</a>[0] * scale;</div>
 <div class="line"><span class="lineno">  337</span>                <span class="keywordtype">float</span> ypos = y - (p-&gt;size[1] - p-&gt;bearing[1]) * scale;</div>
 <div class="line"><span class="lineno">  338</span> </div>
 <div class="line"><span class="lineno">  339</span>                <span class="keywordtype">float</span> w = p-&gt;size[0] * scale;</div>
@@ -1812,6 +1976,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ap_render_main</b> ()<
 <div class="line"><span class="lineno">  371</span> </div>
 <div class="line"><span class="lineno">  372</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  373</span>}</div>
+<div class="ttc" id="astructAP__Character_html_ab9d026fd1801733599fda0176b3f99ea"><div class="ttname"><a href="structAP__Character.html#ab9d026fd1801733599fda0176b3f99ea">AP_Character::bearing</a></div><div class="ttdeci">int bearing[2]</div><div class="ttdef"><b>Definition:</b> ap_render.h:22</div></div>
 </div><!-- fragment -->
 </div>
 </div>

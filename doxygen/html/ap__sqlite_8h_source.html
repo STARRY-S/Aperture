@@ -78,14 +78,17 @@ $(function() {
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordtype">void</span> *reserve, <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv, <span class="keywordtype">char</span> **column_name</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keywordtype">int</span> ap_sqlite_init();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keywordtype">int</span> ap_sqlite_execute(<span class="keyword">const</span> <span class="keywordtype">char</span> *sql, <a class="code hl_typedef" href="ap__sqlite_8h.html#a1c7a7a392b1597751ea1cb693997b575">ap_sqlite_callback_func_t</a> cb);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">int</span> ap_sqlite_free_all();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif </span><span class="comment">// AP_SQLITE_H</span></div>
-<div class="ttc" id="aap__sqlite_8h_html_a1c7a7a392b1597751ea1cb693997b575"><div class="ttname"><a href="ap__sqlite_8h.html#a1c7a7a392b1597751ea1cb693997b575">ap_sqlite_callback_func_t</a></div><div class="ttdeci">int(* ap_sqlite_callback_func_t)(void *reserve, int argc, char **argv, char **column_name)</div><div class="ttdef"><b>Definition:</b> ap_sqlite.h:14</div></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__sqlite_8h.html#a7550c01790c39c99dd6eac68072d5142">ap_sqlite_init</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *sql, <a class="code hl_typedef" href="ap__sqlite_8h.html#a1c7a7a392b1597751ea1cb693997b575">ap_sqlite_callback_func_t</a> cb);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">int</span> <a class="code hl_function" href="ap__sqlite_8h.html#a53e4c5eca280ea72a31957bf354219d0">ap_sqlite_free_all</a>();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif </span><span class="comment">// AP_SQLITE_H</span></div>
+<div class="ttc" id="aap__sqlite_8h_html_a1c7a7a392b1597751ea1cb693997b575"><div class="ttname"><a href="ap__sqlite_8h.html#a1c7a7a392b1597751ea1cb693997b575">ap_sqlite_callback_func_t</a></div><div class="ttdeci">int(* ap_sqlite_callback_func_t)(void *reserve, int argc, char **argv, char **column_name)</div><div class="ttdoc">Callback function type definition for sqlite3.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.h:14</div></div>
+<div class="ttc" id="aap__sqlite_8h_html_a230bc34d54f30f9336688a2b45bff812"><div class="ttname"><a href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a></div><div class="ttdeci">int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb)</div><div class="ttdoc">Execute SQL.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:51</div></div>
+<div class="ttc" id="aap__sqlite_8h_html_a53e4c5eca280ea72a31957bf354219d0"><div class="ttname"><a href="ap__sqlite_8h.html#a53e4c5eca280ea72a31957bf354219d0">ap_sqlite_free_all</a></div><div class="ttdeci">int ap_sqlite_free_all()</div><div class="ttdoc">Release SQLite resources.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:75</div></div>
+<div class="ttc" id="aap__sqlite_8h_html_a7550c01790c39c99dd6eac68072d5142"><div class="ttname"><a href="ap__sqlite_8h.html#a7550c01790c39c99dd6eac68072d5142">ap_sqlite_init</a></div><div class="ttdeci">int ap_sqlite_init()</div><div class="ttdoc">Initialize SQLite3.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

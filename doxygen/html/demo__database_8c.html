@@ -136,10 +136,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>db_has_data</b> = fal
 <div class="line"><span class="lineno">   96</span>                pos[0], pos[1], pos[2], euler[0], euler[1]</div>
 <div class="line"><span class="lineno">   97</span>        );</div>
 <div class="line"><span class="lineno">   98</span>        <span class="comment">// LOGD(&quot;buffer: %s&quot;, buffer);</span></div>
-<div class="line"><span class="lineno">   99</span>        ap_sqlite_execute(buffer, NULL);</div>
+<div class="line"><span class="lineno">   99</span>        <a class="code hl_function" href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a>(buffer, NULL);</div>
 <div class="line"><span class="lineno">  100</span>        AP_FREE(buffer);</div>
 <div class="line"><span class="lineno">  101</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  102</span>}</div>
+<div class="ttc" id="aap__sqlite_8h_html_a230bc34d54f30f9336688a2b45bff812"><div class="ttname"><a href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a></div><div class="ttdeci">int ap_sqlite_execute(const char *sql, ap_sqlite_callback_func_t cb)</div><div class="ttdoc">Execute SQL.</div><div class="ttdef"><b>Definition:</b> ap_sqlite.c:51</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -167,9 +168,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>db_has_data</b> = fal
 <div class="line"><span class="lineno">   68</span>                <span class="stringliteral">&quot; YAW TEXT, &quot;</span></div>
 <div class="line"><span class="lineno">   69</span>                <span class="stringliteral">&quot; PITCH TEXT &quot;</span></div>
 <div class="line"><span class="lineno">   70</span>                <span class="stringliteral">&quot; ); &quot;</span>;</div>
-<div class="line"><span class="lineno">   71</span>        ap_sqlite_execute(sql, NULL);</div>
+<div class="line"><span class="lineno">   71</span>        <a class="code hl_function" href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a>(sql, NULL);</div>
 <div class="line"><span class="lineno">   72</span> </div>
-<div class="line"><span class="lineno">   73</span>        ap_sqlite_execute(</div>
+<div class="line"><span class="lineno">   73</span>        <a class="code hl_function" href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a>(</div>
 <div class="line"><span class="lineno">   74</span>                <span class="stringliteral">&quot;select POS_X,POS_Y,POS_Z,YAW,PITCH &quot;</span></div>
 <div class="line"><span class="lineno">   75</span>                <span class="stringliteral">&quot; from ap_creatures where ID=1;&quot;</span>,</div>
 <div class="line"><span class="lineno">   76</span>                demo_init_creature_cb</div>
@@ -180,7 +181,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>db_has_data</b> = fal
 <div class="line"><span class="lineno">   81</span>                <span class="keywordtype">char</span> *sql = <span class="stringliteral">&quot;INSERT INTO ap_creatures &quot;</span></div>
 <div class="line"><span class="lineno">   82</span>                        <span class="stringliteral">&quot; ( POS_X,POS_Y,POS_Z,YAW,PITCH) VALUES &quot;</span></div>
 <div class="line"><span class="lineno">   83</span>                        <span class="stringliteral">&quot; (&#39;0.0&#39;,&#39;0.0&#39;,&#39;0.0&#39;,&#39;0.0&#39;,&#39;0.0&#39;);&quot;</span>;</div>
-<div class="line"><span class="lineno">   84</span>                ap_sqlite_execute(sql, NULL);</div>
+<div class="line"><span class="lineno">   84</span>                <a class="code hl_function" href="ap__sqlite_8h.html#a230bc34d54f30f9336688a2b45bff812">ap_sqlite_execute</a>(sql, NULL);</div>
 <div class="line"><span class="lineno">   85</span>        }</div>
 <div class="line"><span class="lineno">   86</span> </div>
 <div class="line"><span class="lineno">   87</span>        <span class="keywordflow">return</span> 0;</div>

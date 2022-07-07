@@ -114,7 +114,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   87</span>        );</div>
 <div class="line"><span class="lineno">   88</span> </div>
 <div class="line"><span class="lineno">   89</span>        <a class="code hl_function" href="ap__texture_8h.html#a74fc1a9e2ef10d6939611fa9a0139ba2">ap_texture_generate</a>(&amp;light_texture,</div>
-<div class="line"><span class="lineno">   90</span>                AP_TEXTURE_TYPE_DIFFUSE,</div>
+<div class="line"><span class="lineno">   90</span>                <a class="code hl_enumvalue" href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a>,</div>
 <div class="line"><span class="lineno">   91</span>                <span class="stringliteral">&quot;redstone_lamp_on.png&quot;</span>,</div>
 <div class="line"><span class="lineno">   92</span>                <span class="stringliteral">&quot;mc/tex/minecraft/block/&quot;</span>,</div>
 <div class="line"><span class="lineno">   93</span>                <span class="keyword">false</span></div>
@@ -152,6 +152,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  125</span>}</div>
 <div class="ttc" id="aap__shader_8h_html_ad2e7293672585e9db3e70743d226cdb4"><div class="ttname"><a href="ap__shader_8h.html#ad2e7293672585e9db3e70743d226cdb4">ap_shader_generate</a></div><div class="ttdeci">int ap_shader_generate(const char *vshader_path, const char *fshader_path, unsigned int *shader_id)</div><div class="ttdoc">Generate a OpenGL program with shader.</div><div class="ttdef"><b>Definition:</b> ap_shader.c:48</div></div>
 <div class="ttc" id="aap__texture_8h_html_a74fc1a9e2ef10d6939611fa9a0139ba2"><div class="ttname"><a href="ap__texture_8h.html#a74fc1a9e2ef10d6939611fa9a0139ba2">ap_texture_generate</a></div><div class="ttdeci">int ap_texture_generate(unsigned int *texture_id, int type, const char *path, const char *directory, bool gamma)</div><div class="ttdoc">Generate a texture from its file name and directory and store its OpenGL texture ID in vector.</div><div class="ttdef"><b>Definition:</b> ap_texture.c:18</div></div>
+<div class="ttc" id="aap__texture_8h_html_ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98"><div class="ttname"><a href="ap__texture_8h.html#ace48bd958a98c0ecd6987ab6e1a408d8a9771798fb74908a65e11de618e511c98">AP_TEXTURE_TYPE_DIFFUSE</a></div><div class="ttdeci">@ AP_TEXTURE_TYPE_DIFFUSE</div><div class="ttdef"><b>Definition:</b> ap_texture.h:21</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -173,12 +174,13 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  129</span>        demo_setup_directional_light();</div>
 <div class="line"><span class="lineno">  130</span>        demo_setup_point_lights();</div>
 <div class="line"><span class="lineno">  131</span>        demo_setup_spot_light();</div>
-<div class="line"><span class="lineno">  132</span>        ap_light_set_material_shininess(16.0f);</div>
+<div class="line"><span class="lineno">  132</span>        <a class="code hl_function" href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">ap_light_set_material_shininess</a>(16.0f);</div>
 <div class="line"><span class="lineno">  133</span>        <a class="code hl_function" href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a>();</div>
 <div class="line"><span class="lineno">  134</span> </div>
 <div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  136</span>}</div>
-<div class="ttc" id="aap__light_8h_html_ae0ec1a642d61584625dd9075a2d30ffe"><div class="ttname"><a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a></div><div class="ttdeci">int ap_light_render()</div><div class="ttdoc">Send all of the data to the GPU after we generated all of the light struct objects.</div><div class="ttdef"><b>Definition:</b> ap_light.c:109</div></div>
+<div class="ttc" id="aap__light_8h_html_a94ac897a09ee5d98702fde3cb2b0246b"><div class="ttname"><a href="ap__light_8h.html#a94ac897a09ee5d98702fde3cb2b0246b">ap_light_set_material_shininess</a></div><div class="ttdeci">int ap_light_set_material_shininess(float shininess)</div><div class="ttdoc">Set shininess of material.</div><div class="ttdef"><b>Definition:</b> ap_light.c:196</div></div>
+<div class="ttc" id="aap__light_8h_html_ae0ec1a642d61584625dd9075a2d30ffe"><div class="ttname"><a href="ap__light_8h.html#ae0ec1a642d61584625dd9075a2d30ffe">ap_light_render</a></div><div class="ttdeci">int ap_light_render()</div><div class="ttdoc">Render all lights.</div><div class="ttdef"><b>Definition:</b> ap_light.c:109</div></div>
 </div><!-- fragment -->
 </div>
 </div>

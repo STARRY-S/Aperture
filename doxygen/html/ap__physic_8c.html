@@ -218,14 +218,14 @@ struct <a class="el" href="structAP__PCreature.html">AP_PCreature</a> *&#160;</t
 <div class="line"><span class="lineno">  420</span>        <span class="keywordflow">if</span> (!ptr) {</div>
 <div class="line"><span class="lineno">  421</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  422</span>        }</div>
-<div class="line"><span class="lineno">  423</span>        <span class="keywordflow">if</span> (id &lt;= 0 || id &gt; barrier_vector.length) {</div>
+<div class="line"><span class="lineno">  423</span>        <span class="keywordflow">if</span> (id &lt;= 0 || id &gt; barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>) {</div>
 <div class="line"><span class="lineno">  424</span>                LOGE(<span class="stringliteral">&quot;ap_barrier_get_ptr: invalid id&quot;</span>);</div>
 <div class="line"><span class="lineno">  425</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  426</span>        }</div>
 <div class="line"><span class="lineno">  427</span> </div>
 <div class="line"><span class="lineno">  428</span>        *ptr = NULL;</div>
-<div class="line"><span class="lineno">  429</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a>*) barrier_vector.data;</div>
-<div class="line"><span class="lineno">  430</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; barrier_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  429</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a>*) barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  430</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  431</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> == <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">  432</span>                        *ptr = data + i;</div>
 <div class="line"><span class="lineno">  433</span>                        <span class="keywordflow">return</span> 0;</div>
@@ -233,7 +233,9 @@ struct <a class="el" href="structAP__PCreature.html">AP_PCreature</a> *&#160;</t
 <div class="line"><span class="lineno">  435</span>        }</div>
 <div class="line"><span class="lineno">  436</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  437</span>}</div>
-<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:77</div></div>
+<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:84</div></div>
+<div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:58</div></div>
+<div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:67</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -630,18 +632,18 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  281</span>                <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><span class="lineno">  282</span>        }</div>
 <div class="line"><span class="lineno">  283</span> </div>
-<div class="line"><span class="lineno">  284</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Camera.html">AP_Camera</a> *old_cam = ap_get_current_camera();</div>
+<div class="line"><span class="lineno">  284</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Camera.html">AP_Camera</a> *old_cam = <a class="code hl_function" href="ap__camera_8h.html#a8a99af4b0cedba13f7de6afd9f71d81e">ap_get_current_camera</a>();</div>
 <div class="line"><span class="lineno">  285</span> </div>
 <div class="line"><span class="lineno">  286</span>        <span class="keywordtype">float</span> dt = 0.0f;</div>
-<div class="line"><span class="lineno">  287</span>        ap_render_get_dt(&amp;dt);</div>
+<div class="line"><span class="lineno">  287</span>        <a class="code hl_function" href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a>(&amp;dt);</div>
 <div class="line"><span class="lineno">  288</span>        <span class="keywordtype">float</span> velocity = creature_using-&gt;move_speed * dt * speed_up;</div>
 <div class="line"><span class="lineno">  289</span>        vec3 temp = { 0.0f, 0.0f, 0.0f };</div>
 <div class="line"><span class="lineno">  290</span>        <span class="comment">// &quot;MineCraft like&quot; camera</span></div>
-<div class="line"><span class="lineno">  291</span>        vec3 front = { 0.0f, 0.0f, 0.0f };</div>
-<div class="line"><span class="lineno">  292</span>        ap_camera_get_front(front);</div>
-<div class="line"><span class="lineno">  293</span>        vec3 x0z = { front[0], 0.0f, front[2] };</div>
+<div class="line"><span class="lineno">  291</span>        vec3 <a class="code hl_variable" href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">front</a> = { 0.0f, 0.0f, 0.0f };</div>
+<div class="line"><span class="lineno">  292</span>        <a class="code hl_function" href="ap__camera_8h.html#a4df1140029c4df1b36489719183524a9">ap_camera_get_front</a>(<a class="code hl_variable" href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">front</a>);</div>
+<div class="line"><span class="lineno">  293</span>        vec3 x0z = { <a class="code hl_variable" href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">front</a>[0], 0.0f, <a class="code hl_variable" href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">front</a>[2] };</div>
 <div class="line"><span class="lineno">  294</span>        glm_vec3_normalize(x0z);</div>
-<div class="line"><span class="lineno">  295</span>        vec3 up = { 0.0f, 1.0f, 0.0f };</div>
+<div class="line"><span class="lineno">  295</span>        vec3 <a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a> = { 0.0f, 1.0f, 0.0f };</div>
 <div class="line"><span class="lineno">  296</span>        <span class="keywordflow">switch</span> (direction)</div>
 <div class="line"><span class="lineno">  297</span>        {</div>
 <div class="line"><span class="lineno">  298</span>        <span class="keywordflow">case</span> AP_DIRECTION_FORWARD:</div>
@@ -666,7 +668,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  317</span>        }</div>
 <div class="line"><span class="lineno">  318</span>        <span class="keywordflow">case</span> AP_DIRECTION_LEFT:</div>
 <div class="line"><span class="lineno">  319</span>        {</div>
-<div class="line"><span class="lineno">  320</span>                glm_vec3_cross(x0z, up, temp);</div>
+<div class="line"><span class="lineno">  320</span>                glm_vec3_cross(x0z, <a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, temp);</div>
 <div class="line"><span class="lineno">  321</span>                glm_vec3_normalize(temp);</div>
 <div class="line"><span class="lineno">  322</span>                glm_vec3_scale(temp, velocity, temp);</div>
 <div class="line"><span class="lineno">  323</span>                glm_vec3_sub(</div>
@@ -678,7 +680,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  329</span>        }</div>
 <div class="line"><span class="lineno">  330</span>        <span class="keywordflow">case</span> AP_DIRECTION_RIGHT:</div>
 <div class="line"><span class="lineno">  331</span>        {</div>
-<div class="line"><span class="lineno">  332</span>                glm_vec3_cross(x0z, up, temp);</div>
+<div class="line"><span class="lineno">  332</span>                glm_vec3_cross(x0z, <a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, temp);</div>
 <div class="line"><span class="lineno">  333</span>                glm_vec3_normalize(temp);</div>
 <div class="line"><span class="lineno">  334</span>                glm_vec3_scale(temp, velocity, temp);</div>
 <div class="line"><span class="lineno">  335</span>                glm_vec3_add(</div>
@@ -690,7 +692,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  341</span>        }</div>
 <div class="line"><span class="lineno">  342</span>        <span class="keywordflow">case</span> AP_DIRECTION_UP:</div>
 <div class="line"><span class="lineno">  343</span>        {</div>
-<div class="line"><span class="lineno">  344</span>                glm_vec3_scale(up, velocity, temp);</div>
+<div class="line"><span class="lineno">  344</span>                glm_vec3_scale(<a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, velocity, temp);</div>
 <div class="line"><span class="lineno">  345</span>                glm_vec3_add(</div>
 <div class="line"><span class="lineno">  346</span>                        creature_using-&gt;box.pos,</div>
 <div class="line"><span class="lineno">  347</span>                        temp,</div>
@@ -700,7 +702,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  351</span>        }</div>
 <div class="line"><span class="lineno">  352</span>        <span class="keywordflow">case</span> AP_DIRECTION_DOWN:</div>
 <div class="line"><span class="lineno">  353</span>        {</div>
-<div class="line"><span class="lineno">  354</span>                glm_vec3_scale(up, velocity, temp);</div>
+<div class="line"><span class="lineno">  354</span>                glm_vec3_scale(<a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, velocity, temp);</div>
 <div class="line"><span class="lineno">  355</span>                glm_vec3_sub(</div>
 <div class="line"><span class="lineno">  356</span>                        creature_using-&gt;box.pos,</div>
 <div class="line"><span class="lineno">  357</span>                        temp,</div>
@@ -712,10 +714,17 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  363</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  364</span>        }</div>
 <div class="line"><span class="lineno">  365</span> </div>
-<div class="line"><span class="lineno">  366</span>        ap_camera_use(old_cam ? old_cam-&gt;id : 0);</div>
+<div class="line"><span class="lineno">  366</span>        <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(old_cam ? old_cam-&gt;<a class="code hl_variable" href="structAP__Camera.html#abfb060167a628490311b30a827014848">id</a> : 0);</div>
 <div class="line"><span class="lineno">  367</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  368</span>}</div>
-<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdef"><b>Definition:</b> ap_camera.h:16</div></div>
+<div class="ttc" id="aap__camera_8h_html_a1bb35096101760afbb481a38156a80d1"><div class="ttname"><a href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a></div><div class="ttdeci">int ap_camera_use(unsigned int camera_id)</div><div class="ttdoc">Switch to specific camera by ID.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:34</div></div>
+<div class="ttc" id="aap__camera_8h_html_a4df1140029c4df1b36489719183524a9"><div class="ttname"><a href="ap__camera_8h.html#a4df1140029c4df1b36489719183524a9">ap_camera_get_front</a></div><div class="ttdeci">int ap_camera_get_front(float *vec)</div><div class="ttdoc">Get the front vector of the camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:193</div></div>
+<div class="ttc" id="aap__camera_8h_html_a8a99af4b0cedba13f7de6afd9f71d81e"><div class="ttname"><a href="ap__camera_8h.html#a8a99af4b0cedba13f7de6afd9f71d81e">ap_get_current_camera</a></div><div class="ttdeci">struct AP_Camera * ap_get_current_camera()</div><div class="ttdoc">Get the pointer of current using camera.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:460</div></div>
+<div class="ttc" id="aap__render_8h_html_a5d39695557d0a18d019cd423e120efa8"><div class="ttname"><a href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a></div><div class="ttdeci">int ap_render_get_dt(float *dt)</div><div class="ttdoc">Get render delta time (last frame time - current frame time)</div><div class="ttdef"><b>Definition:</b> ap_render.c:788</div></div>
+<div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdoc">Camera struct object.</div><div class="ttdef"><b>Definition:</b> ap_camera.h:19</div></div>
+<div class="ttc" id="astructAP__Camera_html_a8375ed296e73d841b957a21c1a7992d1"><div class="ttname"><a href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">AP_Camera::front</a></div><div class="ttdeci">float front[3]</div><div class="ttdef"><b>Definition:</b> ap_camera.h:26</div></div>
+<div class="ttc" id="astructAP__Camera_html_abfb060167a628490311b30a827014848"><div class="ttname"><a href="structAP__Camera.html#abfb060167a628490311b30a827014848">AP_Camera::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> ap_camera.h:21</div></div>
+<div class="ttc" id="astructAP__Camera_html_ad1df5f8e93f4be18aff1a080e513fb0a"><div class="ttname"><a href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">AP_Camera::up</a></div><div class="ttdeci">float up[3]</div><div class="ttdef"><b>Definition:</b> ap_camera.h:28</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -827,12 +836,12 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  270</span>        }</div>
 <div class="line"><span class="lineno">  271</span> </div>
 <div class="line"><span class="lineno">  272</span>        creature_using = ptr;</div>
-<div class="line"><span class="lineno">  273</span>        ap_camera_use(ptr-&gt;camera_id);</div>
+<div class="line"><span class="lineno">  273</span>        <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(ptr-&gt;camera_id);</div>
 <div class="line"><span class="lineno">  274</span> </div>
 <div class="line"><span class="lineno">  275</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  276</span>}</div>
 <div class="ttc" id="aap__physic_8c_html_aa51e459fa31d4f8b20efc76929d7d957"><div class="ttname"><a href="ap__physic_8c.html#aa51e459fa31d4f8b20efc76929d7d957">ap_physic_get_creature_ptr</a></div><div class="ttdeci">int ap_physic_get_creature_ptr(unsigned int id, struct AP_PCreature **ptr)</div><div class="ttdoc">Get the pointer points to struct AP_PCreature.</div><div class="ttdef"><b>Definition:</b> ap_physic.c:165</div></div>
-<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:89</div></div>
+<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> ap_physic.h:96</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -880,8 +889,8 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">   54</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">   55</span>        }</div>
 <div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *) barrier_vector.data;</div>
-<div class="line"><span class="lineno">   58</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; barrier_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">   57</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> *) barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">   58</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">   59</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> != <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">   60</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">   61</span>                }</div>
@@ -919,8 +928,8 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">   77</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">   78</span>        }</div>
 <div class="line"><span class="lineno">   79</span> </div>
-<div class="line"><span class="lineno">   80</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *)creature_vector.data;</div>
-<div class="line"><span class="lineno">   81</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">   80</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *)creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">   81</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">   82</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> != <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">   83</span>                        <span class="keywordflow">continue</span>;</div>
 <div class="line"><span class="lineno">   84</span>                }</div>
@@ -983,8 +992,8 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  397</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  398</span>        }</div>
 <div class="line"><span class="lineno">  399</span> </div>
-<div class="line"><span class="lineno">  400</span>        <span class="keywordflow">if</span> (barrier_vector.data == NULL) {</div>
-<div class="line"><span class="lineno">  401</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;barrier_vector, AP_VECTOR_PBARRIER);</div>
+<div class="line"><span class="lineno">  400</span>        <span class="keywordflow">if</span> (barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
+<div class="line"><span class="lineno">  401</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;barrier_vector, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a>);</div>
 <div class="line"><span class="lineno">  402</span>        }</div>
 <div class="line"><span class="lineno">  403</span> </div>
 <div class="line"><span class="lineno">  404</span>        *<span class="keywordtype">id</span> = 0;</div>
@@ -992,7 +1001,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  406</span>        memset(&amp;barrier, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a>));</div>
 <div class="line"><span class="lineno">  407</span> </div>
 <div class="line"><span class="lineno">  408</span>        barrier.type = type;</div>
-<div class="line"><span class="lineno">  409</span>        barrier.id = barrier_vector.length + 1;</div>
+<div class="line"><span class="lineno">  409</span>        barrier.id = barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
 <div class="line"><span class="lineno">  410</span>        <span class="keywordtype">int</span> ret = <a class="code hl_function" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a>(&amp;barrier_vector, (<span class="keywordtype">char</span>*) &amp;barrier);</div>
 <div class="line"><span class="lineno">  411</span>        <span class="keywordflow">if</span> (ret == 0) {</div>
 <div class="line"><span class="lineno">  412</span>                *<span class="keywordtype">id</span> = barrier.id;</div>
@@ -1000,6 +1009,7 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  414</span> </div>
 <div class="line"><span class="lineno">  415</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  416</span>}</div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a></div><div class="ttdeci">@ AP_VECTOR_PBARRIER</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:36</div></div>
 <div class="ttc" id="aap__cvector_8h_html_a9fdcab896b6ae921a06156bec5dee13e"><div class="ttname"><a href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a></div><div class="ttdeci">int ap_vector_init(struct AP_Vector *vector, int vector_type)</div><div class="ttdoc">vector initialize</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:79</div></div>
 <div class="ttc" id="aap__cvector_8h_html_aa6a2943c2334f3769df1f312ba0a4524"><div class="ttname"><a href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a></div><div class="ttdeci">int ap_vector_push_back(struct AP_Vector *vector, const char *data)</div><div class="ttdoc">Append one data to the back of the vector.</div><div class="ttdef"><b>Definition:</b> ap_cvector.c:131</div></div>
 </div><!-- fragment -->
@@ -1044,20 +1054,20 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  111</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  112</span>        }</div>
 <div class="line"><span class="lineno">  113</span> </div>
-<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">if</span> (creature_vector.data == NULL) {</div>
-<div class="line"><span class="lineno">  115</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;creature_vector, AP_VECTOR_PCREATURE);</div>
+<div class="line"><span class="lineno">  114</span>        <span class="keywordflow">if</span> (creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> == NULL) {</div>
+<div class="line"><span class="lineno">  115</span>                <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;creature_vector, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a>);</div>
 <div class="line"><span class="lineno">  116</span>        }</div>
 <div class="line"><span class="lineno">  117</span> </div>
 <div class="line"><span class="lineno">  118</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> creature;</div>
 <div class="line"><span class="lineno">  119</span>        memset(&amp;creature, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>));</div>
 <div class="line"><span class="lineno">  120</span>        <span class="keywordtype">int</span> ret = 0;</div>
-<div class="line"><span class="lineno">  121</span>        creature.id = creature_vector.length + 1;</div>
+<div class="line"><span class="lineno">  121</span>        creature.id = creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
 <div class="line"><span class="lineno">  122</span>        creature.move_speed = 5.0f;     <span class="comment">// speed of camera movement</span></div>
 <div class="line"><span class="lineno">  123</span>        creature.jump_speed = 5.5f;</div>
-<div class="line"><span class="lineno">  124</span>        creature.move.acceleration[1] = -AP_G;  <span class="comment">// gravaty</span></div>
+<div class="line"><span class="lineno">  124</span>        creature.move.acceleration[1] = -<a class="code hl_define" href="ap__physic_8h.html#a17db32f09130271db79891f22fe44450">AP_G</a>;  <span class="comment">// gravaty</span></div>
 <div class="line"><span class="lineno">  125</span>        memcpy(creature.box.size, size, VEC3_SIZE);</div>
 <div class="line"><span class="lineno">  126</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cam_id = 0;</div>
-<div class="line"><span class="lineno">  127</span>        ret = ap_camera_generate(&amp;cam_id);</div>
+<div class="line"><span class="lineno">  127</span>        ret = <a class="code hl_function" href="ap__camera_8h.html#a2d7c42d271a15f048b2217bf86ba2845">ap_camera_generate</a>(&amp;cam_id);</div>
 <div class="line"><span class="lineno">  128</span>        <span class="keywordflow">if</span> (ret != 0) {</div>
 <div class="line"><span class="lineno">  129</span>                <span class="keywordflow">return</span> ret;</div>
 <div class="line"><span class="lineno">  130</span>        }</div>
@@ -1067,6 +1077,9 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  134</span> </div>
 <div class="line"><span class="lineno">  135</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><span class="lineno">  136</span>}</div>
+<div class="ttc" id="aap__camera_8h_html_a2d7c42d271a15f048b2217bf86ba2845"><div class="ttname"><a href="ap__camera_8h.html#a2d7c42d271a15f048b2217bf86ba2845">ap_camera_generate</a></div><div class="ttdeci">int ap_camera_generate(unsigned int *camera_id)</div><div class="ttdoc">Generate a camera and get its camera id.</div><div class="ttdef"><b>Definition:</b> ap_camera.c:18</div></div>
+<div class="ttc" id="aap__cvector_8h_html_a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35"><div class="ttname"><a href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a></div><div class="ttdeci">@ AP_VECTOR_PCREATURE</div><div class="ttdef"><b>Definition:</b> ap_cvector.h:34</div></div>
+<div class="ttc" id="aap__physic_8h_html_a17db32f09130271db79891f22fe44450"><div class="ttname"><a href="ap__physic_8h.html#a17db32f09130271db79891f22fe44450">AP_G</a></div><div class="ttdeci">#define AP_G</div><div class="ttdoc">Gravity definition: 15.0f.</div><div class="ttdef"><b>Definition:</b> ap_physic.h:25</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1110,13 +1123,13 @@ false two box not crossed </dd></dl>
 <div class="line"><span class="lineno">  169</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><span class="lineno">  170</span>        }</div>
 <div class="line"><span class="lineno">  171</span> </div>
-<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">if</span> (!creature_vector.data) {</div>
+<div class="line"><span class="lineno">  172</span>        <span class="keywordflow">if</span> (!creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>) {</div>
 <div class="line"><span class="lineno">  173</span>                <span class="keywordflow">return</span> AP_ERROR_INIT_FAILED;</div>
 <div class="line"><span class="lineno">  174</span>        }</div>
 <div class="line"><span class="lineno">  175</span> </div>
 <div class="line"><span class="lineno">  176</span>        *ptr = NULL;</div>
-<div class="line"><span class="lineno">  177</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>*) creature_vector.data;</div>
-<div class="line"><span class="lineno">  178</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  177</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *data = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>*) creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
+<div class="line"><span class="lineno">  178</span>        for (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  179</span>                <span class="keywordflow">if</span> (data[i].<span class="keywordtype">id</span> == <span class="keywordtype">id</span>) {</div>
 <div class="line"><span class="lineno">  180</span>                        *ptr = data + i;</div>
 <div class="line"><span class="lineno">  181</span>                        <span class="keywordflow">return</span> 0;</div>
@@ -1145,11 +1158,11 @@ false two box not crossed </dd></dl>
       </table>
 </div><div class="memdoc">
 <div class="fragment"><div class="line"><span class="lineno">   41</span>{</div>
-<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span> (creature_vector.data &amp;&amp; barrier_vector.data) {</div>
+<div class="line"><span class="lineno">   42</span>        <span class="keywordflow">if</span> (creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a> &amp;&amp; barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>) {</div>
 <div class="line"><span class="lineno">   43</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   44</span>        }</div>
-<div class="line"><span class="lineno">   45</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;creature_vector, AP_VECTOR_PCREATURE);</div>
-<div class="line"><span class="lineno">   46</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;barrier_vector,  AP_VECTOR_PBARRIER);</div>
+<div class="line"><span class="lineno">   45</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;creature_vector, <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aa692c5d0609c7b043e06bf2b25ca91e35">AP_VECTOR_PCREATURE</a>);</div>
+<div class="line"><span class="lineno">   46</span>        <a class="code hl_function" href="ap__cvector_8h.html#a9fdcab896b6ae921a06156bec5dee13e">ap_vector_init</a>(&amp;barrier_vector,  <a class="code hl_enumvalue" href="ap__cvector_8h.html#a607c1612cce7e303e67bcc2fb1364b2aae339f2cb6ab09b05f42fa1bc7fc5c8af">AP_VECTOR_PBARRIER</a>);</div>
 <div class="line"><span class="lineno">   47</span> </div>
 <div class="line"><span class="lineno">   48</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   49</span>}</div>
@@ -1174,9 +1187,9 @@ false two box not crossed </dd></dl>
 <p>Update all generated creature status. </p>
 <dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 <div class="fragment"><div class="line"><span class="lineno">  202</span>{</div>
-<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.length; ++i) {</div>
+<div class="line"><span class="lineno">  203</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a>; ++i) {</div>
 <div class="line"><span class="lineno">  204</span>                <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> *data</div>
-<div class="line"><span class="lineno">  205</span>                        = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>*) creature_vector.data;</div>
+<div class="line"><span class="lineno">  205</span>                        = (<span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>*) creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">data</a>;</div>
 <div class="line"><span class="lineno">  206</span>                ap_physic_update_creature_ptr(data + i);</div>
 <div class="line"><span class="lineno">  207</span>        }</div>
 <div class="line"><span class="lineno">  208</span> </div>
