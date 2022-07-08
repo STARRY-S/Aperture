@@ -13,6 +13,9 @@
 #define AP_FONT_SIZE 32
 #endif
 
+/**
+ * @brief Character struct object definition
+ */
 struct AP_Character {
         /** id handle of the glyph texture */
         unsigned int texture_id;

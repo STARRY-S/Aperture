@@ -1,5 +1,5 @@
 /**
- * @file ap_therad.h
+ * @file ap_thread.c
  * @author Starry Wang (hxstarrys@gmail.com)
  * @brief WIP
  */

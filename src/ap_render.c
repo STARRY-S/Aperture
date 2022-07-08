@@ -1,5 +1,5 @@
 /**
- * @file ap_render.h
+ * @file ap_render.c
  * @author Starry Wang (hxstarrys@gmail.com)
  * @brief Renderer and Character functions
  */
@@ -22,56 +22,91 @@
 #include "ap_math.h"
 #include "ap_sqlite.h"
 
+/** Renderer struct object */
 struct AP_Renderer {
-        float fps;      // frame per second
-        float dt;       // delta time (cft - lft)
-        float lft;      // last frame time
-        float cft;      // current frame time
+        /** frame per second */
+        float fps;
+        /** delta time (cft - lft) */
+        float dt;
+        /** last frame time */
+        float lft;
+        /** current frame time */
+        float cft;
+        /** total frame count */
         unsigned long long frame_count;
 
-        // VAO and VBO for orthographic
+        /** VAO for orthographic projection */
         unsigned int ortho_VAO;
+        /** VBO for orthographic projection */
         unsigned int ortho_VBO;
+        /** freetype library */
         FT_Library ft_library;
+        /** freetype face */
         FT_Face    ft_face;
+        /** label to mark font is initialized */
         bool font_initialized;
 
-        unsigned int ortho_shader; // Orthographic
-        unsigned int persp_shader; // Perspective
+        /** orthographic shader program id */
+        unsigned int ortho_shader;
+        /** perspective shader program id */
+        unsigned int persp_shader;
 
+        /** orthographic projection matrix */
         mat4 ortho_matrix;
+        /** perspective projection matrix */
         mat4 persp_matrix;
+        /** camera view matrix */
         mat4 view_matrix;
+        /** label for mark spot light enabled */
         bool spot_light_enabled;
+        /** label for mark point light enabled */
         bool point_light_enabled;
+        /** label for mark enviromental light enabled */
         bool environment_light_enabled;
-        int material_num;          // materials[material_num]
+        /**
+         * rendering texture unit number (纹理单元)
+         * @see AP_TEXTURE_UNIT_MAX_NUM
+         */
+        int material_num;
+        /** perspective projection view distance */
         int view_distance;
 
-        // for cross aiming point
-        unsigned int cross_aim_texture_id; // texture id of aim
-        int cross_aim_width;            // the image width of cross aim
-        vec4 cross_aim_color;           // color of the cross aim point
+        /** crossing aiming point texture id */
+        unsigned int cross_aim_texture_id;
+        /** the image width of crossing aiming point */
+        int cross_aim_width;
+        /** the color value of crossing aiming point */
+        vec4 cross_aim_color;
 
-        // for dot aiming point
-        unsigned int dot_aim_texture_id; // texture id of dot_aim
+        /** dot (square) aiming point texture id */
+        unsigned int dot_aim_texture_id;
+        /** the image size of dot aiming point */
         int dot_aim_size;
-        vec4 dot_aim_color;             // color of the dot aim
+        /** the color value of dot aiming point */
+        vec4 dot_aim_color;
 
-        vec4 buffer_clear_color;        // glClearColor
+        /** @deprecated unused yet */
+        vec4 buffer_clear_color;
+        /** @deprecated unused yet */
         ap_callback_func_t main_func;
 
         // TODO: send zconflic_optimize data to GPU
-        bool zconflict_optimize;        // optimize zconflict
+        /** @deprecated unused yet */
+        bool zconflict_optimize;
 };
 
-// Aperture engine only have one renderer as the main renderer
+/** @brief this engine only have one renderer */
 static struct AP_Renderer renderer;
 static struct AP_Vector charactor_vector = { 0, 0, 0, 0 };
+/** label for marketing renderer is initialized or not */
 static bool ap_render_initialized = false;
+/** GLFW window context pointer */
 static void *window_context = NULL;
-static int renderer_buffer_width;
-static int renderer_buffer_height;
+
+/** window width */
+static int renderer_buffer_width = 0;
+/** window height */
+static int renderer_buffer_height = 0;
 
 int ap_render_general_initialize()
 {

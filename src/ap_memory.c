@@ -16,6 +16,7 @@
 #define AP_MEM_VEC_CAP 32
 #endif
 
+/** the vector used for store pointers */
 struct AP_Pointer_Vector {
         int length;
         int capacity;

@@ -1,6 +1,6 @@
 /**
  * @file ap_mesh.c
- * @author STARRY-S (hxstarrys@gmail.com)
+ * @author Starry Wang (hxstarrys@gmail.com)
  * @brief
  */
 

@@ -1,3 +1,9 @@
+/**
+ * @file func_test.c
+ * @author Starry Wang (hxstarrys@gmail.com)
+ * @brief
+ */
+
 #include <stdlib.h>
 #include <unistd.h>
 

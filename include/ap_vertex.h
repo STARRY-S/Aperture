@@ -10,6 +10,7 @@
 
 #include "cglm/cglm.h"
 
+/** Vertex struct object */
 struct AP_Vertex {
         vec3 position;
         vec3 normal;

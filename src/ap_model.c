@@ -1,5 +1,5 @@
 /**
- * @file ap_model.h
+ * @file ap_model.c
  * @author Starry Wang (hxstarrys@gmail.com)
  * @brief model functions
  */

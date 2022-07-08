@@ -25,6 +25,9 @@
 #define AP_G 15.0f
 #endif
 
+/**
+ * @brief creature moving direction
+ */
 typedef enum {
         AP_DIRECTION_UNKNOWN = 0,
         AP_DIRECTION_FORWARD,
@@ -37,7 +40,8 @@ typedef enum {
 } AP_Physic_directions;
 
 /**
- * @brief Creature modes
+ * Creature modes
+ * @todo still wip
  */
 typedef enum {
         AP_CREATURE_MODE_UNKNOW = 0,
@@ -47,9 +51,14 @@ typedef enum {
         AP_CREATURE_MODE_LENGTH
 } AP_Creature_modes;
 
+/**
+ * barrier types
+ */
 typedef enum {
         AP_BARRIER_TYPE_UNKNOWN,
+        /** barrier type box */
         AP_BARRIER_TYPE_BOX,
+        /** barrier type ball*/
         AP_BARRIER_TYPE_BALL,
         AP_BARRIER_TYPE_LENGTH
 } AP_Barrier_types;
@@ -62,27 +71,45 @@ typedef enum {
  * The movement status of one item
  */
 struct AP_PMovement {
-        float acceleration[3];     // current acceleration
-        float speed[3];            // current speed
-};
-
-struct AP_PBox {
-        // The position is the center of the box
-        // (x / 2, y / 2, z / 2)
-        float pos[3];          // position
-        float size[3];         // length, widtcamera_pos
-};
-
-struct AP_PBall {
-        float pos[3];   // pos is the center of the ball
-        float r;        // radius
+        /** current acceleration */
+        float acceleration[3];
+        /** current speed */
+        float speed[3];
 };
 
 /**
- * The barriar, invisible, used for collision detection
+ * Box struct object definition,
+ * used for collition detection
+ */
+struct AP_PBox {
+        /**
+         * The position is the center of the box
+         * (x / 2, y / 2, z / 2)
+         */
+        float pos[3];
+        /** box size */
+        float size[3];
+};
+
+/**
+ * Ball struct object definition,
+ * used for collition detection
+ */
+struct AP_PBall {
+        /** pos is the center of the ball */
+        float pos[3];
+        /** radius */
+        float r;
+};
+
+/**
+ * Barrier struct object definition,
+ * barrier is invisible, only used for collision detection
  */
 struct AP_PBarrier {
+        /** barrier id */
         int id;
+        /** barrier type */
         int type;
         struct AP_PBox box;
         struct AP_PBall ball;
@@ -94,17 +121,30 @@ struct AP_PBarrier {
  * and use AP_PBox for collistion detection calculation
  */
 struct AP_PCreature {
-        unsigned int id;        // creature id
-        unsigned int camera_id; // camera id
-        struct AP_PBox box;     // collistion box
-        struct AP_PMovement move; // used for calculate jumping, etc...
+        /** creature id */
+        unsigned int id;
+        /** camera id */
+        unsigned int camera_id;
+        /** collistion box */
+        struct AP_PBox box;
+        /** used for calculate moving speed... */
+        struct AP_PMovement move;
+        /** creature is standing or not */
         bool floating;
-        // xyz = ( box.length / 2, eyes_height, box.width / 2)
-        float camera_offset[3]; // set the position of the eyes (camera)
+        /**
+         * camera offset:
+         * xyz = ( box.length / 2, eyes_height, box.width / 2)
+         *
+         * used for set the position of the eyes (camera)
+         */
+        float camera_offset[3];
         // float eyes_height;      // used to set camera height
-        float move_speed;       // for walk/fly (process camera movement)
-        float jump_speed;       // for jumping
-        int mode;               // AP_Creature_modes
+        /** speed value for walk/fly (process camera movement) */
+        float move_speed;
+        /** speed value for jumping */
+        float jump_speed;
+        /** @see AP_Creature_modes */
+        int mode;
 };
 
 int ap_physic_init();
