@@ -195,7 +195,7 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da" name="a607c1612cce7e303e67bcc2fb1364b2aab040cfcc3cddc05758e88c6c6769f4da"></a>AP_VECTOR_CHAR&#160;</td><td class="fielddoc"><p >char </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4" name="a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"></a>AP_VECTOR_CHARACTER&#160;</td><td class="fielddoc"><dl class="section see"><dt>See also</dt><dd><a class="el" href="structAP__Character.html">AP_Character</a> </dd></dl>
+<tr><td class="fieldname"><a id="a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4" name="a607c1612cce7e303e67bcc2fb1364b2aa4db2f672c05a013d47f08c10340498a4"></a>AP_VECTOR_CHARACTER&#160;</td><td class="fielddoc"><dl class="section see"><dt>See also</dt><dd><a class="el" href="structAP__Character.html" title="Character struct object definition.">AP_Character</a> </dd></dl>
 </td></tr>
 <tr><td class="fieldname"><a id="a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524" name="a607c1612cce7e303e67bcc2fb1364b2aa780beab4da0290d228193d0d6bde4524"></a>AP_VECTOR_LIGHT&#160;</td><td class="fielddoc"><dl class="section see"><dt>See also</dt><dd><a class="el" href="structAP__Light.html" title="Light struct object.">AP_Light</a> </dd></dl>
 </td></tr>
@@ -293,7 +293,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="astructAP__Vector_html_ae1f5e4ada4f608416b53b23bca1abaa1"><div class="ttname"><a href="structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1">AP_Vector::type</a></div><div class="ttdeci">int type</div><div class="ttdoc">vector type</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00065">ap_cvector.h:65</a></div></div>
 <div class="ttc" id="astructAP__Vector_html_ae1fa01a14d5d238105d1ae4173a80675"><div class="ttname"><a href="structAP__Vector.html#ae1fa01a14d5d238105d1ae4173a80675">AP_Vector::capacity</a></div><div class="ttdeci">int capacity</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00060">ap_cvector.h:60</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="ap__light_8c_source.html#l00239">ap_light_free_all()</a>, and <a class="el" href="ap__render_8c_source.html#l00693">ap_render_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ap__light_8c_source.html#l00239">ap_light_free_all()</a>, <a class="el" href="ap__model_8c_source.html#l00400">ap_model_process_mesh()</a>, and <a class="el" href="ap__render_8c_source.html#l00728">ap_render_finish()</a>.</p>
 
 </div>
 </div>
@@ -358,8 +358,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  101</span> </div>
 <div class="line"><span class="lineno">  102</span>        <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><span class="lineno">  103</span>}</div>
-<div class="ttc" id="aap__memory_8h_html_a09f9b8a19a76edcc6f0cd34561969e20"><div class="ttname"><a href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a></div><div class="ttdeci">void * AP_MALLOCT(int size, const char *func_name)</div><div class="ttdoc">AP_MALLOC with trace log.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00098">ap_memory.c:98</a></div></div>
+<div class="ttc" id="aap__memory_8h_html_a09f9b8a19a76edcc6f0cd34561969e20"><div class="ttname"><a href="ap__memory_8h.html#a09f9b8a19a76edcc6f0cd34561969e20">AP_MALLOCT</a></div><div class="ttdeci">void * AP_MALLOCT(int size, const char *func_name)</div><div class="ttdoc">AP_MALLOC with trace log.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00099">ap_memory.c:99</a></div></div>
 </div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ap__model_8c_source.html#l00565">ap_model_load_material_textures()</a>, and <a class="el" href="ap__model_8c_source.html#l00400">ap_model_process_mesh()</a>.</p>
+
 </div>
 </div>
 <a id="a2aaf097c28b47f6791ad2c19836be9b4" name="a2aaf097c28b47f6791ad2c19836be9b4"></a>
@@ -434,6 +436,8 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  187</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">  188</span>}</div>
 </div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ap__model_8c_source.html#l00400">ap_model_process_mesh()</a>.</p>
+
 </div>
 </div>
 <a id="aa6a2943c2334f3769df1f312ba0a4524" name="aa6a2943c2334f3769df1f312ba0a4524"></a>
@@ -503,6 +507,8 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  159</span>}</div>
 <div class="ttc" id="aap__cvector_8c_html_af79f7697fd3db122386bd582a98f9346"><div class="ttname"><a href="ap__cvector_8c.html#af79f7697fd3db122386bd582a98f9346">ap_is_valid_vector</a></div><div class="ttdeci">bool ap_is_valid_vector(struct AP_Vector *vector)</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8c_source.html#l00118">ap_cvector.c:118</a></div></div>
 </div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="ap__model_8c_source.html#l00565">ap_model_load_material_textures()</a>, and <a class="el" href="ap__model_8c_source.html#l00400">ap_model_process_mesh()</a>.</p>
+
 </div>
 </div>
 <a id="ae311719f25b43e6b307070f3559e5b0a" name="ae311719f25b43e6b307070f3559e5b0a"></a>

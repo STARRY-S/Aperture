@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['texture_0',['texture',['../structAP__Model.html#aab66c4e15853a73b383a0127f22c9a31',1,'AP_Model']]],
-  ['texture_5fid_1',['texture_id',['../structAP__Character.html#afe5aaac46ddf1f7cba6ed6c44e400c1e',1,'AP_Character']]],
-  ['texture_5flength_2',['texture_length',['../structAP__Model.html#a705ea173d0435c8298231f6bc694f7d0',1,'AP_Model']]],
-  ['type_3',['type',['../structAP__Vector.html#ae1f5e4ada4f608416b53b23bca1abaa1',1,'AP_Vector::type()'],['../structAP__Light.html#a68a19783134d3b01c0187c1e400980c8',1,'AP_Light::type()'],['../structAP__Texture.html#a4e72c6d168814a17e9da203ccbff7b57',1,'AP_Texture::type()']]]
+  ['r_0',['r',['../structAP__PBall.html#a71bc6c51cc064d91998fc4574b36c1e6',1,'AP_PBall']]],
+  ['rgba_1',['RGBA',['../structAP__Texture.html#ac0b14b9c95056db2696a7339a2581faf',1,'AP_Texture']]],
+  ['right_2',['right',['../structAP__Camera.html#a3d27f8274df1ed71dc67086e3acab42f',1,'AP_Camera']]],
+  ['rotate_5fangle_3',['rotate_angle',['../structAP__Model.html#a6657ea7f8489dd629327de0cd5320a12',1,'AP_Model']]],
+  ['rotate_5faxis_4',['rotate_axis',['../structAP__Model.html#a0cdfcdbbbafc1ee5f78dad78b7c14233',1,'AP_Model']]]
 ];

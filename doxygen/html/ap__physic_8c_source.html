@@ -173,19 +173,19 @@ $(function() {
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a> creature;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        memset(&amp;creature, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__PCreature.html">AP_PCreature</a>));</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordtype">int</span> ret = 0;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        creature.id = creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        creature.move_speed = 5.0f;     <span class="comment">// speed of camera movement</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        creature.jump_speed = 5.5f;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        creature.move.acceleration[1] = -<a class="code hl_define" href="ap__physic_8h.html#a17db32f09130271db79891f22fe44450">AP_G</a>;  <span class="comment">// gravaty</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        memcpy(creature.box.size, size, VEC3_SIZE);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        creature.<a class="code hl_variable" href="structAP__PCreature.html#abf39a3df13adb744803ace596129d226">id</a> = creature_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        creature.<a class="code hl_variable" href="structAP__PCreature.html#a49e417e23a3ce9ab3e97c23d31ffdca4">move_speed</a> = 5.0f;     <span class="comment">// speed of camera movement</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        creature.<a class="code hl_variable" href="structAP__PCreature.html#a222ad84d7ad57fb3df5946b995ca5190">jump_speed</a> = 5.5f;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        creature.<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#abd87bfec2675909d424c2ab32fcda74b">acceleration</a>[1] = -<a class="code hl_define" href="ap__physic_8h.html#a17db32f09130271db79891f22fe44450">AP_G</a>;  <span class="comment">// gravaty</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        memcpy(creature.<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>, size, VEC3_SIZE);</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cam_id = 0;</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        ret = <a class="code hl_function" href="ap__camera_8h.html#a2d7c42d271a15f048b2217bf86ba2845">ap_camera_generate</a>(&amp;cam_id);</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (ret != 0) {</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        creature.camera_id = !ret ? cam_id : 0;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        creature.<a class="code hl_variable" href="structAP__PCreature.html#a021f7ae1f12e60054e0e1d19c917f639">camera_id</a> = !ret ? cam_id : 0;</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        ret = <a class="code hl_function" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a>(&amp;creature_vector, (<span class="keywordtype">char</span>*) &amp;creature);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        *<span class="keywordtype">id</span> = (!ret) ? creature.id : 0;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        *<span class="keywordtype">id</span> = (!ret) ? creature.<a class="code hl_variable" href="structAP__PCreature.html#abf39a3df13adb744803ace596129d226">id</a> : 0;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">return</span> ret;</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
@@ -199,11 +199,11 @@ $(function() {
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        }</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordtype">float</span> center_pos[3] = {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                pos[0] + creature_using-&gt;box.size[0] / 2,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                pos[1] + creature_using-&gt;box.size[1] / 2,</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                pos[2] + creature_using-&gt;box.size[2] / 2,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                pos[0] + creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[0] / 2,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                pos[1] + creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[1] / 2,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                pos[2] + creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[2] / 2,</div>
 <div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        };</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        memcpy(creature_using-&gt;box.pos, center_pos, VEC3_SIZE);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        memcpy(creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>, center_pos, VEC3_SIZE);</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
@@ -213,7 +213,7 @@ $(function() {
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (!creature_using) {</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                <span class="keywordflow">return</span> AP_ERROR_INIT_FAILED;</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        memcpy(creature_using-&gt;camera_offset, offset, VEC3_SIZE);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        memcpy(creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#aefa1fd698e4c0925d509b6349cfdabe0">camera_offset</a>, offset, VEC3_SIZE);</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
@@ -271,15 +271,15 @@ $(function() {
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        }</div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordtype">int</span> ret = 0;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__Camera.html">AP_Camera</a> *old_cam = <a class="code hl_function" href="ap__camera_8h.html#a8a99af4b0cedba13f7de6afd9f71d81e">ap_get_current_camera</a>();</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        ret = <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(ptr-&gt;camera_id);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        ret = <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a021f7ae1f12e60054e0e1d19c917f639">camera_id</a>);</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">if</span> (ret) {</div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                LOGE(<span class="stringliteral">&quot;ap_camera_use failed&quot;</span>);</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        }</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        vec3 cam_pos = {</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                ptr-&gt;box.pos[0] + ptr-&gt;camera_offset[0], <span class="comment">// x</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                ptr-&gt;box.pos[1] + ptr-&gt;camera_offset[1], <span class="comment">// y (height)</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                ptr-&gt;box.pos[2] + ptr-&gt;camera_offset[2], <span class="comment">// z</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[0] + ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#aefa1fd698e4c0925d509b6349cfdabe0">camera_offset</a>[0], <span class="comment">// x</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[1] + ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#aefa1fd698e4c0925d509b6349cfdabe0">camera_offset</a>[1], <span class="comment">// y (height)</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[2] + ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#aefa1fd698e4c0925d509b6349cfdabe0">camera_offset</a>[2], <span class="comment">// z</span></div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        };</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <a class="code hl_function" href="ap__camera_8h.html#a49f19ac7174d86eaff24334057b3752d">ap_camera_set_position</a>(cam_pos[0], cam_pos[1], cam_pos[2]);</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>((old_cam) ? old_cam-&gt;<a class="code hl_variable" href="structAP__Camera.html#abfb060167a628490311b30a827014848">id</a> : 0);</div>
@@ -289,21 +289,21 @@ $(function() {
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="comment">// calculate movements</span></div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <span class="keywordtype">float</span> dt = 0.0f;</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <a class="code hl_function" href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a>(&amp;dt);</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">if</span> (!ptr-&gt;floating) {</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                ptr-&gt;move.speed[1] = 0.0f;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">if</span> (!ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a>) {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">speed</a>[1] = 0.0f;</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                ptr-&gt;move.speed[1] += ptr-&gt;move.acceleration[1] * dt;</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                ptr-&gt;box.pos[1] += ptr-&gt;move.speed[1] * dt;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">speed</a>[1] += ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#abd87bfec2675909d424c2ab32fcda74b">acceleration</a>[1] * dt;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[1] += ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">speed</a>[1] * dt;</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        }</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        ap_creature_process_barrier();</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="comment">// TODO: move this part to demo</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> (creature_using-&gt;box.pos[1] &lt; -64.0f) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                creature_using-&gt;move.speed[1] = 0.0f;</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                creature_using-&gt;box.pos[0] = creature_using-&gt;box.pos[2] = 0.0f;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                creature_using-&gt;box.pos[1] = 5.0f;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> (creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[1] &lt; -64.0f) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">speed</a>[1] = 0.0f;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[0] = creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[2] = 0.0f;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[1] = 5.0f;</div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                LOGD(<span class="stringliteral">&quot;creature fall out of the world&quot;</span>);</div>
 <div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
@@ -325,7 +325,7 @@ $(function() {
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        }</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        creature_using = ptr;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(ptr-&gt;camera_id);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <a class="code hl_function" href="ap__camera_8h.html#a1bb35096101760afbb481a38156a80d1">ap_camera_use</a>(ptr-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a021f7ae1f12e60054e0e1d19c917f639">camera_id</a>);</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
 <div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>}</div>
@@ -340,7 +340,7 @@ $(function() {
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordtype">float</span> dt = 0.0f;</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <a class="code hl_function" href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a>(&amp;dt);</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordtype">float</span> velocity = creature_using-&gt;move_speed * dt * speed_up;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <span class="keywordtype">float</span> velocity = creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a49e417e23a3ce9ab3e97c23d31ffdca4">move_speed</a> * dt * speed_up;</div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        vec3 temp = { 0.0f, 0.0f, 0.0f };</div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="comment">// &quot;MineCraft like&quot; camera</span></div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        vec3 <a class="code hl_variable" href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">front</a> = { 0.0f, 0.0f, 0.0f };</div>
@@ -354,9 +354,9 @@ $(function() {
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        {</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                glm_vec3_scale(x0z, velocity, temp);</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                glm_vec3_add(</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                        temp,</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                );</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        }</div>
@@ -364,9 +364,9 @@ $(function() {
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        {</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                glm_vec3_scale(x0z, velocity, temp);</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                glm_vec3_sub(</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                        temp,</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                );</div>
 <div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        }</div>
@@ -376,9 +376,9 @@ $(function() {
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>                glm_vec3_normalize(temp);</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>                glm_vec3_scale(temp, velocity, temp);</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>                glm_vec3_sub(</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                        temp,</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                );</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        }</div>
@@ -388,9 +388,9 @@ $(function() {
 <div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                glm_vec3_normalize(temp);</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                glm_vec3_scale(temp, velocity, temp);</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                glm_vec3_add(</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                        temp,</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                );</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        }</div>
@@ -398,9 +398,9 @@ $(function() {
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        {</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>                glm_vec3_scale(<a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, velocity, temp);</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>                glm_vec3_add(</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>                        temp,</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                );</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        }</div>
@@ -408,9 +408,9 @@ $(function() {
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        {</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                glm_vec3_scale(<a class="code hl_variable" href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">up</a>, velocity, temp);</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>                glm_vec3_sub(</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                        creature_using-&gt;box.pos,</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>,</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>                        temp,</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>                        creature_using-&gt;box.pos</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>                        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a></div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>                );</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        }</div>
@@ -433,13 +433,13 @@ $(function() {
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>                <span class="keywordflow">return</span> AP_ERROR_SUCCESS;</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>        }</div>
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordflow">if</span> (!creature_using-&gt;floating) {</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>                creature_using-&gt;floating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordflow">if</span> (!creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a>) {</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        }</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        creature_using-&gt;move.speed[1] = creature_using-&gt;jump_speed;</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">move</a>.<a class="code hl_variable" href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">speed</a>[1] = creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a222ad84d7ad57fb3df5946b995ca5190">jump_speed</a>;</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>}</div>
@@ -460,11 +460,11 @@ $(function() {
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>        <span class="keyword">struct </span><a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a> barrier;</div>
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>        memset(&amp;barrier, 0, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> <a class="code hl_struct" href="structAP__PBarrier.html">AP_PBarrier</a>));</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        barrier.type = type;</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        barrier.id = barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        barrier.<a class="code hl_variable" href="structAP__PBarrier.html#a04cd6f97b5ee13ee089265fe98f2de43">type</a> = <a class="code hl_variable" href="structAP__PBarrier.html#a04cd6f97b5ee13ee089265fe98f2de43">type</a>;</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        barrier.<a class="code hl_variable" href="structAP__PBarrier.html#a8337301abac592ff1c067379136c8edd">id</a> = barrier_vector.<a class="code hl_variable" href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">length</a> + 1;</div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        <span class="keywordtype">int</span> ret = <a class="code hl_function" href="ap__cvector_8h.html#aa6a2943c2334f3769df1f312ba0a4524">ap_vector_push_back</a>(&amp;barrier_vector, (<span class="keywordtype">char</span>*) &amp;barrier);</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        <span class="keywordflow">if</span> (ret == 0) {</div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                *<span class="keywordtype">id</span> = barrier.id;</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>                *<span class="keywordtype">id</span> = barrier.<a class="code hl_variable" href="structAP__PBarrier.html#a8337301abac592ff1c067379136c8edd">id</a>;</div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        }</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        <span class="keywordflow">return</span> 0;</div>
@@ -520,8 +520,8 @@ $(function() {
 <div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>        <span class="keywordtype">float</span> min_dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>        <span class="keywordtype">float</span> dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i) {</div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>                min_dis[i] = (box1-&gt;size[i] + box2-&gt;size[i]) / 2.0f;</div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>                dis[i] = ap_absf(box1-&gt;pos[i] - box2-&gt;pos[i]);</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>                min_dis[i] = (box1-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i] + box2-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i]) / 2.0f;</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>                dis[i] = ap_absf(box1-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[i] - box2-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[i]);</div>
 <div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>        }</div>
 <div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span> </div>
 <div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>        <span class="keywordtype">int</span> count = 0;</div>
@@ -544,8 +544,8 @@ $(function() {
 <div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>        <span class="keywordtype">float</span> min_dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>        <span class="keywordtype">float</span> dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i) {</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>                min_dis[i] = box-&gt;size[i] / 2.0f + ball-&gt;r;</div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>                dis[i] = ap_absf(box-&gt;pos[i] - ball-&gt;pos[i]);</div>
+<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span>                min_dis[i] = box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i] / 2.0f + ball-&gt;<a class="code hl_variable" href="structAP__PBall.html#a71bc6c51cc064d91998fc4574b36c1e6">r</a>;</div>
+<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>                dis[i] = ap_absf(box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[i] - ball-&gt;<a class="code hl_variable" href="structAP__PBall.html#a5fabbe92143a92cde10b6ec0d9a21f4f">pos</a>[i]);</div>
 <div class="line"><a id="l00494" name="l00494"></a><span class="lineno">  494</span>        }</div>
 <div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span>        <span class="keywordtype">int</span> count = 0;</div>
 <div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i) {</div>
@@ -562,8 +562,8 @@ $(function() {
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>        <span class="keywordflow">if</span> (!ball1 || !ball2) {</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>        }</div>
-<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        <span class="keywordtype">float</span> min_dis = ball1-&gt;r + ball2-&gt;r;</div>
-<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        <span class="keywordtype">float</span> dis = ap_distance(ball1-&gt;pos, ball2-&gt;pos);</div>
+<div class="line"><a id="l00510" name="l00510"></a><span class="lineno">  510</span>        <span class="keywordtype">float</span> min_dis = ball1-&gt;<a class="code hl_variable" href="structAP__PBall.html#a71bc6c51cc064d91998fc4574b36c1e6">r</a> + ball2-&gt;<a class="code hl_variable" href="structAP__PBall.html#a71bc6c51cc064d91998fc4574b36c1e6">r</a>;</div>
+<div class="line"><a id="l00511" name="l00511"></a><span class="lineno">  511</span>        <span class="keywordtype">float</span> dis = ap_distance(ball1-&gt;<a class="code hl_variable" href="structAP__PBall.html#a5fabbe92143a92cde10b6ec0d9a21f4f">pos</a>, ball2-&gt;<a class="code hl_variable" href="structAP__PBall.html#a5fabbe92143a92cde10b6ec0d9a21f4f">pos</a>);</div>
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno">  512</span>        <span class="keywordflow">return</span> (dis &lt;= min_dis);</div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>}</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span> </div>
@@ -576,15 +576,15 @@ $(function() {
 <div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>                <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>        }</div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span> </div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        <span class="keywordflow">switch</span> (barrier-&gt;type)</div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>        <span class="keywordflow">switch</span> (barrier-&gt;<a class="code hl_variable" href="structAP__PBarrier.html#a04cd6f97b5ee13ee089265fe98f2de43">type</a>)</div>
 <div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        {</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        <span class="keywordflow">case</span> AP_BARRIER_TYPE_BOX:</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__physic_8h.html#a502f6ce0baad5e90f63568affa3407d3a7f66cd44d33d19cce34d8b1bf8404aea">AP_BARRIER_TYPE_BOX</a>:</div>
 <div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        {</div>
 <div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>                <a class="code hl_function" href="ap__physic_8c.html#a0aeea3889600a08b31e7ba1377d9f2c6">ap_box_box_collision_move</a>(</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>                        &amp;barrier-&gt;box, &amp;creature-&gt;box, on_top);</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>                        &amp;barrier-&gt;box, &amp;creature-&gt;<a class="code hl_variable" href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">box</a>, on_top);</div>
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        }</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        <span class="keywordflow">case</span> AP_BARRIER_TYPE_BALL:</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="ap__physic_8h.html#a502f6ce0baad5e90f63568affa3407d3a846b4c48d2646d1d8e50118aa773bc87">AP_BARRIER_TYPE_BALL</a>:</div>
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        {</div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>                <span class="comment">// TODO:</span></div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>                <span class="keywordflow">break</span>;</div>
@@ -613,7 +613,7 @@ $(function() {
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>                }</div>
 <div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>        }</div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        <span class="keywordflow">if</span> (!is_standing) {</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                creature_using-&gt;floating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        }</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span> </div>
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        <span class="keywordflow">return</span> 0;</div>
@@ -631,8 +631,8 @@ $(function() {
 <div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        <span class="keywordtype">float</span> min_dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>        <span class="keywordtype">float</span> dis[3] = { 0.0f };</div>
 <div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i) {</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>                min_dis[i] = (barrial_box-&gt;size[i] + movable_box-&gt;size[i])/2.f;</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                dis[i] = ap_absf(barrial_box-&gt;pos[i] - movable_box-&gt;pos[i]);</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>                min_dis[i] = (barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i] + movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i])/2.f;</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>                dis[i] = ap_absf(barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[i] - movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[i]);</div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        }</div>
 <div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span> </div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>        <span class="comment">// x: 4, y: 2, z: 1</span></div>
@@ -656,24 +656,24 @@ $(function() {
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>        <span class="keywordtype">float</span> max = 0.0f;</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        <span class="keywordtype">int</span> max_i = 0;</div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i) {</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                dis[i] = ap_absf(dis[i] / barrial_box-&gt;size[i]);</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>                dis[i] = ap_absf(dis[i] / barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[i]);</div>
 <div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>                <span class="keywordflow">if</span> (max &lt; dis[i]) {</div>
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>                        max = dis[i];</div>
 <div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>                        max_i = i;</div>
 <div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>                }</div>
 <div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>        }</div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span> </div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        <span class="keywordflow">if</span> (barrial_box-&gt;pos[max_i] &lt; movable_box-&gt;pos[max_i]) {</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>                movable_box-&gt;pos[max_i] = barrial_box-&gt;pos[max_i]</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                        + (barrial_box-&gt;size[max_i] + movable_box-&gt;size[max_i])</div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>        <span class="keywordflow">if</span> (barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i] &lt; movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i]) {</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>                movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i] = barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i]</div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>                        + (barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[max_i] + movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[max_i])</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>                        / 2.0f;</div>
 <div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>                movable_box-&gt;pos[max_i] = barrial_box-&gt;pos[max_i]</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>                        - (barrial_box-&gt;size[max_i] + movable_box-&gt;size[max_i])</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>                movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i] = barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>[max_i]</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>                        - (barrial_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[max_i] + movable_box-&gt;<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>[max_i])</div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>                        / 2.0f;</div>
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>        }</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        <span class="keywordflow">if</span> (creature_using-&gt;floating) {</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>                creature_using-&gt;floating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>        <span class="keywordflow">if</span> (creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a>) {</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>                creature_using-&gt;<a class="code hl_variable" href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">floating</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>                <span class="keywordflow">if</span> (on_top) {</div>
 <div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>                        *on_top = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>                }</div>
@@ -689,7 +689,7 @@ $(function() {
 <div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>        <span class="keywordflow">if</span> (!barrier) {</div>
 <div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        }</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        ap_v3_copy(barrier-&gt;box.pos, pos);</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        ap_v3_copy(barrier-&gt;box.<a class="code hl_variable" href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">pos</a>, pos);</div>
 <div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>}</div>
 <div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
@@ -700,7 +700,7 @@ $(function() {
 <div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        <span class="keywordflow">if</span> (!barrier) {</div>
 <div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>                <span class="keywordflow">return</span> AP_ERROR_INVALID_PARAMETER;</div>
 <div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        }</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        ap_v3_copy(barrier-&gt;box.size, size);</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        ap_v3_copy(barrier-&gt;box.<a class="code hl_variable" href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">size</a>, size);</div>
 <div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>        <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>}</div>
 <div class="ttc" id="aap__camera_8h_html"><div class="ttname"><a href="ap__camera_8h.html">ap_camera.h</a></div><div class="ttdoc">Camera related functions and struct objects.</div></div>
@@ -729,17 +729,35 @@ $(function() {
 <div class="ttc" id="aap__physic_8c_html_ad90bfcd0923bb945a9bd27ce8c6d24ae"><div class="ttname"><a href="ap__physic_8c.html#ad90bfcd0923bb945a9bd27ce8c6d24ae">ap_barrier_set_size</a></div><div class="ttdeci">int ap_barrier_set_size(unsigned int id, float size[3])</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8c_source.html#l00641">ap_physic.c:641</a></div></div>
 <div class="ttc" id="aap__physic_8h_html"><div class="ttname"><a href="ap__physic_8h.html">ap_physic.h</a></div><div class="ttdoc">physic functions definition</div></div>
 <div class="ttc" id="aap__physic_8h_html_a17db32f09130271db79891f22fe44450"><div class="ttname"><a href="ap__physic_8h.html#a17db32f09130271db79891f22fe44450">AP_G</a></div><div class="ttdeci">#define AP_G</div><div class="ttdoc">Gravity definition: 15.0f.</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00025">ap_physic.h:25</a></div></div>
+<div class="ttc" id="aap__physic_8h_html_a502f6ce0baad5e90f63568affa3407d3a7f66cd44d33d19cce34d8b1bf8404aea"><div class="ttname"><a href="ap__physic_8h.html#a502f6ce0baad5e90f63568affa3407d3a7f66cd44d33d19cce34d8b1bf8404aea">AP_BARRIER_TYPE_BOX</a></div><div class="ttdeci">@ AP_BARRIER_TYPE_BOX</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00060">ap_physic.h:60</a></div></div>
+<div class="ttc" id="aap__physic_8h_html_a502f6ce0baad5e90f63568affa3407d3a846b4c48d2646d1d8e50118aa773bc87"><div class="ttname"><a href="ap__physic_8h.html#a502f6ce0baad5e90f63568affa3407d3a846b4c48d2646d1d8e50118aa773bc87">AP_BARRIER_TYPE_BALL</a></div><div class="ttdeci">@ AP_BARRIER_TYPE_BALL</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00062">ap_physic.h:62</a></div></div>
 <div class="ttc" id="aap__render_8h_html"><div class="ttname"><a href="ap__render_8h.html">ap_render.h</a></div><div class="ttdoc">Renderer and Character definitions.</div></div>
-<div class="ttc" id="aap__render_8h_html_a5d39695557d0a18d019cd423e120efa8"><div class="ttname"><a href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a></div><div class="ttdeci">int ap_render_get_dt(float *dt)</div><div class="ttdoc">Get render delta time (last frame time - current frame time)</div><div class="ttdef"><b>Definition:</b> <a href="ap__render_8c_source.html#l00788">ap_render.c:788</a></div></div>
+<div class="ttc" id="aap__render_8h_html_a5d39695557d0a18d019cd423e120efa8"><div class="ttname"><a href="ap__render_8h.html#a5d39695557d0a18d019cd423e120efa8">ap_render_get_dt</a></div><div class="ttdeci">int ap_render_get_dt(float *dt)</div><div class="ttdoc">Get render delta time (last frame time - current frame time)</div><div class="ttdef"><b>Definition:</b> <a href="ap__render_8c_source.html#l00823">ap_render.c:823</a></div></div>
 <div class="ttc" id="aap__utils_8h_html"><div class="ttname"><a href="ap__utils_8h.html">ap_utils.h</a></div><div class="ttdoc">Utils definition.</div></div>
 <div class="ttc" id="astructAP__Camera_html"><div class="ttname"><a href="structAP__Camera.html">AP_Camera</a></div><div class="ttdoc">Camera struct object.</div><div class="ttdef"><b>Definition:</b> <a href="ap__camera_8h_source.html#l00019">ap_camera.h:19</a></div></div>
 <div class="ttc" id="astructAP__Camera_html_a8375ed296e73d841b957a21c1a7992d1"><div class="ttname"><a href="structAP__Camera.html#a8375ed296e73d841b957a21c1a7992d1">AP_Camera::front</a></div><div class="ttdeci">float front[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__camera_8h_source.html#l00026">ap_camera.h:26</a></div></div>
 <div class="ttc" id="astructAP__Camera_html_abfb060167a628490311b30a827014848"><div class="ttname"><a href="structAP__Camera.html#abfb060167a628490311b30a827014848">AP_Camera::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> <a href="ap__camera_8h_source.html#l00021">ap_camera.h:21</a></div></div>
 <div class="ttc" id="astructAP__Camera_html_ad1df5f8e93f4be18aff1a080e513fb0a"><div class="ttname"><a href="structAP__Camera.html#ad1df5f8e93f4be18aff1a080e513fb0a">AP_Camera::up</a></div><div class="ttdeci">float up[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__camera_8h_source.html#l00028">ap_camera.h:28</a></div></div>
-<div class="ttc" id="astructAP__PBall_html"><div class="ttname"><a href="structAP__PBall.html">AP_PBall</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00076">ap_physic.h:76</a></div></div>
-<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00084">ap_physic.h:84</a></div></div>
-<div class="ttc" id="astructAP__PBox_html"><div class="ttname"><a href="structAP__PBox.html">AP_PBox</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00069">ap_physic.h:69</a></div></div>
-<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00096">ap_physic.h:96</a></div></div>
+<div class="ttc" id="astructAP__PBall_html"><div class="ttname"><a href="structAP__PBall.html">AP_PBall</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00098">ap_physic.h:98</a></div></div>
+<div class="ttc" id="astructAP__PBall_html_a5fabbe92143a92cde10b6ec0d9a21f4f"><div class="ttname"><a href="structAP__PBall.html#a5fabbe92143a92cde10b6ec0d9a21f4f">AP_PBall::pos</a></div><div class="ttdeci">float pos[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00100">ap_physic.h:100</a></div></div>
+<div class="ttc" id="astructAP__PBall_html_a71bc6c51cc064d91998fc4574b36c1e6"><div class="ttname"><a href="structAP__PBall.html#a71bc6c51cc064d91998fc4574b36c1e6">AP_PBall::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00102">ap_physic.h:102</a></div></div>
+<div class="ttc" id="astructAP__PBarrier_html"><div class="ttname"><a href="structAP__PBarrier.html">AP_PBarrier</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00109">ap_physic.h:109</a></div></div>
+<div class="ttc" id="astructAP__PBarrier_html_a04cd6f97b5ee13ee089265fe98f2de43"><div class="ttname"><a href="structAP__PBarrier.html#a04cd6f97b5ee13ee089265fe98f2de43">AP_PBarrier::type</a></div><div class="ttdeci">int type</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00113">ap_physic.h:113</a></div></div>
+<div class="ttc" id="astructAP__PBarrier_html_a8337301abac592ff1c067379136c8edd"><div class="ttname"><a href="structAP__PBarrier.html#a8337301abac592ff1c067379136c8edd">AP_PBarrier::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00111">ap_physic.h:111</a></div></div>
+<div class="ttc" id="astructAP__PBox_html"><div class="ttname"><a href="structAP__PBox.html">AP_PBox</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00084">ap_physic.h:84</a></div></div>
+<div class="ttc" id="astructAP__PBox_html_a778a493c41d47ad8c6a70015ad767b68"><div class="ttname"><a href="structAP__PBox.html#a778a493c41d47ad8c6a70015ad767b68">AP_PBox::size</a></div><div class="ttdeci">float size[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00091">ap_physic.h:91</a></div></div>
+<div class="ttc" id="astructAP__PBox_html_ab818970e768e616b5006297b155510e0"><div class="ttname"><a href="structAP__PBox.html#ab818970e768e616b5006297b155510e0">AP_PBox::pos</a></div><div class="ttdeci">float pos[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00089">ap_physic.h:89</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html"><div class="ttname"><a href="structAP__PCreature.html">AP_PCreature</a></div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00123">ap_physic.h:123</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_a021f7ae1f12e60054e0e1d19c917f639"><div class="ttname"><a href="structAP__PCreature.html#a021f7ae1f12e60054e0e1d19c917f639">AP_PCreature::camera_id</a></div><div class="ttdeci">unsigned int camera_id</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00127">ap_physic.h:127</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_a222ad84d7ad57fb3df5946b995ca5190"><div class="ttname"><a href="structAP__PCreature.html#a222ad84d7ad57fb3df5946b995ca5190">AP_PCreature::jump_speed</a></div><div class="ttdeci">float jump_speed</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00145">ap_physic.h:145</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_a3cb356698fc5a8743c3616803e3ae7a8"><div class="ttname"><a href="structAP__PCreature.html#a3cb356698fc5a8743c3616803e3ae7a8">AP_PCreature::box</a></div><div class="ttdeci">struct AP_PBox box</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00129">ap_physic.h:129</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_a49e417e23a3ce9ab3e97c23d31ffdca4"><div class="ttname"><a href="structAP__PCreature.html#a49e417e23a3ce9ab3e97c23d31ffdca4">AP_PCreature::move_speed</a></div><div class="ttdeci">float move_speed</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00143">ap_physic.h:143</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_ab62c490be4b68ae01ad8cdcd1c4236de"><div class="ttname"><a href="structAP__PCreature.html#ab62c490be4b68ae01ad8cdcd1c4236de">AP_PCreature::floating</a></div><div class="ttdeci">bool floating</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00133">ap_physic.h:133</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_abf39a3df13adb744803ace596129d226"><div class="ttname"><a href="structAP__PCreature.html#abf39a3df13adb744803ace596129d226">AP_PCreature::id</a></div><div class="ttdeci">unsigned int id</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00125">ap_physic.h:125</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_ac13cfdc8c473127ef9f750f332a06af6"><div class="ttname"><a href="structAP__PCreature.html#ac13cfdc8c473127ef9f750f332a06af6">AP_PCreature::move</a></div><div class="ttdeci">struct AP_PMovement move</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00131">ap_physic.h:131</a></div></div>
+<div class="ttc" id="astructAP__PCreature_html_aefa1fd698e4c0925d509b6349cfdabe0"><div class="ttname"><a href="structAP__PCreature.html#aefa1fd698e4c0925d509b6349cfdabe0">AP_PCreature::camera_offset</a></div><div class="ttdeci">float camera_offset[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00140">ap_physic.h:140</a></div></div>
+<div class="ttc" id="astructAP__PMovement_html_a1a436a63b174f37eef887dd22e10c27a"><div class="ttname"><a href="structAP__PMovement.html#a1a436a63b174f37eef887dd22e10c27a">AP_PMovement::speed</a></div><div class="ttdeci">float speed[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00077">ap_physic.h:77</a></div></div>
+<div class="ttc" id="astructAP__PMovement_html_abd87bfec2675909d424c2ab32fcda74b"><div class="ttname"><a href="structAP__PMovement.html#abd87bfec2675909d424c2ab32fcda74b">AP_PMovement::acceleration</a></div><div class="ttdeci">float acceleration[3]</div><div class="ttdef"><b>Definition:</b> <a href="ap__physic_8h_source.html#l00075">ap_physic.h:75</a></div></div>
 <div class="ttc" id="astructAP__Vector_html"><div class="ttname"><a href="structAP__Vector.html">AP_Vector</a></div><div class="ttdoc">C Vector struct object definition.</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00056">ap_cvector.h:56</a></div></div>
 <div class="ttc" id="astructAP__Vector_html_a22a4d1d88bd9075630a47d7ba426f1dc"><div class="ttname"><a href="structAP__Vector.html#a22a4d1d88bd9075630a47d7ba426f1dc">AP_Vector::length</a></div><div class="ttdeci">int length</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00058">ap_cvector.h:58</a></div></div>
 <div class="ttc" id="astructAP__Vector_html_a5e71b338f9fbbf667af9b71830b3b5e8"><div class="ttname"><a href="structAP__Vector.html#a5e71b338f9fbbf667af9b71830b3b5e8">AP_Vector::data</a></div><div class="ttdeci">char * data</div><div class="ttdef"><b>Definition:</b> <a href="ap__cvector_8h_source.html#l00067">ap_cvector.h:67</a></div></div>

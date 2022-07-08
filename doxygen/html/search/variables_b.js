@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['rgba_0',['RGBA',['../structAP__Texture.html#ac0b14b9c95056db2696a7339a2581faf',1,'AP_Texture']]],
-  ['right_1',['right',['../structAP__Camera.html#a3d27f8274df1ed71dc67086e3acab42f',1,'AP_Camera']]],
-  ['rotate_5fangle_2',['rotate_angle',['../structAP__Model.html#a6657ea7f8489dd629327de0cd5320a12',1,'AP_Model']]],
-  ['rotate_5faxis_3',['rotate_axis',['../structAP__Model.html#a0cdfcdbbbafc1ee5f78dad78b7c14233',1,'AP_Model']]]
+  ['opengl_5fprogram_5fid_0',['opengl_program_id',['../structAP__Shader.html#a597565aa58f1ecfbdea76b8f4397084f',1,'AP_Shader']]],
+  ['ortho_5fmatrix_1',['ortho_matrix',['../structAP__Renderer.html#a109d832642b732b24c6f5c45b79f9e77',1,'AP_Renderer']]],
+  ['ortho_5fshader_2',['ortho_shader',['../structAP__Renderer.html#a99523a8a5d31fedc3ff8f6b681df478d',1,'AP_Renderer']]],
+  ['ortho_5fvao_3',['ortho_VAO',['../structAP__Renderer.html#afdc48d67f3014b11268c55f48067868c',1,'AP_Renderer']]],
+  ['ortho_5fvbo_4',['ortho_VBO',['../structAP__Renderer.html#ab68f9e26bfbb7ac680d9e30bc905be23',1,'AP_Renderer']]]
 ];

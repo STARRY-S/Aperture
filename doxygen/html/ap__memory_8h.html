@@ -143,15 +143,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00106">106</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  107</span>{</div>
-<div class="line"><span class="lineno">  108</span>        <span class="keywordflow">if</span> (ptr == NULL) {</div>
-<div class="line"><span class="lineno">  109</span>                <span class="keywordflow">return</span>;</div>
-<div class="line"><span class="lineno">  110</span>        }</div>
-<div class="line"><span class="lineno">  111</span>        ap_memory_vector_popup(ptr);</div>
-<div class="line"><span class="lineno">  112</span>        LOGT(<span class="stringliteral">&quot;AP_FREE: %p&quot;</span>, ptr);</div>
-<div class="line"><span class="lineno">  113</span>        free(ptr);</div>
-<div class="line"><span class="lineno">  114</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00107">107</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  108</span>{</div>
+<div class="line"><span class="lineno">  109</span>        <span class="keywordflow">if</span> (ptr == NULL) {</div>
+<div class="line"><span class="lineno">  110</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><span class="lineno">  111</span>        }</div>
+<div class="line"><span class="lineno">  112</span>        ap_memory_vector_popup(ptr);</div>
+<div class="line"><span class="lineno">  113</span>        LOGT(<span class="stringliteral">&quot;AP_FREE: %p&quot;</span>, ptr);</div>
+<div class="line"><span class="lineno">  114</span>        free(ptr);</div>
+<div class="line"><span class="lineno">  115</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -191,13 +191,13 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void* pointer of the memory </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00098">98</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   99</span>{</div>
-<div class="line"><span class="lineno">  100</span>        <span class="keywordtype">char</span>* ptr = malloc(size);</div>
-<div class="line"><span class="lineno">  101</span>        ap_memory_vector_push(ptr);</div>
-<div class="line"><span class="lineno">  102</span>        LOGT(<span class="stringliteral">&quot;AP_MALLOC: %p, %s&quot;</span>, ptr, func_name ? func_name : <span class="stringliteral">&quot;NULL&quot;</span>);</div>
-<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">return</span> ptr;</div>
-<div class="line"><span class="lineno">  104</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00099">99</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  100</span>{</div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordtype">char</span>* ptr = malloc(size);</div>
+<div class="line"><span class="lineno">  102</span>        ap_memory_vector_push(ptr);</div>
+<div class="line"><span class="lineno">  103</span>        LOGT(<span class="stringliteral">&quot;AP_MALLOC: %p, %s&quot;</span>, ptr, func_name ? func_name : <span class="stringliteral">&quot;NULL&quot;</span>);</div>
+<div class="line"><span class="lineno">  104</span>        <span class="keywordflow">return</span> ptr;</div>
+<div class="line"><span class="lineno">  105</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -219,20 +219,20 @@ Functions</h2></td></tr>
 <p>Release all of the pointers. </p>
 <dl class="section return"><dt>Returns</dt><dd>int AP_Types </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00135">135</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  136</span>{</div>
-<div class="line"><span class="lineno">  137</span>        LOGI(<span class="stringliteral">&quot;ap_memory: there are %d pointers unreleased&quot;</span>,</div>
-<div class="line"><span class="lineno">  138</span>                <a class="code hl_function" href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a>());</div>
-<div class="line"><span class="lineno">  139</span>        <span class="keywordflow">while</span> (pointer_vector.length) {</div>
-<div class="line"><span class="lineno">  140</span>                <span class="keywordtype">char</span> **ptr_arr = (<span class="keywordtype">char</span>**) pointer_vector.data;</div>
-<div class="line"><span class="lineno">  141</span>                AP_FREE(ptr_arr[0]);</div>
-<div class="line"><span class="lineno">  142</span>        }</div>
-<div class="line"><span class="lineno">  143</span>        free(pointer_vector.data);</div>
-<div class="line"><span class="lineno">  144</span>        pointer_vector.data = NULL;</div>
-<div class="line"><span class="lineno">  145</span>        LOGI(<span class="stringliteral">&quot;ap_memory: all memory released, %d&quot;</span>, pointer_vector.length);</div>
-<div class="line"><span class="lineno">  146</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">  147</span>}</div>
-<div class="ttc" id="aap__memory_8c_html_a21e9bccdcc4a02c6b3b48bc03d8978aa"><div class="ttname"><a href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a></div><div class="ttdeci">int ap_memory_unreleased_num()</div><div class="ttdoc">Get the number of unreleased pointers.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00130">ap_memory.c:130</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00136">136</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  137</span>{</div>
+<div class="line"><span class="lineno">  138</span>        LOGI(<span class="stringliteral">&quot;ap_memory: there are %d pointers unreleased&quot;</span>,</div>
+<div class="line"><span class="lineno">  139</span>                <a class="code hl_function" href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a>());</div>
+<div class="line"><span class="lineno">  140</span>        <span class="keywordflow">while</span> (pointer_vector.length) {</div>
+<div class="line"><span class="lineno">  141</span>                <span class="keywordtype">char</span> **ptr_arr = (<span class="keywordtype">char</span>**) pointer_vector.data;</div>
+<div class="line"><span class="lineno">  142</span>                AP_FREE(ptr_arr[0]);</div>
+<div class="line"><span class="lineno">  143</span>        }</div>
+<div class="line"><span class="lineno">  144</span>        free(pointer_vector.data);</div>
+<div class="line"><span class="lineno">  145</span>        pointer_vector.data = NULL;</div>
+<div class="line"><span class="lineno">  146</span>        LOGI(<span class="stringliteral">&quot;ap_memory: all memory released, %d&quot;</span>, pointer_vector.length);</div>
+<div class="line"><span class="lineno">  147</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">  148</span>}</div>
+<div class="ttc" id="aap__memory_8c_html_a21e9bccdcc4a02c6b3b48bc03d8978aa"><div class="ttname"><a href="ap__memory_8c.html#a21e9bccdcc4a02c6b3b48bc03d8978aa">ap_memory_unreleased_num</a></div><div class="ttdeci">int ap_memory_unreleased_num()</div><div class="ttdoc">Get the number of unreleased pointers.</div><div class="ttdef"><b>Definition:</b> <a href="ap__memory_8c_source.html#l00131">ap_memory.c:131</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -254,10 +254,10 @@ Functions</h2></td></tr>
 <p>Get the number of unreleased pointers. </p>
 <dl class="section return"><dt>Returns</dt><dd>int the number of unreleased pointers. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00130">130</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  131</span>{</div>
-<div class="line"><span class="lineno">  132</span>        <span class="keywordflow">return</span> pointer_vector.length;</div>
-<div class="line"><span class="lineno">  133</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00131">131</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  132</span>{</div>
+<div class="line"><span class="lineno">  133</span>        <span class="keywordflow">return</span> pointer_vector.length;</div>
+<div class="line"><span class="lineno">  134</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -287,19 +287,19 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00116">116</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  117</span>{</div>
-<div class="line"><span class="lineno">  118</span>        <span class="keywordflow">if</span> (ptr != NULL) {</div>
-<div class="line"><span class="lineno">  119</span>                ap_memory_vector_popup(ptr);</div>
-<div class="line"><span class="lineno">  120</span>        }</div>
-<div class="line"><span class="lineno">  121</span>        <span class="keywordtype">char</span>* ptr_new = realloc(ptr, size);</div>
-<div class="line"><span class="lineno">  122</span>        ap_memory_vector_push(ptr_new);</div>
-<div class="line"><span class="lineno">  123</span><span class="preprocessor">#ifdef AP_TRACE</span></div>
-<div class="line"><span class="lineno">  124</span>        uint64_t ptr_old = (uint64_t) ptr;</div>
-<div class="line"><span class="lineno">  125</span>        LOGT(<span class="stringliteral">&quot;AP_REALLOC: change 0x%lx to %p&quot;</span>, ptr_old, ptr_new);</div>
-<div class="line"><span class="lineno">  126</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">return</span> ptr_new;</div>
-<div class="line"><span class="lineno">  128</span>}</div>
+<p class="definition">Definition at line <a class="el" href="ap__memory_8c_source.html#l00117">117</a> of file <a class="el" href="ap__memory_8c_source.html">ap_memory.c</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>{</div>
+<div class="line"><span class="lineno">  119</span>        <span class="keywordflow">if</span> (ptr != NULL) {</div>
+<div class="line"><span class="lineno">  120</span>                ap_memory_vector_popup(ptr);</div>
+<div class="line"><span class="lineno">  121</span>        }</div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordtype">char</span>* ptr_new = realloc(ptr, size);</div>
+<div class="line"><span class="lineno">  123</span>        ap_memory_vector_push(ptr_new);</div>
+<div class="line"><span class="lineno">  124</span><span class="preprocessor">#ifdef AP_TRACE</span></div>
+<div class="line"><span class="lineno">  125</span>        uint64_t ptr_old = (uint64_t) ptr;</div>
+<div class="line"><span class="lineno">  126</span>        LOGT(<span class="stringliteral">&quot;AP_REALLOC: change 0x%lx to %p&quot;</span>, ptr_old, ptr_new);</div>
+<div class="line"><span class="lineno">  127</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  128</span>        <span class="keywordflow">return</span> ptr_new;</div>
+<div class="line"><span class="lineno">  129</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
