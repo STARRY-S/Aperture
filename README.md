@@ -1,51 +1,10 @@
-# Aperture - Game Engine
+## Aperture
 
 [![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/STARRY-S/Aperture)
 
-> Current status: Developing...
+For learning OpenGL and render stuff, for fun.
 
-Aperture: A simple & tiny game engine based on OpenGL ES,
-just for learning OpenGL and render stuff, for fun.
-
-Current status (TODOs)
-----
-
-- [x] Texture load
-- [x] Model import
-- [x] Lightning stimulation
-    - [x] Directional light
-    - [x] Point lights
-    - [x] Spot lights
-    - [x] Diffuse texture
-    - [x] Specular texture
-    - [ ] Normal texture
-- [ ] Cross platform:
-    - [x] Windows (Need update, out of date)
-    - [x] Android (see [Aperture-Android](https://github.com/STARRY-S/GameEngine-Android)) (Need update, out of date)
-    - [x] Linux
-    - [ ] ~~Mac OS~~ (I will add it when I have a Mac)
-- [x] Music & Sound engine
-- [x] Font rendering
-- [ ] Network
-- [ ] Physic engine (WIP)
-    - [ ] Collision detection (WIP)
-    - [x] Gravaty
-    - [x] Jumping
-    - [ ] hit
-- [ ] GUI tools (User graphics)
-    - [x] Orthographic shader program
-    - [x] Font rendering
-- [ ] Database
-
-## Demo
-
-Minecraft model:
-![](images/demo-mc-2.png)
-
-![](images/demo-mc-single-color.png)
-
-Backpack model:
-![](images/demo-backpack.png)
+> Archive: I create this project just for learning OpenGL and other render related stuff, this project is currently stop maintaince and I won't make any changes for it.
 
 ## Usage
 
