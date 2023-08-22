@@ -2,17 +2,14 @@
 
 [![works badge](https://cdn.jsdelivr.net/gh/nikku/works-on-my-machine@v0.2.0/badge.svg)](https://github.com/STARRY-S/Aperture)
 
-> This project is stop maintenanced, see [ApertureGo](https://github.com/STARRY-S/ApertureGo) for the new version of this project.
-
-For learning OpenGL and render stuff, for fun.
-
-> Archive: I create this project just for learning OpenGL and other render related stuff, this project is currently stop maintaince and I won't make any changes for it.
+Just for fun.
 
 ## Usage
 
-### Linux
+### Arch Linux
 
 ```
+$ yay -S make cmake git cglm assimp glfw freealut
 $ git clone https://github.com/STARRY-S/Aperture.git && cd Aperture
 $ mkdir build && cd build
 $ cmake .. && make -j4

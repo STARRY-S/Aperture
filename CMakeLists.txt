@@ -238,8 +238,14 @@ else(ANDROID)
     )
     set_target_properties("test" PROPERTIES LINKER_LANGUAGE C)
 
-    # link librarys to libapert
-        ap_camera_use(player->camera_id);
+    # link librarys to libaperture
+    target_link_libraries(
+        "aperture"
+        ${OPENGL_gl_LIBRARY}
+        glfw
+        ${ASSIMP_LIB}
+        ${OPENAL_LIBRARY}
+        ${ALUT_LIBRARIES}
         ${FFmpeg_LIBRARIES}
         ${FREETYPE_LIBRARIES}
         ${SQLite3_LIBRARIES}
