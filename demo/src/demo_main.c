@@ -1,15 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 #include "demo_main.h"
 #include "demo_utils.h"
 
+#include "ap_config.h"
 #include "ap_utils.h"
 #include "ap_render.h"
 #include "ap_camera.h"
 #include "ap_physic.h"
-#include <stdlib.h>
 
 void key_callback(GLFWwindow *win, int key, int s, int action, int mods);
 void framebuffer_size_callback(GLFWwindow *win, int width, int height);
@@ -44,6 +45,9 @@ int main(int argc, char **argv)
         if (argc == 2 && !strcmp(argv[1], "-f")) {
                 full_screen_mode = true;
         }
+
+        printf("Demo of %s version - %s\n",
+                AP_PROJECT_NAME, AP_VERSION);
 
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

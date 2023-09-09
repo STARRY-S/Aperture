@@ -1,0 +1,9 @@
+#ifndef AP_CONFIG_H
+#define AP_CONFIG_H
+
+#define AP_VERSION          "@project_version@"
+#define AP_PACKAGE_BINDIR   "@package_bindir@"
+#define AP_PROJECT_NAME     "@project_name@"
+#define AP_DATA_DIR         "@datadir@"
+
+#endif

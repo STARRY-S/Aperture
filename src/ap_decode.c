@@ -89,7 +89,7 @@ static inline int ap_decode_frame_packet(
 
         while ((ret = avcodec_receive_frame(cdc_ctx, frame)) >= 0) {
                 for (i = 0; i < frame->nb_samples; i++) {
-                        for (ch = 0; ch < cdc_ctx->channels; ch++) {
+                        for (ch = 0; ch < cdc_ctx->ch_layout.nb_channels; ch++) {
                                 uint8_t *ptr = frame->data[ch] + data_size * i;
                                 if (fp_out) {
                                         fwrite(ptr, 1, data_size, fp_out);
@@ -248,16 +248,17 @@ static int ap_decode_audio(
 
         *format = ap_audio_fmt_av_2_ap(cdc_ctx->sample_fmt, fmt);
         *frequency = (float) cdc_ctx->sample_rate;
-        *channels = cdc_ctx->channels;
+        *channels = cdc_ctx->ch_layout.nb_channels;
         LOGD("decoded audio: %s\n\tsamplerate: %d, channel %d, size: %.2lfM",
-                input_file, cdc_ctx->sample_rate, cdc_ctx->channels,
+                input_file, cdc_ctx->sample_rate,
+                cdc_ctx->ch_layout.nb_channels,
                 (out_vec) ? (double) out_vec->length / 1024 / 1024 : 0.0
         );
 
         if (fp_out) {
                 LOGI("decoded file to %s", output_file);
                 LOGI("play it by using: ffplay -f %s -ac %d -ar %d %s",
-                        fmt, cdc_ctx->channels,
+                        fmt, cdc_ctx->ch_layout.nb_channels,
                         cdc_ctx->sample_rate, output_file);
                 fclose(fp_out);
         }

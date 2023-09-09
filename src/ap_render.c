@@ -16,6 +16,7 @@
 #include "ap_physic.h"
 #include "ap_math.h"
 #include "ap_sqlite.h"
+#include "ap_config.h"
 
 struct AP_Renderer {
         float fps;      // frame per second
@@ -93,8 +94,8 @@ int ap_render_general_initialize()
 #endif
 
         ap_shader_generate(
-                "ap_glsl/ap_orthographic.vs.glsl",
-                "ap_glsl/ap_orthographic.fs.glsl",
+                AP_DATA_DIR "/aperture/ap_glsl/ap_orthographic.vs.glsl",
+                AP_DATA_DIR "/aperture/ap_glsl/ap_orthographic.fs.glsl",
                 &renderer.ortho_shader
         );
         if (renderer.ortho_shader == 0) {
@@ -103,8 +104,8 @@ int ap_render_general_initialize()
         }
 
         ap_shader_generate(
-                "ap_glsl/ap_perspective.vs.glsl",
-                "ap_glsl/ap_perspective.fs.glsl",
+                AP_DATA_DIR "/aperture/ap_glsl/ap_perspective.vs.glsl",
+                AP_DATA_DIR "/aperture/ap_glsl/ap_perspective.fs.glsl",
                 &renderer.persp_shader
         );
         if (renderer.persp_shader == 0) {
