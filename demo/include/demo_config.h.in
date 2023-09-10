@@ -1,0 +1,6 @@
+#ifndef DEMO_CONFIG_H
+#define DEMO_CONFIG_H
+
+#define DEMO_DATA_DIR "@demo_datadir@"
+
+#endif

@@ -1,6 +1,7 @@
 #include "demo_utils.h"
 #include "demo_light.h"
 #include "demo_database.h"
+#include "demo_config.h"
 
 #include "ap_utils.h"
 #include "ap_render.h"
@@ -15,7 +16,7 @@
 #include "ap_sqlite.h"
 
 #ifndef MODEL_FILE_NAME
-#define MODEL_FILE_NAME "mc/mc-game.obj"
+#define MODEL_FILE_NAME "/mc/mc-game.obj"
 #endif
 
 unsigned int model_id = 0;
@@ -60,9 +61,9 @@ int demo_init()
         ap_audio_init();
         demo_setup_light();
         demo_setup_database();
-        ap_render_init_font(DEMO_FONT_PATH, 42);
+        ap_render_init_font(DEMO_DATA_DIR DEMO_FONT_PATH, 42);
         // init model
-        AP_CHECK(ap_model_generate(MODEL_FILE_NAME, &model_id));
+        AP_CHECK(ap_model_generate(DEMO_DATA_DIR MODEL_FILE_NAME, &model_id));
         ap_model_use(model_id);
 
         // Player (creature)
@@ -227,7 +228,8 @@ int demo_init()
         ap_render_set_view_distance(view_distance);
 
         unsigned int audio_id = 0;
-        ap_audio_load_MP3("sound/c418-haggstorm.mp3", &audio_id);
+        ap_audio_load_MP3(
+                DEMO_DATA_DIR "/sound/c418-haggstorm.mp3", &audio_id);
         if (audio_id > 0) {
                 ap_audio_play(audio_id, NULL);
         }

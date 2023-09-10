@@ -1,5 +1,6 @@
 #include "demo_light.h"
 #include "demo_utils.h"
+#include "demo_config.h"
 #include "ap_utils.h"
 #include "ap_shader.h"
 #include "ap_texture.h"
@@ -74,15 +75,15 @@ static int demo_setup_spot_light()
 int demo_setup_light()
 {
         ap_shader_generate(
-                "glsl/cube_light.vs.glsl",
-                "glsl/cube_light.fs.glsl",
+                DEMO_DATA_DIR "/glsl/cube_light.vs.glsl",
+                DEMO_DATA_DIR "/glsl/cube_light.fs.glsl",
                 &cube_shader
         );
 
         ap_texture_generate(&light_texture,
                 AP_TEXTURE_TYPE_DIFFUSE,
                 "redstone_lamp_on.png",
-                "mc/tex/minecraft/block/",
+                DEMO_DATA_DIR "/mc/tex/minecraft/block/",
                 false
         );
         ap_shader_set_int(cube_shader, "texture_diffuse0", 0);

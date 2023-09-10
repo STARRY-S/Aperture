@@ -11,17 +11,6 @@ project(
 cc = meson.get_compiler('c')
 
 configure_file(
-    input: 'include' / 'ap_config.h.in',
-    output: 'ap_config.h',
-    configuration: {
-        'project_version': meson.project_version(),
-        'project_name': meson.project_name(),
-        'datadir': get_option('prefix') / get_option('datadir'),
-    }
-)
-
-# "install_dir" must be specified when "install" in a configure_file is true
-configure_file(
     input: 'src' / 'ap_glsl' / 'ap_orthographic.fs.glsl',
     output: 'ap_orthographic.fs.glsl',
     copy: true,
@@ -49,6 +38,8 @@ configure_file(
     install: true,
     install_dir: get_option('datadir') / 'aperture' / 'ap_glsl',
 )
+
+subdir('include')
 
 aperture = library(
     'aperture',
@@ -91,7 +82,7 @@ aperture = library(
         cc.find_library('alut'),
         cc.find_library('m'),
     ],
-    include_directories: include_directories('include'),
+    include_directories: aperture_inc,
     install: true,
 )
 

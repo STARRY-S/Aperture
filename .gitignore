@@ -2,11 +2,3 @@ build/
 bin/
 .idea/
 .vscode/
-ffmpeg/
-minecraft/
-src/experimental
-*.wav
-*.mp3
-*.mtl
-*.obj
-*.png

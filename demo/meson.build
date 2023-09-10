@@ -1,5 +1,14 @@
+configure_file(
+    input: 'include' / 'demo_config.h.in',
+    output: 'demo_config.h',
+    configuration: {
+        'demo_datadir': get_option('prefix') / get_option('datadir') /
+            'aperture_demo',
+    },
+)
+
 executable(
-    'demo',
+    'aperture_demo',
     sources: files(
         'src' / 'demo_database.c',
         'src' / 'demo_light.c',
@@ -20,3 +29,5 @@ executable(
     ),
     install: true
 )
+
+meson.add_install_script('scripts/install_demo_data.sh')

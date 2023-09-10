@@ -4,7 +4,7 @@
 #include "ap_utils.h"
 
 #ifndef DEMO_FONT_PATH
-#define DEMO_FONT_PATH "fonts/test.ttf"
+#define DEMO_FONT_PATH "/fonts/test.ttf"
 #endif
 
 #if AP_PLATFORM_ANDROID
