@@ -5,7 +5,7 @@ project(
         'c_std=c11',
     ],
     license: 'Apache-2.0',
-    version: '0.2.2',
+    version: '0.3.0',
 )
 
 cc = meson.get_compiler('c')
@@ -85,5 +85,3 @@ aperture = library(
     include_directories: aperture_inc,
     install: true,
 )
-
-subdir('demo')
